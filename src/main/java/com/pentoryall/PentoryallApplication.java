@@ -1,13 +1,13 @@
-package com.pentoriall.pentoriall;
+package com.pentoryall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PentoriallApplication {
+public class PentoryallApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PentoriallApplication.class, args);
+		SpringApplication.run(PentoryallApplication.class, args);
 	}
 
 }
