@@ -1,13 +1,12 @@
-package com.pentoriall.pentoriall;
+package com.pentoryall;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PentoriallApplicationTests {
+class PentoryallApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
-
 }
