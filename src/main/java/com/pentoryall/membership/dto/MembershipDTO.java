@@ -4,23 +4,23 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
 @ToString
 public class MembershipDTO {
-    private int code;
-    private int userCode;
+    private long code;
+    private long userCode;
     private String name;
     private String introduction;
     private int price;
     private String color;
-    private boolean isActive;
-    private boolean isDeleted;
-    private LocalDateTime createDate;
-    private LocalDateTime updateDate;
-    private LocalDateTime deleteDate;
+    private String isActive;
+    private String isDeleted;
+    private Date createDate;
+    private Date updateDate;
+    private Date deleteDate;
 
     public MembershipDTO() {
 
