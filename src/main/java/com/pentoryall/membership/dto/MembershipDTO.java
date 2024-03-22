@@ -22,8 +22,5 @@ public class MembershipDTO {
     private Date updateDate;
     private Date deleteDate;
 
-    public MembershipDTO() {
-
-    }
 
 }
