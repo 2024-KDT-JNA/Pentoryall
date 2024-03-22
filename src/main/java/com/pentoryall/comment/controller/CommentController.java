@@ -1,4 +1,4 @@
 package com.pentoryall.comment.controller;
 
-public class CommentCotroller {
+public class CommentController {
 }
