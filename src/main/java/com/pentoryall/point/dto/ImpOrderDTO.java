@@ -9,11 +9,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrderDTO {
+public class ImpOrderDTO {
 
     Long code;
-    Long userCode;
-    int amount;
-    int point;
+    Long orderCode;
+    String impUid;
     LocalDateTime createDate;
 }
