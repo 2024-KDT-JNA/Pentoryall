@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>멤버십 정보 수정</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+		<!-- CSS -->
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/common.css" />
+		<link rel="stylesheet" href="/css/sub.css" />
+	</head>
+	<body>
+		<div id="container">
+			<div class="sub-content">
+				<div class="inner">
+					<section class="section">
+						<h2 class="h2">멤버십 플랜 수정</h2>
+						<p>*표시는 필수 입력 항목입니다.</p>
+
+						<div>
+							<h3 class="h3">플랜 정보</h3>
+
+							<div class="form-item">
+								<label for="membershipName">플랜 제목*</label>
+
+								<input type="text" id="membershipName" class="input" placeholder="플랜의 이름을 지어주세요" maxlength="20" />
+								<p>최대 20자까지 입력할 수 있습니다.</p>
+								<p>
+									<b>유용한 팁 </b>플랜 멤버에게 어떤 창작 계획이 있는지 구체적으로 써보세요.<br />
+									차기작 준비, 테블릿 구매 등 후원을 요청하는 이유를 쓸 수도 있어요.
+								</p>
+							</div>
+						</div>
+
+						<div>
+							<p>도움말 - 후원 플랜</p>
+							<ul>
+								<li>후원 금액이 다른 플랜은 채널마다 최대 5개까지 만들 수 있습니다.</li>
+								<li>
+									이용자는 누구나 전체 공개된 [멤버십 가입] 버튼을 통해 월 후원금을 결제해 플랜에 즉시 가입할 수 있고,<br />
+									이용자가 해지하거나 크리에이터가 플랜을 종료할 때까지 1달이 지날 때 마다 후원금이 결제됩니다.
+								</li>
+								<li>멤버십 수익은 [마이페이지] -> [멤버십] -> [정산] 에서 확인할 수 있습니다.</li>
+							</ul>
+						</div>
+						<div>
+							<h3 class="h3">후원 플랜 설정</h3>
+							<h4 class="h4">후원 금액(원)</h4>
+							<input type="number" placeholder="원하시는 후원 금액을 적어주세요." min="1000" max="100000" readonly /><br />
+							<p>최소 1000원, 최대 1,000,000원의 범위 내에서 100원 단위로 입력할 수 있습니다.</p>
+							<p><b>주의사항</b> 후원금 액수는 한 번 정하면 변경할 수 없으니 신중하게 결넝하세요.</p>
+						</div>
+						<div>
+							<h3 class="h3">디자인</h3>
+							<input type="color" class="Files" name="imageFile" />
+						</div>
+						<div>
+							<button class="button">뒤로</button>
+							<button class="button">멤버십 수정 완료</button>
+						</div>
+						<div>
+							<button class="button">멤버십 수정 완료</button>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
