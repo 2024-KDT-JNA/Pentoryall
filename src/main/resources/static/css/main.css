@@ -1,0 +1,20 @@
+.main-content .h2 { text-align: center; } 
+.main-content .section{margin-top: 142px;}
+.main-content .thumbnail-image { overflow: hidden; border-radius: 5px; } 
+
+.series-list .description { margin-top: 7px; font-weight: 600; font-size: 18px; } 
+.post-list .post-item { display: flex; padding: 20px; border-bottom: 1px solid #eee; } 
+.post-list .thumbnail-image { display:flex; position: relative; align-items: center; width: 150px; height: 150px; margin-right: 24px; } 
+.post-list .post-content { display: flex; flex-wrap: wrap; align-content: space-between; width: 750px; } 
+.post-content .series-name { display: block; color: #999; font-size: 14px; } 
+.post-content .post-name { margin: 7px 0 12px; font-weight: 600; font-size: 24px; } 
+.post-content .post-description { -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; overflow: hidden; color:#999; line-height: 1.5; text-overflow: ellipsis; } 
+.post-content .post-meta { display: flex; align-items: center; color:#ccc; font-size: 12px; } 
+.post-content .post-meta dl { display: flex; margin-right: 12px; } 
+.post-content .post-meta dt { margin-right: 4px; } 
+
+.genre-tab { margin-bottom: 50px; } 
+.genre-tab-list { display: flex; justify-content: space-between; width: 80%; margin: 0 auto; padding: 7px 20px; border-radius: 28px; box-shadow: 1px 1px 6px 0px #efefef; } 
+.genre-tab-list li { width:120px; overflow: hidden; border-radius: 30px; text-align: center; } 
+.genre-tab-list li button { display: block; width:100%; padding: 8px 0; } 
+.genre-tab-list li.active { background-color: #e4e4e4; } 

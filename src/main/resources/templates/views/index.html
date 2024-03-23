@@ -1,10 +1,376 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>펜토리얼</title>
-</head>
-<body>
-    <h1 th:text="${message}"></h1>
-</body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css"/ >
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="main-content">
+        <section class="section section-weekly-series">
+            <h2 class="h2">이번 주 인기 시리즈</h2>
+
+            <div class="inner">
+                <div class="main-series-swiper series-list">
+                    <div class="swiper-wrapper">
+                             <div class="swiper-slide">
+                            <a href="#">
+                                <div class="thumbnail-image">
+                                    <img src="./images/temp/thumbnail.png" alt="" />
+                                </div>
+                                <p class="description">시리즈명</p>
+                            </a>
+                        </div>
+                             <div class="swiper-slide">
+                            <a href="#">
+                                <div class="thumbnail-image">
+                                    <img src="./images/temp/thumbnail.png" alt="" />
+                                </div>
+                                <p class="description">시리즈명</p>
+                            </a>
+                        </div>
+                             <div class="swiper-slide">
+                            <a href="#">
+                                <div class="thumbnail-image">
+                                    <img src="./images/temp/thumbnail.png" alt="" />
+                                </div>
+                                <p class="description">시리즈명</p>
+                            </a>
+                        </div>
+                             <div class="swiper-slide">
+                            <a href="#">
+                                <div class="thumbnail-image">
+                                    <img src="./images/temp/thumbnail.png" alt="" />
+                                </div>
+                                <p class="description">시리즈명</p>
+                            </a>
+                        </div>
+                             <div class="swiper-slide">
+                            <a href="#">
+                                <div class="thumbnail-image">
+                                    <img src="./images/temp/thumbnail.png" alt="" />
+                                </div>
+                                <p class="description">시리즈명</p>
+                            </a>
+                        </div>
+                             <div class="swiper-slide">
+                            <a href="#">
+                                <div class="thumbnail-image">
+                                    <img src="./images/temp/thumbnail.png" alt="" />
+                                </div>
+                                <p class="description">시리즈명</p>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="thumbnail-image">
+                                    <img src="./images/temp/thumbnail.png" alt="" />
+                                </div>
+                                <p class="description">시리즈명</p>
+                            </a>
+                        </div>
+                             <div class="swiper-slide">
+                            <a href="#">
+                                <div class="thumbnail-image">
+                                    <img src="./images/temp/thumbnail.png" alt="" />
+                                </div>
+                                <p class="description">시리즈명</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-weekly-posts">
+            <h2 class="h2">이번 주 인기 포스트</h2>
+
+            <div class="inner">
+                <div class="post-list">
+                    <div class="post-item">
+                        <div class="thumbnail-image">
+                            <img src="./images/temp/thumbnail.png" alt="미리보기" />
+                        </div>
+                        <div class="post-content">
+                            <div class="post-text">
+                                <a href="#" class="series-name">시리즈명</a>
+                                <h3 class="post-name">게시글 제목</h3>
+                                <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio, cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi porro.</p>
+                            </div>
+                            <div class="post-meta">
+                                <dl class="date">
+                                    <dt>
+                                        <i class="bi bi-calendar"></i>
+                                        <span class="blind">작성일</span>
+                                    </dt>
+                                    <dd>2024.03.20</dd>
+                                </dl>
+                                <dl class="views">
+                                    <dt>
+                                        <i class="bi bi-eye"></i>
+                                        <span class="blind">조회수</span>
+                                    </dt>
+                                    <dd>1324</dd>
+                                </dl>
+                                <dl class="like">
+                                    <dt>
+                                        <i class="bi bi-heart"></i>
+                                        <span class="blind">좋아요</span>
+                                    </dt>
+                                    <dd>100</dd>
+                                </dl>
+                                <dl class="comment">
+                                    <dt>
+                                        <i class="bi bi-reply"></i>
+                                        <span class="blind">댓글</span>
+                                    </dt>
+                                    <dd>14</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-item">
+                        <div class="thumbnail-image">
+                            <img src="./images/temp/thumbnail.png" alt="미리보기" />
+                        </div>
+                        <div class="post-content">
+                            <div class="post-text">
+                                <a href="#" class="series-name">시리즈명</a>
+                                <h3 class="post-name">게시글 제목</h3>
+                                <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio, cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi porro.</p>
+                            </div>
+                            <div class="post-meta">
+                                <dl class="date">
+                                    <dt>
+                                        <i class="bi bi-calendar"></i>
+                                        <span class="blind">작성일</span>
+                                    </dt>
+                                    <dd>2024.03.20</dd>
+                                </dl>
+                                <dl class="views">
+                                    <dt>
+                                        <i class="bi bi-eye"></i>
+                                        <span class="blind">조회수</span>
+                                    </dt>
+                                    <dd>1324</dd>
+                                </dl>
+                                <dl class="like">
+                                    <dt>
+                                        <i class="bi bi-heart"></i>
+                                        <span class="blind">좋아요</span>
+                                    </dt>
+                                    <dd>100</dd>
+                                </dl>
+                                <dl class="comment">
+                                    <dt>
+                                        <i class="bi bi-reply"></i>
+                                        <span class="blind">댓글</span>
+                                    </dt>
+                                    <dd>14</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-item">
+                        <div class="thumbnail-image">
+                            <img src="./images/temp/thumbnail.png" alt="미리보기" />
+                        </div>
+                        <div class="post-content">
+                            <div class="post-text">
+                                <a href="#" class="series-name">시리즈명</a>
+                                <a href="#">
+                                    <h3 class="post-name">게시글 제목</h3>
+                                    <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio, cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi porro.</p>
+                                </a>
+                            </div>
+                            <div class="post-meta">
+                                <dl class="date">
+                                    <dt>
+                                        <i class="bi bi-calendar"></i>
+                                        <span class="blind">작성일</span>
+                                    </dt>
+                                    <dd>2024.03.20</dd>
+                                </dl>
+                                <dl class="views">
+                                    <dt>
+                                        <i class="bi bi-eye"></i>
+                                        <span class="blind">조회수</span>
+                                    </dt>
+                                    <dd>1324</dd>
+                                </dl>
+                                <dl class="like">
+                                    <dt>
+                                        <i class="bi bi-heart"></i>
+                                        <span class="blind">좋아요</span>
+                                    </dt>
+                                    <dd>100</dd>
+                                </dl>
+                                <dl class="comment">
+                                    <dt>
+                                        <i class="bi bi-reply"></i>
+                                        <span class="blind">댓글</span>
+                                    </dt>
+                                    <dd>14</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-genre-best">
+            <h2 class="h2">장르 별 베스트</h2>
+            <div class="inner">
+                <!-- 1차 장르 목록 -->
+                <nav class="genre-tab">
+                    <ul class="genre-tab-list">
+								<li class="active">
+									<button>소설</button>
+								</li>
+                        <li><button>웹툰</button></li>
+                        <li><button>일기</button></li>
+                        <li><button>팬픽</button></li>
+                        <li><button>시</button></li>
+                        <li><button>기타</button></li>
+                    </ul>
+                </nav>
+                <div class="post-list">
+                    <div class="post-item">
+                        <div class="thumbnail-image">
+                            <img src="./images/temp/thumbnail.png" alt="미리보기" />
+                        </div>
+                        <div class="post-content">
+                            <div class="post-text">
+                                <a href="#" class="series-name">시리즈명</a>
+                                <h3 class="post-name">게시글 제목</h3>
+                                <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio, cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi porro.</p>
+                            </div>
+                            <div class="post-meta">
+                                <dl class="date">
+                                    <dt>
+                                        <i class="bi bi-calendar"></i>
+                                        <span class="blind">작성일</span>
+                                    </dt>
+                                    <dd>2024.03.20</dd>
+                                </dl>
+                                <dl class="views">
+                                    <dt>
+                                        <i class="bi bi-eye"></i>
+                                        <span class="blind">조회수</span>
+                                    </dt>
+                                    <dd>1324</dd>
+                                </dl>
+                                <dl class="like">
+                                    <dt>
+                                        <i class="bi bi-heart"></i>
+                                        <span class="blind">좋아요</span>
+                                    </dt>
+                                    <dd>100</dd>
+                                </dl>
+                                <dl class="comment">
+                                    <dt>
+                                        <i class="bi bi-reply"></i>
+                                        <span class="blind">댓글</span>
+                                    </dt>
+                                    <dd>14</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-item">
+                        <div class="thumbnail-image">
+                            <img src="./images/temp/thumbnail.png" alt="미리보기" />
+                        </div>
+                        <div class="post-content">
+                            <div class="post-text">
+                                <a href="#" class="series-name">시리즈명</a>
+                                <h3 class="post-name">게시글 제목</h3>
+                                <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio, cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi porro.</p>
+                            </div>
+                            <div class="post-meta">
+                                <dl class="date">
+                                    <dt>
+                                        <i class="bi bi-calendar"></i>
+                                        <span class="blind">작성일</span>
+                                    </dt>
+                                    <dd>2024.03.20</dd>
+                                </dl>
+                                <dl class="views">
+                                    <dt>
+                                        <i class="bi bi-eye"></i>
+                                        <span class="blind">조회수</span>
+                                    </dt>
+                                    <dd>1324</dd>
+                                </dl>
+                                <dl class="like">
+                                    <dt>
+                                        <i class="bi bi-heart"></i>
+                                        <span class="blind">좋아요</span>
+                                    </dt>
+                                    <dd>100</dd>
+                                </dl>
+                                <dl class="comment">
+                                    <dt>
+                                        <i class="bi bi-reply"></i>
+                                        <span class="blind">댓글</span>
+                                    </dt>
+                                    <dd>14</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-item">
+                        <div class="thumbnail-image">
+                            <img src="./images/temp/thumbnail.png" alt="미리보기" />
+                        </div>
+                        <div class="post-content">
+                            <div class="post-text">
+                                <a href="#" class="series-name">시리즈명</a>
+                                <a href="#">
+                                    <h3 class="post-name">게시글 제목</h3>
+                                    <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio, cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi porro.</p>
+                                </a>
+                            </div>
+                            <div class="post-meta">
+                                <dl class="date">
+                                    <dt>
+                                        <i class="bi bi-calendar"></i>
+                                        <span class="blind">작성일</span>
+                                    </dt>
+                                    <dd>2024.03.20</dd>
+                                </dl>
+                                <dl class="views">
+                                    <dt>
+                                        <i class="bi bi-eye"></i>
+                                        <span class="blind">조회수</span>
+                                    </dt>
+                                    <dd>1324</dd>
+                                </dl>
+                                <dl class="like">
+                                    <dt>
+                                        <i class="bi bi-heart"></i>
+                                        <span class="blind">좋아요</span>
+                                    </dt>
+                                    <dd>100</dd>
+                                </dl>
+                                <dl class="comment">
+                                    <dt>
+                                        <i class="bi bi-reply"></i>
+                                        <span class="blind">댓글</span>
+                                    </dt>
+                                    <dd>14</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/main.js}" src="/js/main.js"></script>
+</th:block>
 </html>
