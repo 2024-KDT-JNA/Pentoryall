@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<title>펜토리얼</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+		<!-- CSS -->
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/common.css" />
+		<link rel="stylesheet" href="/css/admin.css" />
+	</head>
+	<body>
+		<div id="container">
+			<div class="admin-content">
+				<div class="inner">
+					<section class="section section-report">
+						<h2 class="h2">댓글 신고</h2>
+
+						<div class="table-option">
+							<div class="form-item">
+								<select class="select">
+									<option>5개씩</option>
+									<option>10개씩</option>
+									<option>15개씩</option>
+									<option>20개씩</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="table-box">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>
+											<input type="checkbox" id="checkAll-comment-1" name="comment_report" />
+											<label for="checkAll-comment-1">전체 선택</label>
+										</th>
+										<th>번호</th>
+										<th>아이디</th>
+										<th>닉네임</th>
+										<th>신고 일자</th>
+										<th>누적 신고 횟수</th>
+										<th>정지 여부</th>
+										<th>관리</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>
+											<input type="checkbox" id="checkAll-comment-2" name="comment_report" />
+										</th>
+										<td>1</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td>
+											<button class="button">해제</button>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<input type="checkbox" id="checkAll-comment-3" name="comment_report" />
+										</th>
+										<td>2</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td>
+											<button class="button">해제</button>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<input type="checkbox" id="checkAll-comment-4" name="comment_report" />
+										</th>
+										<td>3</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td>
+											<button class="button">해제</button>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<input type="checkbox" id="checkAll-comment-5" name="comment_report" />
+										</th>
+										<td>4</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td>
+											<button class="button">해제</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="page">
+							<ul class="pagination-commentReport">
+								<li><a href="#" class="first">처음페이지</a></li>
+								<li><a href="#" class="arrow left"><<</a></li>
+								<li><a href="#" class="active num">1</a></li>
+								<li><a href="#" class="num">2</a></li>
+								<li><a href="#" class="num">3</a></li>
+								<li><a href="#" class="num">4</a></li>
+								<li><a href="#" class="num">5</a></li>
+								<li><a href="#" class="arrow right">>></a></li>
+								<li><a href="#" class="last">끝페이지</a></li>
+							</ul>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+
+		<!-- Pop-Up -->
+		<div class="popUpWrap">
+			<div class="popUp_bg">
+				<div class="popUp_info">
+					<h3 class="h3">신고 정보</h3>
+
+					<div class="table-box">
+						<table class="table">
+							<tbody>
+								<tr>
+									<th scope="col">번호</th>
+									<th scope="col">작성일시</th>
+									<th scope="col">댓글내용</th>
+									<th scope="col">해당 포스트</th>
+									<th scope="col">포스트 작성자</th>
+								</tr>
+								<tr>
+									<th scope="row">1</th>
+									<td>@twitter</td>
+									<td>너는 바보다</td>
+									<td>프로젝트를 잘 하는방법</td>
+									<td>김아현</td>
+								</tr>
+
+								<tr>
+									<th scope="row">2</th>
+									<td>@twitter</td>
+									<td>Jacob</td>
+									<td>Thornton</td>
+									<td>Thornton</td>
+								</tr>
+
+								<tr>
+									<th scope="row">3</th>
+									<td>@twitter</td>
+									<td>@twitter</td>
+									<td>@twitter</td>
+									<td>@twitter</td>
+								</tr>
+
+								<tr>
+									<th scope="row">4</th>
+									<td>@twitter</td>
+									<td>@twitter</td>
+									<td>@twitter</td>
+									<td>@twitter</td>
+								</tr>
+
+								<tr>
+									<th scope="row">5</th>
+									<td>@twitter</td>
+									<td>@twitter</td>
+									<td>@twitter</td>
+									<td>@twitter</td>
+								</tr>
+
+								<tr>
+									<th scope="row">6</th>
+									<td>@twitter</td>
+									<td>@twitter</td>
+									<td>@twitter</td>
+									<td>@twitter</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="popUp_btns">
+						<button class="button">정지 해제</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="popUpWrap">
+			<div class="popUp_bg">
+				<div class="popUp_info">
+					<div class="popUp_header">
+						<h3 class="h3">안내창</h3>
+					</div>
+					<div class="popup-content">
+						<p>고등어 회원의 정지를 해제하시겠습니까?</p>
+					</div>
+					<div class="popUp_btns">
+						<button class="button">예</button>
+						<button class="button">아니오</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div></div>
+	</body>
+</html>
