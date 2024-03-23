@@ -1,0 +1,94 @@
+.login_info {
+    max-width: 480px;
+    width: 100%;
+    margin: auto;
+}
+.title_text {
+    text-align: center;
+}
+.input_box {
+    display: flex;
+    align-items: center;
+}
+.loginWrap .input_box:nth-of-type(2) {
+    margin-top: 10px;
+}
+.input_box label {
+    width: 100px;
+}
+.input_box input {
+    width: 100%;
+    border-radius: 5px;
+    border:1px solid #CECECE;
+    padding: 10px;
+}
+
+.login_bottom {
+    display: flex;
+    justify-content: space-between
+}
+.login_bottom .find_texts {
+    display: flex;
+}
+.login_bottom .find_texts li {
+    position: relative;
+}
+.login_bottom .find_texts li::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 12px;
+    width: 1px;
+    height: 12px;
+    border-radius: 0.5px;
+    background-color: #dadada;
+}
+
+.btns {
+    width: 100%;
+    background: black;
+    border-radius: 5px;
+}
+.btns .btn {
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+.white_btns {
+    margin-top: 10px;
+}
+.hide {
+    display: none;
+}
+
+.col_red {
+    color: red;
+    text-indent: 82.58px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* popUp */
+.popUpWrap {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+}
+.popUp_bg {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+
+}
+.popUp_info {
+    width: 470px;
+    border-radius: 15px;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
