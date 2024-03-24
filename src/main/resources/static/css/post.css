@@ -585,3 +585,8 @@ border-bottom:solid 1px #e4e4e5;
 			.membership-subscribe-btn{
 				float:right;
 			}
+
+            /*구분선*/
+            .post-title-input{
+                margin-bottom:20px;
+            }

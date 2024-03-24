@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace 형식 올바르게 수정 후 사용하세요. -->
+<mapper namespace="com.pentoryall.post.mapper.PostMapper">
+    <insert id="insertPost">
+        INSERT INTO
+            post(series_code,user_code,title,content,thumbnail_image,price,is_paid,is_adult,is_public)
+        VALUES
+            (#{seriesCode},1,#{title},#{content},#{thumbnailImage},#{price},#{isPaid},#{isAdult},#{isPublic})
+    </insert>
+</mapper>
