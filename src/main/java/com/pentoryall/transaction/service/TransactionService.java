@@ -1,4 +1,4 @@
-package com.pentoryall.point.service;
+package com.pentoryall.transaction.service;
 
 import org.springframework.stereotype.Service;
 

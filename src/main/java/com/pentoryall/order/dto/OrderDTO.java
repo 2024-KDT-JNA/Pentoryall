@@ -1,4 +1,4 @@
-package com.pentoryall.point.dto;
+package com.pentoryall.order.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,10 +9,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ImpOrderDTO {
+public class OrderDTO {
 
     Long code;
-    Long orderCode;
-    String impUid;
+    Long userCode;
+    int amount;
+    int point;
     LocalDateTime createDate;
 }

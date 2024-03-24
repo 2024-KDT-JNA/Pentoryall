@@ -1,4 +1,4 @@
-package com.pentoryall.point.dto;
+package com.pentoryall.transaction.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,11 +9,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrderDTO {
+public class TransactionDTO {
 
     Long code;
     Long userCode;
-    int amount;
+    Long sellerUserCode;
+    Long postCode;
+    Long membershipCode;
+    String type; /* enum? */
     int point;
     LocalDateTime createDate;
 }
