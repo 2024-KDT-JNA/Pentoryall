@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace 형식 올바르게 수정 후 사용하세요. -->
-<mapper namespace="com.pentoryall.{DIR_NAME}.mapper.{DTO_NAME}">
+<mapper namespace="com.pentoryall.{DIR_NAME}.mapper.{MAPPER_NAME}">
     
 </mapper>
 
