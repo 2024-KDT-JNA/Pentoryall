@@ -22,7 +22,7 @@
             <h2 class="h2">포스트 등록하기</h2>
 
             <div class="form-item">
-                <form class="postAdd" action="/post/add" method="post" id="postAdd">
+                <form class="postAdd" action="/post/add" method="post" id="postAdd" enctype="multipart/form-data">
                     <h4 class="h4"><label class="label">제목</label></h4>
 
                     <div class="title-wrap">
@@ -38,20 +38,19 @@
                     </div>
 
 
-                <h4 class="h4"><label class="label">썸네일</label></h4>
+                    <h4 class="h4"><label class="label">썸네일</label></h4>
 
-                <div class="thumbnail-file-wrap">
-                    <div class="upload-thumbnail">
-                        <img id="image-box" class="series-add-thumbnail" src="/images/temp/thumbnail.png" alt="thumbnail" />
-
-                    </div>
-                    <div class="form__input--file_wrap">
-                        <div class="fileBox">
-                            <label class="label">파일 업로드</label>
-                            <input id="image-file-box" type="file" class="input" name="thumbnail"/>
+                    <div class="thumbnail-file-wrap">
+                        <div class="upload-thumbnail">
+                            <img id="image-box" class="series-add-thumbnail" src="/images/temp/thumbnail.png" alt="thumbnail" />
+                        </div>
+                        <div class="form__input--file_wrap">
+                            <div class="fileBox">
+                                <label class="label">파일 업로드</label>
+                                <input id="image-file-box" type="file" class="input" name="thumbnail"/>
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 <div class="form-item">
                     <h4 class="h4"><label class="label">공개 여부*</label></h4>
