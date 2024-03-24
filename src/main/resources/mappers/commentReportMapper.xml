@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ohgiraffers.crud.menu.model.dao.MenuMapper">
+
+
+    <insert id="registMenu">
+        INSERT INTO
+            tbl_menu(menu_name,menu_price,category_code,orderable_status)
+        VALUES
+            (#{menuName},#{menuPrice},#{categoryCode},#{orderableStatus})
+    </insert>
+</mapper>
