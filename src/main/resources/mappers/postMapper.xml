@@ -6,9 +6,34 @@
 <!-- namespace 형식 올바르게 수정 후 사용하세요. -->
 <mapper namespace="com.pentoryall.post.mapper.PostMapper">
     <insert id="insertPost">
+        <selectKey keyProperty="code" order="BEFORE" resultType="int">
+            SELECT max(code) from post
+        </selectKey>
         INSERT INTO
             post(series_code,user_code,title,content,thumbnail_image,price,is_paid,is_adult,is_public)
         VALUES
             (#{seriesCode},1,#{title},#{content},#{thumbnailImage},#{price},#{isPaid},#{isAdult},#{isPublic})
     </insert>
+    <select id="getPostInformation" resultType="com.pentoryall.post.dto.PostDTO">
+        SELECT
+            code,
+            series_code,
+            user_code,
+            title,
+            content,
+            confirm_content,
+            thumbnail_image,
+            views,
+            price,
+            is_paid,
+            is_adult,
+            is_public,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            post
+        WHERE
+            code=#{code}
+    </select>
 </mapper>

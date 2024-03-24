@@ -13,8 +13,13 @@ public class PostService {
     public PostService(PostMapper postMapper) {
         this.postMapper = postMapper;
     }
+
     @Transactional
     public void insertPost(PostDTO postDTO) {
         postMapper.insertPost(postDTO);
+    }
+
+    public PostDTO getPostInformation(long lastCode) {
+        return postMapper.getPostInformation(lastCode);
     }
 }

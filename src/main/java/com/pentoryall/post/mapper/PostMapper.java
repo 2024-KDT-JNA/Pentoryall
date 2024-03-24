@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface PostMapper {
 
     void insertPost(PostDTO postDTO);
+
+    PostDTO getPostInformation(long lastCode);
 }
