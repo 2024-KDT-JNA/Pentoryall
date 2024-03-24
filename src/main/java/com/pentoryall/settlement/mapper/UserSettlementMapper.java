@@ -1,4 +1,4 @@
-package com.pentoryall.revenue.mapper;
+package com.pentoryall.settlement.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

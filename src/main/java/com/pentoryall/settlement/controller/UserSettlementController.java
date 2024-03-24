@@ -1,4 +1,4 @@
-package com.pentoryall.revenue.controller;
+package com.pentoryall.settlement.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

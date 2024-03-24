@@ -1,4 +1,4 @@
-package com.pentoryall.revenue.dto;
+package com.pentoryall.settlement.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
