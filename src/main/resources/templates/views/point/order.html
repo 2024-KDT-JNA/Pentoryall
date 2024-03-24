@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css" />
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <section class="section section-order">
+                    <h2 class="h2">포인트 충전</h2>
+
+                    <div class="summary-wrap">
+                        <dl>
+                            <dt>현재 잔액</dt>
+                            <dd>100,000</dd>
+                        </dl>
+                    </div>
+
+                    <div class="box box-recharge">
+                        <h3 class="h3">충전할 금액</h3>
+
+                        <ul class="list-group">
+								<li class="item">
+									<div class="control">
+										<input type="radio" id="point1" name="point" class="blind" />
+										<label class="label" for="point1">1,000P</label>
+									</div>
+									<p class="price">1,000원</p>
+								</li>
+                            <li class="item">
+									<div class="control">
+										<input type="radio" id="point3" name="point" class="blind" />
+										<label class="label" for="point3">3,000P</label>
+									</div>
+									<p class="price">3,000원</p>
+								</li>
+                            <li class="item">
+									<div class="control">
+										<input type="radio" id="point5" name="point" class="blind" />
+										<label class="label" for="point5">5,000P</label>
+									</div>
+									<p class="price">5,000원</p>
+								</li>
+                            <li class="item">
+									<div class="control">
+										<input type="radio" id="point10" name="point" class="blind" />
+										<label class="label" for="point10">10,000P</label>
+									</div>
+									<p class="price">10,000원</p>
+								</li>
+                            <li class="item">
+									<div class="control">
+										<input type="radio" id="point15" name="point" class="blind" />
+										<label class="label" for="point15">15,000P</label>
+									</div>
+									<p class="price">15,000원</p>
+								</li>
+                            <li class="item">
+									<div class="control">
+										<input type="radio" id="point30" name="point" class="blind" />
+										<label class="label" for="point30">30,000P</label>
+									</div>
+									<p class="price">30,000원</p>
+								</li>
+                            <li class="item">
+									<div class="control">
+										<input type="radio" id="point50" name="point" class="blind" />
+										<label class="label" for="point50">50,000P</label>
+									</div>
+									<p class="price">50,000원</p>
+								</li>
+                        </ul>
+                    </div>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/order.js}" src="/js/order.js"></script>
+</th:block>
+</html>
