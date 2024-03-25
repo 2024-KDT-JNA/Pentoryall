@@ -2,16 +2,16 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/{DB_이름}
-    username: {DB_아이디}
-    password: {DB_비밀번호}
+    url: jdbc:mysql://localhost/pentoryall
+    username: ohgiraffers
+    password: ohgiraffers
 
   # file upload config
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-      location: {파일_경로}
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+      location: C:\00_Pactoriya!\Pentoryall1
 
 # Mybatis config
 mybatis:
