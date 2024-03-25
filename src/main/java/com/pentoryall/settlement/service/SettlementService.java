@@ -1,4 +1,4 @@
-package com.pentoryall.revenue.service;
+package com.pentoryall.settlement.service;
 
 import org.springframework.stereotype.Service;
 

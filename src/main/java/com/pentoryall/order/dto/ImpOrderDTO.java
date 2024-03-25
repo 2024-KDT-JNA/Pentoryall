@@ -1,4 +1,4 @@
-package com.pentoryall.revenue.dto;
+package com.pentoryall.order.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,13 +9,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserSettlementDTO {
+public class ImpOrderDTO {
 
     Long code;
     Long userCode;
-    int bankCode;
-    int accountNumber;
-    String accountHolder;
-    String isDeleted; /* Enum? */
+    int amount;
+    int point;
     LocalDateTime createDate;
 }
