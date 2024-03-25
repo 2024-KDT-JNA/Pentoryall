@@ -18,6 +18,7 @@ public class SeriesService {
         return seriesMapper.selectSeriesByTitle(series);
     }
 
+
     public SeriesDTO getSeriesInformationBySeriesCode(long seriesCode) {
         return seriesMapper.getSeriesInformationBySeriesCode(seriesCode);
     }
@@ -25,4 +26,5 @@ public class SeriesService {
     public List<SeriesDTO> getSeriesList(int i) {
         return seriesMapper.getSeriesList(i);
     }
+
 }

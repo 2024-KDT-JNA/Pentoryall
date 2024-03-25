@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css" />
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <section class="section section-order">
+                <h2 class="h2">포인트 충전이 완료되었습니다.</h2>
+            </section>
+            <section class="section section-order">
+                <h2 class="h2">포인트 충전이 실패하였습니다.</h2>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/order.js}" src="/js/order.js"></script>
+</th:block>
+</html>

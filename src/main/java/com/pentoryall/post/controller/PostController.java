@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+
 @Controller
 @RequestMapping("/post")
 public class PostController {
@@ -30,6 +31,7 @@ public class PostController {
         this.seriesService = seriesService;
         this.postService = postService;
         this.userService = userService;
+
     }
 
 
@@ -140,5 +142,6 @@ public class PostController {
         List<SeriesDTO> seriesList = seriesService.getSeriesList(1);
         System.out.println(seriesList);
         return seriesList;
+
     }
 }

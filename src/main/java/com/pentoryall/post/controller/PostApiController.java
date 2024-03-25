@@ -3,6 +3,7 @@ package com.pentoryall.post.controller;
 import com.pentoryall.post.dto.PostRequestDTO;
 import com.pentoryall.post.service.PostService;
 import jakarta.servlet.http.HttpSession;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ public class PostApiController {
 //        long result = postService.insertPost(params);
 //        System.out.println(result);
         return 0;
+
     }
 
     // 게시글 상세정보 조회
