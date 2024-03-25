@@ -1,0 +1,518 @@
+.red_star {
+    color: red;
+}
+
+.login_info {
+    max-width: 480px;
+    width: 100%;
+    margin: auto;
+}
+
+.title_text {
+    text-align: center;
+}
+
+.inputWrap {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.loginWrap .inputWrap:nth-of-type(2) {
+    margin-top: 10px;
+}
+
+.inputWrap label {
+    width: 100px;
+}
+
+.input_box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input_box input {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #CECECE;
+    padding: 15px 0;
+    text-indent: 15px;
+
+}
+
+.login_bottom {
+    display: flex;
+    justify-content: space-between
+}
+
+.login_bottom .find_texts {
+    display: flex;
+}
+
+.login_bottom .find_texts li {
+    position: relative;
+}
+
+.login_bottom .find_texts li::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 12px;
+    width: 1px;
+    height: 12px;
+    border-radius: 5px;
+    background-color: #dadada;
+}
+
+.btns {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.btns .btn {
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    padding: 15px 0;
+}
+
+.white_btns {
+    margin-top: 10px;
+}
+
+.black_btns .btn {
+    background: black;
+    color: white;
+}
+
+.white_btns .btn {
+    border: 1px solid #CECECE;
+    color: black;
+}
+
+.gray_btns .btn {
+    background: #D9D9D9;
+}
+
+.hide {
+    display: none;
+}
+
+.col_red {
+    color: red;
+    text-indent: 136px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* popUp */
+.popUpWrap {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+}
+
+.popUp_bg {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+
+}
+
+.popUp_info {
+    width: 470px;
+    border-radius: 15px;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+
+/* 회원가입 */
+.titleWrap {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.titleWrap h2 {
+    text-align: center;
+}
+
+.titleWrap h5 {
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: right;
+    color: #787878;
+    margin: 40px auto 5px auto;
+}
+
+.regist_form {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.registWrap {
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.regist_form .input_box {
+    width: 100%;
+    max-width: 638px;
+    justify-content: space-between;
+}
+
+.regist_form label {
+    width: 135px;
+}
+
+.regist_form .input_box input {
+    width: 508px;
+}
+
+.regist_form .inputWrap:nth-of-type(2) {
+    margin-left: 135px;
+}
+
+.regist_form .input_box button {
+    width: 120px;
+    text-align: center;
+    border: 1px solid;
+    padding: 15px 0;
+    border-radius: 5px;
+}
+
+.regist_form .btns {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.regist_form .btns button {
+    width: 510px;
+    padding: 15px;
+}
+
+.agreeWrap {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    margin-top: 40px;
+    padding-top: 40px;
+}
+
+.checkBoxWrap .check_box:nth-of-type(1) {
+    margin-top: 0;
+}
+
+.checkBoxWrap .check_box:nth-of-type(1) p {
+    font-size: 20px;
+}
+
+.checkBoxWrap .check_box {
+    margin-top: 10px;
+}
+
+.checkBoxWrap .check_box:nth-of-type(1) span {
+    width: 22px;
+    height: 22px;
+    margin-top: 0;
+}
+
+
+.agreeWrap .inputWrap {
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+    align-items: start;
+}
+
+.check_box label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.agreeWrap .check_box label span {
+    flex: none;
+}
+
+.agreeWrap .check_box p {
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"] + label span {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    background: url(../images/checkbox-inactive.svg) no-repeat;
+    cursor: pointer;
+    background-size: cover;
+    margin-right: 5px;
+}
+
+input[type="checkbox"]:checked + label span {
+    background: url(../images/checkbox-active.svg) no-repeat;
+    background-size: cover;
+}
+
+/* 비밀번호 찾기 */
+.findPwd {
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.findPwd .title_text {
+    text-align: left;
+}
+
+.pwd_form .inputWrap {
+    display: block;
+}
+
+.black_btn {
+    background: black;
+    border-radius: 5px;
+    padding: 15px 0;
+    color: white;
+    width: 120px;
+    margin-left: 10px;
+}
+
+/* 보관함 */
+.likePage {
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    height: 100vh;
+
+}
+
+.likePage .storage_box {
+    display: flex;
+    justify-content: center;
+}
+
+.likePage .storage_box .storage_box_list {
+    width: calc(100% / 2);
+    text-align: center;
+    font-size: 20px;
+}
+
+.likePage .storage_box .storage_box_list a {
+    border-bottom: 2px solid inherit;
+    color: #787878;
+    padding-bottom: 5px;
+}
+
+.likePage .storage_box .storage_box_list:nth-of-type(1) a {
+    border-bottom: 2px solid;
+    color: #000000;
+}
+
+.not_post {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.not_post h5 {
+    font-size: 20px;
+    color: #787878;
+}
+
+.not_post .black_btns {
+    margin-top: 30px;
+}
+
+.not_post .black_btns .btn {
+    width: 200px;
+    text-align: center;
+}
+
+.search_info {
+    margin-top: 40px;
+}
+
+.case_filter {
+    position: relative;
+}
+
+.case_filter_label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #AEAEB2;
+    background: #FAFAFA;
+    border-radius: 56px;
+    padding: 15px 24px;
+    cursor: pointer;
+}
+
+.case_filter_content {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+}
+
+.case_filter_data {
+    border: 1px solid #AEAEB2;
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    margin-top: 10px;
+}
+
+.case_filter_list {
+    margin-top: 10px;
+}
+
+.case_filter_list label span {
+    display: inline-block;
+    position: relative;
+    Padding: 4px 16px 4px 16px;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.85;
+    color: #666;
+    background: #fff;
+    border-radius: 200px;
+    border: 1px solid #AEAEB2;
+    -webkit-transition: color .3s;
+    transition: color .3s;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+/* 내 정보 수정 */
+.my_profile_info {
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.my_profile_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.my_profile_top .btn {
+    margin-top: 20px;
+}
+
+.my_profile_top .left {
+    border-right: 1px solid #AEAEB2;
+    padding-right: 60px;
+}
+
+.my_profile_top .right form {
+    margin-top: 10px;
+}
+
+.img {
+    width: 124px;
+    height: 124px;
+    border-radius: 200px;
+    background: #D9D9D9;
+}
+
+textarea {
+    width: 530px;
+    height: 150px;
+    resize: none;
+    border: 1px solid #AEAEB2;
+    border-radius: 5px;
+}
+
+.my_profile_top .right .btns {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.my_profile_top .right .btns .btn {
+    width: 80px;
+}
+
+.my_profile_bottom {
+    margin-top: 80px;
+}
+
+.my_profile_bottom .btns {
+    width: 100px;
+}
+
+.my_profile_bottom .gray_btns {
+    width: 150px;
+}
+
+.my_profile_bottom .white_btns {
+    margin-top: 0;
+    margin-right: 10px;
+}
+
+/* 탈퇴 */
+.secession {
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.secession form {
+    margin-top: 40px;
+}
+
+.secession .inputWrap {
+    display: block;
+}
+
+.secession .btns {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.secession .btns .btn {
+    width: 90px;
+}
+
+.toggleBtn {
+    transform: rotate(180deg);
+}
+
+.toggleBtn.close {
+    transform: rotate(0deg);
+}
+
+.case_filter_content {
+    display: none;
+}
+
+.case_filter_content.active {
+    display: block;
+}
