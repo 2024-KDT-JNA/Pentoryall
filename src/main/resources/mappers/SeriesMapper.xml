@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace 형식 올바르게 수정 후 사용하세요. -->
+<mapper namespace="com.pentoryall.series.mapper.SeriesMapper">
+    <select id="selectSeriesByTitle" resultType="com.pentoryall.series.dto.SeriesDTO">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
+        WHERE
+            title=#{series}
+    </select>
+
+</mapper>
