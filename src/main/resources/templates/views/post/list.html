@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+ <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css" />
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <section class="section">
+                <div class="fixed-header">
+                    <div class="p-series-title">
+                        <h1 th:text="|${post.seriesCode}|"></h1>
+                    </div>
+                    <div class="post-title">
+                        <p>99화 99화 제목</p>
+                    </div>
+                    <div class="series-author">
+                  <span class="series-author-information">
+                    <div class="series-author-information-detail-header">
+                      <img class="series-author-information-detail-image" src="/images/temp/author.png"/>
+                      <div class="series-author-information-detail-name">
+                        <h2>232</h2>
+                      </div>
+
+                        <button class="post-information-like">
+                            <p class="post-information-like-content">
+                           ♡ 222
+                            </p>
+                          </button>
+                        <div class="post-information-log">
+                              <p class="post-information-log-content">조회: 34회</p>
+                            </p>
+                          </div>
+                    </div>
+                  </span>
+                    </div>
+                </div>
+                <!--메인 컨텐츠-->
+                <div class="main-content">
+                    <button class="previous-post"><</button>
+                    <!--메인 컨텐츠 시작-->
+                    <div>
+                        <img class="inner-main-content" src="/images/temp/thumbnail.png" />
+                    </div>
+                    <!--메인 컨텐츠 끝-->
+                    <button class="after-post">></button>
+                </div>
+
+                <!--좋아요,작가구독,신고하기 버튼-->
+                <div class="post-buttons">
+                    <button class="post-like-button post-button">
+                        ♥️<br />
+                        좋아요
+                    </button>
+                    <button class="post-subscribe-button post-button">
+                        +<br />
+                        작가 구독
+                    </button>
+                    <button class="post-report post-button">
+                        ⚠️<br />
+                        신고하기
+                    </button>
+                </div>
+
+                <hr />
+
+                <!--페이징 처리해서 모든 회차 볼 수 있도록-->
+
+                <div class="under-navigatorbar-post">
+                    <div class="under-navigatorbar-contents">
+                        <div>
+                            <p class="go-navigator"><</p>
+                        </div>
+                        <!--회차들의 썸네일들-->
+                        <div class="posts-wrapper">
+                            <div>
+                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails" />
+                                <p class="posts-number">56화</p>
+                            </div>
+                            <div>
+                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails" />
+                                <p class="posts-number">57화</p>
+                            </div>
+                            <div>
+                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails" />
+                                <p class="posts-number">58화</p>
+                            </div>
+                            <div>
+                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails" />
+                                <p class="posts-number">59화</p>
+                            </div>
+                        </div>
+                        <div><p class="go-navigator">></p></div>
+                    </div>
+                </div>
+
+                <!--댓글-->
+                <div>
+                    <h2 class="p-post-comment">댓글 쓰기</h2>
+                </div>
+
+                <div class="comment-add">
+                    <form>
+                        <textarea class="comment-writing-area"> </textarea>
+                        <br />
+                        <button class="comment-add-btn">등록</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+</th:block>
+</html>

@@ -30,15 +30,18 @@ public class PostController {
 
 
     @GetMapping("/writer")
-    public void writeController() {
+    public String writeController() {
+        return "views/post/writer";
     }
 
     @GetMapping("/list")
-    public void listController() {
+    public String listController() {
+        return "views/post/list";
     }
 
     @GetMapping("/add")
-    public void postAddPageController() {
+    public String postAddPageController() {
+        return "views/post/add";
     }
 
     @PostMapping("/add")
@@ -108,6 +111,6 @@ public class PostController {
         PostDTO postDTO = postService.getPostInformation(lastCode);
         System.out.println(postDTO);
         model.addAttribute("post",postDTO);
-        return "/post/list";
+        return "views/post/list";
     }
 }
