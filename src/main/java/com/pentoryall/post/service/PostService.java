@@ -19,7 +19,9 @@ public class PostService {
         postMapper.insertPost(postDTO);
     }
 
-    public PostDTO getPostInformation(long lastCode) {
-        return postMapper.getPostInformation(lastCode);
+    public PostDTO getPostInformationByPostCode(long lastCode) {
+        return postMapper.getPostInformationByPostCode(lastCode);
     }
+
+
 }

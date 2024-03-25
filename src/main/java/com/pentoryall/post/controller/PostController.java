@@ -4,15 +4,17 @@ import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
+import com.pentoryall.user.dto.UserDTO;
+import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,10 +24,12 @@ public class PostController {
 
     private final SeriesService seriesService;
     private final PostService postService;
+    private final UserService userService;
 
-    public PostController(SeriesService seriesService, PostService postService) {
+    public PostController(SeriesService seriesService, PostService postService, UserService userService) {
         this.seriesService = seriesService;
         this.postService = postService;
+        this.userService = userService;
     }
 
 
@@ -53,11 +57,11 @@ public class PostController {
     ) {
         String title = params.get("title");
         String contents = params.get("contents");
-        char isPublic = params.get("isPublic").charAt(0);
+        char isPublic = params.get("isPublic") != null ? params.get("isPublic").charAt(0) : 'n';
         String series = params.get("series");
-        char isFee = params.get("isFee").charAt(0);
+        char isFee = params.get("isFee") != null ? params.get("isFee").charAt(0) : 'n';
         long neededPoint = Long.parseLong(params.get("neededPoint"));
-        char isAdult = params.get("isAdult").charAt(0);
+        char isAdult = params.get("isAdult") != null ? params.get("isAdult").charAt(0) : 'n';
 
         System.out.println(title);
         System.out.println("thumbnailImage = " + thumbnail);
@@ -92,7 +96,7 @@ public class PostController {
         postDTO.setPrice(neededPoint);
         postDTO.setIsAdult(isAdult);
 
-
+        System.out.println(postDTO);
         postService.insertPost(postDTO);
 
         session.setAttribute("code", postDTO.getCode());
@@ -104,13 +108,37 @@ public class PostController {
     public String getPostInformation(HttpSession session,
                                      Model model) {
 
+        System.out.println("리다이렉트 성공!");
+
         long code = (long) session.getAttribute("code");
 
-        long lastCode = code+1;
-
-        PostDTO postDTO = postService.getPostInformation(lastCode);
+        System.out.println(code);
+        PostDTO postDTO = postService.getPostInformationByPostCode(code);
         System.out.println(postDTO);
+
+        long seriesCode = postDTO.getSeriesCode();
+
+        long userCode = postDTO.getUserCode();
+
+        System.out.println("userCode = " + userCode);
+        UserDTO userDTO = userService.getUserInformationByPostCode(userCode);
+
+        SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
+
+        System.out.println("postDTO = " + postDTO);
+        System.out.println("userDTO = " + userDTO);
+        System.out.println("seriesDTO = " + seriesDTO);
         model.addAttribute("post",postDTO);
+        model.addAttribute("user",userDTO);
+        model.addAttribute("series",seriesDTO);
+
         return "views/post/list";
+    }
+
+    @GetMapping("/seriesList")
+    public @ResponseBody List<SeriesDTO> functionGetSeriesList(){
+        List<SeriesDTO> seriesList = seriesService.getSeriesList(1);
+        System.out.println(seriesList);
+        return seriesList;
     }
 }

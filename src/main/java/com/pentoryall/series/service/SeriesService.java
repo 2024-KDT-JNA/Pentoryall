@@ -4,6 +4,8 @@ import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.mapper.SeriesMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SeriesService {
     private final SeriesMapper seriesMapper;
@@ -14,5 +16,13 @@ public class SeriesService {
 
     public SeriesDTO selectSeriesByTitle(String series) {
         return seriesMapper.selectSeriesByTitle(series);
+    }
+
+    public SeriesDTO getSeriesInformationBySeriesCode(long seriesCode) {
+        return seriesMapper.getSeriesInformationBySeriesCode(seriesCode);
+    }
+
+    public List<SeriesDTO> getSeriesList(int i) {
+        return seriesMapper.getSeriesList(i);
     }
 }

@@ -60,11 +60,11 @@
                         </div>
                         <div class="form-item">
                             <h4 class="h4"><label class="label">시리즈*</label></h4>
-                            <select class="select" name="series">
-                                <option>없음</option>
-                                <option>시리즈1</option>
-                                <option>시리즈2</option>
-                                <option>시리즈3</option>
+                            <select class="select" name="series" id="selectSeries">
+                                <option id="optionNone">없음</option>
+<!--                                <option>시리즈1</option>-->
+<!--                                <option>시리즈2</option>-->
+<!--                                <option>시리즈3</option>-->
                             </select>
                         </div>
 
@@ -188,5 +188,25 @@
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
     <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+    <script>
+        function createSeriesList(series){
+            console.log(series);
+            console.log(series);
+            return `
+            <option>
+            ${series.title}
+            </option>
+            `
+        }
+        async function receiveFetch(){
+            const response = await fetch('/post/seriesList');
+            const responseJson = await response.json();
+            const $optionNone = document.querySelector("#selectSeries");
+
+            $optionNone.innerHTML = responseJson.map(item=>createSeriesList(item)).join('');
+
+        }
+        window.onload(receiveFetch());
+    </script>
 </th:block>
 </html>

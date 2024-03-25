@@ -6,7 +6,7 @@
 <!-- namespace 형식 올바르게 수정 후 사용하세요. -->
 <mapper namespace="com.pentoryall.post.mapper.PostMapper">
     <insert id="insertPost">
-        <selectKey keyProperty="code" order="BEFORE" resultType="int">
+        <selectKey keyProperty="code" order="AFTER" resultType="int">
             SELECT max(code) from post
         </selectKey>
         INSERT INTO
@@ -14,7 +14,7 @@
         VALUES
             (#{seriesCode},1,#{title},#{content},#{thumbnailImage},#{price},#{isPaid},#{isAdult},#{isPublic})
     </insert>
-    <select id="getPostInformation" resultType="com.pentoryall.post.dto.PostDTO">
+    <select id="getPostInformationByPostCode" resultType="com.pentoryall.post.dto.PostDTO">
         SELECT
             code,
             series_code,

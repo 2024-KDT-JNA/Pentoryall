@@ -8,5 +8,5 @@ public interface PostMapper {
 
     void insertPost(PostDTO postDTO);
 
-    PostDTO getPostInformation(long lastCode);
+    PostDTO getPostInformationByPostCode(long lastCode);
 }

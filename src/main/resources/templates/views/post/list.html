@@ -16,17 +16,17 @@
             <section class="section">
                 <div class="fixed-header">
                     <div class="p-series-title">
-                        <h1 th:text="|${post.seriesCode}|"></h1>
+                        <h1 th:text="|${series.title}|"></h1>
                     </div>
                     <div class="post-title">
-                        <p>99화 99화 제목</p>
+                        <p th:text="|${post.code}화 ${post.title}|"></p>
                     </div>
                     <div class="series-author">
                   <span class="series-author-information">
                     <div class="series-author-information-detail-header">
                       <img class="series-author-information-detail-image" src="/images/temp/author.png"/>
                       <div class="series-author-information-detail-name">
-                        <h2>232</h2>
+                        <h2 th:text="${user.nickname}">232</h2>
                       </div>
 
                         <button class="post-information-like">
@@ -46,8 +46,8 @@
                 <div class="main-content">
                     <button class="previous-post"><</button>
                     <!--메인 컨텐츠 시작-->
-                    <div>
-                        <img class="inner-main-content" src="/images/temp/thumbnail.png" />
+                    <div th:utext="${post.content}">
+
                     </div>
                     <!--메인 컨텐츠 끝-->
                     <button class="after-post">></button>
