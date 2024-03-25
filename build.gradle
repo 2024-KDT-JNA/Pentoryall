@@ -22,11 +22,10 @@ repositories {
 }
 
 dependencies {
-    // thymeleaf-layout-dialect
-    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-    // thumbnailator
-    implementation 'net.coobird:thumbnailator:0.4.20'
 
+    // 이메일
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    //기본 라이브러리
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -40,6 +39,14 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    //추가 라이브러리
+
+    //Thumbnail 라이브러리
+    implementation 'net.coobird:thumbnailator:0.4.20'
+
+    //Thymeleaf Layout 라이브러리
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
 
 tasks.named('test') {
