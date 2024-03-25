@@ -3,8 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace 형식 올바르게 수정 후 사용하세요. -->
-<mapper namespace="com.pentoryall.{DIR_NAME}.mapper.{MAPPER_NAME}">
-    
+<mapper namespace="com.pentoryall.admin.mapper.CommentReportMapper">
+
 </mapper>
 
