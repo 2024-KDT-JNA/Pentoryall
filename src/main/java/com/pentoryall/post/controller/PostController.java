@@ -57,6 +57,8 @@ public class PostController {
                                     HttpSession session,
                                     Model model
     ) {
+
+        System.out.println(">>>>>>>>>>>>>>>>> postDTO = " + postDTO);
         String title = params.get("title");
         String contents = params.get("contents");
         char isPublic = params.get("isPublic") != null ? params.get("isPublic").charAt(0) : 'n';
@@ -144,4 +146,5 @@ public class PostController {
         return seriesList;
 
     }
+
 }
