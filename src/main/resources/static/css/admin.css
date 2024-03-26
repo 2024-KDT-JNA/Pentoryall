@@ -92,8 +92,14 @@
 .pagination-modifyPost li { display: inline; text-align: center; } 
 .pagination-modifyPost a { display: block; padding: 5px 12px; float: left; color: #96a0ad; font-size: 14px; line-height: 1.5; text-decoration: none; } 
 
-
-/* Ahyeon */
 .section-report .table-option .form-item{width: 120px;}
 .genre-add-box {display: flex;}
 
+.admin-content .form-item+.form-item{
+    margin-top: 0;
+}
+
+.form-item{
+    display: flex;
+    margin-bottom: 5px;
+}
