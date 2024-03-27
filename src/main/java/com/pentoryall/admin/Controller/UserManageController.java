@@ -41,9 +41,9 @@ public class UserManageController {
 
         Map<String, Object> userListAndPaging = userManageService.selectAllUserList(searchMap, page);
         model.addAttribute("paging", userListAndPaging.get("paging"));
-        model.addAttribute("userList", userListAndPaging.get("boardList"));
+        model.addAttribute("userList", userListAndPaging.get("userList"));
 
-        return "admin/admin-user";
+        return "views/admin/adminUser";
     }
 
 
