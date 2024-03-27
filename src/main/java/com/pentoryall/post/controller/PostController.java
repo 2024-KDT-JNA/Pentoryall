@@ -7,6 +7,7 @@ import com.pentoryall.series.service.SeriesService;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/post")
 public class PostController {
-
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
     private final SeriesService seriesService;
     private final PostService postService;
     private final UserService userService;
@@ -68,8 +70,7 @@ public class PostController {
         System.out.println(title);
         System.out.println("thumbnailImage = " + thumbnail);
         /*파일 가공 로직*/
-        String root = "C:/00_Pactoryall";
-        String filePath = root + "/post-thumbnail-images";
+        String filePath = IMAGE_DIR + "post-thumbnail-images";
         String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
         String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
         String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
@@ -85,13 +86,15 @@ public class PostController {
             e.printStackTrace();
         }
 
+        String saveFileName = "/upload/post-thumbnail-images/"+savedName;
+
         SeriesDTO seriesDTO = seriesService.selectSeriesByTitle(series);
         System.out.println(seriesDTO);
         long seriesCode = seriesDTO.getCode();
 
         postDTO.setTitle(title);
         postDTO.setContent(contents);
-        postDTO.setThumbnailImage(finalFilePath);
+        postDTO.setThumbnailImage(saveFileName);
         postDTO.setIsPublic(isPublic);
         postDTO.setSeriesCode(seriesCode);
         postDTO.setIsPaid(isFee);

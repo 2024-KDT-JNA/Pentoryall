@@ -26,15 +26,14 @@ public class SeriesController {
     }
 
     @GetMapping("/add")
-    public void addSeries(){
+    public String addSeries(){
+        return "/views/series/add";
     }
     @GetMapping("/page")
     public String seriesPage(long code,Model model){
-        System.out.println("code++++++ = " + code);
         SeriesDTO seriesDTO = seriesService.findSeriesByCode(code);
-        System.out.println("seriesDTO >>>>>>>= " + seriesDTO);
         model.addAttribute("series",seriesDTO);
-        return "/series/page";
+        return "/views/series/page";
     }
     @PostMapping("/add")
     public String addSeriesOptions(
