@@ -103,7 +103,7 @@ public class PostController {
 
         session.setAttribute("code", postDTO.getCode());
 
-        return "redirect:/post/information";
+        return "redirect:/post/information?code="+postDTO.getCode();
     }
 
     @GetMapping("/information")
@@ -123,7 +123,7 @@ public class PostController {
         long userCode = postDTO.getUserCode();
 
         System.out.println("userCode = " + userCode);
-        UserDTO userDTO = userService.getUserInformationByPostCode(userCode);
+        UserDTO userDTO = userService.getUserInformationByUserCode(userCode);
 
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
 
@@ -144,4 +144,5 @@ public class PostController {
         return seriesList;
 
     }
+
 }

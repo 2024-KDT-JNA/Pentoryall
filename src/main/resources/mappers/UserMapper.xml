@@ -5,7 +5,7 @@
 
 <!-- namespace 형식 올바르게 수정 후 사용하세요. -->
 <mapper namespace="com.pentoryall.user.mapper.UserMapper">
-<select id="getUserInformationByPostCode" resultType="com.pentoryall.user.dto.UserDTO">
+<select id="getUserInformationByUserCode" resultType="com.pentoryall.user.dto.UserDTO">
    SELECT
           code,
           email,

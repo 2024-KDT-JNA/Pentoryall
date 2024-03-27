@@ -27,4 +27,11 @@ public class SeriesService {
         return seriesMapper.getSeriesList(i);
     }
 
+    public void addSeriesOptions(SeriesDTO seriesDTO) {
+         seriesMapper.addSeriesOptions(seriesDTO);
+    }
+
+    public SeriesDTO findSeriesByCode(long code) {
+        return seriesMapper.findSeriesByCode(code);
+    }
 }

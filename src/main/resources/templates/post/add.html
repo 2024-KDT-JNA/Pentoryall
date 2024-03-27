@@ -33,7 +33,7 @@
 
                     <div class="contents-wrap">
                         <div class="upload-thumbnail">
-                            <input name="contents" type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden />
+                            <input id="upload-thumbnail"name="contents" type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden />
                         </div>
                     </div>
 
@@ -42,7 +42,7 @@
 
                     <div class="thumbnail-file-wrap">
                         <div class="upload-thumbnail">
-                            <img id="image-box" class="series-add-thumbnail" src="/images/temp/thumbnail.png" alt="thumbnail" />
+<!--                            <img id="image-box" class="series-add-thumbnail" src="/images/temp/thumbnail.png" alt="thumbnail" />-->
                         </div>
                         <div class="form__input--file_wrap">
                             <div class="fileBox">
@@ -178,7 +178,7 @@
     const toggleButton = document.querySelectorAll('.toggle-value');
 
     // 체크박스의 상태 변경을 감지하는 이벤트 리스너를 추가합니다.
-    for(var i = 0 ; i<toggleButton.length;i++) {
+     for(var i = 0 ; i<toggleButton.length;i++) {
         toggleButton[i].addEventListener('change', function () {
             // 체크박스가 체크되면 'On', 아니면 'Off'로 value 값을 설정합니다.
             if (this.checked) {
@@ -190,6 +190,33 @@
             console.log('토글 버튼의 value 값:', this.value);
         })
     }
+
+
+    /*업로드 사진 보기*/
+    (function(){
+        const imageArea = document.querySelector("#upload-thumbnail");
+        const fileElements = document.querySelector("#image-file-box");
+        imageArea.addEventListener('click',open);
+        fileElements.addEventListener('change',preview);
+
+        function open(){
+            fileElements.click();
+        }
+
+    function preview() {
+        console.log(fileElements.files, fileElements.files[0]);
+
+        if (fileElements.files) {
+            const reader = new FileReader();
+            reader.readAsDataURL(fileElements.result);
+            reader.onload = function () {
+                console.log(reader.result);
+                imageArea.innerHTML = `<img src='${reader.result}' style='width:350px;height:200px'>`;
+            }
+        }
+    }
+        })();
+
 
 </script>
 </body>
