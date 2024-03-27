@@ -86,7 +86,7 @@ public class PostController {
             e.printStackTrace();
         }
 
-        String saveFileName = "/upload/post-thumbnail-images/"+savedName;
+        String saveFileName = "/upload/post-thumbnail-images/" + savedName;
 
         SeriesDTO seriesDTO = seriesService.selectSeriesByTitle(series);
         System.out.println(seriesDTO);
@@ -106,22 +106,16 @@ public class PostController {
         System.out.println("postDTO = " + postDTO);
 //        session.setAttribute("code", postDTO.getCode());
 
-        return "redirect:/post/information?code="+postDTO.getCode();
+        return "redirect:/post/information?code=" + postDTO.getCode();
     }
 
     @GetMapping("/information")
     public String getPostInformation(
             long code,
-//            HttpSession session,
-                                     Model model) {
-
-        System.out.println("리다이렉트 성공!");
-
-//        long code = (long) session.getAttribute("code");
-
-        System.out.println("codedddddddddddddddd"+code);
+            Model model) {
         PostDTO postDTO = postService.getPostInformationByPostCode(code);
         System.out.println(postDTO);
+        System.out.println("code>>>>> = " + code);
 
         long seriesCode = postDTO.getSeriesCode();
         long userCode = postDTO.getUserCode();
@@ -134,19 +128,18 @@ public class PostController {
         System.out.println("postDTO = " + postDTO);
         System.out.println("userDTO = " + userDTO);
         System.out.println("seriesDTO = " + seriesDTO);
-        model.addAttribute("post",postDTO);
-        model.addAttribute("user",userDTO);
-        model.addAttribute("series",seriesDTO);
+        model.addAttribute("post", postDTO);
+        model.addAttribute("user", userDTO);
+        model.addAttribute("series", seriesDTO);
 
         return "views/post/list";
     }
 
     @GetMapping("/seriesList")
-    public @ResponseBody List<SeriesDTO> functionGetSeriesList(){
+    public @ResponseBody List<SeriesDTO> functionGetSeriesList() {
         List<SeriesDTO> seriesList = seriesService.getSeriesList(1);
         System.out.println(seriesList);
         return seriesList;
-
     }
 
 }

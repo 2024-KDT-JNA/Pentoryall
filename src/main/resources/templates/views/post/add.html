@@ -43,7 +43,8 @@
                             <div class="form__input--file_wrap">
                                 <div class="fileBox">
                                     <label class="label">파일 업로드</label>
-                                    <input id="image-file-box" type="file" class="input" name="thumbnail"/>
+                                    <input id="image-file-box" type="file" class="input" name="thumbnail" onchange="viewURL()"/>
+                                    <button class="cancled" type="button" onclick="fileCancled()">취소하기</button>
                                 </div>
                             </div>
                         </div>
@@ -207,6 +208,27 @@
 
         }
         window.onload(receiveFetch());
+
+
+        /*썸네일 파일 결정 시 이미지 태그에 같은 이미지 뜨는 효과*/
+        function viewURL() {
+            const $imageFile = document.querySelector("#image-file-box");
+            const fReader = new FileReader();
+            fReader.readAsDataURL($imageFile.files[0]);
+            fReader.onload = function (event) {
+                const img = document.querySelector("#image-box");
+                img.src = event.target.result;
+                console.log("path : ", event.target.result);
+            }
+        }
+
+        function fileCancled(){
+            const $fileImg = document.querySelector("#image-box");
+            const $imageFileBox = document.querySelector("#image-file-box");
+
+            $fileImg.src="/images/temp/thumbnail.png";
+            $imageFileBox.value = "";
+        }
     </script>
 </th:block>
 </html>

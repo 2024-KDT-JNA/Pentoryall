@@ -920,3 +920,11 @@ form input::file-selector-button {
 .post-information-thumbnail{
     border-bottom:  solid 1px #d1d1d2;
 }
+.cancled{
+    display: flow;
+    border:solid 1px #d1d1d2;
+    margin-top:10px;
+    border-radius: 5pt;
+    padding:3px;
+    /*font-size:7px;*/
+}
