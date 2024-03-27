@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+ <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css"/>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <section class="section">
+                <h2 class="h2" th:text="${session.title}"></h2>
+                <h2 class="h2">포스트 등록하기</h2>
+
+                <div class="form-item">
+                    <form class="postAdd" action="/post/add" method="post" id="postAdd" enctype="multipart/form-data">
+                        <h4 class="h4"><label class="label">제목</label></h4>
+
+                        <div class="title-wrap">
+                            <div class="upload-thumbnail post-title-input">
+                                <input name="title" type="text" th:value="${session.title}" th:placeholder="${session.title}"/>
+                            </div>
+                        </div>
+
+                        <div class="contents-wrap">
+                            <div class="upload-thumbnail">
+                                <input name="contents" type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden />
+                            </div>
+                        </div>
+
+
+                        <h4 class="h4"><label class="label">썸네일</label></h4>
+
+                        <div class="thumbnail-file-wrap">
+                            <div class="upload-thumbnail">
+                                <img id="image-box" class="series-add-thumbnail" src="/images/temp/thumbnail.png" alt="thumbnail" />
+                            </div>
+                            <div class="form__input--file_wrap">
+                                <div class="fileBox">
+                                    <label class="label">파일 업로드</label>
+                                    <input id="image-file-box" type="file" class="input" name="thumbnail"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-item">
+                            <h4 class="h4"><label class="label">공개 여부*</label></h4>
+
+                            <label class="toggle-button">
+
+                                <input type="checkbox" class="blind toggle-value" value="n" name="isPublic"/>
+
+                                <span class="toggle-switch"></span>
+                            </label>
+                        </div>
+                        <div class="form-item">
+                            <h4 class="h4"><label class="label">시리즈*</label></h4>
+                            <select class="select" name="series" id="selectSeries">
+                                <option id="optionNone">없음</option>
+<!--                                <option>시리즈1</option>-->
+<!--                                <option>시리즈2</option>-->
+<!--                                <option>시리즈3</option>-->
+                            </select>
+                        </div>
+
+                        <div class="form-item">
+                            <h4 class="h4">
+                                <label class="label">유료 컨텐츠 여부*</label>
+                            </h4>
+                            <label class="toggle-button">
+                                <input type="checkbox" class="blind toggle-value"  value="n" name="isFee"/>
+                                <span class="toggle-switch"></span>
+                            </label>
+                            <div class="point-box">
+                                <p class="isFee">필요 포인트 설정</p>
+                                <div class="needed-point">
+                                    <input class="needed-point-number" min="0" type="number" value="200" step="100" name="neededPoint"/>
+                                    <p class="point-fee">P</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-item">
+                            <label class="label">성인물 여부*</label>
+                            <label class="toggle-button">
+                                <input type="checkbox" class="blind toggle-value" value="n" name="isAdult"/>
+                                <span class="toggle-switch"></span>
+                            </label>
+                        </div>
+
+                        <div class="genre-box">
+                            <h4 class="h4">장르*</h4>
+
+                            <div class="genre-items">
+                                <div class="genre-item">
+                                    <label class="label">상위 장르</label>
+                                    <select class="select" name="upperGenre">
+                                        <option>웹툰</option>
+                                        <option>소설</option>
+                                        <option>팬픽</option>
+                                        <option>시</option>
+                                        <option>일상</option>
+                                        <option>창작소재</option>
+                                        <option>일러스트</option>
+                                        <option>자기계발</option>
+                                        <option>미분류</option>
+                                    </select>
+                                </div>
+                                <div class="genre-item">
+                                    <lable class="label">하위 장르</lable>
+                                    <select class="select" name="lowerGenre">
+                                        <option>로맨스</option>
+                                        <option>추리</option>
+                                        <option>판타지</option>
+                                        <option>학원물</option>
+                                        <option>액션</option>
+                                        <option>무협</option>
+                                        <option>드라마</option>
+                                        <option>공포/호러</option>
+                                        <option>미스테리</option>
+                                        <option>코믹</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <button type="submit" class="button" id="okbtn">확인</button>
+                            <button onclick="location.href='/post/writer'" class="button">취소</button>
+                        </div>
+                    </form>
+                </div>
+                <!--출력 확인용-->
+                <p id="demo"></p>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+        const $okbtn = document.getElementById("okbtn");
+        $okbtn.addEventListener("mouseover",()=>{
+            const $postAdd = document.getElementById("postAdd");
+
+            console.log($postAdd);
+            console.log($postAdd[0].value);
+            console.log($postAdd[1].value);
+            console.log($postAdd[2].value);
+            console.log($postAdd[3].value);
+            console.log($postAdd[4].value);
+            console.log($postAdd[5].value);
+            console.log($postAdd[6].value);
+            console.log($postAdd[7].value);
+            console.log($postAdd[8].value);
+
+            let text="";
+            let i;
+            for(i=0;i<$postAdd.length;i++){
+                text+=$postAdd.elements[i].value + "<br>";
+            }
+            document.getElementById("demo").innerHTML = text;
+        })
+
+        //토글 버튼 on/off value 부여
+        // 토글 버튼(체크박스) 요소를 찾습니다.
+        const toggleButton = document.querySelectorAll('.toggle-value');
+
+        // 체크박스의 상태 변경을 감지하는 이벤트 리스너를 추가합니다.
+        for(var i = 0 ; i<toggleButton.length;i++) {
+            toggleButton[i].addEventListener('change', function () {
+                // 체크박스가 체크되면 'On', 아니면 'Off'로 value 값을 설정합니다.
+                if (this.checked) {
+                    this.value = 'y';
+                } else {
+                    this.value = 'n';
+                }
+                // 변경된 value 값을 콘솔에 출력합니다.
+                console.log('토글 버튼의 value 값:', this.value);
+            })
+        }
+
+    </script>
+    <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+    <script>
+        function createSeriesList(series){
+            console.log(series);
+            console.log(series);
+            return `
+            <option>
+            ${series.title}
+            </option>
+            `
+        }
+        async function receiveFetch(){
+            const response = await fetch('/post/seriesList');
+            const responseJson = await response.json();
+            const $optionNone = document.querySelector("#selectSeries");
+
+            $optionNone.innerHTML = responseJson.map(item=>createSeriesList(item)).join('');
+
+        }
+        window.onload(receiveFetch());
+    </script>
+</th:block>
+</html>

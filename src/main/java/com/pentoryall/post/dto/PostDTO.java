@@ -1,6 +1,8 @@
 package com.pentoryall.post.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import java.time.LocalDateTime;
 
@@ -17,8 +19,8 @@ public class PostDTO {
     private String content;
     private String confirmContent;
     private String thumbnailImage;
-    private int views;
-    private int price;
+    private long views;
+    private long price;
     private char isPaid;
     private char isAdult;
     private char isPublic;
