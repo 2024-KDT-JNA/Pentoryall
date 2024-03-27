@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css"/>
+    <!--     여기에 연결할 외부 CSS 링크를 지정 -->
+    <!--     생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+    <link rel="stylesheet" th:href="@{/css/user.css}" href="/css/user.css"/>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
+            <section class="section">
+                <div class="my_profile_info">
+                    <form th:action="@{/views/user/update}" method="post">
+                        <div class="my_profile_top">
+                            <div class="left">
+                                <div class="img">
+                                    <img src="" alt=""/>
+                                </div>
+                                <div class="gray_btns btns">
+                                    <button class="btn" type="button">이미지 업로드</button>
+                                </div>
+                                <div class="gray_btns btns">
+                                    <button class="btn" type="button">이미지 제거</button>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <h3>자기소개</h3>
+                                <textarea name="opinion" cols="30" rows="5"></textarea><br>
+                                <div class="black_btns btns">
+                                    <button class="btn" type="button">수정</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my_profile_bottom">
+                            <div class="inputWrap">
+                                <label for="user_id">아이디</label>
+                                <div class="input_box">
+                                    <p class="input_box_text" th:text="${ #authentication.principal.userId }"></p>
+                                    <!--                                <input type="text" id="user_id" name="userId" required/>-->
+                                </div>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="user_email">이메일</label>
+                                <div class="input_box">
+                                    <p class="input_box_text" th:text="${ #authentication.principal.email }"></p>
+                                </div>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="user_nickname">닉네임</label>
+                                <div class="input_box">
+                                    <input type="text" id="user_nickname" name="nickname"
+                                           th:value="${ #authentication.principal.nickname }" required/>
+                                    <button class="black_btn" type="button">저장</button>
+                                </div>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="user_pwd">비밀번호</label>
+                                <div class="input_box">
+                                    <input type="text" id="user_pwd" name="password"/>
+                                    <button class="black_btn" type="button">저장</button>
+                                </div>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="user_email">정산</label>
+                                <div class="input_box">
+                                    <div class="gray_btns btns">
+                                        <button class="btn">정산관리 페이지로 가기</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="user_email">구독</label>
+                                <div class="input_box">
+                                    <div class="white_btns btns">
+                                        <button class="btn">공개</button>
+                                    </div>
+                                    <div class="black_btns btns">
+                                        <button class="btn">비공개</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inputWrap">
+                                <label for="user_email">계정</label>
+                                <div class="input_box">
+                                    <div class="gray_btns btns">
+                                        <input class="btn" type="button"
+                                               onclick="location.href='/views/user/withdrawal'" value="계정탈퇴 페이지 가기"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <!-- ------------------------------------ -->
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <script th:src="@{/js/common.js}" src="/js/common.js"></script>
+    <script th:src="@{/js/event.js}" src="/js/event.js"></script>
+    <script th:src="@{/js/user.js}" src="/js/user.js"></script>
+    -->
+</th:block>
+</html>

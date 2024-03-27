@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <th:block th:fragment="story-header">
     <header class="story-header">
         <div class="inner user-profile-wrap">
             <div class="user-profile">
                 <div class="profile-image">
-                    <img src="./images/temp/profile.png" alt="유저 프로필" />
+                    <img src="./images/temp/profile.png" alt="유저 프로필"/>
                 </div>
                 <div class="profile-info">
-                    <span class="nickname">닉네임</span>
-                    <span class="username">@username</span>
+                    <span class="nickname" sec:authentication="principal.nickname">닉네임</span>
+                    <span class="username" sec:authentication="principal.name">@username</span>
                 </div>
                 <div class="profile-btn">
-                    <button class="button btn-settings">설정</button>
+                    <button class="button btn-settings">
+                        <a href="/views/user/update">설정</a>
+                    </button>
                 </div>
             </div>
 
             <div class="user-intro">
                 <div class="intro-text">
                     <strong class="title">자기소개</strong>
-                    <p class="intro">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque, asperiores itaque provident voluptas neque quis repellat porro enim suscipit inventore corporis adipisci maiores tempora id reiciendis, ab animi ad nostrum?</p>
+                    <p class="intro">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque, asperiores itaque
+                        provident voluptas neque quis repellat porro enim suscipit inventore corporis adipisci maiores
+                        tempora id reiciendis, ab animi ad nostrum?</p>
                 </div>
                 <div class="setting-btn">
                     <button class="button">구독</button>
@@ -34,8 +39,8 @@
                 <li class="active"><a href="#">홈</a></li>
                 <li><a href="#">포스트</a></li>
                 <li><a href="#">시리즈</a></li>
-                <li><a href="#">멤버십</a></li>
-                <li><a href="#">구독</a></li>
+                <li><a href="/membership/info">멤버십</a></li>
+                <li><a href="/subscribe/story/subscriber/list">구독</a></li>
             </ul>
         </nav>
     </header>
