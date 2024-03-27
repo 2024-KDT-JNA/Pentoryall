@@ -9,11 +9,15 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ImpOrderDTO {
+public class PaymentDTO {
 
     Long code;
-    Long userCode;
-    int amount;
-    int point;
+    Long orderCode;
+    String impUid;
     LocalDateTime createDate;
+
+    public PaymentDTO(PaymentRequestDTO orderPayment) {
+        this.impUid = orderPayment.getImpUid();
+        this.createDate = orderPayment.getPaidAt();
+    }
 }
