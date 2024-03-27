@@ -11,9 +11,9 @@ import java.util.Date;
 @ToString
 public class MembershipJoinDTO {
 
-    private long Code;
+    private long code;
     private long membershipCode;
     private long userCode;
     private Date createDate;
-    private Date andDate;
+    private Date endDate;
 }

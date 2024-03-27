@@ -34,7 +34,10 @@
                     <img src="/images/temp/profile.png" alt="프로필"/>
                 </div>
                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <h3><span class="username" sec:authentication="principal.name"></span>님</h3>
+                    <h3>
+                        <span class="username" sec:authentication="principal.name"></span>
+                        님
+                    </h3>
                     <div class="greet-button">
                         <button type="button">관리자 페이지</button>
                     </div>
@@ -42,10 +45,10 @@
             </button>
             <th:block sec:authorize="isAnonymous()">
                 <div class="login-link">
-                    <a href="/user/login">로그인</a>
+                    <a href="/user/login" class="button">로그인</a>
                 </div>
                 <div class="login-link">
-                    <a href="/user/regist">회원가입</a>
+                    <a href="/user/regist" class="button">회원가입</a>
                 </div>
             </th:block>
         </div>
@@ -69,12 +72,12 @@
                             <a href="/user/login">로그인을 해주세요.</a>
                         </div>
                     </th:block>
-                    <div class="profile-point">
+                    <div class="profile-point" sec:authorize="isAuthenticated()">
                         <dl class="point-info">
                             <dt>포인트</dt>
-                            <dd>0P</dd>
+                            <dd sec:authentication="principal.point">0P</dd>
                         </dl>
-                        <button class="button">충전</button>
+                        <a href="/order" class="button">충전</a>
                     </div>
                 </div>
             </div>
@@ -86,8 +89,8 @@
                             <a href="/story">마이 스토리</a>
                         </li>
                         <li><a href="#">보관함</a></li>
-                        <li><a href="#">구독/멤버십</a></li>
-                        <li><a href="#">포인트</a></li>
+                        <li><a href="/membership">구독/멤버십</a></li>
+                        <li><a href="/point">포인트</a></li>
                         <li><a href="#">계정 설정</a></li>
                         <li id="logout"><a th:href="@{/user/logout}">로그아웃</a></li>
                     </ul>
