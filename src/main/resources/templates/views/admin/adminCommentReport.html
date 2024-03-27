@@ -40,21 +40,20 @@
                             <th>아이디</th>
                             <th>닉네임</th>
                             <th>신고 일자</th>
-                            <th>누적 신고 횟수</th>
+                            <th>신고 사유</th>
                             <th>정지 여부</th>
                             <th>해제하기</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <tr th:each="commentReportList : ${commentReportList}">
+                        <tr th:each="commentReportList : ${commentReportList}">
                             <td><input type="checkbox" id="checkAll-comment-2" name="comment_report" /></td>
-                            <td th:text="${ commentRepostList.code }" class="tg-0lax"></td>
-                            <td th:text="${ commentRepostList.userId }" class="tg-0lax"></td>
-                            <td th:text="${ commentRepostList.nickName }" class="tg-0lax"></td>
-                            <td th:text="${ commentRepostList.state }" class="tg-0lax"></td>
-                            <td th:text="${ commentRepostList.type }" class="tg-0lax"></td>
-                            <td th:text="${ commentRepostList.reportDate }" class="tg-0lax"></td>
+                            <td th:text="${commentReportList.code}" class="tg-0lax"></td>
+                            <td th:text="${commentReportList.userId}" class="tg-0lax"></td>
+                            <td th:text="${commentReportList.nickName}" class="tg-0lax"></td>
+                            <td th:text="${commentReportList.state}" class="tg-0lax"></td>
+                            <td th:text="${commentReportList.type}" class="tg-0lax"></td>
+                            <td th:text="${commentReportList.reportDate}" class="tg-0lax"></td>
                             <td><button class="button">해제</button></td>
                         </tr>
                         </tbody>

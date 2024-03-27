@@ -28,7 +28,7 @@ public class CommentReportService {
     public Map<String, Object> selectAllCommentReportList(Map<String, String> searchMap, int page) {
         /* 1. 전체 게시글 수 확인 (검색어가 있는 경우 포함) => 페이징 처리를 위해 */
         int totalCount = commentReportMapper.selectTotalCount(searchMap);
-        log.info("userList totalCount : {}", totalCount);
+        log.info("commentReportList totalCount : {}", totalCount);
 
         /* 2. 페이징 처리와 연관 된 값을 계산하여 SelectCriteria 타입의 객체에 담는다. */
         int limit = 10;         // 한 페이지에 보여줄 게시물의 수
@@ -37,7 +37,7 @@ public class CommentReportService {
         log.info("commentReportList selectCriteria : {}", selectCriteria);
 
         /* 3. 요청 페이지와 검색 기준에 맞는 게시글을 조회해온다. */
-        List<UserManageDTO> userList = commentReportMapper.selectAllCommentReportList(selectCriteria);
+        List<UserManageDTO> commentReportList = commentReportMapper.selectAllCommentReportList(selectCriteria);
         log.info("commentReportList : {}", commentReportList);
 
         Map<String, Object> commentListAndPaging = new HashMap<>();
