@@ -24,6 +24,8 @@ public class MembershipController {
     @PostMapping("/create")
     public ResponseEntity<String> createMembership(@RequestBody MembershipDTO membershipDTO){
         MembershipDTO createMembership = membershipService.createMembership(membershipDTO);
+
+
         return new ResponseEntity<>("멤버십이 성공적으로 개설되었습니다!" + createMembership.getName(), HttpStatus.CREATED);
     }
 
