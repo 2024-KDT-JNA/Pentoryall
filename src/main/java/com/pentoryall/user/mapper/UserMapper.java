@@ -16,6 +16,5 @@ public interface UserMapper {
 
     int deleteUser(UserDTO user);
 
-    UserDTO getUserInformationByPostCode(long userCode);
-
+    UserDTO getUserInformationByUserCode(long userCode);
 }

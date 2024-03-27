@@ -5,28 +5,30 @@
 
 <!-- namespace 형식 올바르게 수정 후 사용하세요. -->
 <mapper namespace="com.pentoryall.user.mapper.UserMapper">
-    <select id="getUserInformationByPostCode" resultType="com.pentoryall.user.dto.UserDTO">
-        SELECT code,
-               email,
-               user_id,
-               password,
-               nickname,
-               name,
-               birth,
-               profile_image,
-               introduction,
-               revenue,
-               point,
-               role,
-               state,
-               is_certificated,
-               is_subscriber_visible,
-               create_date,
-               update_date,
-               delete_date,
-               suspension_end_date
-        FROM user
-        WHERE code = #{userCode}
-    </select>
-
+<select id="getUserInformationByUserCode" resultType="com.pentoryall.user.dto.UserDTO">
+   SELECT
+          code,
+          email,
+          user_id,
+          password,
+          nickname,
+          name,
+          birth,
+          profile_image,
+          introduction,
+          revenue,
+          point,
+          role,
+          state,
+          is_certificated,
+          is_subscriber_visible,
+          create_date,
+          update_date,
+          delete_date,
+          suspension_end_date
+    FROM
+        user
+   WHERE
+        code=#{userCode}
+</select>
 </mapper>
