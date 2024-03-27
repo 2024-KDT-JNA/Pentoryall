@@ -43,7 +43,7 @@ public class UserManageService {
 
         Map<String, Object> userListAndPaging = new HashMap<>();
         userListAndPaging.put("paging", selectCriteria);
-        userListAndPaging.put("userList", userList);
+        userListAndPaging.put("boardList", userList);
 
         return userListAndPaging;
     }
