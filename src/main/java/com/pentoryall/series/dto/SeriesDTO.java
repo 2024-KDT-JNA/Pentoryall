@@ -19,7 +19,7 @@ public class SeriesDTO {
     private long userCode;
     private String title;
     private String description;
-    private String thumbnailImages;
+    private String thumbnailImage;
     private char isMembershipOnly;
     private char isDeleted;
     private LocalDateTime createdDate;

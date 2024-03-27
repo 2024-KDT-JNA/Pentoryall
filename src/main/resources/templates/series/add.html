@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+      <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css" />
+</th:block>
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <section class="section">
+                <h2 class="h2">시리즈 등록하기</h2>
+            <form action="/series/add" method="post" enctype="multipart/form-data">
+                <div class="series-add-wrap">
+                    <div class="form-item">
+                        <h4 class="h4"><label class="label">제목*</label></h4>
+                        <input type="text" class="input" name="title"/>
+                        <p class="form-message">최대 50자까지 가능</p>
+                    </div>
+                    <div class="form-item">
+                        <h4 class="h4"><label class="label" >썸네일</label></h4>
+
+                        <div class="thumbnail-file-wrap">
+                            <div class="upload-thumbnail">
+                                <img class="series-add-thumbnail" src="/images/temp/thumbnail.png" alt="thumbnail" />
+                            </div>
+                            <div class="form__input--file_wrap">
+                                <div class="fileBox">
+                                    <form>
+                                        <label class="label">파일 업로드</label>
+                                        <input type="file" class="input" name="thumbnail"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="genre-box">
+                        <h4 class="h4">장르*</h4>
+
+                        <div class="genre-items">
+                            <div class="genre-item">
+                                <label class="label">상위 장르</label>
+                                <select class="select" name="upperGenre">
+                                    <option>웹툰</option>
+                                    <option>소설</option>
+                                    <option>팬픽</option>
+                                    <option>시</option>
+                                    <option>일상</option>
+                                    <option>창작소재</option>
+                                    <option>일러스트</option>
+                                    <option>자기계발</option>
+                                    <option>미분류</option>
+                                </select>
+                            </div>
+                            <div class="genre-item">
+                                <lable class="label">하위 장르</lable>
+                                <select class="select" name="lowerGenre">
+                                    <option>로맨스</option>
+                                    <option>추리</option>
+                                    <option>판타지</option>
+                                    <option>학원물</option>
+                                    <option>액션</option>
+                                    <option>무협</option>
+                                    <option>드라마</option>
+                                    <option>공포/호러</option>
+                                    <option>미스테리</option>
+                                    <option>코믹</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <h4 class="h4"><label class="label">시리즈 발행 옵션*</label></h4>
+                        <select class="select" name="isMembershipOnly">
+                            <option value="N">멤버십 전용 미적용</option>
+                            <option value="Y">멤버십 전용 적용</option>
+                        </select>
+                    </div>
+
+                    <div class="form-item">
+                        <h4 class="h4"><label class="label">내용 요약*</label></h4>
+                        <textarea class="textarea" name="description"> </textarea>
+                        <p class="form-message">최대 500자까지 가능</p>
+                    </div>
+
+                    <div class="form-item">
+                        <button class="submit">확인</button>
+                        <button onclick="location.href='/index'">취소</button>
+                    </div>
+                </div>
+            </form>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+</th:block>
+</html>

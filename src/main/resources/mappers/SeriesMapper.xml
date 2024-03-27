@@ -57,4 +57,37 @@
             user_code=#{i};
     </select>
 
+    <insert id="addSeriesOptions">
+        INSERT INTO
+        series(
+        user_code,
+        title,
+        description,
+        thumbnail_image,
+        is_membership_only)
+        VALUES
+            (
+             #{userCode},
+             #{title},
+             #{description},
+             #{thumbnailImage},
+             #{isMembershipOnly}
+            )
+    </insert>
+    <select id="findSeriesByCode" resultType="com.pentoryall.series.dto.SeriesDTO">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
+        WHERE
+            code=#{code}
+    </select>
 </mapper>
