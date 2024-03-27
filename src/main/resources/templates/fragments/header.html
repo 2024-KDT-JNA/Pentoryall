@@ -34,10 +34,7 @@
                     <img src="/images/temp/profile.png" alt="프로필"/>
                 </div>
                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <h3>
-                        <span class="username" sec:authentication="principal.name"></span>
-                        님
-                    </h3>
+                    <h3><span class="username" sec:authentication="principal.name"></span>님</h3>
                     <div class="greet-button">
                         <button type="button">관리자 페이지</button>
                     </div>

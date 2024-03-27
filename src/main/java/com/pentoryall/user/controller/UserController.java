@@ -1,5 +1,6 @@
 package com.pentoryall.user.controller;
 
+import com.pentoryall.common.exception.user.MemberModifyException;
 import com.pentoryall.common.exception.user.MemberRegistException;
 import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.user.dto.UserDTO;
@@ -12,19 +13,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/views/user")
 public class UserController {
 
     private final UserService userService;
@@ -37,8 +37,11 @@ public class UserController {
 
     /* 로그인 페이지 이동 */
     @GetMapping("/login")
-    public String loginPage() {
-        return "/user/login";
+    public String loginPage(@RequestParam(required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("errorMessage", "존재하지 않는 회원입니다.");
+        }
+        return "views/user/login";
     }
 
 //    @PostMapping("/login")
@@ -51,12 +54,8 @@ public class UserController {
     @PostMapping("/loginfail")
     public String loginFailed(RedirectAttributes rttr) {
         rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("error.login"));
-        return "redirect:/user/login";
-    }
-
-    /* 회원 가입 페이지 이동 */
-    @GetMapping("/regist")
-    public void registPage() {
+        System.out.println(messageSourceAccessor.getMessage("error.login"));
+        return "redirect:/views/user/login";
     }
 
     /* 아이디 중복 체크 : 비동기 통신
@@ -90,6 +89,17 @@ public class UserController {
         return newAuth;
     }
 
+    @GetMapping("/update")
+    public String updatePage() {
+        return "views/user/myModify";
+    }
+
+    /* 회원 가입 페이지 이동 */
+    @GetMapping("/regist")
+    public String registPage() {
+        return "views/user/regist";
+    }
+
     /* 회원 가입 */
     @PostMapping("/regist")
     public String registUser(UserDTO user, RedirectAttributes rttr) throws MemberRegistException {
@@ -98,20 +108,53 @@ public class UserController {
 
         log.info("Request regist user : {}", user);
 
+        // 회원 가입 시 중복 체크를 다시 한번 수행합니다.
+        if (userService.selectUserById(user.getUserId())) {
+            rttr.addFlashAttribute("errorMessage", "이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요.");
+            return "redirect:/views/user/regist";
+        }
+
         userService.registUser(user);
 
         rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("user.regist"));
 
-        return "/user/login";
+        return "redirect:/";
     }
 
+    /* 회원 정보 수정 */
+    @PostMapping("/update")
+    public String modifyUser(UserDTO modifyUser,
+                             @AuthenticationPrincipal UserDTO loginUser, RedirectAttributes rttr) throws MemberModifyException {
+
+        modifyUser.setUserId(loginUser.getUserId());
+
+        log.info("modifyUser request User : {}", modifyUser);
+
+        userService.modifyUser(modifyUser);
+
+        /* 로그인 시 저장 된 Authentication 객체를 변경 된 정보로 교체한다. */
+        SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(loginUser.getUserId()));
+
+        rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("user.modify"));
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/withdrawal")
+    public String getUserDeletePage() {
+        return "views/user/withdrawal";
+    }
+
+    /* 회원 탈퇴 */
     @GetMapping("/delete")
-    public String deleteMember(@AuthenticationPrincipal UserDTO user, RedirectAttributes rttr) throws MemberRemoveException {
+    public String deleteUser(@AuthenticationPrincipal UserDTO user, RedirectAttributes rttr) throws MemberRemoveException {
 
-        log.info("login member : {}", user);
+        log.info("login user : {}", user);
 
+        /* 회원을 db에서 삭제 */
         userService.removeUser(user);
 
-        return "redirect:/member/logout";
+        /* 로그아웃 처리 (세션만료) */
+        return "redirect:views/user/logout";
     }
 }

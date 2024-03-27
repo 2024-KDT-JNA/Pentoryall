@@ -5,7 +5,7 @@ window.onload = function () {
     if (document.getElementById("login")) {
         const $login = document.getElementById("login");
         $login.onclick = function () {
-            location.href = "/user/login";
+            location.href = "/views/user/login";
             // // 로그인 버튼 클릭 시
             // document.getElementById("loginSubmit").onclick = function () {
             //     var userId = document.getElementById("userId").value;
@@ -35,14 +35,14 @@ window.onload = function () {
     if (document.getElementById("logout")) {
         const $logout = document.getElementById("logout");
         $logout.onclick = function () {
-            location.href = "/user/logout";
+            location.href = "/views/user/logout";
         }
     }
 
     if (document.getElementById("regist")) {
         const $regist = document.getElementById("regist");
         $regist.onclick = function () {
-            location.href = "/user/regist";
+            location.href = "/views/user/regist";
         }
     }
 
@@ -54,8 +54,9 @@ window.onload = function () {
 
         $duplication.onclick = function () {
             let userId = document.getElementById("userId").value.trim();
+            let nickname = document.getElementById("nickname").value.trim();
 
-            fetch("/user/idDupCheck", {
+            fetch("/views/user/idDupCheck", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
@@ -65,37 +66,73 @@ window.onload = function () {
                 .then(result => result.text())
                 .then(result => alert(result))
                 .catch((error) => error.text().then((res) => alert(res)));
-
         }
     }
-
-    if (document.getElementById("updateMember")) {
-        const $update = document.getElementById("updateMember");
-        $update.onclick = function () {
-            location.href = "/user/update";
-        }
-    }
-
-    if (document.getElementById("deleteMember")) {
-
-        const $update = document.getElementById("deleteMember");
-        $update.onclick = function () {
-            if (confirm('정말 탈퇴하시겠습니까?'))
-                location.href = "/user/delete";
-        }
-    }
-
-    // if (document.getElementById("writeBoard")) {
-    //     const $writeBoard = document.getElementById("writeBoard");
-    //     $writeBoard.onclick = function () {
-    //         location.href = "/board/regist";
+    // if (document.querySelector(".regist_form")) {
+    //     const $registForm = document.querySelector(".regist_form");
+    //     $registForm.onsubmit = function (event) {
+    //         // 여기에 회원가입 요청을 처리하는 코드가 있어야 합니다.
+    //         // 성공적으로 회원가입이 완료된 경우에는 아래의 함수를 호출하여 완료 메시지를 표시하고 페이지를 이동할 수 있습니다.
+    //         showRegistrationSuccess();
+    //         // const success = handleRegistration();
+    //         // if (success) {
+    //         //     showRegistrationSuccess();
+    //         // } else {
+    //         //     showRegistrationFailure();
+    //         // }
     //     }
     // }
-    //
-    // if (document.getElementById("writeThumbnail")) {
-    //     const $writeThumbnail = document.getElementById("writeThumbnail");
-    //     $writeThumbnail.onclick = function () {
-    //         location.href = "/thumbnail/regist";
-    //     }
-    // }
+
+    function showRegistrationSuccess() {
+        // 회원가입 완료 메시지를 표시합니다.
+        alert('회원가입이 완료되었습니다.');
+        // 페이지 이동을 원하는 경우 아래의 코드를 사용하여 페이지를 이동할 수 있습니다.
+        location.href = "/";
+    }
+
+    // 회원가입 폼 제출 이벤트 처리
+    if (document.querySelector(".regist_form")) {
+        const $registForm = document.querySelector(".regist_form");
+        $registForm.onsubmit = function (event) {
+            if (!isDuplicationChecked) { // 중복 확인이 되지 않은 경우
+                alert("아이디 중복 확인을 해주세요."); // 알림창 표시
+                event.preventDefault(); // 폼 제출 방지
+            }
+        }
+
+        // function showRegistrationFailure() {
+        //     // 회원가입 실패 메시지를 표시합니다.
+        //     alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+        // }
+
+        if (document.getElementById("updateMember")) {
+            const $update = document.getElementById("updateMember");
+            $update.onclick = function () {
+                location.href = "/views/user/update";
+            }
+        }
+
+        if (document.getElementById("deleteMember")) {
+
+            const $update = document.getElementById("deleteMember");
+            $update.onclick = function () {
+                if (confirm('정말 탈퇴하시겠습니까?'))
+                    location.href = "/views/user/delete";
+            }
+        }
+
+        // if (document.getElementById("writeBoard")) {
+        //     const $writeBoard = document.getElementById("writeBoard");
+        //     $writeBoard.onclick = function () {
+        //         location.href = "/board/regist";
+        //     }
+        // }
+        //
+        // if (document.getElementById("writeThumbnail")) {
+        //     const $writeThumbnail = document.getElementById("writeThumbnail");
+        //     $writeThumbnail.onclick = function () {
+        //         location.href = "/thumbnail/regist";
+        //     }
+        // }
+    }
 }
