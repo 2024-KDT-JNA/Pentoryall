@@ -42,10 +42,10 @@
             </button>
             <th:block sec:authorize="isAnonymous()">
                 <div class="login-link">
-                    <a href="/user/login">로그인</a>
+                    <a th:href="@{/views/user/login}">로그인</a>
                 </div>
                 <div class="login-link">
-                    <a href="/user/regist">회원가입</a>
+                    <a th:href="@{/views/user/regist}">회원가입</a>
                 </div>
             </th:block>
         </div>
@@ -53,7 +53,6 @@
 
     <aside id="aside" class="overlay b30">
         <h2 class="blind">사이드 메뉴</h2>
-
         <div class="aside-wrap">
             <div class="aside-header">
                 <div class="user-profile">
@@ -66,7 +65,7 @@
                     </div>
                     <th:block sec:authorize="isAnonymous()">
                         <div class="login-link">
-                            <a href="/user/login">로그인을 해주세요.</a>
+                            <a th:href="@{/views/user/login}">로그인을 해주세요.</a>
                         </div>
                     </th:block>
                     <div class="profile-point">
@@ -89,7 +88,7 @@
                         <li><a href="#">구독/멤버십</a></li>
                         <li><a href="#">포인트</a></li>
                         <li><a href="#">계정 설정</a></li>
-                        <li id="logout"><a th:href="@{/user/logout}">로그아웃</a></li>
+                        <li id="logout"><a th:href="@{/views/user/logout}">로그아웃</a></li>
                     </ul>
                 </nav>
             </div>

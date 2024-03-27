@@ -75,10 +75,10 @@
 
     <update id="deleteUser">
         UPDATE
-            tbl_member
-        SET member_status = 'N'
-        WHERE member_status = 'Y'
-          AND member_id = #{ memberId }
+            user
+        SET is_certificated = 'N'
+        WHERE is_certificated = 'Y'
+          AND user_id = #{userId}
     </update>
 
 </mapper>
