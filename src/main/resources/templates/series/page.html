@@ -23,19 +23,18 @@
                     <div class="container-inner">
                         <div class="series-thumbnail">
                             <button type="button" class="series-thumbnail-button">
-                                <img class="series-thumbnail-button-img" src="/images/temp/thumbnail.png">
+                                <img class="series-thumbnail-button-img" th:src="${series.thumbnailImage}">
                             </button>
                         </div>
                         <div class="series-title">
-                            <h2 class="series-title-inner">
-                                연애혁명
+                            <h2 class="series-title-inner" th:text="|${series.title}|">
                             </h2>
                             <div class="series-author">
                                 <span class="series-author-information">
                                     <!--								<a class="series-author-information-detail">-->
                                     <div class="author-image-name">
                                         <img class="series-author-information-detail-image"
-                                             src="/images/common/series-author.jpg"/>
+                                             th:src="${series.thumbnailImage}"/>
                                         <div class="series-author-information-detail-name"><h5 class="series-author-name">232<span
                                                 class="writer">· 글/그림
                                             <div class="membership-subscribe-btn">
@@ -53,10 +52,7 @@
                             </div>
 
                             <div class="series-content-shorts">
-                                <p>
-                                    <b>
-                                        요약내용요약내용요약내용요약내용요약내용요약내용요약내용요약내용요약내용요약내용요약내용요약내용요약내용요약내용
-                                    </b>
+                                <p th:text="|${series.description}|">
                                 </p>
                             </div>
                             <div class="series-genre">
@@ -281,5 +277,6 @@
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
     <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+
 </th:block>
 </html>

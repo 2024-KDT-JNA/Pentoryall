@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
-    UserDTO getUserInformationByPostCode(long userCode);
+    UserDTO getUserInformationByUserCode(long userCode);
 }

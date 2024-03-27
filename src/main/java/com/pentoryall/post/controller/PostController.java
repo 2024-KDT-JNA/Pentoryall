@@ -57,8 +57,6 @@ public class PostController {
                                     HttpSession session,
                                     Model model
     ) {
-
-        System.out.println(">>>>>>>>>>>>>>>>> postDTO = " + postDTO);
         String title = params.get("title");
         String contents = params.get("contents");
         char isPublic = params.get("isPublic") != null ? params.get("isPublic").charAt(0) : 'n';
@@ -105,7 +103,7 @@ public class PostController {
 
         session.setAttribute("code", postDTO.getCode());
 
-        return "redirect:/post/information";
+        return "redirect:/post/information?code="+postDTO.getCode();
     }
 
     @GetMapping("/information")
@@ -125,7 +123,7 @@ public class PostController {
         long userCode = postDTO.getUserCode();
 
         System.out.println("userCode = " + userCode);
-        UserDTO userDTO = userService.getUserInformationByPostCode(userCode);
+        UserDTO userDTO = userService.getUserInformationByUserCode(userCode);
 
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
 

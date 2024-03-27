@@ -12,7 +12,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public UserDTO getUserInformationByPostCode(long userCode) {
-        return userMapper.getUserInformationByPostCode(userCode);
+    public UserDTO getUserInformationByUserCode(long userCode) {
+        return userMapper.getUserInformationByUserCode(userCode);
     }
 }

@@ -14,4 +14,7 @@ public interface SeriesMapper {
 
     List<SeriesDTO> getSeriesList(int i);
 
+    void addSeriesOptions(SeriesDTO seriesDTO);
+
+    SeriesDTO findSeriesByCode(long code);
 }
