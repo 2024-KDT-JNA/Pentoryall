@@ -29,16 +29,19 @@ public class SeriesController {
     public void addSeries(){
     }
     @GetMapping("/page")
-    public void seriesPage(long code,Model model){
+    public String seriesPage(long code,Model model){
+        System.out.println("code++++++ = " + code);
         SeriesDTO seriesDTO = seriesService.findSeriesByCode(code);
+        System.out.println("seriesDTO >>>>>>>= " + seriesDTO);
         model.addAttribute("series",seriesDTO);
+        return "/series/page";
     }
     @PostMapping("/add")
     public String addSeriesOptions(
             @RequestParam(required = false) MultipartFile thumbnail,
             @ModelAttribute("series") SeriesDTO seriesDTO,
             Model model
-            ){
+    ){
 
         System.out.println("seriesDTO = " + seriesDTO);
 
@@ -71,10 +74,13 @@ public class SeriesController {
         String saveFileName = "/upload/series-thumbnail-images"+"/"+savedName;
 
         seriesDTO.setThumbnailImage(saveFileName);
-        
+
         System.out.println("seriesDTO = " + seriesDTO);
-        
-        seriesService.addSeriesOptions(seriesDTO);
+
+        long seriesCode = seriesService.addSeriesOptions(seriesDTO);
+
+        System.out.println("seriesCode = " + seriesCode);
+
         return "redirect:/series/page?code="+seriesDTO.getCode();
     }
 }
