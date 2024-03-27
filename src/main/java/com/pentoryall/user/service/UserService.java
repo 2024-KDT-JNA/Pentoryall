@@ -1,6 +1,7 @@
 package com.pentoryall.user.service;
 
 import com.pentoryall.common.exception.user.MemberRegistException;
+import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +27,14 @@ public class UserService {
         int result1 = userMapper.insertUser(user);
 
         if (!(result1 > 0)) throw new MemberRegistException("회원 가입에 실패하였습니다.");
+    }
+
+    @Transactional
+    public void removeUser(UserDTO user) throws MemberRemoveException {
+        int result = userMapper.deleteUser(user);
+
+        if (!(result > 0)) {
+            throw new MemberRemoveException("회원 탈퇴에 실패하였습니다.");
+        }
     }
 }

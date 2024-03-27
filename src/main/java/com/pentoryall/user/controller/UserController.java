@@ -1,12 +1,18 @@
 package com.pentoryall.user.controller;
 
 import com.pentoryall.common.exception.user.MemberRegistException;
+import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.user.dto.UserDTO;
+import com.pentoryall.user.service.AuthService;
 import com.pentoryall.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,13 +29,16 @@ public class UserController {
 
     private final UserService userService;
 
+    private final AuthService authenticationService;
+
     private final PasswordEncoder passwordEncoder;
 
     private final MessageSourceAccessor messageSourceAccessor;
 
     /* 로그인 페이지 이동 */
     @GetMapping("/login")
-    public void loginPage() {
+    public String loginPage() {
+        return "/user/login";
     }
 
 //    @PostMapping("/login")
@@ -59,17 +68,26 @@ public class UserController {
 
         log.info("Request Check ID : {}", user.getUserId());
 
-//        boolean isDuplicate = userService.selectUserById(user.getUserId());
-//        String result = isDuplicate ? "중복 된 아이디가 존재합니다." : "사용 가능한 아이디입니다.";
+        boolean isDuplicate = userService.selectUserById(user.getUserId());
+        String result = isDuplicate ? "중복 된 아이디가 존재합니다." : "사용 가능한 아이디입니다.";
 
-        String result = "사용 가능한 아이디입니다.";
-
-        if (userService.selectUserById(user.getUserId())) {
-            result = "중복 된 아이디가 존재합니다.";
-        }
+//        String result = "사용 가능한 아이디입니다.";
+//
+//        if (userService.selectUserById(user.getUserId())) {
+//            result = "중복 된 아이디가 존재합니다.";
+//        }
 
         return ResponseEntity.ok(result);
 
+    }
+
+    protected Authentication createNewAuthentication(String userId) {
+
+        UserDetails newPrincipal = authenticationService.loadUserByUsername(userId);
+        UsernamePasswordAuthenticationToken newAuth
+                = new UsernamePasswordAuthenticationToken(newPrincipal, newPrincipal.getPassword(), newPrincipal.getAuthorities());
+
+        return newAuth;
     }
 
     /* 회원 가입 */
@@ -84,6 +102,16 @@ public class UserController {
 
         rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("user.regist"));
 
-        return "redirect:/";
+        return "/user/login";
+    }
+
+    @GetMapping("/delete")
+    public String deleteMember(@AuthenticationPrincipal UserDTO user, RedirectAttributes rttr) throws MemberRemoveException {
+
+        log.info("login member : {}", user);
+
+        userService.removeUser(user);
+
+        return "redirect:/member/logout";
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 @EnableWebSecurity
 public class SecurityConfig {
 
+
     /* 비밀번호 암호화에 사용할 객체 BCryptPasswordEncoder bean 등록 */
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -36,7 +37,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 /* 요청에 대한 권한 체크 */
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/board/**", "/thumbnail/**", "/user/update", "/user/delete").hasAnyRole("MEMBER", "ADMIN");
+                    auth.requestMatchers("/board/**", "/thumbnail/**", "/user/update", "/user/delete").hasAnyRole("USER", "ADMIN");
                     /* 위에 서술 된 패턴 외의 요청은 인증 되지 않은 사용자도 요청 허가 */
                     auth.anyRequest().permitAll();
                 })
@@ -65,5 +66,21 @@ public class SecurityConfig {
                 })
                 .build();
     }
+
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//
+//        /* 자동 로그인 설정 S */
+//        http.rememberMe(c -> {
+//            c.rememberMeParameter("autoLogin") // 자동 로그인으로 사용할 요청 파리미터 명, 기본값은 remember-me
+//                    .tokenValiditySeconds(60 * 60 * 24 * 30) // 로그인을 유지할 기간(30일로 설정), 기본값은 14일
+//                    .userDetailsService(memberInfoService) // 재로그인을 하기 위해서 인증을 위한 필요 UserDetailsService 구현 객체
+//                    .authenticationSuccessHandler(new LoginSuccessHandler()); // 자동 로그인 성공시 처리 Handler
+//
+//        });
+//        /* 자동 로그인 설정 E */
+//
+//        return http.build();
+//    }
 
 }

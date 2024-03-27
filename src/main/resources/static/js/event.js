@@ -6,6 +6,29 @@ window.onload = function () {
         const $login = document.getElementById("login");
         $login.onclick = function () {
             location.href = "/user/login";
+            // // 로그인 버튼 클릭 시
+            // document.getElementById("loginSubmit").onclick = function () {
+            //     var userId = document.getElementById("userId").value;
+            //     var password = document.getElementById("password").value;
+            //
+            //     // AJAX 또는 Fetch API를 사용하여 서버로 로그인 요청을 보냅니다.
+            //     // 요청이 올바른 URL과 데이터를 포함하는지 확인합니다.
+            //     fetch("/user/login", {
+            //         method: "POST",
+            //         headers: {
+            //             "Content-Type": "application/json"
+            //         },
+            //         body: JSON.stringify({userId: userId, password: password})
+            //     }).then(response => {
+            //         if (response.ok) {
+            //             // 로그인 성공 시 리다이렉트 또는 다른 동작 수행
+            //         } else {
+            //             // 로그인 실패 시 에러 처리
+            //         }
+            //     }).catch(error => {
+            //         console.error("Error:", error);
+            //     });
+            // };
         }
     }
 

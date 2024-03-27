@@ -36,8 +36,8 @@
     </select>
 
     <insert id="insertUser">
-        INSERT INTO user (user_id, password, nickname, phone, email)
-        VALUES (#{ userId }, #{ userPwd }, #{ nickname }, #{ phone }, #{ email })
+        INSERT INTO user (user_id, password, name, nickname, email, birth)
+        VALUES (#{ userId }, #{ password }, #{ name }, #{ nickname }, #{ email }, #{ birth })
     </insert>
 
     <select id="selectEncryptedPwd" resultType="string">

@@ -1,7 +1,7 @@
 package com.pentoryall.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pentoryall.user.model.UserRole;
+import com.pentoryall.user.model.Role;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,7 +29,7 @@ public class UserDTO implements UserDetails {
     private String introduction;
     private int revenue;
     private int point;
-    private String role;
+    //    private String role;
     private String state;
     private char isCertificated;
     private char isSubscriberVisible;
@@ -37,13 +37,16 @@ public class UserDTO implements UserDetails {
     private LocalDateTime updateDate;
     private LocalDateTime deleteDate;
     private LocalDateTime suspensionEndDate;
-    private UserRole userRole;
+    /* model파일 안에 Role파일 가져옴
+     *  아마도 자동 매핑이라 db하고 이름 똑같이 해야하는듯 */
+    private Role role;
 
+    /* post 필요없음 */
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String roleName = "";
-        if (userRole != null) roleName = userRole.name();
+        if (role != null) roleName = role.name();
         return Arrays.asList(new SimpleGrantedAuthority(roleName));
     }
 
