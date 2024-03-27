@@ -4,12 +4,10 @@ package com.pentoryall.user.service;
 import com.pentoryall.common.exception.user.MemberRegistException;
 import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.user.dto.UserDTO;
-import lombok.RequiredArgsConstructor;
 import com.pentoryall.user.mapper.UserMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +37,7 @@ public class UserService {
         if (!(result > 0)) {
             throw new MemberRemoveException("회원 탈퇴에 실패하였습니다.");
         }
+    }
 
     public UserDTO getUserInformationByPostCode(long userCode) {
         return userMapper.getUserInformationByPostCode(userCode);
