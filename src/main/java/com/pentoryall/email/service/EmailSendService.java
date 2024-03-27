@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class EmailSendService {
-    private final JavaMailSender javaMailSender;
+/*    private final JavaMailSender javaMailSender;
 
     public boolean sendMail(EmailMessage message) {
 
@@ -26,7 +26,7 @@ public class EmailSendService {
             e.printStackTrace();
         }
 
-        return false;
+        return false;*/
 
     }
-}
+
