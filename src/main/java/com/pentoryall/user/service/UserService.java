@@ -4,8 +4,11 @@ import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
+
     UserMapper userMapper;
 
     public UserService(UserMapper userMapper) {

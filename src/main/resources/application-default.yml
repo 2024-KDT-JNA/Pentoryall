@@ -6,12 +6,12 @@ spring:
     username: ohgiraffers
     password: ohgiraffers
 
-  # file upload config
+    # file upload config
   servlet:
     multipart:
-      max-file-size: 1000MB
-      max-request-size: 1000MB
-      location: C:\00_Pactoriya!\Pentoryall1
+      max-file-size: 10MB
+      max-request-size: 10MB
+      location: {PROJECT_ROOT}
 
 # Mybatis config
 mybatis:
@@ -23,3 +23,4 @@ mybatis:
 # image upload dir
 image:
   image-dir: src/main/resources/upload/
+
