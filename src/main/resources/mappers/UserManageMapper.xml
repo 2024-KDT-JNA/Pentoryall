@@ -26,6 +26,7 @@
                 nick LIKE CONCAT('%', #{ searchValue }, '%')
             </if>
         </where>
+
         LIMIT #{offset}, #{limit}
 
     </select>
