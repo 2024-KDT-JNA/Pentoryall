@@ -2,8 +2,40 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.pentoryall.admin.mapper.UserManageMapper">
+    <select id="selectAllUserList" resultType="com.pentoryall.admin.DTO.UserManageDTO">
+    SELECT
+            code,
+            email,
+            user_id,
+            nickname,
+            name,
+            birth,
+            state
+
+    FROM    user
+
+        <where>
+            <if test="searchCondition == 'name'">
+                name LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'id'">
+                user_id LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'nickname'">
+                nick LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>
+        LIMIT #{offset}, #{limit}
+
+    </select>
+    <select id="selectTotalCount" resultType="_int">
+        SELECT
+            COUNT(*)
+        FROM
+            user
+    </select>
+
 
 </mapper>
 

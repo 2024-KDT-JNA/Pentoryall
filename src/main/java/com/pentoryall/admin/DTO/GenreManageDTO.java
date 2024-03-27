@@ -1,6 +1,6 @@
 package com.pentoryall.admin.DTO;
 
-public class genreManageDTO {
+public class GenreManageDTO {
 
     private long code;
     private long refGenreCode;

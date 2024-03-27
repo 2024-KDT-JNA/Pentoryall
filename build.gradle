@@ -22,11 +22,14 @@ repositories {
 }
 
 dependencies {
-    // thymeleaf-layout-dialect
-    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-    // thumbnailator
+    //Thumbnail 라이브러리
     implementation 'net.coobird:thumbnailator:0.4.20'
+    //Thymeleaf Layout 라이브러리
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+    // 이메일
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
+    //기본 라이브러리
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

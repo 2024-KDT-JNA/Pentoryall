@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
+            <section class="section">
+                <h2 class="h2">새 멤버십 플랜 만들기</h2>
+                <form action="/membership/createMembership" method="post">
+                    <p>*표시는 필수 입력 항목입니다.</p>
+                    <h3 class="h3">플랜 정보</h3>
+                    <div>
+                        <label for="planTitle" class="h4">플랜 제목*</label>
+                        <input type="text" id="planTitle" name="planTitle" class="Multi-input" placeholder="플랜의 이름을 지어주세요" maxlength="20" required>
+                        <br>
+                        <p>다른 플랜 제목과 중복되지 않도록, 최대 20자까지 입력할 수 있습니다.</p>
+                        <p><b>유용한 팁</b> 플랜 멤버에게 어떤 창작 계획이 있는지 구체적으로 써보세요. 차기작 준비, 테블릿 구매 등 후원을 요청하는 이유를 쓸 수도 있어요.</p>
+                    </div>
+                    <div>
+                        <label for="allowNewMembers" class="h4">신규 가입 허용</label>
+                        <input type="checkbox" id="allowNewMembers" name="allowNewMembers" checked>
+                        <p>이용자의 신규 가입을 허용하거나 제한할 수 있어요. 새 플랜을 만들면 자동으로 신규 가입이 허용되며, 플랜을 생성한 뒤에는 언제든 자유롭게 설정을 변경할 수 있어요.</p>
+                    </div>
+                    <div>
+                        <label for="maxMembers" class="h4">최대 멤버 수*</label>
+                        <input type="number" id="maxMembers" name="maxMembers" class="Multi-input" placeholder="멤버 수를 적어주세요." required min="0" max="1000000">
+                        <br>
+                        <p>멤버십 플랜의 멤버 수는 0 ~ 100만명입니다. (0명은 무제한)</p>
+                    </div>
+                    <div>
+                        <h3 class="h3">후원 플랜 설정</h3>
+                        <label for="donationAmount" class="h4">후원 금액(원)*</label>
+                        <input type="number" id="donationAmount" name="donationAmount" class="Multi-input" placeholder="원하시는 후원 금액을 적어주세요." required min="1000" max="100000" onchange="adjustDonationAmount(this)">
+                        <br>
+                        <p>최소 1000원, 최대 1,000,000원의 범위 내에서 100원 단위로 입력할 수 있습니다.</p>
+                        <p><b>주의사항</b> 후원금 액수는 한 번 정하면 변경할 수 없으니 신중하게 결정하세요.</p>
+                    </div>
+                    <div>
+                        <h3 class="h3">디자인</h3>
+                        <label for="planColor" class="h4">플랜 색상</label>
+                        <input type="color" id="planColor" name="planColor" class="ColorPicker">
+                    </div>
+                    <div>
+                        <button onclick="location.href='/membership/info'">뒤로</button>
+                        <button type="submit" >새 멤버십 만들기</button>
+                    </div>
+                </form>
+            </section>
+            <!-- ------------------------------------ -->
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+        function adjustDonationAmount(input) {
+            // 입력된 값에서 100으로 나눈 나머지를 계산하여 100원 단위로 맞춤
+            let value = parseInt(input.value);
+            value = Math.ceil(value / 100) * 100;
+            input.value = value;
+        }
+    </script>
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+</th:block>
+</html>

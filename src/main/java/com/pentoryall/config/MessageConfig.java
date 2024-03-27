@@ -18,5 +18,8 @@ public class MessageConfig {
     }
 
     @Bean
-    public MessageSourceAccessor messageSourceAccessor() { return new MessageSourceAccessor(messageSource()); }
+    public MessageSourceAccessor messageSourceAccessor() {
+        return new MessageSourceAccessor(messageSource());
+    }
+
 }
