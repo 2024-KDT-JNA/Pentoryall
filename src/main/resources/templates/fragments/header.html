@@ -34,10 +34,7 @@
                     <img src="/images/temp/profile.png" alt="프로필"/>
                 </div>
                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <h3>
-                        <span class="username" sec:authentication="principal.name"></span>
-                        님
-                    </h3>
+                    <h3><span class="username" sec:authentication="principal.name"></span>님</h3>
                     <div class="greet-button">
                         <button type="button">관리자 페이지</button>
                     </div>
@@ -89,8 +86,8 @@
                             <a href="/story">마이 스토리</a>
                         </li>
                         <li><a href="#">보관함</a></li>
-                        <li><a href="/subscribe/storyList">구독/멤버십</a></li>
-                        <li><a href="/point">포인트</a></li>
+                        <li><a href="#">구독/멤버십</a></li>
+                        <li><a href="#">포인트</a></li>
                         <li><a href="#">계정 설정</a></li>
                         <li id="logout"><a th:href="@{/user/logout}">로그아웃</a></li>
                     </ul>

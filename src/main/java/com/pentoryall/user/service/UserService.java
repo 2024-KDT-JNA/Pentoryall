@@ -1,15 +1,14 @@
 package com.pentoryall.user.service;
 
 
+import com.pentoryall.common.exception.user.MemberModifyException;
 import com.pentoryall.common.exception.user.MemberRegistException;
 import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.user.dto.UserDTO;
-import com.pentoryall.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import com.pentoryall.user.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -43,5 +42,11 @@ public class UserService {
 
     public UserDTO getUserInformationByUserCode(long userCode) {
         return userMapper.getUserInformationByUserCode(userCode);
+    }
+
+    public void modifyUser(UserDTO modifyUser) throws MemberModifyException {
+        int result = userMapper.updateUser(modifyUser);
+
+        if (!(result > 0)) throw new MemberModifyException("회원 정보 수정에 실패하였습니다.");
     }
 }
