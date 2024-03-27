@@ -71,9 +71,9 @@ public class SeriesController {
             e.printStackTrace();
         }
 
-        String saveFileName = "/upload/series-thumbnail-images"+"/"+savedName;
+        String savePath = "/upload/series-thumbnail-images"+"/"+savedName;
 
-        seriesDTO.setThumbnailImage(saveFileName);
+        seriesDTO.setThumbnailImage(savePath);
 
         System.out.println("seriesDTO = " + seriesDTO);
 
