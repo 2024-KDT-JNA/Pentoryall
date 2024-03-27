@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<title>펜토리얼</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+		<!-- CSS -->
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/common.css" />
+		<link rel="stylesheet" href="/css/admin.css" />
+	</head>
+	<body>
+		<div id="container">
+			<div class="admin-content">
+				<div class="inner">
+					<section class="section section-report">
+						<h2 class="h2">포스트 신고</h2>
+
+						<div class="table-option">
+							<div class="form-item">
+								<select class="select">
+									<option>5개씩</option>
+									<option>10개씩</option>
+									<option>15개씩</option>
+									<option>20개씩</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="table-box">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>
+											<input type="checkbox" id="checkAll-post-1" name="comment_report" />
+											<label for="checkAll-post-1">전체 선택</label>
+										</th>
+										<th>번호</th>
+										<th>아이디</th>
+										<th>닉네임</th>
+										<th>신고사유</th>
+										<th>신고일자</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th><input type="checkbox" id="checkAll-post-2" name="" class="form-check-input" /></th>
+										<td>1</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<th><input type="checkbox" id="checkAll-post-3" name="" class="form-check-input" /></th>
+										<td>2</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<th><input type="checkbox" id="checkAll-post-4" name="" class="form-check-input" /></th>
+										<td>3</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<th><input type="checkbox" id="checkAll-post-5" name="" class="form-check-input" /></th>
+										<td>4</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="page">
+							<ul class="pagination-postReport">
+								<li><a href="#" class="first">처음페이지</a></li>
+								<li><a href="#" class="arrow left"><<</a></li>
+								<li><a href="#" class="active num">1</a></li>
+								<li><a href="#" class="num">2</a></li>
+								<li><a href="#" class="num">3</a></li>
+								<li><a href="#" class="num">4</a></li>
+								<li><a href="#" class="num">5</a></li>
+								<li><a href="#" class="arrow right">>></a></li>
+								<li><a href="#" class="last">끝페이지</a></li>
+							</ul>
+						</div>
+					</section>
+
+					<!-- Pop-Up -->
+					<div class="popUpWrap">
+						<div class="popUp_bg">
+							<div class="popUp_info">
+								<h3 class="h3">신고 정보</h3>
+
+								<div class="table-box">
+									<table class="table">
+										<thead>
+											<tr>
+												<th colspan="2">아이디</th>
+												<th>1bfish106</th>
+												<th colspan="2">닉네임</th>
+												<th>고등어</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="2">포스트 제목</td>
+												<td colspan="4">나는 성인물을 쓴다.</td>
+											</tr>
+											<tr>
+												<td colspan="2">포스트 신고 횟수</td>
+												<td colspan="4">4회</td>
+											</tr>
+											<tr>
+												<td colspan="6">포스트 링크</td>
+											</tr>
+										</tbody>
+									</table>
+									<div class="popUp_btns">
+										<button class="button">승인</button>
+										<button class="button">반려</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="popUpWrap">
+						<div class="popUp_bg">
+							<div class="popUp_info">
+								<h3 class="h3">안내창</h3>
+								<p>(제목)의 포스트 신고를 승인하시겠습니까?</p>
+								<div class="popUp_btns">
+									<button class="button">승인</button>
+									<button class="button">반려</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -4,20 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pentoryall.admin.mapper.CommentReportMapper">
-<select id="commentReportAllList" resultType="com.pentoryall.admin.DTO.CommentReportDTO">
-    SELECT
-        u.code,
-        u.nickname,
-        r.type,
-        r.report_date,
-        u.state
-    FROM
-        user u
-            JOIN
-        report r ON u.code = r.user_code
-    WHERE
-        u.state = 'ACTIVE';
 
-</select>
 </mapper>
 

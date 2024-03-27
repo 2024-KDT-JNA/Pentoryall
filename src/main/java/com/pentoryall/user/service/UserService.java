@@ -39,7 +39,6 @@ public class UserService {
         }
     }
 
-
     public UserDTO getUserInformationByUserCode(long userCode) {
         return userMapper.getUserInformationByUserCode(userCode);
     }
