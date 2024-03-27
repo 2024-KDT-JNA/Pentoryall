@@ -21,11 +21,11 @@ mail:
             enable: true # StartTLS 활성화 여부 - 기본값 false 이메일인증 끝
 
  # file upload config
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-      location: {PROJECT_ROOT}
+servlet:
+  multipart:
+    max-file-size: 10MB
+    max-request-size: 10MB
+    location: {PROJECT_ROOT}
 
 # Mybatis config
 mybatis:

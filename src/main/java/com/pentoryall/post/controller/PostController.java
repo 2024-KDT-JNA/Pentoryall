@@ -106,36 +106,36 @@ public class PostController {
         return "redirect:/post/information";
     }
 
-    @GetMapping("/information")
-    public String getPostInformation(HttpSession session,
-                                     Model model) {
-
-        System.out.println("리다이렉트 성공!");
-
-        long code = (long) session.getAttribute("code");
-
-        System.out.println(code);
-        PostDTO postDTO = postService.getPostInformationByPostCode(code);
-        System.out.println(postDTO);
-
-        long seriesCode = postDTO.getSeriesCode();
-
-        long userCode = postDTO.getUserCode();
-
-        System.out.println("userCode = " + userCode);
-        UserDTO userDTO = userService.getUserInformationByPostCode(userCode);
-
-        SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
-
-        System.out.println("postDTO = " + postDTO);
-        System.out.println("userDTO = " + userDTO);
-        System.out.println("seriesDTO = " + seriesDTO);
-        model.addAttribute("post",postDTO);
-        model.addAttribute("user",userDTO);
-        model.addAttribute("series",seriesDTO);
-
-        return "views/post/list";
-    }
+//    @GetMapping("/information")
+//    public String getPostInformation(HttpSession session,
+//                                     Model model) {
+//
+//        System.out.println("리다이렉트 성공!");
+//
+//        long code = (long) session.getAttribute("code");
+//
+//        System.out.println(code);
+//        PostDTO postDTO = postService.getPostInformationByPostCode(code);
+//        System.out.println(postDTO);
+//
+//        long seriesCode = postDTO.getSeriesCode();
+//
+//        long userCode = postDTO.getUserCode();
+//
+//        System.out.println("userCode = " + userCode);
+//        UserDTO userDTO = userService.getUserInformationByPostCode(userCode);
+//
+//        SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
+//
+//        System.out.println("postDTO = " + postDTO);
+//        System.out.println("userDTO = " + userDTO);
+//        System.out.println("seriesDTO = " + seriesDTO);
+//        model.addAttribute("post",postDTO);
+//        model.addAttribute("user",userDTO);
+//        model.addAttribute("series",seriesDTO);
+//
+//        return "views/post/list";
+//    }
 
     @GetMapping("/seriesList")
     public @ResponseBody List<SeriesDTO> functionGetSeriesList(){

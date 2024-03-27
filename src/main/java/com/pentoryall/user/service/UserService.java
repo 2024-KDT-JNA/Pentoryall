@@ -40,7 +40,7 @@ public class UserService {
             throw new MemberRemoveException("회원 탈퇴에 실패하였습니다.");
         }
 
-    public UserDTO getUserInformationByPostCode(long userCode) {
-        return userMapper.getUserInformationByPostCode(userCode);
+//    public UserDTO getUserInformationByPostCode(long userCode) {
+//        return userMapper.getUserInformationByPostCode(userCode);
     }
 }
