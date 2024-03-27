@@ -66,6 +66,7 @@ elInputUsername.onkeyup = function () {
             elFailureMessage.classList.add('hide');
             elFailureMessageTwo.classList.remove('hide'); // 영어 또는 숫자만 가능합니다
             duplicationCheckBtn.disabled = true;
+            
         }
         // 글자 수가 4~12글자가 아닐 경우
         else if (idLength(elInputUsername.value) === false) {
