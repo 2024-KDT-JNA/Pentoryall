@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>회원가입</title>
+    <!-- favicon -->
+    <!-- <link rel="icon" type="image/png" href="/assets/img/brand/favicon.png" /> -->
+    <!-- <link rel="apple-touch-icon" type="image/png" href="/img/brand/apple-touch-icon.png" /> -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"/>
+    <link rel="stylesheet" as="style" crossorigin
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+    <link rel="stylesheet" ref="https://cdn.jsdelivr.net/npm/swiper@11.0.7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="./css/common.css"/>
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="/css/user.css"/>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.0.7/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="/js/event.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <!-- header area -->
+    <header id="header">header here</header>
+    <!-- main content area -->
+    <div id="main">
+        <div class="container">
+            <div class="">
+                <div class="titleWrap">
+                    <h2>회원가입</h2>
+                    <h5><span class="red_star">*</span>필수입력사항</h5>
+                </div>
+                <form class="regist_form" action="/user/regist" method="post">
+                    <div class="registWrap">
+                        <div class="inputWrap">
+                            <label for="user_email">이메일<span class="red_star">*</span></label>
+                            <div class="input_box">
+                                <input type="email" name="email" id="user_email" placeholder="이메일을 입력해주세요."
+                                       required/>
+                                <button type="button">인증</button>
+                            </div>
+                        </div>
+                        <div class="inputWrap">
+                            <div class="input_box">
+                                <input type="text" id="email_num" placeholder="인증번호 입력"/>
+                                <button type="button">확인</button>
+                            </div>
+                        </div>
+                        <div class="inputWrap">
+                            <label for="user_name">이름<span class="red_star">*</span></label>
+                            <div class="input_box">
+                                <input type="text" name="name" id="user_name" placeholder="이름을 입력해주세요." required/>
+                            </div>
+                        </div>
+                        <div class="inputWrap">
+                            <label for="password">비밀번호<span class="red_star">*</span></label>
+                            <div class="input_box">
+                                <input type="password" name="password" id="password"
+                                       placeholder="비밀번호를 입력해주세요. (문자, 숫자, 특수문자 포함 8자 ~ 20자 이내)" required/>
+                            </div>
+                        </div>
+                        <div class="inputWrap">
+                            <label for="userId">아이디<span class="red_star">*</span></label>
+                            <div class="input_box">
+                                <input type="text" name="userId" id="userId"
+                                       placeholder="아이디를 입력해주세요.(영어,숫자 포함 5자 ~ 11자 이내)" maxlength="11" required/>
+                                <button type="button" id="duplicationCheck" value="중복확인" disabled>중복확인</button>
+                            </div>
+                        </div>
+                        <div class="success-message hide col_red">사용할 수 있는 아이디입니다</div>
+                        <div class="failure-message hide col_red">아이디는 5~11글자이어야 합니다</div>
+                        <div class="failure-message2 hide col_red">영어 또는 숫자만 가능합니다</div>
+                        <div class="inputWrap">
+                            <label for="user_nickname">닉네임<span class="red_star">*</span></label>
+                            <div class="input_box">
+                                <input type="text" name="nickname" id="user_nickname" placeholder="닉네임을 입력해주세요."
+                                       required/>
+                                <button type="button">중복확인</button>
+                            </div>
+                        </div>
+                        <div class="inputWrap">
+                            <label for="user_date">생년월일<span class="red_star">*</span></label>
+                            <div class="input_box">
+                                <input type="date" name="birth" id="user_date" placeholder="YY /   MM   /    DD"
+                                       required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agreeWrap">
+                        <div class="inputWrap">
+                            <label for="user_date">이용약관동의<span class="red_star">*</span></label>
+                            <div class="checkBoxWrap">
+                                <div class="check_box">
+                                    <input type="checkbox" id="agree_all"/>
+                                    <label for="agree_all">
+                                        <span></span>
+                                        <p>
+                                            전체 동의합니다.
+                                        </p>
+                                    </label>
+                                </div>
+                                <div class="check_box">
+                                    <input type="checkbox" id="agree_check1" class="normal"/>
+                                    <label for="agree_check1">
+                                        <span></span>
+                                        <p>
+                                            이용약관 동의(필수)
+                                        </p>
+                                    </label>
+                                </div>
+                                <div class="check_box">
+                                    <input type="checkbox" id="agree_check2" class="normal"/>
+                                    <label for="agree_check2">
+                                        <span></span>
+                                        <p>
+                                            이용약관 동의(필수)
+                                        </p>
+                                    </label>
+                                </div>
+                                <div class="check_box">
+                                    <input type="checkbox" id="agree_check3" class="normal"/>
+                                    <label for="agree_check3">
+                                        <span></span>
+                                        <p>
+                                            이용약관 동의(필수)
+                                        </p>
+                                    </label>
+                                </div>
+                                <div class="check_box">
+                                    <input type="checkbox" id="agree_check4" class="normal"/>
+                                    <label for="agree_check4">
+                                        <span></span>
+                                        <p>
+                                            본인은 만 14세 이상입니다.
+                                        </p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="black_btns btns">
+                        <button class="btn" type="submit">가입하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- footer area -->
+    <footer id="footer">footer here</footer>
+</div>
+<script type="text/javascript" src="/js/user.js"></script>
+<script type="text/javascript" src="/js/agree.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>
