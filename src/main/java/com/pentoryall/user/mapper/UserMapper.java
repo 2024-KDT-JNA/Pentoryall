@@ -13,4 +13,6 @@ public interface UserMapper {
     int insertUser(UserDTO user);
 
     int deleteUser(UserDTO user);
+    
+    UserDTO getUserInformationByPostCode(long userCode);
 }

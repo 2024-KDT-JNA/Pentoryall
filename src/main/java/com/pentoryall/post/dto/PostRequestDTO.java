@@ -1,11 +1,13 @@
 package com.pentoryall.post.dto;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
+import lombok.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
-@NoArgsConstructor(access= AccessLevel.PROTECTED)
+@Setter
+@ToString
 public class PostRequestDTO {
     private String title;
     private String content;

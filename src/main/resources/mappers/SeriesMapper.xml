@@ -22,4 +22,39 @@
             title=#{series}
     </select>
 
+
+    <select id="getSeriesInformationBySeriesCode" resultType="com.pentoryall.series.dto.SeriesDTO">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
+        WHERE
+            code=#{seriesCode}
+    </select>
+
+    <select id="getSeriesList">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
+        WHERE
+            user_code=#{i};
+    </select>
+
 </mapper>

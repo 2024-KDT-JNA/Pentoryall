@@ -2,6 +2,8 @@ package com.pentoryall.post.controller;
 
 import com.pentoryall.post.dto.PostRequestDTO;
 import com.pentoryall.post.service.PostService;
+import jakarta.servlet.http.HttpSession;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,14 +19,15 @@ public class PostApiController {
 
     // 게시글 저장
     @PostMapping
-    public Long savePost(@RequestBody final PostRequestDTO params) {
-        System.out.println(params);
-        System.out.println(params.getContent());
-        System.out.println(params.getTitle());
-        System.out.println("성공");
-        long result = postService.insertPost(params);
-        System.out.println(result);
-        return result;
+    public long savePost(@RequestBody final PostRequestDTO params, HttpSession session) {
+        String title = params.getTitle();
+        String contents = params.getContent();
+        session.setAttribute("title",title);
+        session.setAttribute("contents",contents);
+//        long result = postService.insertPost(params);
+//        System.out.println(result);
+        return 0;
+
     }
 
     // 게시글 상세정보 조회
