@@ -103,26 +103,27 @@ public class PostController {
 
         System.out.println(postDTO);
         postService.insertPost(postDTO);
-
-        session.setAttribute("code", postDTO.getCode());
+        System.out.println("postDTO = " + postDTO);
+//        session.setAttribute("code", postDTO.getCode());
 
         return "redirect:/post/information?code="+postDTO.getCode();
     }
 
     @GetMapping("/information")
-    public String getPostInformation(HttpSession session,
+    public String getPostInformation(
+            long code,
+//            HttpSession session,
                                      Model model) {
 
         System.out.println("리다이렉트 성공!");
 
-        long code = (long) session.getAttribute("code");
+//        long code = (long) session.getAttribute("code");
 
-        System.out.println(code);
+        System.out.println("codedddddddddddddddd"+code);
         PostDTO postDTO = postService.getPostInformationByPostCode(code);
         System.out.println(postDTO);
 
         long seriesCode = postDTO.getSeriesCode();
-
         long userCode = postDTO.getUserCode();
 
         System.out.println("userCode = " + userCode);
