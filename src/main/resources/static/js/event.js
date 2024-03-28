@@ -5,7 +5,7 @@ window.onload = function () {
     if (document.getElementById("login")) {
         const $login = document.getElementById("login");
         $login.onclick = function () {
-            location.href = "/views/user/login";
+            location.href = "/user/login";
             // // 로그인 버튼 클릭 시
             // document.getElementById("loginSubmit").onclick = function () {
             //     var userId = document.getElementById("userId").value;
@@ -35,16 +35,18 @@ window.onload = function () {
     if (document.getElementById("logout")) {
         const $logout = document.getElementById("logout");
         $logout.onclick = function () {
-            location.href = "/views/user/logout";
+            location.href = "/user/logout";
         }
     }
 
     if (document.getElementById("regist")) {
         const $regist = document.getElementById("regist");
         $regist.onclick = function () {
-            location.href = "/views/user/regist";
+            location.href = "/user/regist";
         }
     }
+
+    let isDuplicationChecked = false;
 
     if (document.getElementById("duplicationCheck")) {
 
@@ -54,17 +56,27 @@ window.onload = function () {
 
         $duplication.onclick = function () {
             let userId = document.getElementById("userId").value.trim();
-            let nickname = document.getElementById("nickname").value.trim();
 
-            fetch("/views/user/idDupCheck", {
+            fetch("/user/idDupCheck", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
                 body: JSON.stringify({userId: userId})
             })
-                .then(result => result.text())
-                .then(result => alert(result))
+                /* Response객체로 가지고 온 result 데이터 .json()으로 파싱처리 필요 */
+                .then(result => result.json())
+                .then(result => {
+                    if (result === true) {
+                        alert("중복된 아이디 입니다.");
+                    } else if (result === false) {
+                        alert(
+                            "사용가능한 아이디 입니다."
+                        )
+                        isDuplicationChecked = true;
+                    }
+                })
+                // .then(result => alert(result))
                 .catch((error) => error.text().then((res) => alert(res)));
         }
     }
@@ -100,25 +112,51 @@ window.onload = function () {
             }
         }
 
-        // function showRegistrationFailure() {
-        //     // 회원가입 실패 메시지를 표시합니다.
-        //     alert('회원가입에 실패했습니다. 다시 시도해주세요.');
-        // }
-
-        if (document.getElementById("updateMember")) {
-            const $update = document.getElementById("updateMember");
-            $update.onclick = function () {
-                location.href = "/views/user/update";
-            }
+        function showRegistrationFailure() {
+            // 회원가입 실패 메시지를 표시합니다.
+            alert('회원가입에 실패했습니다. 다시 시도해주세요.');
         }
 
-        if (document.getElementById("deleteMember")) {
-
-            const $update = document.getElementById("deleteMember");
+        if (document.getElementById("updateUser")) {
+            const $update = document.getElementById("updateUser");
             $update.onclick = function () {
-                if (confirm('정말 탈퇴하시겠습니까?'))
-                    location.href = "/views/user/delete";
+                location.href = "/user/update";
             }
+        }
+        //
+        // if (document.getElementById("deleteUser")) {
+        //
+        //     const $update = document.getElementById("deleteUser");
+        //     $update.onclick = function () {
+        //         if (confirm('정말 탈퇴하시겠습니까?'))
+        //             location.href = "/views/user/delete";
+        //     }
+        // }
+
+        if (document.getElementById("deleteUser")) {
+            const $deleteUser = document.getElementById("deleteUser");
+            $deleteUser.onclick = function () {
+                if (confirm('정말 탈퇴하시겠습니까?')) {
+                    fetch("/user/delete", {
+                        method: "POST"
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // 성공적으로 탈퇴가 처리된 경우
+                                alert("탈퇴가 처리되었습니다.");
+                                location.href = "/"; // 메인 페이지로 리다이렉트
+                            } else {
+                                // 탈퇴 처리에 실패한 경우
+                                alert("탈퇴 처리에 실패했습니다.");
+                            }
+                        })
+                        .catch(error => {
+                            // 네트워크 오류 등의 이유로 요청이 실패한 경우
+                            console.error("Error:", error);
+                            alert("탈퇴 처리에 실패했습니다.");
+                        });
+                }
+            };
         }
 
         // if (document.getElementById("writeBoard")) {
@@ -134,5 +172,37 @@ window.onload = function () {
         //         location.href = "/thumbnail/regist";
         //     }
         // }
+
+        // const passwordInput = document.getElementById("password");
+        // const checkPasswordBtn = document.getElementById("checkPassword");
+        // const withdrawBtn = document.getElementById("deleteUser");
+        //
+        // // 비밀번호 확인 버튼 클릭 시
+        // checkPasswordBtn.addEventListener("click", function () {
+        //     const enteredPassword = passwordInput.value; // 입력한 비밀번호 가져오기
+        //
+        //     // 비밀번호 확인 요청을 서버에 보냅니다.
+        //     fetch("/views/user/checkPassword", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json"
+        //         },
+        //         body: JSON.stringify({password: enteredPassword})
+        //     })
+        //         .then(response => {
+        //             if (response.ok) {
+        //                 // 서버에서 비밀번호 확인에 성공한 경우
+        //                 withdrawBtn.disabled = false; // 탈퇴 버튼 활성화
+        //             } else {
+        //                 // 서버에서 비밀번호 확인에 실패한 경우
+        //                 withdrawBtn.disabled = true; // 탈퇴 버튼 비활성화
+        //                 alert("비밀번호가 일치하지 않습니다."); // 사용자에게 알림
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("Error:", error);
+        //             alert("서버 오류가 발생했습니다."); // 사용자에게 알림
+        //         });
+        // });
     }
 }
