@@ -6,27 +6,18 @@
 
     <insert id="createMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
         INSERT INTO membership
-        (code,
+        (
          user_code,
          name,
          introduction,
          price,
-         color,
-         is_active,
-         is_deleted,
-         create_date,
-         update_date,
-         delete_date)
-        VALUES (#{code},
-                #{userCode},
+         color
+)
+        VALUES (
+                1,
                 #{name},
                 #{introduction},
                 #{price},
-                #{color},
-                #{isActive},
-                #{isDeleted},
-                #{createDate},
-                #{updateDate},
-                #{deleteDate})
+                #{color})
     </insert>
 </mapper>
