@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/views/user")
+@RequestMapping("/user")
 public class LikeController {
-    @GetMapping("/likePage")
+    @GetMapping("/like")
     public String likePage() {
         return "views/user/likePage";
     }
