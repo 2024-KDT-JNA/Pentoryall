@@ -725,13 +725,14 @@ form input::file-selector-button {
     color: #199bc4;
 }
 
-#title {
-    margin-bottom: 20px;
-}
+/*#title {*/
+/*    margin-bottom: 20px;*/
+/*}*/
 
 .post-title-form {
     margin-top: 40px;
     text-align: center;
+    margin-bottom:40px;
 }
 .title-title {
     margin-bottom: 0px;
@@ -928,3 +929,10 @@ form input::file-selector-button {
     padding:3px;
     /*font-size:7px;*/
 }
+.recognize-title-size{
+    color:red;
+}
+.box-order-amount{
+    margin-top:10px;
+}
+

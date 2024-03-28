@@ -21,11 +21,11 @@ public class PostApiController {
     @PostMapping
     public long savePost(@RequestBody final PostRequestDTO params, HttpSession session) {
         String title = params.getTitle();
+        System.out.println("title!!!!!!!!!!!!!!!! = " + title);
         String contents = params.getContent();
         session.setAttribute("title",title);
         session.setAttribute("contents",contents);
         return 0;
-
     }
 
 

@@ -46,7 +46,7 @@
                             <div class="genre-items">
                                 <div class="genre-item">
                                     <label class="label">상위 장르</label>
-                                    <select class="select" name="upperGenre">
+                                    <select class="select upperGenreSelect" name="upperGenre" onchange="hiddenLowerGenre()">
                                         <option>웹툰</option>
                                         <option>소설</option>
                                         <option>팬픽</option>
@@ -58,20 +58,100 @@
                                         <option>미분류</option>
                                     </select>
                                 </div>
-                                <div class="genre-item">
-                                    <lable class="label">하위 장르</lable>
-                                    <select class="select" name="lowerGenre">
-                                        <option>로맨스</option>
-                                        <option>추리</option>
-                                        <option>판타지</option>
-                                        <option>학원물</option>
-                                        <option>액션</option>
-                                        <option>무협</option>
-                                        <option>드라마</option>
-                                        <option>공포/호러</option>
-                                        <option>미스테리</option>
-                                        <option>코믹</option>
-                                    </select>
+                                <div class="box box-order-amount">
+                                    <label class="label">하위 장르</label>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre1" name="lowerGenre"
+                                                   data-point="1000" value="로맨스"/>
+                                            <label class="form-check-label" for="lowerGenre1">
+                                <span class="inner-text">
+                                    <span class="point">로맨스</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre2" name="lowerGenre"
+                                                   data-point="3000" value="추리"/>
+                                            <label class="form-check-label" for="lowerGenre2">
+                                <span class="inner-text">
+                                    <span class="point">추리</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre3" name="lowerGenre"
+                                                   data-point="5000" value="판타지"/>
+                                            <label class="form-check-label" for="lowerGenre3">
+                                <span class="inner-text">
+                                    <span class="point">판타지</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre4" name="lowerGenre"
+                                                   data-point="10000" value="학원물"/>
+                                            <label class="form-check-label" for="lowerGenre4">
+                                <span class="inner-text">
+                                    <span class="point">학원물</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre5" name="lowerGenre"
+                                                   data-point="15000" value="액션"/>
+                                            <label class="form-check-label" for="lowerGenre5">
+                                <span class="inner-text">
+                                    <span class="point">액션</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre6" name="lowerGenre"
+                                                   data-point="30000" value="무협"/>
+                                            <label class="form-check-label" for="lowerGenre6">
+                                <span class="inner-text">
+                                    <span class="point">무협</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre7" name="lowerGenre"
+                                                   data-point="50000" value="드라마"/>
+                                            <label class="form-check-label" for="lowerGenre7">
+                                <span class="inner-text">
+                                    <span class="point">드라마</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre8" name="lowerGenre"
+                                                   data-point="1000" value="공포/호러"/>
+                                            <label class="form-check-label" for="lowerGenre8">
+                                <span class="inner-text">
+                                    <span class="point">공포/호러</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre9" name="lowerGenre"
+                                                   data-point="1000" value="미스테리"/>
+                                            <label class="form-check-label" for="lowerGenre9">
+                                <span class="inner-text">
+                                    <span class="point">미스테리</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre10" name="lowerGenre"
+                                                   data-point="1000" />
+                                            <label class="form-check-label" for="lowerGenre10">
+                                <span class="inner-text">
+                                    <span class="point">코믹</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -124,6 +204,18 @@
 
             $fileImg.src="/images/temp/thumbnail.png";
             $fileUpload.value = "";
+        }
+
+        /*상위 장르가 웹툰,소설,팬픽이면 하위 장르를 보여주고 상위 장르가 그 이외이면 하위 장르를 숨기는 기능*/
+        function hiddenLowerGenre() {
+            const $upperGenre = document.querySelector(".upperGenreSelect");
+            const $lowerGenre = document.querySelector(".box-order-amount")
+            console.log($upperGenre.value);
+            if($upperGenre.value==="웹툰"||$upperGenre.value==="소설"||$upperGenre.value==="팬픽"){
+                $lowerGenre.hidden = false;
+            }else{
+                $lowerGenre.hidden = true;
+            }
         }
     </script>
 </th:block>

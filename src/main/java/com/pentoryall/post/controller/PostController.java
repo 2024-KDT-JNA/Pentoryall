@@ -70,31 +70,34 @@ public class PostController {
         System.out.println(title);
         System.out.println("thumbnailImage = " + thumbnail);
         /*파일 가공 로직*/
-        String filePath = IMAGE_DIR + "post-thumbnail-images";
-        String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
-        String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
-        String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
+        if(!thumbnail.isEmpty() && thumbnail!=null) {
+            String filePath = IMAGE_DIR + "post-thumbnail-images";
+            String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
+            String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
 
-        String finalFilePath = filePath + "/" + savedName;
-        File dir = new File(filePath);
-        if (!dir.exists()) dir.mkdirs();
+            String finalFilePath = filePath + "/" + savedName;
+            File dir = new File(filePath);
+            if (!dir.exists()) dir.mkdirs();
 
-        try {
-            thumbnail.transferTo(new File(finalFilePath));
-            model.addAttribute("savedName", savedName);
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                thumbnail.transferTo(new File(finalFilePath));
+                model.addAttribute("savedName", savedName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String saveFileName = "/upload/post-thumbnail-images/" + savedName;
+
+
+            postDTO.setThumbnailImage(saveFileName);
         }
-
-        String saveFileName = "/upload/post-thumbnail-images/" + savedName;
-
         SeriesDTO seriesDTO = seriesService.selectSeriesByTitle(series);
         System.out.println(seriesDTO);
         long seriesCode = seriesDTO.getCode();
-
         postDTO.setTitle(title);
         postDTO.setContent(contents);
-        postDTO.setThumbnailImage(saveFileName);
+
         postDTO.setIsPublic(isPublic);
         postDTO.setSeriesCode(seriesCode);
         postDTO.setIsPaid(isFee);
@@ -102,6 +105,7 @@ public class PostController {
         postDTO.setIsAdult(isAdult);
 
         System.out.println(postDTO);
+        System.out.println("title>>>>>>>>>>>> = " + title);
         postService.insertPost(postDTO);
         System.out.println("postDTO = " + postDTO);
 //        session.setAttribute("code", postDTO.getCode());
