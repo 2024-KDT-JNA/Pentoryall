@@ -16,4 +16,10 @@ public class OrderDTO {
     int amount;
     int point;
     LocalDateTime createDate;
+
+    public OrderDTO(PaymentRequestDTO orderPayment) {
+        this.userCode = orderPayment.getUserCode();
+        this.amount = orderPayment.getAmount();
+        this.point = orderPayment.getPoint();
+    }
 }

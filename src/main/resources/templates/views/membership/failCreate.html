@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
+            <section class="section">
+                <h2 class="h2">멤버십 생성에 실패했습니다.</h2>
+                <p>새 멤버십을 만드는 도중에 문제가 발생했습니다. 다시 시도해주세요.</p>
+                <button onclick="location.href='/membership/create'">다시 시도하기</button>
+                <button onclick="location.href='/membership/info'">뒤로</button>
+            </section>
+            <!-- ------------------------------------ -->
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+</th:block>
+</html>
+이 HTML 코드는 멤버십 생성에 실패했을 때 보여줄 페이지를 정의합니다. 사용자에게 실패 메시지가 표시되고, "다시 시도하기" 버튼을 클릭하면 다시 멤버십 생성 페이지로 이동하고, "뒤로" 버튼을 클릭하면 이전 페이지로 이동합니다.
+
+이 HTML 코드를 /views/membership/falseCreate.html 파일에 저장하고, 컨트롤러에서 falseCreate() 메서드를 호출하여 해당 페이지로 이동하도록 구현할 수 있습니다.
+
+User
+전문을 보여줘
+ChatGPT
+코드로 보여드리겠습니다.
+
+html
+Copy code
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
+            <section class="section">
+                <h2 class="h2">멤버십 생성에 실패했습니다.</h2>
+                <p>새 멤버십을 만드는 도중에 문제가 발생했습니다. 다시 시도해주세요.</p>
+                <button onclick="location.href='/createMembership'">다시 시도하기</button>
+                <button onclick="location.href='/membershipInfo'">뒤로</button>
+            </section>
+            <!-- ------------------------------------ -->
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+</th:block>
+</html>

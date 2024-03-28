@@ -2,6 +2,10 @@
     color: red;
 }
 
+input[type="button"] {
+    cursor: pointer;
+}
+
 .login_info {
     max-width: 480px;
     width: 100%;
@@ -30,6 +34,10 @@
     width: 100%;
     display: flex;
     align-items: center;
+}
+
+.input_box .input_box_text {
+    padding: 15px;
 }
 
 .input_box input {
@@ -467,7 +475,7 @@ textarea {
 }
 
 .my_profile_bottom .gray_btns {
-    width: 150px;
+    width: 180px;
 }
 
 .my_profile_bottom .white_btns {
@@ -480,6 +488,11 @@ textarea {
     max-width: 780px;
     width: 100%;
     margin: 0 auto;
+}
+
+.secession .secession_title {
+    font-size: 24px;
+    font-weight: 700;
 }
 
 .secession form {

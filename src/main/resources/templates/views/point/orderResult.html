@@ -4,18 +4,44 @@
       layout:decorate="~{/layout/default}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
-    <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css" />
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css"/>
+    <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css"/>
 </th:block>
 
 <th:block layout:fragment="content">
     <div class="sub-content">
         <div class="inner">
-            <section class="section section-order">
+            <section class="section section-order" th:if="${success eq true}">
                 <h2 class="h2">포인트 충전이 완료되었습니다.</h2>
+
+                <div class="box">
+                    <dl>
+                        <dt>충전 금액</dt>
+                        <dd th:text="|${order.amount}원 (${order.point}P)|">50,000원 (50,000P)</dd>
+                        <dt>충전 금액</dt>
+                        <dd>카드 결제</dd>
+                    </dl>
+                    <dl>
+                        <dt>결제 후 사용 가능한 포인트</dt>
+                        <!--                         <dd th:text="${user.point}"></dd> -->
+                    </dl>
+                </div>
             </section>
-            <section class="section section-order">
+            <section class="section section-order" th:if="${success eq false}">
                 <h2 class="h2">포인트 충전이 실패하였습니다.</h2>
+
+                <!--                 <div class="box"> -->
+                <!--                     <dl> -->
+                <!--                         <dt>충전 금액</dt> -->
+                <!--                         <dd th:text="|${order.amount}원 (${order.point}P)|">50,000원 (50,000P)</dd> -->
+                <!--                         <dt>충전 금액</dt> -->
+                <!--                         <dd>카드 결제</dd> -->
+                <!--                     </dl> -->
+                <!--                     <dl> -->
+                <!--                         <dt>결제 후 사용 가능한 포인트</dt> -->
+                <!--                         <dd th:text="${user.point}">카드 결제</dd> -->
+                <!--                     </dl> -->
+                <!--                 </div> -->
             </section>
         </div>
     </div>

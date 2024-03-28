@@ -8,10 +8,6 @@ import java.util.List;
 @Mapper
 public interface MembershipMapper {
 
-
-    List<MembershipDTO> selectMembership();
-
     void createMembership(MembershipDTO membershipDTO);
-
-    MembershipDTO selectMembershipByCode(long code);
 }
+
