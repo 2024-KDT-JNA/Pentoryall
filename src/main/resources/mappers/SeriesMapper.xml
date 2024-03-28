@@ -58,6 +58,9 @@
     </select>
 
     <insert id="addSeriesOptions">
+        <selectKey keyProperty="code" order="AFTER" resultType="_long">
+            SELECT max(code) from series
+        </selectKey>
         INSERT INTO
         series(
         user_code,
