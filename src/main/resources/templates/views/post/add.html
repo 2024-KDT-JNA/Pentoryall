@@ -21,15 +21,17 @@
                     <form class="postAdd" action="/post/add" method="post" id="postAdd" enctype="multipart/form-data">
                         <h4 class="h4"><label class="label">제목</label></h4>
 
+
                         <div class="title-wrap">
                             <div class="upload-thumbnail post-title-input">
-                                <input name="title" type="text" th:value="${session.title}" th:placeholder="${session.title}"/>
+                                <input name="title" maxlength="50" type="text" th:value="${session.title}" th:placeholder="${session.title}"/>
+                                <p class="form-message">최대 50자까지 가능</p>
                             </div>
                         </div>
 
                         <div class="contents-wrap">
                             <div class="upload-thumbnail">
-                                <input name="contents" type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden />
+                                <input name="contents"  type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden />
                             </div>
                         </div>
 
@@ -62,10 +64,6 @@
                         <div class="form-item">
                             <h4 class="h4"><label class="label">시리즈*</label></h4>
                             <select class="select" name="series" id="selectSeries">
-                                <option id="optionNone">없음</option>
-<!--                                <option>시리즈1</option>-->
-<!--                                <option>시리즈2</option>-->
-<!--                                <option>시리즈3</option>-->
                             </select>
                         </div>
 
@@ -205,7 +203,6 @@
             const $optionNone = document.querySelector("#selectSeries");
 
             $optionNone.innerHTML = responseJson.map(item=>createSeriesList(item)).join('');
-
         }
         window.onload(receiveFetch());
 
@@ -229,6 +226,8 @@
             $fileImg.src="/images/temp/thumbnail.png";
             $imageFileBox.value = "";
         }
+
+        /*제목이 null값일 때 경고 문구 오른쪽에 띄우기*/
     </script>
 </th:block>
 </html>

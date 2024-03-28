@@ -8,6 +8,7 @@ import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +57,6 @@ public class PostController {
     public String postAddController(@RequestParam Map<String, String> params,
                                     @RequestParam(required = false) MultipartFile thumbnail,
                                     PostDTO postDTO,
-                                    HttpSession session,
                                     Model model
     ) {
         String title = params.get("title");
