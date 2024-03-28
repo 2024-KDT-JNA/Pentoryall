@@ -67,20 +67,4 @@ public class SecurityConfig {
                 .build();
     }
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//
-//        /* 자동 로그인 설정 S */
-//        http.rememberMe(c -> {
-//            c.rememberMeParameter("autoLogin") // 자동 로그인으로 사용할 요청 파리미터 명, 기본값은 remember-me
-//                    .tokenValiditySeconds(60 * 60 * 24 * 30) // 로그인을 유지할 기간(30일로 설정), 기본값은 14일
-//                    .userDetailsService(memberInfoService) // 재로그인을 하기 위해서 인증을 위한 필요 UserDetailsService 구현 객체
-//                    .authenticationSuccessHandler(new LoginSuccessHandler()); // 자동 로그인 성공시 처리 Handler
-//
-//        });
-//        /* 자동 로그인 설정 E */
-//
-//        return http.build();
-//    }
-
 }
