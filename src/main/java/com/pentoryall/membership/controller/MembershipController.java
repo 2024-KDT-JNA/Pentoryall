@@ -3,14 +3,9 @@ package com.pentoryall.membership.controller;
 import com.pentoryall.membership.dto.MembershipDTO;
 import com.pentoryall.membership.service.MembershipService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.lang.reflect.Member;
-import java.time.LocalDateTime;
 
 
 @Controller
@@ -25,9 +20,20 @@ public class MembershipController {
 
     @PostMapping("/create")
     public String createMembership(Model model, @ModelAttribute MembershipDTO membershipDTO) {
-        MembershipDTO createMembership = membershipService.createMembership(membershipDTO);
-        model.addAttribute("message", "멤버십이 성공적으로 개설되었습니다! 이름: " + createMembership.getName());
-        return "/views/membership/successCreate";
+        try {
+            //성공할 경우 처리
+            MembershipDTO createMembership = membershipService.createMembership(membershipDTO);
+            model.addAttribute("message", "멤버십이 성공적으로 개설되었습니다! 이름: " + createMembership.getName());
+            model.addAttribute("membershipInfo", createMembership);
+            return "/views/membership/successCreate";
+
+        }catch (Exception e){
+            //실패할 경우 처리
+            model.addAttribute("errorMessage","제시된 양식에 따라 다시 작성해 주세요" + e.getMessage());
+            return "/views/membership/failCreate";
+
+
+        }
     }
 
     /* 페이지 메핑 */
@@ -37,7 +43,10 @@ public class MembershipController {
     }
 
     @GetMapping("/info")
-    public String getMembershipInfo() {
+    public String getMembershipInfo(Model model, @ModelAttribute MembershipDTO membershipDTO) {
+        MembershipDTO createMembership = membershipService.createMembership(membershipDTO);
+        model.addAttribute("Info", createMembership);
+
         return "/views/membership/membershipInfo";
     }
 
