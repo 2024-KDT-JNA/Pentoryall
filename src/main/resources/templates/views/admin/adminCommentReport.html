@@ -29,18 +29,18 @@
                 </div>
 
                 <div class="table-box">
-                    <table class="table">
+                    <table class="table" id="noStop">
                         <thead>
                         <tr>
                             <th>
                                 <input type="checkbox" id="checkAll-comment-1" name="comment_report" />
                                 <label for="checkAll-comment-1">전체 선택</label>
                             </th>
-                            <th>번호</th>
+                            <th>회원번호</th>
                             <th>아이디</th>
                             <th>닉네임</th>
                             <th>신고 일자</th>
-                            <th>신고 사유</th>
+                            <th>신고 타입</th>
                             <th>정지 여부</th>
                             <th>해제하기</th>
                         </tr>
@@ -48,14 +48,28 @@
                         <tbody>
                         <tr th:each="commentReportList : ${commentReportList}">
                             <td><input type="checkbox" id="checkAll-comment-2" name="comment_report" /></td>
-                            <td th:text="${commentReportList.code}" class="tg-0lax"></td>
-                            <td th:text="${commentReportList.userId}" class="tg-0lax"></td>
-                            <td th:text="${commentReportList.nickName}" class="tg-0lax"></td>
-                            <td th:text="${commentReportList.state}" class="tg-0lax"></td>
-                            <td th:text="${commentReportList.type}" class="tg-0lax"></td>
-                            <td th:text="${commentReportList.reportDate}" class="tg-0lax"></td>
-                            <td><button class="button">해제</button></td>
+                            <td data-unlock="listCode" th:text="${commentReportList.code}" class="tg-0lax"></td>
+                            <td data-unlock="listId" th:text="${commentReportList.userId}" class="tg-0lax"></td>
+                            <td data-unlock="listNickName" th:text="${commentReportList.nickName}" class="tg-0lax"></td>
+                            <td data-unlock="listReportDate" th:text="${commentReportList.reportDate}" class="tg-0lax"></td>
+                            <td data-unlock="listType" th:text="${commentReportList.type}" class="tg-0lax"></td>
+                            <td data-unlock="listState" th:text="${commentReportList.state}" class="tg-0lax"></td>
+                            <td><button type="button" class="button btn-unlock"  th:attr="data-user=${commentReportList.code}">해제하기</button></td>
                         </tr>
+                        <script>
+
+                            const $unlockBtn = document.querySelectorAll('.btn-unlock');
+                            $unlockBtn.forEach(btn => {
+                                btn.addEventListener("click", function (){
+                                    const userCode = btn.getAttribute("data-user");
+                                    const $reportForm = reportForm;
+                                    $reportForm.code.value = userCode;
+
+                                    showPopup();
+
+                                })
+                            })
+                        </script>
                         </tbody>
                     </table>
                 </div>
@@ -74,93 +88,118 @@
                 </div>
             </section>
             <!-- Pop-Up -->
-            <div class="popUpWrap" style="display: none">
-                <div class="popUp_bg">
-                    <div class="popUp_info">
-                        <h3 class="h3">신고 정보</h3>
-
-                        <div class="table-box">
-                            <table class="table">
-                                <tbody>
-                                <tr>
-                                    <th scope="col">번호</th>
-                                    <th scope="col">작성일시</th>
-                                    <th scope="col">댓글내용</th>
-                                    <th scope="col">해당 포스트</th>
-                                    <th scope="col">포스트 작성자</th>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>@twitter</td>
-                                    <td>너는 바보다</td>
-                                    <td>프로젝트를 잘 하는방법</td>
-                                    <td>김아현</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>@twitter</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>Thornton</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                </tbody>
-                            </table>
+            <div class="layer-popup-wrap">
+                <!-- 큰 사이즈 -->
+                <div class="layer-popup blind">
+                    <div class="pop-header">
+                        <h2 class="h2">안내 메시지</h2>
+                        <button class="close-btn">
+                            <i class="bi bi-x"></i>
+                            <span class="blind">닫기</span>
+                        </button>
+                    </div>
+                    <div class="pop-content">
+                        <div class="pop-content-inner">
+                            <h3 class="h3">서브타이틀</h3>
+                            <div class="table-box">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="col">번호</th>
+                                        <th scope="col">작성일시</th>
+                                        <th scope="col">댓글내용</th>
+                                        <th scope="col">해당 포스트</th>
+                                        <th scope="col">포스트 작성자</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>@twitter</td>
+                                        <td>너는 바보다</td>
+                                        <td>프로젝트를 잘 하는방법</td>
+                                        <td>김아현</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="popUp_btns">
-                            <button class="button">정지 해제</button>
+                        <div class="pop-btn">
+                            <!-- 버튼 개수는 여러 개 가능하고 색은 알아서 클래스 만들어서 사용하세요. -->
+                            <input type="button" value="회원정지" class="button"/>
+                            <input type="button" class="button" value="정지해제"/>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="popUpWrap" style="display: none">
-                <div class="popUp_bg">
-                    <div class="popUp_info">
-                        <div class="popUp_header">
-                            <h3 class="h3">안내창</h3>
-                        </div>
-                        <div class="popup-content">
-                            <p>고등어 회원의 정지를 해제하시겠습니까?</p>
-                        </div>
-                        <div class="popUp_btns">
-                            <button class="button">예</button>
-                            <button class="button">아니오</button>
+            <div class="layer-popup layer-popup-small blind">
+                <div class="pop-header">
+                    <h2 class="h2">정지해제</h2>
+                    <button class="close-btn">
+                        <i class="bi bi-x"></i>
+                        <span class="blind">닫기</span>
+                    </button>
+                </div>
+                <div class="pop-content">
+                    <div class="pop-content-inner">
+                        <h3 class="h3">해당 회원을 정지해제 하시겠습니까?</h3>
+                        <div class="form-item">
+                            <div class="pop-btn">
+                                <form action="/admin/adminCommentReport" method="get" id="reportForm" >
+                                    <input type="hidden" name="code" id="code">
+                                    <input type="hidden" name="type" id="type">
+                                    <input type="hidden" name="state" id="state">
+                                <button type="submit" class="button">확인</button>
+                                <button type="button" class="button" onclick="changeUserState()">취소</button>
+                                </form>
+                                <script>
+                                    function changeUserState(userCode){
+                                      location.href="/admin/adminCommentReport?code="+userCode;
+                                    }
+                                </script>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+                function showPopup() {
+                    // 팝업창 열기
+                    var popup = document.querySelector('.layer-popup-small');
+                    popup.classList.remove('blind');
+                }
+
+
+
+
+                // const cells = event.target.parentNode.querySelectorAll('td');
+                // const table = document.getElementById('noStop');
+                // const inputCode = document.getElementById('code');
+                // const inputType = document.getElementById('type');
+                // // const inputState = document.getElementById('state');
+                // table.addEventListener('click', function(event) {
+                //     if (event.target.tagName === 'TD') {
+                //         const cells = event.target.parentNode.querySelectorAll('td');
+                //
+                //         cells.forEach(cell => {
+                //             const dataUnlock = cell.getAttribute('data-unlock');
+                //             const cellContent = cell.textContent.trim();
+                //
+                //             // 각각의 데이터에 맞는 input 태그에 값을 설정
+                //             if (dataUnlock === 'code') {
+                //                 document.getElementById('code').value = cellContent;
+                //             }
+                //             if (dataUnlock === 'type') {
+                //                 document.getElementById('type').value = cellContent;
+                //             }
+                //             if (dataUnlock === 'state') {
+                //                 document.getElementById('state').value = cellContent;
+                //             }
+                //         });
+                //     }
+                // });
+
+
+            </script>
+
             <!-- ------------------------------------ -->
         </div>
     </div>

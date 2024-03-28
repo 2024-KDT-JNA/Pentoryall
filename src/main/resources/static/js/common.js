@@ -12,5 +12,6 @@ const layoutEvents = {
     },
 };
 
-$sideMenuBtn.addEventListener('click', layoutEvents.sideMenuClickHandler);
+if ($sideMenuBtn !=null)
+    $sideMenuBtn.addEventListener('click', layoutEvents.sideMenuClickHandler);
 $overlay.addEventListener('click', layoutEvents.overlayClickHandler);

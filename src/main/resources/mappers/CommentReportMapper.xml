@@ -7,16 +7,15 @@
 <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.DTO.CommentReportDTO">
     SELECT
         u.code,
+        u.user_id,
         u.nickname,
         r.type,
-        r.report_date,
-        u.state
+        u.state,
+        r.report_date
     FROM
-        user u
-            JOIN
-        report r ON u.code = r.user_code
+        user u JOIN report r
     WHERE
-        u.state = 'ACTIVE';
+        u.state = 'SUSPENDED';
 </select>
 
     <select id="selectTotalCount" resultType="_int">
@@ -25,6 +24,22 @@
         FROM
             report
     </select>
+
+    <update id="restoreUserState">
+        UPDATE
+            user
+        SET state = 'ACTIVE'
+        WHERE state = 'SUSPENDED'
+          AND code = #{userCode}
+    </update>
+
+    <update id="StopUser">
+        UPDATE
+            user
+        SET state = 'SUSPENDED'
+        WHERE state = 'ACTIVE'
+          AND code = #{userCode}
+    </update>
 
 </mapper>
 

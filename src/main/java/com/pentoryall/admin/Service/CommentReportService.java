@@ -2,7 +2,9 @@ package com.pentoryall.admin.Service;
 
 import com.pentoryall.admin.DTO.CommentReportDTO;
 import com.pentoryall.admin.DTO.UserManageDTO;
+import com.pentoryall.admin.Exception.MemberStopException;
 import com.pentoryall.admin.mapper.CommentReportMapper;
+import com.pentoryall.admin.mapper.UserManageMapper;
 import com.pentoryall.admin.page.Pagenation;
 import com.pentoryall.admin.page.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +22,7 @@ public class CommentReportService {
 
     private final CommentReportMapper commentReportMapper;
 
-    public CommentReportService(CommentReportMapper commentReportMapper) {
+    public CommentReportService(CommentReportMapper commentReportMapper, UserManageMapper userManageMapper) {
         this.commentReportMapper = commentReportMapper;
     }
 
@@ -45,5 +47,19 @@ public class CommentReportService {
         commentListAndPaging.put("commentReportList", commentReportList);
 
         return commentListAndPaging;
+    }
+
+
+    public void releaseUserById(long userCode) throws MemberStopException {
+        int result = commentReportMapper.noStopUser(userCode);
+
+        if (!(result > 0)) {
+            throw new MemberStopException("회원 정지해제에 실패하였습니다.");
+        }
+    }
+
+    public void updateStateByUserCode(long userCode, String state) {
+        int result = commentReportMapper.restoreUserState( userCode, state);
+
     }
 }
