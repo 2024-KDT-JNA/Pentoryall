@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+    <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css" />
+</th:block>
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <section class="section">
+                <h2 class="h2">시리즈 등록하기</h2>
+                <form action="/series/add" method="post" enctype="multipart/form-data">
+                    <div class="series-add-wrap">
+                        <div class="form-item">
+                            <h4 class="h4"><label class="label" onload="titleLength()">제목*</label></h4>
+                            <input type="text" class="input title-input" name="title" maxlength="50" oninput="titleLength()"/>
+                            <p class="form-message">제목은 최대 50자까지 작성 가능합니다.</p>
+                            <p class="recognize-title-size">제목은 1자 이상 입력해주셔야합니다.</p>
+                        </div>
+                        <div class="form-item">
+                            <h4 class="h4"><label class="label" >썸네일</label></h4>
+
+                            <div class="thumbnail-file-wrap">
+                                <div class="upload-thumbnail">
+                                    <img class="series-add-thumbnail" src="/images/temp/thumbnail.png" alt="thumbnail" id="fileImg"/>
+                                </div>
+                                <div class="form__input--file_wrap">
+                                    <div class="fileBox">
+                                        <form>
+                                            <label class="label">파일 업로드</label>
+                                            <input type="file" class="input" name="thumbnail" id="fileUpload" onchange="viewURL()"/>
+                                        </form>
+                                        <button class="cancled" type="button" onclick="fileCancled()">취소하기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="genre-box">
+                            <h4 class="h4">장르*</h4>
+
+                            <div class="genre-items">
+                                <div class="genre-item">
+                                    <label class="label">상위 장르</label>
+                                    <select class="select upperGenreSelect" name="upperGenre" onchange="hiddenLowerGenre()">
+                                        <option>웹툰</option>
+                                        <option>소설</option>
+                                        <option>팬픽</option>
+                                        <option>시</option>
+                                        <option>일상</option>
+                                        <option>창작소재</option>
+                                        <option>일러스트</option>
+                                        <option>자기계발</option>
+                                        <option>미분류</option>
+                                    </select>
+                                </div>
+                                <div class="box box-order-amount">
+                                    <label class="label">하위 장르</label>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre1" name="lowerGenre"
+                                                   data-point="1000" value="로맨스"/>
+                                            <label class="form-check-label" for="lowerGenre1">
+                                <span class="inner-text">
+                                    <span class="point">로맨스</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre2" name="lowerGenre"
+                                                   data-point="3000" value="추리"/>
+                                            <label class="form-check-label" for="lowerGenre2">
+                                <span class="inner-text">
+                                    <span class="point">추리</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre3" name="lowerGenre"
+                                                   data-point="5000" value="판타지"/>
+                                            <label class="form-check-label" for="lowerGenre3">
+                                <span class="inner-text">
+                                    <span class="point">판타지</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre4" name="lowerGenre"
+                                                   data-point="10000" value="학원물"/>
+                                            <label class="form-check-label" for="lowerGenre4">
+                                <span class="inner-text">
+                                    <span class="point">학원물</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre5" name="lowerGenre"
+                                                   data-point="15000" value="액션"/>
+                                            <label class="form-check-label" for="lowerGenre5">
+                                <span class="inner-text">
+                                    <span class="point">액션</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre6" name="lowerGenre"
+                                                   data-point="30000" value="무협"/>
+                                            <label class="form-check-label" for="lowerGenre6">
+                                <span class="inner-text">
+                                    <span class="point">무협</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre7" name="lowerGenre"
+                                                   data-point="50000" value="드라마"/>
+                                            <label class="form-check-label" for="lowerGenre7">
+                                <span class="inner-text">
+                                    <span class="point">드라마</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre8" name="lowerGenre"
+                                                   data-point="1000" value="공포/호러"/>
+                                            <label class="form-check-label" for="lowerGenre8">
+                                <span class="inner-text">
+                                    <span class="point">공포/호러</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre9" name="lowerGenre"
+                                                   data-point="1000" value="미스테리"/>
+                                            <label class="form-check-label" for="lowerGenre9">
+                                <span class="inner-text">
+                                    <span class="point">미스테리</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input blind" type="checkbox" id="lowerGenre10" name="lowerGenre"
+                                                   data-point="1000" />
+                                            <label class="form-check-label" for="lowerGenre10">
+                                <span class="inner-text">
+                                    <span class="point">코믹</span>
+                                </span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-item">
+                            <h4 class="h4"><label class="label">시리즈 발행 옵션*</label></h4>
+                            <select class="select" name="isMembershipOnly">
+                                <option value="N">멤버십 전용 미적용</option>
+                                <option value="Y">멤버십 전용 적용</option>
+                            </select>
+                        </div>
+
+                        <div class="form-item">
+                            <h4 class="h4"><label class="label">내용 요약*</label></h4>
+                            <textarea class="textarea" name="description" maxlength="500"> </textarea>
+                            <p class="form-message">최대 500자까지 가능</p>
+                        </div>
+
+                        <div class="form-item">
+                            <button class="submit" onclick="saveSeries()">확인</button>
+                            <button onclick="location.href='/index'">취소</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+    <script>
+        /*썸네일 파일 결정 시 이미지 태그에 같은 이미지 뜨는 효과*/
+        function viewURL() {
+            const $imageFile = document.querySelector("#fileUpload");
+            const fReader = new FileReader();
+            fReader.readAsDataURL($imageFile.files[0]);
+            fReader.onload = function (event) {
+                const img = document.querySelector("#fileImg");
+                img.src = event.target.result;
+                console.log("path : ", event.target.result);
+            }
+        }
+
+        function fileCancled(){
+            const $fileImg = document.querySelector("#fileImg");
+            const $fileUpload = document.querySelector("#fileUpload");
+
+            $fileImg.src="/images/temp/thumbnail.png";
+            $fileUpload.value = "";
+        }
+
+        /*상위 장르가 웹툰,소설,팬픽이면 하위 장르를 보여주고 상위 장르가 그 이외이면 하위 장르를 숨기는 기능*/
+        function hiddenLowerGenre() {
+            const $upperGenre = document.querySelector(".upperGenreSelect");
+            const $lowerGenre = document.querySelector(".box-order-amount")
+            console.log($upperGenre.value);
+            if($upperGenre.value==="웹툰"||$upperGenre.value==="소설"||$upperGenre.value==="팬픽"){
+                $lowerGenre.hidden = false;
+            }else{
+                $lowerGenre.hidden = true;
+            }
+        }
+
+        /*시리즈 제목 길이 제한, 제목 미입력시 버튼 비활성화*/
+        function titleLength(){
+            const $title = document.querySelector(".title-input");
+            const $recognizeTitleSize = document.querySelector(".recognize-title-size");
+            if ($title.value) {
+                $recognizeTitleSize.style.display = "none";
+            } else {
+                $recognizeTitleSize.style.display = "";
+            }
+        }
+    function saveSeries() {
+
+        const $title = document.querySelector(".title-input");
+        if(!$title.value){
+            alert("제목을 1자 이상 입력해주세요!");
+            return;
+        }
+    }
+    </script>
+</th:block>
+</html>

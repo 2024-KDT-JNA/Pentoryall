@@ -16,8 +16,8 @@ public class MembershipDTO {
     private String introduction;
     private int price;
     private String color;
-    private String isActive;
-    private String isDeleted;
+    private char isActive;
+    private char isDeleted;
     private java.time.LocalDateTime createDate;
     private java.time.LocalDateTime updateDate;
     private java.time.LocalDateTime deleteDate;

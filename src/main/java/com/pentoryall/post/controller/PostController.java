@@ -7,6 +7,8 @@ import com.pentoryall.series.service.SeriesService;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +24,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/post")
 public class PostController {
-
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
     private final SeriesService seriesService;
     private final PostService postService;
     private final UserService userService;
@@ -54,7 +57,6 @@ public class PostController {
     public String postAddController(@RequestParam Map<String, String> params,
                                     @RequestParam(required = false) MultipartFile thumbnail,
                                     PostDTO postDTO,
-                                    HttpSession session,
                                     Model model
     ) {
         String title = params.get("title");
@@ -68,30 +70,34 @@ public class PostController {
         System.out.println(title);
         System.out.println("thumbnailImage = " + thumbnail);
         /*파일 가공 로직*/
-        String root = "C:/00_Pactoryall";
-        String filePath = root + "/post-thumbnail-images";
-        String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
-        String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
-        String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
+        if(!thumbnail.isEmpty() && thumbnail!=null) {
+            String filePath = IMAGE_DIR + "post-thumbnail-images";
+            String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
+            String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
 
-        String finalFilePath = filePath + "/" + savedName;
-        File dir = new File(filePath);
-        if (!dir.exists()) dir.mkdirs();
+            String finalFilePath = filePath + "/" + savedName;
+            File dir = new File(filePath);
+            if (!dir.exists()) dir.mkdirs();
 
-        try {
-            thumbnail.transferTo(new File(finalFilePath));
-            model.addAttribute("savedName", savedName);
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                thumbnail.transferTo(new File(finalFilePath));
+                model.addAttribute("savedName", savedName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String saveFileName = "/upload/post-thumbnail-images/" + savedName;
+
+
+            postDTO.setThumbnailImage(saveFileName);
         }
-
         SeriesDTO seriesDTO = seriesService.selectSeriesByTitle(series);
         System.out.println(seriesDTO);
         long seriesCode = seriesDTO.getCode();
-
         postDTO.setTitle(title);
         postDTO.setContent(contents);
-        postDTO.setThumbnailImage(finalFilePath);
+
         postDTO.setIsPublic(isPublic);
         postDTO.setSeriesCode(seriesCode);
         postDTO.setIsPaid(isFee);
@@ -99,27 +105,23 @@ public class PostController {
         postDTO.setIsAdult(isAdult);
 
         System.out.println(postDTO);
+        System.out.println("title>>>>>>>>>>>> = " + title);
         postService.insertPost(postDTO);
+        System.out.println("postDTO = " + postDTO);
+//        session.setAttribute("code", postDTO.getCode());
 
-        session.setAttribute("code", postDTO.getCode());
-
-        return "redirect:/post/information?code="+postDTO.getCode();
+        return "redirect:/post/information?code=" + postDTO.getCode();
     }
 
     @GetMapping("/information")
-    public String getPostInformation(HttpSession session,
-                                     Model model) {
-
-        System.out.println("리다이렉트 성공!");
-
-        long code = (long) session.getAttribute("code");
-
-        System.out.println(code);
+    public String getPostInformation(
+            long code,
+            Model model) {
         PostDTO postDTO = postService.getPostInformationByPostCode(code);
         System.out.println(postDTO);
+        System.out.println("code>>>>> = " + code);
 
         long seriesCode = postDTO.getSeriesCode();
-
         long userCode = postDTO.getUserCode();
 
         System.out.println("userCode = " + userCode);
@@ -130,19 +132,18 @@ public class PostController {
         System.out.println("postDTO = " + postDTO);
         System.out.println("userDTO = " + userDTO);
         System.out.println("seriesDTO = " + seriesDTO);
-        model.addAttribute("post",postDTO);
-        model.addAttribute("user",userDTO);
-        model.addAttribute("series",seriesDTO);
+        model.addAttribute("post", postDTO);
+        model.addAttribute("user", userDTO);
+        model.addAttribute("series", seriesDTO);
 
         return "views/post/list";
     }
 
     @GetMapping("/seriesList")
-    public @ResponseBody List<SeriesDTO> functionGetSeriesList(){
+    public @ResponseBody List<SeriesDTO> functionGetSeriesList() {
         List<SeriesDTO> seriesList = seriesService.getSeriesList(1);
         System.out.println(seriesList);
         return seriesList;
-
     }
 
 }

@@ -171,4 +171,4 @@ body.overflow { overflow: hidden; }
 .genre-box .genre-items { display: flex; }
 .genre-box .label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 14px; }
 .genre-box .genre-item { padding: 6px 20px 10px; background: #f4f4f4; }
-.genre-box .genre-item { width: 200px; } 
+.genre-box .genre-item { width: 1000px; }

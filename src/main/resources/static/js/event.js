@@ -78,29 +78,6 @@ window.onload = function () {
                 })
                 // .then(result => alert(result))
                 .catch((error) => error.text().then((res) => alert(res)));
-        }
-    }
-    // if (document.querySelector(".regist_form")) {
-    //     const $registForm = document.querySelector(".regist_form");
-    //     $registForm.onsubmit = function (event) {
-    //         // 여기에 회원가입 요청을 처리하는 코드가 있어야 합니다.
-    //         // 성공적으로 회원가입이 완료된 경우에는 아래의 함수를 호출하여 완료 메시지를 표시하고 페이지를 이동할 수 있습니다.
-    //         showRegistrationSuccess();
-    //         // const success = handleRegistration();
-    //         // if (success) {
-    //         //     showRegistrationSuccess();
-    //         // } else {
-    //         //     showRegistrationFailure();
-    //         // }
-    //     }
-    // }
-
-    function showRegistrationSuccess() {
-        // 회원가입 완료 메시지를 표시합니다.
-        alert('회원가입이 완료되었습니다.');
-        // 페이지 이동을 원하는 경우 아래의 코드를 사용하여 페이지를 이동할 수 있습니다.
-        location.href = "/";
-    }
 
     // 회원가입 폼 제출 이벤트 처리
     if (document.querySelector(".regist_form")) {
@@ -159,50 +136,17 @@ window.onload = function () {
             };
         }
 
-        // if (document.getElementById("writeBoard")) {
-        //     const $writeBoard = document.getElementById("writeBoard");
-        //     $writeBoard.onclick = function () {
-        //         location.href = "/board/regist";
-        //     }
-        // }
-        //
-        // if (document.getElementById("writeThumbnail")) {
-        //     const $writeThumbnail = document.getElementById("writeThumbnail");
-        //     $writeThumbnail.onclick = function () {
-        //         location.href = "/thumbnail/regist";
-        //     }
-        // }
-
-        // const passwordInput = document.getElementById("password");
-        // const checkPasswordBtn = document.getElementById("checkPassword");
-        // const withdrawBtn = document.getElementById("deleteUser");
-        //
-        // // 비밀번호 확인 버튼 클릭 시
-        // checkPasswordBtn.addEventListener("click", function () {
-        //     const enteredPassword = passwordInput.value; // 입력한 비밀번호 가져오기
-        //
-        //     // 비밀번호 확인 요청을 서버에 보냅니다.
-        //     fetch("/views/user/checkPassword", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify({password: enteredPassword})
-        //     })
-        //         .then(response => {
-        //             if (response.ok) {
-        //                 // 서버에서 비밀번호 확인에 성공한 경우
-        //                 withdrawBtn.disabled = false; // 탈퇴 버튼 활성화
-        //             } else {
-        //                 // 서버에서 비밀번호 확인에 실패한 경우
-        //                 withdrawBtn.disabled = true; // 탈퇴 버튼 비활성화
-        //                 alert("비밀번호가 일치하지 않습니다."); // 사용자에게 알림
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("Error:", error);
-        //             alert("서버 오류가 발생했습니다."); // 사용자에게 알림
-        //         });
-        // });
-    }
+    // if (document.getElementById("writeBoard")) {
+    //     const $writeBoard = document.getElementById("writeBoard");
+    //     $writeBoard.onclick = function () {
+    //         location.href = "/board/regist";
+    //     }
+    // }
+    //
+    // if (document.getElementById("writeThumbnail")) {
+    //     const $writeThumbnail = document.getElementById("writeThumbnail");
+    //     $writeThumbnail.onclick = function () {
+    //         location.href = "/thumbnail/regist";
+    //     }
+    // }
 }
