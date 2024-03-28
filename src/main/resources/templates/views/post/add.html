@@ -57,7 +57,7 @@
 
                             <label class="toggle-button">
 
-                                <input type="checkbox" class="blind toggle-value" value="n" name="isPublic"/>
+                                <input type="checkbox" class="blind toggle-value" value="N" name="isPublic"/>
 
                                 <span class="toggle-switch"></span>
                             </label>
@@ -73,13 +73,13 @@
                                 <label class="label">유료 컨텐츠 여부*</label>
                             </h4>
                             <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value"  value="n" name="isFee"/>
+                                <input type="checkbox" class="blind toggle-value isFee-input"  value="N" name="isFee" onchange="IsPointHidden()"/>
                                 <span class="toggle-switch"></span>
                             </label>
-                            <div class="point-box">
+                            <div class="point-box" hidden>
                                 <p class="isFee">필요 포인트 설정</p>
                                 <div class="needed-point">
-                                    <input class="input" min="0" type="number" value="200" step="100" name="neededPoint"/>
+                                    <input class="input point-input" min="0" type="number" value="200" step="100" name="neededPoint" />
                                     <p class="point-fee">P</p>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                         <div class="form-item">
                             <label class="label">성인물 여부*</label>
                             <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value" value="n" name="isAdult"/>
+                                <input type="checkbox" class="blind toggle-value" value="N" name="isAdult"/>
                                 <span class="toggle-switch"></span>
                             </label>
                         </div>
@@ -258,9 +258,9 @@
             toggleButton[i].addEventListener('change', function () {
                 // 체크박스가 체크되면 'On', 아니면 'Off'로 value 값을 설정합니다.
                 if (this.checked) {
-                    this.value = 'y';
+                    this.value = 'Y';
                 } else {
-                    this.value = 'n';
+                    this.value = 'N';
                 }
                 // 변경된 value 값을 콘솔에 출력합니다.
                 console.log('토글 버튼의 value 값:', this.value);
@@ -321,6 +321,18 @@
                 $lowerGenre.hidden = true;
             }
         }
+
+        /*사용자가 입력한 유료 여부에 따라 포인트의 활성화 여부*/
+        function IsPointHidden() {
+            const $isFeeInput = document.querySelector(".isFee-input");
+            const $pointBox = document.querySelector(".point-box");
+            if($isFeeInput.value==="Y"){
+                $pointBox.hidden = true;
+            }else{
+                $pointBox.hidden = false;
+            }
+        }
+
     </script>
 </th:block>
 </html>
