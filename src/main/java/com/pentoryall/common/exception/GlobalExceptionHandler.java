@@ -13,12 +13,12 @@ public class GlobalExceptionHandler {
     public String errorView(CustomException e, Model model) {
         model.addAttribute("errorMessage", e.getMessage());
         model.addAttribute("redirect", "/");
-        return "/error/errorPage";
+        return "views/common/messageAlert";
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public String errorView(Exception e, Model model) {
-//        model.addAttribute("errorMessage", e.getMessage());
-//        return "/error/errorPage";
-//    }
+    // @ExceptionHandler(Exception.class)
+    // public String errorView(Exception e, Model model) {
+    //     model.addAttribute("error", e.getMessage());
+    //     return "error/error";
+    // }
 }

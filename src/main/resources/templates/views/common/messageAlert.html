@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Message</title>
+</head>
+<body>
+    <script th:inline="javascript">
+        const error = {
+            "message": [ [${errorMessage} ] ],
+            "redirectUrl": [ [${redirectUrl} ] ]
+        };
+
+        alert(error.message);
+        document.location.href = error.redirectUrl;
+    </script>
+</body>
+</html>
