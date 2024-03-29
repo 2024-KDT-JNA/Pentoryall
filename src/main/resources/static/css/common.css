@@ -1,10 +1,10 @@
 /* ======== Layout ========================== */
-#wrap { position: relative; min-width: 1280px; }
+#wrap { position: relative; }
 
 /* header */
 #header { display: flex; z-index: 300; align-items: center; justify-content: space-between; width: 100%; padding: 16px; border-bottom: 1px solid #ddd; background-color: #fff; }
 
-.common-header { position: -webkit-sticky; position: sticky; top: 0; left: 0; min-width: 1280px; }
+.common-header { position: -webkit-sticky; position: sticky; top: 0; left: 0; min-width: 600px; }
 .common-header .header-title .logo { display: block; width: 147px; height: 48px; background-image: url(../images/common/logo_pentoryall.png); background-size: 147px 48px; background-repeat: no-repeat; }
 .common-header .header-right { display: flex; flex-wrap: wrap; align-items: center; }
 
@@ -94,6 +94,7 @@ body.overflow { overflow: hidden; }
 .input, .select, .textarea { width: 100%; padding: 8px 8px 8px 16px; border: 1px solid #ddd; border-radius: 7px; font-size: 16px; }
 .input::placeholder { color: #999; }
 .button { padding: 8px 24px; border-radius: 7px; background-color: #ddd; font-size: 16px; line-height: 24px; }
+a.button {display: inline-block}
 
 .form-item { width: 100%; }
 .form-item + .form-item { margin-top: 18px }
