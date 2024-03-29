@@ -42,10 +42,10 @@
             </button>
             <th:block sec:authorize="isAnonymous()">
                 <div class="login-link">
-                    <a th:href="@{/user/login}" class="button">로그인</a>
+                    <a th:href="@{views/user/login}" class="button">로그인</a>
                 </div>
                 <div class="login-link">
-                    <a th:href="@{/user/regist}" class="button">회원가입</a>
+                    <a th:href="@{views/user/regist}" class="button">회원가입</a>
                 </div>
             </th:block>
         </div>
@@ -66,7 +66,7 @@
                     </div>
                     <th:block sec:authorize="isAnonymous()">
                         <div class="login-link">
-                            <a th:href="@{/user/login}">로그인을 해주세요.</a>
+                            <a th:href="@{views/user/login}">로그인을 해주세요.</a>
                         </div>
                     </th:block>
                     <div class="profile-point" sec:authorize="isAuthenticated()">
@@ -85,11 +85,11 @@
                             <!-- <i class="bi bi-vector-pen"></i> -->
                             <a href="/story">마이 스토리</a>
                         </li>
-                        <li><a href="/user/like">보관함</a></li>
-                        <li><a href="/subscribe/storyList">구독/멤버십</a></li>
-                        <li><a href="/point">포인트</a></li>
+                        <li><a href="#">보관함</a></li>
+                        <li><a href="#">구독/멤버십</a></li>
+                        <li><a href="#">포인트</a></li>
                         <li><a href="#">계정 설정</a></li>
-                        <li id="logout"><a href="/user/logout">로그아웃</a></li>
+                        <li id="logout"><a th:href="@{views/user/logout}">로그아웃</a></li>
                     </ul>
                 </nav>
             </div>
