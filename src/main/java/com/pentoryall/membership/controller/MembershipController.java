@@ -50,11 +50,21 @@ public class MembershipController {
             return "/views/membership/failCreate";
         }
     }
-/*셀렉트 컨트롤러 */
-    @GetMapping("/planInfo")
-    public List<MembershipDTO> selectMembershipInfo(){
 
-      return "/views/membership/membershipInfo";
+    /*셀렉트 컨트롤러 */
+    @GetMapping("/planInfo")
+    public String selectMembershipInfo(Model model) {
+        List<MembershipDTO> membershipList = membershipService.getAllMemberships();
+        System.out.println(membershipList);
+        if (membershipList.isEmpty() || membershipList == null) {
+            // 빈 리스트일 경우에도 해당 페이지를 반환하도록 변경
+            System.out.println(membershipList + "dasdasd");
+            return "/views/membership/membershipInfo";
+        } else {
+            model.addAttribute("plan", membershipList);
+            System.out.println(membershipList + "dsadsadas");
+            return "/views/membership/planInfo";
+        }
     }
 
     /* 페이지 메핑 */
@@ -63,19 +73,14 @@ public class MembershipController {
         return "/views/membership/membershipList";
     }
 
-//    @GetMapping("/info")
-//    public String getMembershipInfo() {
-//        return "/views/membership/membershipInfo";
-//    }
+    @GetMapping("/info")
+    public String getMembershipInfo() {
+        return "/views/membership/membershipInfo";
+    }
 
     @GetMapping("/create")
     public String createMembership() {
         return "/views/membership/createMembership";
-    }
-    @GetMapping("/view")
-    public String getMembershipView(){
-        return "/views/membership/infoView";
-
     }
 
 }

@@ -14,9 +14,15 @@ public class MembershipService {
     public MembershipService(MembershipMapper membershipMapper) {
         this.membershipMapper = membershipMapper;
     }
+
     @Transactional
-    public void  createMembership(MembershipDTO membershipDTO) {
+    public void createMembership(MembershipDTO membershipDTO) {
         membershipMapper.createMembership(membershipDTO);
+    }
+    public List<MembershipDTO> getAllMemberships() {
+        return membershipMapper.getAllMemberships();
     }
 
 }
+
+

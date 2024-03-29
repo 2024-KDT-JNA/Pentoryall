@@ -20,7 +20,7 @@
                 #{ price },
                 #{ color })
     </insert>
-    <select id="planInfo" resultType="com.pentoryall.membership.dto.MembershipDTO">
+    <select id="getAllMemberships" resultType="com.pentoryall.membership.dto.MembershipDTO">
         SELECT name,
                introduction,
                price,

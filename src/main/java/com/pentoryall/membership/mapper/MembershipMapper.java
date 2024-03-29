@@ -9,5 +9,7 @@ import java.util.List;
 public interface MembershipMapper {
 
     void createMembership(MembershipDTO membershipDTO);
+
+    List<MembershipDTO> getAllMemberships();
 }
 

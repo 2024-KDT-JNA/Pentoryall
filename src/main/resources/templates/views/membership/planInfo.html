@@ -6,30 +6,32 @@
 <th:block layout:fragment="style">
     <link rel="stylesheet" th:href="@{/css/story.css}" href="/css/story.css"/>
 </th:block>
-
 <th:block layout:fragment="content">
     <div class="story-content">
         <div class="inner">
             <section class="section">
-                <div id="membership-created" style="display: none;">
+                <div id="membership-created">
                     <section class="section" sec:authorize="isAuthenticated()">
+
                         <h2 class="h2"><span class="username" sec:authentication="principal.name"></span>님의 창작 활동을 펜토리얼은
                             응원합니다.
                         </h2>
                         <p>멤버십 플랜을 활성화 시켜 작가님 만의 팬들을 만들어 소통해보세요!.</p>
                         <p>팬들이 멤버십 가입이 작가님의 수익으로 전환될 수 있어요! </p>
 
-                        <div th:if="${info != null}">
-                            <p>1개의 멤버십 플랜</p>
-                            <p th:text="${info.name}"></p>
-                            <p th:text="${info.price}"></p>
-                            <p>/월</p>
-                            <p>n개의 혜택 포스트</p>
-                            <p th:text="${info.introduction}"></p>
-                            <p th:text="${info.color}"></p>
-                        </div>
-                        <div>
-                            <button class="button">멤버십 관리</button>
+                        <div th:if="${plan != null}">
+                            <ul>
+                                <li th:each="membership : ${plan}">
+                                    <p th:text="${membership.name}"></p>
+                                    <p th:text="${membership.price}"></p>
+                                    <p>/월</p>
+                                    <p th:text="${membership.introduction}"></p>
+                                    <p th:text="${membership.color}"></p>
+                                </li>
+                            </ul>
+                            <div>
+                                <button class="button">멤버십 관리</button>
+                            </div>
                         </div>
                     </section>
                 </div>
