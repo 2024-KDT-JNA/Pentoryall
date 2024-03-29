@@ -6,13 +6,13 @@
 </head>
 <body>
     <script th:inline="javascript">
-        const error = {
-            "message": [ [${errorMessage} ] ],
-            "redirectUrl": [ [${redirectUrl} ] ]
-        };
+        const errorMessage = [[ ${errorMessage} ]];
+        const redirectUrl = [[ ${redirectUrl} ]];
 
-        alert(error.message);
-        document.location.href = error.redirectUrl;
+        if(errorMessage) {
+            alert(errorMessage);
+            document.location.href = redirectUrl;
+        }
     </script>
 </body>
 </html>
