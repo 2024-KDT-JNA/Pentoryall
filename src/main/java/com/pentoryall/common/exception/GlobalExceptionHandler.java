@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
     public String errorView(CustomException e, Model model) {
         model.addAttribute("errorMessage", e.getMessage());
-        model.addAttribute("redirect", "/");
+        model.addAttribute("redirectUrl", "/");
         return "views/common/messageAlert";
     }
 
