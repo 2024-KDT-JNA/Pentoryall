@@ -23,6 +23,8 @@
         FROM
             genre
         WHERE
+            ref_genre_code = 1;
+    </select>
             ref_genre_code=#{code};
     </select>
     <select id="selectGenreList" resultType="com.pentoryall.genre.dto.GenreDTO">
