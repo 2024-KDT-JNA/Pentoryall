@@ -15,6 +15,8 @@
 /* .header-right .alert-dot { --bs-bg-opacity: 1; position: absolute; top: 20%; left: 70%; padding: .25rem; border-radius: 50%; background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity)); } */
 .header-right .bi-bell { font-size: 24px; }
 .header-right .profile-btn .profile-image { width: 36px; height: 36px; }
+.header-right .btn-admin { color: #fff; background-color: #0d6efd }
+.header-right .link {margin-left: 7px}
 
 /* side menu */
 #aside { display: none; z-index: 999; position: fixed; top: 0; right: 0; width: 300px; height: 100%; background-color: #fff; }
@@ -34,7 +36,7 @@
 
 /* layout */
 #container { position: relative }
-.content { padding-top: 80px; padding-bottom: 40px }
+.content { min-height: 500px; padding-top: 80px; padding-bottom: 40px }
 /* .inner { width: 1140px; margin: 0 auto; overflow-x:hidden; } */
 .inner { width: 1000px; height: 100%; margin: 0 auto; overflow: hidden; }
 .box { margin-top: 64px }
@@ -152,6 +154,7 @@ a.button {display: inline-block}
 
 /* ================================== */
 .summary-wrap { width: 100%; margin: 40px auto; padding: 30px; border-radius: 7px; background-color: #f4f4f4; }
+.summary-wrap .p{line-height: 150%;}
 .summary-wrap .desc-list { display: flex; align-items: center; }
 .summary-wrap .desc-list-dt { margin-right: 20px }
 .summary-wrap .desc-list-dd { font-weight: 600; font-size: 22px; }
