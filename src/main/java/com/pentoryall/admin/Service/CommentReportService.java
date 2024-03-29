@@ -39,7 +39,7 @@ public class CommentReportService {
         log.info("commentReportList selectCriteria : {}", selectCriteria);
 
         /* 3. 요청 페이지와 검색 기준에 맞는 게시글을 조회해온다. */
-        List<UserManageDTO> commentReportList = commentReportMapper.selectAllCommentReportList(selectCriteria);
+        List<CommentReportDTO> commentReportList = commentReportMapper.selectAllCommentReportList(selectCriteria);
         log.info("commentReportList : {}", commentReportList);
 
         Map<String, Object> commentListAndPaging = new HashMap<>();
@@ -58,8 +58,9 @@ public class CommentReportService {
         }
     }
 
-    public void updateStateByUserCode(long userCode, String state) {
-        int result = commentReportMapper.restoreUserState( userCode, state);
+    public int updateStateByUserCode(long userCode, String state) {
 
+        return commentReportMapper.restoreUserState( userCode, state);
     }
+
 }

@@ -5,17 +5,19 @@
 <mapper namespace="com.pentoryall.admin.mapper.CommentReportMapper">
 
 <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.DTO.CommentReportDTO">
-    SELECT
-        u.code,
+    SELECt
+        r.code,
+        u.code as user_code,
         u.user_id,
         u.nickname,
-        r.type,
         u.state,
-        r.report_date
+        r.report_date,
+        c.content
     FROM
-        user u JOIN report r
-    WHERE
-        u.state = 'SUSPENDED';
+        report r JOIN user u ON r.user_code = u.code
+        JOIN comment c ON r.comment_code = c.code
+    WHERE r.type = 'comment'
+    ORDER BY report_date, user_code
 </select>
 
     <select id="selectTotalCount" resultType="_int">
@@ -40,6 +42,26 @@
         WHERE state = 'ACTIVE'
           AND code = #{userCode}
     </update>
+
+<!--    <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.DTO.CommentReportDTO">-->
+<!--        SELECT-->
+<!--            c.user_code,-->
+<!--            u.name,-->
+<!--            c.create_date,-->
+<!--            c.content,-->
+<!--            p.user_code,-->
+<!--            u2.name ,-->
+<!--            p.title-->
+<!--        FROM-->
+<!--            comment c-->
+<!--                JOIN-->
+<!--            post p ON c.post_code = p.code-->
+<!--                JOIN-->
+<!--            user u ON c.user_code = u.code-->
+<!--                JOIN-->
+<!--            user u2 ON p.user_code = u2.code;-->
+
+<!--    </select>-->
 
 </mapper>
 

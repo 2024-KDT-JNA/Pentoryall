@@ -1,16 +1,10 @@
 package com.pentoryall.admin.Controller;
-import com.pentoryall.admin.DTO.CommentReportDTO;
-import com.pentoryall.admin.DTO.UserManageDTO;
 import com.pentoryall.admin.Exception.MemberStopException;
 import com.pentoryall.admin.Service.CommentReportService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
@@ -18,7 +12,7 @@ import java.util.Map;
 
 @Slf4j
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/report")
 public class CommentReportController {
 
     private final CommentReportService commentReportService;
@@ -27,7 +21,7 @@ public class CommentReportController {
         this.commentReportService = commentReportService;
     }
 
-    @GetMapping("/report/list")
+    @GetMapping("/comments")
     public String commentReportAllList(Model model,
                                        @RequestParam(defaultValue = "1") int page,
                                        @RequestParam(required = false) String searchCondition,
@@ -45,6 +39,7 @@ public class CommentReportController {
         System.out.println("commentReportListAndPaging = " + commentReportListAndPaging);
         model.addAttribute("paging", commentReportListAndPaging.get("paging"));
         model.addAttribute("commentReportList", commentReportListAndPaging.get("commentReportList"));
+        model.addAttribute("commentContents", commentReportListAndPaging.get("commentContents"));
 
         System.out.println(commentReportListAndPaging.get("commentReportList"));
 
@@ -53,10 +48,17 @@ public class CommentReportController {
 
 //    회원 정지 해제 및 정지 유지
 
-    @GetMapping("/adminCommentReport")
-    public String getStop(@RequestParam("code") Long userCode) {
-        commentReportService.updateStateByUserCode((userCode), "ACTIVE");
-        return "redirect:/admin/report/list";
+    @PostMapping("/user/active")
+    public String getStop(@RequestParam("userCode") Long userCode,
+                          RedirectAttributes rttr) {
+
+        System.out.println("userCode = " + userCode);
+        int result =  commentReportService.updateStateByUserCode((userCode), "ACTIVE");
+     if (result > 0 ){
+         rttr.addFlashAttribute("message", "회원을 성공적으로 해제했습니다.");
+     }
+
+        return "redirect:/admin/report/comments";
     }
 
     @PostMapping("/report/list")
@@ -73,4 +75,5 @@ public class CommentReportController {
         return "redirect:/admin/report/list";
 
     }
+
 }
