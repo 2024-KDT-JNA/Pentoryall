@@ -1,0 +1,53 @@
+# [server]
+#server:
+#  port: 8080
+#  error:
+#    whitelabel.enabled: false
+#    include-exception: true
+#    include-message: on_param
+#    include-stacktrace: on_param
+#    include-binding-errors: on_param
+# -------------------------------------------------
+# [spring]
+spring:
+  # spring.thymeleaf
+  thymeleaf:
+    cache: false
+    check-template-location: true
+  # spring.datasource
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/pentoryall
+    username: ohgiraffers
+    password: ohgiraffers
+  # spring.email
+  mail:
+    host: smtp.gmail.com  # SMTP 서버 호스트
+    port: 587             # SMTP 서버 포트
+    username: pentoryall  # 이메일 아이디
+    password: donotstay202403!
+    properties:
+      mail:
+        smtp:
+          auth: true      # 사용자 인증 시도 여부 - 기본값 false
+          timeout: 5000   # Socket Read Timeout 시간(ms) - 기본값 : 무한대
+          starttls:
+            enable: true  # StartTLS 활성화 여부 - 기본값 false 이메일인증 끝
+  # spring.servlet
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      location: c:/Users/
+# -------------------------------------------------
+# [mybatis]
+mybatis:
+  mapper-locations: mappers/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+# -------------------------------------------------
+# [image] image upload directory
+image:
+  image-dir: src/main/resources/upload/
+
