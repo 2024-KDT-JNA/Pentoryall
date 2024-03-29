@@ -28,9 +28,6 @@ public class MembershipController {
     @PostMapping("/create")
     public String createMembership(Model model, @ModelAttribute("membership") MembershipDTO membershipDTO, @AuthenticationPrincipal UserDTO user) {
         try {
-            // userDTO 에서 받아올 값을  @AuthenticationPrincipal + 받아올 DTO 받아올 dto ){} 이런식으로 받아올 수 있음
-            // @AuthenticationPrincipal : 사용자 인증 및 권한 부여를 처리하는 어노테이션 , 인증받은 사용자의 정보를 컨트롤러나 서비스 등의 스프링 빈에 주입받을 수 있게 해준다.
-
             membershipDTO.setUserCode(user.getCode());
             // 성공할 경우 처리
             membershipService.createMembership(membershipDTO);
@@ -123,5 +120,4 @@ public class MembershipController {
 //
 //      return "redirect:/membership/myMembership";
 //    }
-
 

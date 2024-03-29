@@ -8,6 +8,7 @@
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
  <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css"/>
+
 </th:block>
 
 <th:block layout:fragment="content">
@@ -19,17 +20,19 @@
 
                 <div class="form-item">
                     <form class="postAdd" action="/post/add" method="post" id="postAdd" enctype="multipart/form-data">
-                        <h4 class="h4"><label class="label">제목</label></h4>
+                        <h4 class="h4"><label class="label">제목*</label></h4>
+
 
                         <div class="title-wrap">
                             <div class="upload-thumbnail post-title-input">
-                                <input name="title" type="text" th:value="${session.title}" th:placeholder="${session.title}"/>
+                                <input class="title-input" name="title" maxlength="50" type="text" th:value="${session.title}" th:placeholder="${session.title}"/>
+                                <p class="recognize-title-size" hidden>제목을 1글자 이상 입력하여주세요.</p>
                             </div>
                         </div>
 
                         <div class="contents-wrap">
                             <div class="upload-thumbnail">
-                                <input name="contents" type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden />
+                                <input name="contents"  type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden required="false"/>
                             </div>
                         </div>
 
@@ -43,7 +46,8 @@
                             <div class="form__input--file_wrap">
                                 <div class="fileBox">
                                     <label class="label">파일 업로드</label>
-                                    <input id="image-file-box" type="file" class="input" name="thumbnail"/>
+                                    <input id="image-file-box" type="file" class="input" name="thumbnail" onchange="viewURL()"/>
+                                    <button class="cancled" type="button" onclick="fileCancled()">취소하기</button>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +57,7 @@
 
                             <label class="toggle-button">
 
-                                <input type="checkbox" class="blind toggle-value" value="n" name="isPublic"/>
+                                <input type="checkbox" class="blind toggle-value" value="N" name="isPublic"/>
 
                                 <span class="toggle-switch"></span>
                             </label>
@@ -61,10 +65,6 @@
                         <div class="form-item">
                             <h4 class="h4"><label class="label">시리즈*</label></h4>
                             <select class="select" name="series" id="selectSeries">
-                                <option id="optionNone">없음</option>
-<!--                                <option>시리즈1</option>-->
-<!--                                <option>시리즈2</option>-->
-<!--                                <option>시리즈3</option>-->
                             </select>
                         </div>
 
@@ -73,13 +73,13 @@
                                 <label class="label">유료 컨텐츠 여부*</label>
                             </h4>
                             <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value"  value="n" name="isFee"/>
+                                <input type="checkbox" class="blind toggle-value isFee-input"  value="N" name="isFee" onchange="IsPointHidden()"/>
                                 <span class="toggle-switch"></span>
                             </label>
-                            <div class="point-box">
+                            <div class="point-box" hidden>
                                 <p class="isFee">필요 포인트 설정</p>
                                 <div class="needed-point">
-                                    <input class="needed-point-number" min="0" type="number" value="200" step="100" name="neededPoint"/>
+                                    <input class="input point-input" min="0" type="number" value="200" step="100" name="neededPoint" />
                                     <p class="point-fee">P</p>
                                 </div>
                             </div>
@@ -88,18 +88,17 @@
                         <div class="form-item">
                             <label class="label">성인물 여부*</label>
                             <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value" value="n" name="isAdult"/>
+                                <input type="checkbox" class="blind toggle-value" value="N" name="isAdult"/>
                                 <span class="toggle-switch"></span>
                             </label>
                         </div>
 
                         <div class="genre-box">
                             <h4 class="h4">장르*</h4>
-
                             <div class="genre-items">
                                 <div class="genre-item">
                                     <label class="label">상위 장르</label>
-                                    <select class="select" name="upperGenre">
+                                    <select class="select upperGenreSelect" name="upperGenre" onchange="hiddenLowerGenre()">
                                         <option>웹툰</option>
                                         <option>소설</option>
                                         <option>팬픽</option>
@@ -110,22 +109,106 @@
                                         <option>자기계발</option>
                                         <option>미분류</option>
                                     </select>
+
+                                    <div class="box box-order-amount">
+                                        <label class="label">하위 장르</label>
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre1" name="lowerGenre"
+                                                       data-point="1000" value="로맨스"/>
+                                                <label class="form-check-label" for="lowerGenre1">
+                                <span class="inner-text">
+                                    <span class="point">로맨스</span>
+                                </span>
+                                                </label>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre2" name="lowerGenre"
+                                                       data-point="3000" value="추리"/>
+                                                <label class="form-check-label" for="lowerGenre2">
+                                <span class="inner-text">
+                                    <span class="point">추리</span>
+                                </span>
+                                                </label>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre3" name="lowerGenre"
+                                                       data-point="5000" value="판타지"/>
+                                                <label class="form-check-label" for="lowerGenre3">
+                                <span class="inner-text">
+                                    <span class="point">판타지</span>
+                                </span>
+                                                </label>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre4" name="lowerGenre"
+                                                       data-point="10000" value="학원물"/>
+                                                <label class="form-check-label" for="lowerGenre4">
+                                <span class="inner-text">
+                                    <span class="point">학원물</span>
+                                </span>
+                                                </label>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre5" name="lowerGenre"
+                                                       data-point="15000" value="액션"/>
+                                                <label class="form-check-label" for="lowerGenre5">
+                                <span class="inner-text">
+                                    <span class="point">액션</span>
+                                </span>
+                                                </label>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre6" name="lowerGenre"
+                                                       data-point="30000" value="무협"/>
+                                                <label class="form-check-label" for="lowerGenre6">
+                                <span class="inner-text">
+                                    <span class="point">무협</span>
+                                </span>
+                                                </label>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre7" name="lowerGenre"
+                                                       data-point="50000" value="드라마"/>
+                                                <label class="form-check-label" for="lowerGenre7">
+                                <span class="inner-text">
+                                    <span class="point">드라마</span>
+                                </span>
+                                                </label>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre8" name="lowerGenre"
+                                                       data-point="1000" value="공포/호러"/>
+                                                <label class="form-check-label" for="lowerGenre8">
+                                <span class="inner-text">
+                                    <span class="point">공포/호러</span>
+                                </span>
+                                                </label>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre9" name="lowerGenre"
+                                                       data-point="1000" value="미스테리"/>
+                                                <label class="form-check-label" for="lowerGenre9">
+                                <span class="inner-text">
+                                    <span class="point">미스테리</span>
+                                </span>
+                                                </label>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre10" name="lowerGenre"
+                                                       data-point="1000" />
+                                                <label class="form-check-label" for="lowerGenre10">
+                                <span class="inner-text">
+                                    <span class="point">코믹</span>
+                                </span>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="genre-item">
-                                    <lable class="label">하위 장르</lable>
-                                    <select class="select" name="lowerGenre">
-                                        <option>로맨스</option>
-                                        <option>추리</option>
-                                        <option>판타지</option>
-                                        <option>학원물</option>
-                                        <option>액션</option>
-                                        <option>무협</option>
-                                        <option>드라마</option>
-                                        <option>공포/호러</option>
-                                        <option>미스테리</option>
-                                        <option>코믹</option>
-                                    </select>
-                                </div>
+
+
+
                             </div>
                         </div>
                         <div class="form-item">
@@ -175,9 +258,9 @@
             toggleButton[i].addEventListener('change', function () {
                 // 체크박스가 체크되면 'On', 아니면 'Off'로 value 값을 설정합니다.
                 if (this.checked) {
-                    this.value = 'y';
+                    this.value = 'Y';
                 } else {
-                    this.value = 'n';
+                    this.value = 'N';
                 }
                 // 변경된 value 값을 콘솔에 출력합니다.
                 console.log('토글 버튼의 value 값:', this.value);
@@ -204,9 +287,52 @@
             const $optionNone = document.querySelector("#selectSeries");
 
             $optionNone.innerHTML = responseJson.map(item=>createSeriesList(item)).join('');
-
         }
         window.onload(receiveFetch());
+
+
+        /*썸네일 파일 결정 시 이미지 태그에 같은 이미지 뜨는 효과*/
+        function viewURL() {
+            const $imageFile = document.querySelector("#image-file-box");
+            const fReader = new FileReader();
+            fReader.readAsDataURL($imageFile.files[0]);
+            fReader.onload = function (event) {
+                const img = document.querySelector("#image-box");
+                img.src = event.target.result;
+                console.log("path : ", event.target.result);
+            }
+        }
+        function fileCancled(){
+            const $fileImg = document.querySelector("#image-box");
+            const $imageFileBox = document.querySelector("#image-file-box");
+
+            $fileImg.src="/images/temp/thumbnail.png";
+            $imageFileBox.value = "";
+        }
+
+        /*상위 장르가 웹툰,소설,팬픽이면 하위 장르를 보여주고 상위 장르가 그 이외이면 하위 장르를 숨기는 기능*/
+        function hiddenLowerGenre() {
+            const $upperGenre = document.querySelector(".upperGenreSelect");
+            const $lowerGenre = document.querySelector(".box-order-amount")
+            console.log($upperGenre.value);
+            if($upperGenre.value==="웹툰"||$upperGenre.value==="소설"||$upperGenre.value==="팬픽"){
+                $lowerGenre.hidden = false;
+            }else{
+                $lowerGenre.hidden = true;
+            }
+        }
+
+        /*사용자가 입력한 유료 여부에 따라 포인트의 활성화 여부*/
+        function IsPointHidden() {
+            const $isFeeInput = document.querySelector(".isFee-input");
+            const $pointBox = document.querySelector(".point-box");
+            if($isFeeInput.value==="Y"){
+                $pointBox.hidden = true;
+            }else{
+                $pointBox.hidden = false;
+            }
+        }
+
     </script>
 </th:block>
 </html>

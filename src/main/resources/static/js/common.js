@@ -1,16 +1,18 @@
-/* layout */
-const $sideMenuBtn = document.querySelector('.profile-btn');
-const $overlay = document.querySelector('.overlay');
+window.onload = function () {
+    /* layout */
+    const $sideMenuBtn = document.querySelector('.profile-btn');
+    const $overlay = document.querySelector('.overlay');
 
-const layoutEvents = {
-    sideMenuClickHandler: (e) => {
-        const $sideMenu = document.querySelector('#aside');
-        $sideMenu.classList.add('active');
-    },
-    overlayClickHandler: (e) => {
-        if (e.target == $overlay) e.currentTarget.classList.remove('active');
-    },
-};
+    const layoutEvents = {
+        sideMenuClickHandler: (e) => {
+            const $sideMenu = document.querySelector('#aside');
+            $sideMenu.classList.add('active');
+        },
+        overlayClickHandler: (e) => {
+            if (e.target == $overlay) e.currentTarget.classList.remove('active');
+        },
+    };
 
-$sideMenuBtn.addEventListener('click', layoutEvents.sideMenuClickHandler);
-$overlay.addEventListener('click', layoutEvents.overlayClickHandler);
+    $sideMenuBtn.addEventListener('click', layoutEvents.sideMenuClickHandler);
+    $overlay.addEventListener('click', layoutEvents.overlayClickHandler);
+}
