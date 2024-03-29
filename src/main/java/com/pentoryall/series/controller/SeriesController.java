@@ -50,29 +50,33 @@ public class SeriesController {
         System.out.println("thumbnailImage = " + thumbnail);
 
         /*파일 가공*/
-        String filePath = IMAGE_DIR + "series-thumbnail-images";
+        if(!thumbnail.isEmpty() && thumbnail!=null) {
+            String filePath = IMAGE_DIR + "series-thumbnail-images";
 
-        File dir = new File(filePath);
+            File dir = new File(filePath);
 
-        if (!dir.exists()) dir.mkdirs();
+            if (!dir.exists()) dir.mkdirs();
 
-        String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
-        String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
-        String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
-        System.out.println("filePath = " + filePath);
-        String finalFilePath = filePath  +"/"+ savedName;
-        System.out.println("finalFilePath = " + finalFilePath);
+            String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
+            String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
+            System.out.println("filePath = " + filePath);
+            String finalFilePath = filePath + "/" + savedName;
+            System.out.println("finalFilePath = " + finalFilePath);
 
-        try {
-            thumbnail.transferTo(new File(finalFilePath));
-            model.addAttribute("finalFilePath", finalFilePath);
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                thumbnail.transferTo(new File(finalFilePath));
+                model.addAttribute("finalFilePath", finalFilePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String savePath = "/upload/series-thumbnail-images" + "/" + savedName;
+
+            seriesDTO.setThumbnailImage(savePath);
+        }else{
+            seriesDTO.setThumbnailImage("/images/temp/thumbnail.png");
         }
-
-        String savePath = "/upload/series-thumbnail-images"+"/"+savedName;
-
-        seriesDTO.setThumbnailImage(savePath);
 
         System.out.println("seriesDTO = " + seriesDTO);
 
