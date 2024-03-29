@@ -1,5 +1,5 @@
 !DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Membership Creation Success</title>
@@ -9,6 +9,7 @@
 
 <h1>멤버십 생성 성공</h1>
 <p>멤버십이 성공적으로 생성되었습니다!</p>
-<button onclick="location.href='/membership/info'">확인</button>
+<button type="button" onclick="location.href='/membership/view'">확인</button>
+<p th:text="${membership.name}"></p>
 </body>
 </html>
