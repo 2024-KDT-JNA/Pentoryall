@@ -56,10 +56,10 @@ public class CommentReportController {
     @GetMapping("/adminCommentReport")
     public String getStop(@RequestParam("code") Long userCode) {
         commentReportService.updateStateByUserCode((userCode), "ACTIVE");
-        return "views/admin/adminCommentReport";
+        return "redirect:/admin/report/list";
     }
 
-    @PostMapping("/report/noStop")
+    @PostMapping("/report/list")
     public String noStopUser(@RequestParam("userCode") Long userCode,
                              RedirectAttributes rttr) throws MemberStopException {
 
@@ -70,7 +70,7 @@ public class CommentReportController {
         // 성공적으로 회원을 해제한 경우 메시지를 전달하고 이전 페이지로 리다이렉트합니다.
         rttr.addFlashAttribute("message", "회원을 성공적으로 해제했습니다.");
 
-        return "redirect:/admin/adminCommentReport";
+        return "redirect:/admin/report/list";
 
     }
 }
