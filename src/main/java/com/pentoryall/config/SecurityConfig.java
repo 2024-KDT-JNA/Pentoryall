@@ -44,11 +44,11 @@ public class SecurityConfig {
                 /* 로그인 설정 */
                 .formLogin(login -> {
                     /* 로그인 페이지 설정 */
-                    login.loginPage("/views/user/login");
+                    login.loginPage("/user/login");
                     /* 성공 시 랜딩 페이지 설정 */
                     login.defaultSuccessUrl("/");
                     /* 로그인 실패 시 랜딩 페이지 설정 */
-                    login.failureForwardUrl("/views/user/loginfail");
+                    login.failureForwardUrl("/user/loginfail");
                     /* 파라미터명 변경 */
                     login.usernameParameter("userId");
                     login.passwordParameter("password");
@@ -56,7 +56,7 @@ public class SecurityConfig {
                 /* 로그아웃 설정 */
                 .logout(logout -> {
                     /* 로그아웃 요청 URL */
-                    logout.logoutRequestMatcher(new AntPathRequestMatcher("/views/user/logout"));
+                    logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"));
                     /* JSESSIONID 쿠키 삭제 */
                     logout.deleteCookies("JSESSIONID");
                     /* 세션 만료 */
@@ -66,21 +66,5 @@ public class SecurityConfig {
                 })
                 .build();
     }
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//
-//        /* 자동 로그인 설정 S */
-//        http.rememberMe(c -> {
-//            c.rememberMeParameter("autoLogin") // 자동 로그인으로 사용할 요청 파리미터 명, 기본값은 remember-me
-//                    .tokenValiditySeconds(60 * 60 * 24 * 30) // 로그인을 유지할 기간(30일로 설정), 기본값은 14일
-//                    .userDetailsService(memberInfoService) // 재로그인을 하기 위해서 인증을 위한 필요 UserDetailsService 구현 객체
-//                    .authenticationSuccessHandler(new LoginSuccessHandler()); // 자동 로그인 성공시 처리 Handler
-//
-//        });
-//        /* 자동 로그인 설정 E */
-//
-//        return http.build();
-//    }
 
 }
