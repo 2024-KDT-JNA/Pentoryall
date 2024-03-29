@@ -1,16 +1,18 @@
+
+
 package com.pentoryall.membership.controller;
 
 import com.pentoryall.membership.dto.MembershipDTO;
 import com.pentoryall.membership.service.MembershipService;
+import com.pentoryall.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Member;
-import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Controller
@@ -24,10 +26,42 @@ public class MembershipController {
     }
 
     @PostMapping("/create")
-    public String createMembership(Model model, @ModelAttribute MembershipDTO membershipDTO) {
-        MembershipDTO createMembership = membershipService.createMembership(membershipDTO);
-        model.addAttribute("message", "멤버십이 성공적으로 개설되었습니다! 이름: " + createMembership.getName());
-        return "/views/membership/successCreate";
+    public String createMembership(Model model, @ModelAttribute("membership") MembershipDTO membershipDTO, @AuthenticationPrincipal UserDTO user) {
+        try {
+            membershipDTO.setUserCode(user.getCode());
+            // 성공할 경우 처리
+            membershipService.createMembership(membershipDTO);
+            // 생성된 멤버십 정보를 Model에 추가
+            //model.addAttribute("info", createMembership);
+            // 성공 메시지를 Model에 추가
+            //model.addAttribute("message", "멤버십이 성공적으로 개설되었습니다! 이름: " + createMembership.getName());
+            return "/views/membership/successCreate";
+        } catch (DataIntegrityViolationException e) {
+            // 데이터 무결성 제약 조건 위반 등의 예외 처리
+            model.addAttribute("errorMessage", "제시된 양식에 따라 다시 작성해 주세요: " + e.getMessage());
+            return "/views/membership/failCreate";
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 기타 예외 처리
+            model.addAttribute("errorMessage", "멤버십을 생성하는 중에 오류가 발생했습니다: " + e.getMessage());
+            return "/views/membership/failCreate";
+        }
+    }
+
+    /*셀렉트 컨트롤러 */
+    @GetMapping("/planInfo")
+    public String selectMembershipInfo(Model model) {
+        List<MembershipDTO> membershipList = membershipService.getAllMemberships();
+        System.out.println(membershipList);
+        if (membershipList.isEmpty() || membershipList == null) {
+            // 빈 리스트일 경우에도 해당 페이지를 반환하도록 변경
+            System.out.println(membershipList + "dasdasd");
+            return "/views/membership/membershipInfo";
+        } else {
+            model.addAttribute("plan", membershipList);
+            System.out.println(membershipList + "dsadsadas");
+            return "/views/membership/planInfo";
+        }
     }
 
     /* 페이지 메핑 */
@@ -47,6 +81,7 @@ public class MembershipController {
     }
 
 }
+
 
 //    @PostMapping("/create")
 //    public ResponseEntity<String> createMembership(@RequestBody MembershipDTO membershipDTO){
@@ -85,5 +120,4 @@ public class MembershipController {
 //
 //      return "redirect:/membership/myMembership";
 //    }
-
 

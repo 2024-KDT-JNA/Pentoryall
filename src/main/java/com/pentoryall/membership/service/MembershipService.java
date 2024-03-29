@@ -3,6 +3,7 @@ package com.pentoryall.membership.service;
 import com.pentoryall.membership.dto.MembershipDTO;
 import com.pentoryall.membership.mapper.MembershipMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,9 +15,15 @@ public class MembershipService {
         this.membershipMapper = membershipMapper;
     }
 
-    public MembershipDTO createMembership(MembershipDTO membershipDTO) {
+    @Transactional
+    public void createMembership(MembershipDTO membershipDTO) {
         membershipMapper.createMembership(membershipDTO);
-        return membershipDTO;
+    }
+    public List<MembershipDTO> getAllMemberships() {
+        return membershipMapper.getAllMemberships();
     }
 
 }
+
+
+
