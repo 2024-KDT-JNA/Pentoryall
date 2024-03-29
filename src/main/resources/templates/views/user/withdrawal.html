@@ -19,7 +19,7 @@
                     <h2 class="secession_title">정말 떠나시는 건가요?
                         <br/>한 번 더 생각해 보지 않으시겠어요?
                     </h2>
-                    <form action="/user/delete" method="post">
+                    <form action="/user/delete" method="post" name="withdrawalForm">
                         <div class="secessionWrap">
                             <div class="check_box">
                                 <input type="checkbox" id="agree_check1" name="secessionCheckbox"
@@ -32,9 +32,9 @@
                                 </label>
                             </div>
                             <div class="check_box">
-                                <input type="checkbox" id="agree_check1" name="secessionCheckbox"
+                                <input type="checkbox" id="agree_check2" name="secessionCheckbox"
                                        onchange="checkboxGroup(this)" value="2"/>
-                                <label for="agree_check1">
+                                <label for="agree_check2">
                                     <span></span>
                                     <p>
                                         이용이 불편하고 장애가 많아서
@@ -42,9 +42,9 @@
                                 </label>
                             </div>
                             <div class="check_box">
-                                <input type="checkbox" id="agree_check1" name="secessionCheckbox"
+                                <input type="checkbox" id="agree_check3" name="secessionCheckbox"
                                        onchange="checkboxGroup(this)" value="3"/>
-                                <label for="agree_check1">
+                                <label for="agree_check3">
                                     <span></span>
                                     <p>
                                         포인트가 비싸서
@@ -52,9 +52,9 @@
                                 </label>
                             </div>
                             <div class="check_box">
-                                <input type="checkbox" id="agree_check1" name="secessionCheckbox"
+                                <input type="checkbox" id="agree_check4" name="secessionCheckbox"
                                        onchange="checkboxGroup(this)" value="4"/>
-                                <label for="agree_check1">
+                                <label for="agree_check4">
                                     <span></span>
                                     <p>
                                         다른 사이트가 좋아서
@@ -62,9 +62,9 @@
                                 </label>
                             </div>
                             <div class="check_box">
-                                <input type="checkbox" id="agree_check1" name="secessionCheckbox"
+                                <input type="checkbox" id="agree_check5" name="secessionCheckbox"
                                        onchange="checkboxGroup(this)" value="5"/>
-                                <label for="agree_check1">
+                                <label for="agree_check5">
                                     <span></span>
                                     <p>
                                         사용 빈도가 낮아서
@@ -72,9 +72,9 @@
                                 </label>
                             </div>
                             <div class="check_box">
-                                <input type="checkbox" id="agree_check1" name="secessionCheckbox"
+                                <input type="checkbox" id="agree_check6" name="secessionCheckbox"
                                        onchange="checkboxGroup(this)" value="6"/>
-                                <label for="agree_check1">
+                                <label for="agree_check6">
                                     <span></span>
                                     <p>
                                         기타
@@ -84,9 +84,9 @@
                         </div>
                         <div class=""></div>
                         <div class="check_box">
-                            <input type="checkbox" id="agree_check1" name="secessionCheckbox"
+                            <input type="checkbox" id="agree_check7" name="secessionCheckbox"
                                    onchange="checkboxGroup(this)" value="7"/>
-                            <label for="agree_check1">
+                            <label for="agree_check7">
                                 <span></span>
                                 <p>
                                     유료 포스트 관련 약관 동의(? 샬라샬라,..
@@ -157,6 +157,7 @@
 
 // 탈퇴하기 버튼 클릭 시
             deleteUserButton.addEventListener("click", function (event) {
+
                 // 비밀번호를 서버로 전송하여 비밀번호 확인 요청
                 fetch("/user/checkPassword", {
                     method: "POST",
@@ -165,29 +166,36 @@
                     },
                     body: JSON.stringify({password: passwordInput.value.trim()})
                 })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('서버 응답에 문제가 있습니다.');
-                        }
-                        return response.json();
-                    })
+                    // .then(response => {
+                    //     if (!response.ok) {
+                    //         throw new Error('서버 응답에 문제가 있습니다.');
+                    //     }
+                    //     return response.json();
+                    // })
+                    .then(response => response.json())
                     .then(data => {
                         if (data.isValidPassword) {
                             // 비밀번호가 일치하는 경우
                             if (confirm("정말로 탈퇴하시겠습니까?")) {
                                 // 탈퇴 로직 수행
                                 fetch("/user/delete", {
-                                    method: "POST"
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json;charset=UTF-8'
+                                    },
+                                    body: JSON.stringify({password: passwordInput.value.trim()})
                                 })
-                                    .then(response => {
-                                        if (!response.ok) {
-                                            throw new Error('탈퇴 처리에 실패했습니다.');
-                                        }
-                                        return response.json();
-                                    })
+                                    // .then(response => {
+                                    //     if (!response.ok) {
+                                    //         throw new Error('탈퇴 처리에 실패했습니다.');
+                                    //     }
+                                    //     return response.json();
+                                    // })
+                                    .then(response => response.json())
                                     .then(data => {
+                                        console.log(data)
                                         alert("탈퇴가 처리되었습니다.");
-                                        location.href = "/"; // 메인 페이지로 리다이렉트
+                                        // location.href = "/"; // 메인 페이지로 리다이렉트
                                     })
                                     .catch(error => {
                                         // 탈퇴 처리에 실패한 경우

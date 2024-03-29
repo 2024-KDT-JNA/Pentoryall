@@ -232,6 +232,8 @@ public class UserController {
         Map<String, Boolean> responseData = new HashMap<>();
         responseData.put("isValidPassword", isValidPassword);
 
+        System.out.println("isValidPassword = " + responseData);
+
         return ResponseEntity.ok(responseData);
     }
 
