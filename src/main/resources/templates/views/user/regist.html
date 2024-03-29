@@ -144,5 +144,41 @@
     <script th:src="@{/js/common.js}" src="/js/common.js"></script>
     <script th:src="@{/js/event.js}" src="/js/event.js"></script>
     <script th:src="@{/js/user.js}" src="/js/user.js"></script>
+    <script th:src="@{/js/user.js}" src="/js/agree.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 전체 동의 체크박스
+            var agreeAllCheckbox = document.getElementById("agree_all");
+            // 다른 동의 체크박스들
+            var agreeCheckboxes = document.querySelectorAll(".normal");
+
+            // 전체 동의 체크박스의 변경 이벤트 리스너 추가
+            agreeAllCheckbox.addEventListener("change", function () {
+                // 전체 동의 체크박스의 상태에 따라 다른 동의 체크박스 상태 변경
+                agreeCheckboxes.forEach(function (checkbox) {
+                    checkbox.checked = agreeAllCheckbox.checked;
+                });
+            });
+
+            // 다른 동의 체크박스들의 변경 이벤트 리스너 추가
+            agreeCheckboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", function () {
+                    // 다른 동의 체크박스 중 하나라도 선택 해제되면 전체 동의 체크박스의 선택도 해제
+                    if (!this.checked) {
+                        agreeAllCheckbox.checked = false;
+                    } else {
+                        // 모든 다른 동의 체크박스가 선택되었는지 확인하여 전체 동의 체크박스 선택 여부 업데이트
+                        var allChecked = true;
+                        agreeCheckboxes.forEach(function (checkbox) {
+                            if (!checkbox.checked) {
+                                allChecked = false;
+                            }
+                        });
+                        agreeAllCheckbox.checked = allChecked;
+                    }
+                });
+            });
+        });
+    </script>
 </th:block>
 </html>

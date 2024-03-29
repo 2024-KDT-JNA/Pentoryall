@@ -31,7 +31,8 @@
 
             <button type="button" class="profile-btn" sec:authorize="isAuthenticated()">
                 <div class="profile-image" sec:authorize="hasRole('ROLE_USER')">
-                    <img src="/images/temp/profile.png" alt="프로필"/>
+                    <img th:src="${#authentication.principal.profileImage != null
+                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
                 </div>
                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                     <h3><span class="username" sec:authentication="principal.name"></span>님</h3>
@@ -51,25 +52,25 @@
         </div>
     </header>
 
-    <aside id="aside" class="overlay b30">
+    <aside id="aside" class="overlay b30" sec:authorize="isAuthenticated()">
         <h2 class="blind">사이드 메뉴</h2>
-
         <div class="aside-wrap">
             <div class="aside-header">
                 <div class="user-profile">
                     <div class="profile-image">
-                        <img src="/images/temp/profile.png" alt="유저 프로필"/>
+                        <img th:src="${#authentication.principal.profileImage != null
+                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
                     </div>
-                    <div class="profile-info" sec:authorize="isAuthenticated()">
+                    <div class="profile-info">
                         <span class="nickname" sec:authentication="principal.nickname">닉네임</span>
                         <span class="username" sec:authentication="principal.name">이름</span>
                     </div>
-                    <th:block sec:authorize="isAnonymous()">
-                        <div class="login-link">
+                    <th:block>
+                        <div class="login-link" sec:authorize="isAnonymous()">
                             <a th:href="@{/user/login}">로그인을 해주세요.</a>
                         </div>
                     </th:block>
-                    <div class="profile-point" sec:authorize="isAuthenticated()">
+                    <div class="profile-point">
                         <dl class="point-info">
                             <dt>포인트</dt>
                             <dd sec:authentication="principal.point">0P</dd>

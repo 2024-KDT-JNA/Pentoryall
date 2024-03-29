@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 
-    @RequestMapping({ "/", "/main", "/index" })
+    @RequestMapping({"/", "/main", "/index"})
     public String defaultLocation() {
 
-        return "/views/index";
+        return "views/index";
     }
 
     @RequestMapping("/story")

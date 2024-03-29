@@ -8,6 +8,7 @@ import com.pentoryall.user.service.AuthService;
 import com.pentoryall.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,17 +19,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
 
     private final UserService userService;
 
@@ -124,20 +132,50 @@ public class UserController {
     /* 회원 정보 수정 */
     @PostMapping("/update")
     public String modifyUser(UserDTO modifyUser,
-                             @AuthenticationPrincipal UserDTO loginUser, RedirectAttributes rttr) throws MemberModifyException {
+                             @AuthenticationPrincipal UserDTO loginUser, RedirectAttributes rttr,
+                             Model model,
+                             @RequestParam(required = false) MultipartFile profile) throws MemberModifyException {
 
         modifyUser.setUserId(loginUser.getUserId());
 
         log.info("modifyUser request User : {}", modifyUser);
+
+        rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("user.modify"));
+
+        /* 파일업로드 */
+        log.info(String.valueOf(profile));
+        if (profile.getSize() > 0) {
+            /* 상단에 IMAGE_DIR 추가 */
+            String filePath = IMAGE_DIR + "profile-images";
+            System.out.println("filePath = " + filePath);
+            String originFileName = profile.getOriginalFilename();//업로드 파일명
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
+            String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
+
+            String finalFilePath = filePath + "/" + savedName;
+            System.out.println("finalFilePath = " + finalFilePath);
+            File dir = new File(filePath);
+            if (!dir.exists()) dir.mkdirs();
+
+            try {
+                profile.transferTo(new File(finalFilePath));
+                model.addAttribute("savedName", "/upload/profile-images/" + savedName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String saveFileName = "/upload/profile-images/" + savedName;
+            model.addAttribute("modifyUser", modifyUser);
+            modifyUser.setProfileImage(saveFileName);
+        }
 
         userService.modifyUser(modifyUser);
 
         /* 로그인 시 저장 된 Authentication 객체를 변경 된 정보로 교체한다. */
         SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(loginUser.getUserId()));
 
-        rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("user.modify"));
-
-        return "redirect:/user/update";
+        log.info("성공");
+        return "redirect:/story";
     }
 
 
@@ -148,18 +186,53 @@ public class UserController {
     }
 
     @PostMapping("/delete")
-    public String deleteUser(@AuthenticationPrincipal UserDTO user, RedirectAttributes rttr) throws MemberRemoveException {
+    public String deleteUser(@AuthenticationPrincipal UserDTO user,
+                             @RequestParam("password") String password, RedirectAttributes rttr) throws MemberRemoveException {
 
         log.info("login user : {}", user);
+        System.out.println(password);
 
-        /* 회원을 db에서 삭제 */
-        userService.removeUser(user);
+//        /* 회원을 db에서 삭제 */
+//        userService.removeUser(user);
+//
+//        /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
+//        rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
+//
+//        /* 로그아웃 처리 (세션만료) */
+//        return "redirect:/user/logout";
 
-        /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
-        rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
+        // 사용자가 입력한 비밀번호를 인코딩하여 저장된 비밀번호와 비교
+        if (passwordEncoder.matches(password, user.getPassword())) {
+            /* 회원을 DB에서 삭제 */
+            System.out.println("들어가긴하나");
+            userService.removeUser(user);
 
-        /* 로그아웃 처리 (세션만료) */
-        return "redirect:/user/logout";
+            /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
+            rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
+
+            /* 로그아웃 처리 (세션 만료) */
+            return "redirect:/user/logout";
+        } else {
+            /* 비밀번호가 일치하지 않는 경우 메시지를 전달하고 회원 탈퇴 페이지로 리다이렉트 */
+            rttr.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
+            return "redirect:/user/withdrawal";
+        }
+    }
+
+    @PostMapping("/checkPassword")
+    public ResponseEntity<Map<String, Boolean>> checkPassword(@RequestBody Map<String, String> requestData,
+                                                              @AuthenticationPrincipal UserDTO user) {
+        String enteredPassword = requestData.get("password");
+
+        String pwd = userService.getPwd(user.getCode());
+
+        // 비밀번호 일치 여부를 판단하여 결과를 반환합니다.
+        boolean isValidPassword = passwordEncoder.matches(enteredPassword, pwd);
+
+        Map<String, Boolean> responseData = new HashMap<>();
+        responseData.put("isValidPassword", isValidPassword);
+
+        return ResponseEntity.ok(responseData);
     }
 
     /* 비밀번호 찾기 페이지 이동 */

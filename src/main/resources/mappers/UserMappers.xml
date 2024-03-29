@@ -5,7 +5,8 @@
 <mapper namespace="com.pentoryall.user.mapper.UserMapper">
 
     <select id="findByUserId" resultType="com.pentoryall.user.dto.UserDTO">
-        SELECT email,
+        SELECT code,
+               email,
                user_id,
                password,
                nickname,
@@ -39,6 +40,10 @@
         INSERT INTO user (user_id, password, name, nickname, email, birth)
         VALUES (#{ userId }, #{ password }, #{ name }, #{ nickname }, #{ email }, #{ birth })
     </insert>
+    <!--    <insert id="insertProfile">-->
+    <!--        INSERT INTO user (profile_image)-->
+    <!--            VALUE (#{profileImage})-->
+    <!--    </insert>-->
 
     <!--    <select id="selectEncryptedPwd" resultType="string">-->
     <!--        SELECT member_pwd-->
@@ -64,12 +69,15 @@
 
     <update id="updateUser">
         UPDATE
-            user
-        SET nickname     = #{ nickname },
-            introduction = #{ introduction },
-            password     = #{ password }
+        user
+        SET nickname = #{ nickname },
+        introduction = #{ introduction },
+        password = #{ password }
+        <if test="profileImage !=null">
+            ,profile_image = #{ profileImage }
+        </if>
         WHERE state = 'ACTIVE'
-          AND user_id = #{userId}
+        AND user_id = #{userId}
     </update>
 
     <update id="deleteUser">
@@ -79,5 +87,10 @@
         WHERE state = 'ACTIVE'
           AND user_id = #{userId}
     </update>
+    <select id="getPwd" resultType="String">
+        SELECT password
+        FROM user
+        WHERE code = #{ code }
+    </select>
 
 </mapper>
