@@ -321,7 +321,50 @@
       await receiveFetchGenre();
       // await receiveFetchLowerGenre();
 
+    /*현재 선택 된 시리즈 장르가 선택 되어 있도록 하는 기능*/
+    async function sortingGenre(){
+      await receiveFetchGenre();
+      // await receiveFetchLowerGenre();
 
+      const upperGenreSelect = document.querySelector(".upperGenreSelect");
+      const storeCode = document.querySelector(".code-store");
+      const code = storeCode.value;
+      console.log(">>>>>>"+code);
+        // const response = await fetch('/genre/genreList');
+        // const responseJson = await response.json();
+        const response = await fetch('/genre/selectedGenre?code='+code);
+        const responseJson = await response.json();
+        const upperGenre = document.querySelectorAll(".upper-option");
+console.log("어퍼장르"+upperGenre[1].value);
+      responseJson.map(item => {
+                console.log(">>>>:"+item.code);
+                upperGenre.forEach(el=>{
+                  console.log(">>>>:"+item.code);
+                  if(el.value==item.code){
+                    console.log(">>>"+el.value);
+                    el.selected = true;
+                    upperGenreSelect.value = el.value;
+                    receiveFetchLowerGenre();
+                  }
+                })
+              }
+      );
+
+      const response2 = await fetch('/genre/selectedGenre?code='+code);
+      const responseJson2 = await response2.json();
+      const lowerGenre = document.querySelectorAll('.form-check-input');
+      responseJson2.map(item => {
+                lowerGenre.forEach(el=>{
+                  if(item.code==el.value){
+                    el.checked = true;
+                  }
+                })
+              }
+      );
+    }
+    window.addEventListener('load',function(){
+      sortingGenre();
+    });
   </script>
 </th:block>
 </html>
