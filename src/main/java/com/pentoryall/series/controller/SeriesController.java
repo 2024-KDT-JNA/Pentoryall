@@ -6,6 +6,8 @@ import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.genreOfArt.service.GenreOfArtService;
 import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.post.service.PostService;
+import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
+import com.pentoryall.genreOfArt.service.GenreOfArtService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
 import jakarta.servlet.http.HttpSession;
@@ -19,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -31,12 +34,15 @@ public class SeriesController {
     private final GenreOfArtService genreOfArtService;
     private final GenreService genreService;
     private final PostService postService;
+    private final GenreOfArtService genreOfArtService;
 
     public SeriesController(SeriesService seriesService, GenreOfArtService genreOfArtService, GenreService genreService, PostService postService) {
+    public SeriesController(SeriesService seriesService, GenreOfArtService genreOfArtService) {
         this.seriesService = seriesService;
         this.genreOfArtService = genreOfArtService;
         this.genreService = genreService;
         this.postService = postService;
+        this.genreOfArtService = genreOfArtService;
     }
 
     @GetMapping("/add")
@@ -210,5 +216,16 @@ public class SeriesController {
 //        genreOfArtService.updateGenreOfArt(genreOfArtDTO);
         String url = "redirect:/series/page?code="+code;
         return url;
+        System.out.println("genreCode>>>>>>>>>>>>> = " + genreCode);
+
+        for(int i = 0 ; i<genreCode.size();i++){
+            long code = genreCode.get(i);
+            genreOfArtDTO.setGenreCode(code);
+            genreOfArtDTO.setSeriesCode(seriesCode);
+            genreOfArtDTO.setKind("SERIES");
+            genreOfArtService.insertSeriesGenre(genreOfArtDTO);
+        }
+        System.out.println("성공함");
+        return "redirect:/series/page?code="+seriesDTO.getCode();
     }
 }
