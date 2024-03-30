@@ -310,5 +310,5 @@ public class SeriesController {
 //        genreOfArtService.updateGenreOfArt(genreOfArtDTO);
         String url = "redirect:/series/page?code="+code;
         return url;
-        }
     }
+}
