@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
- <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css"/>
+    <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css"/>
 
 </th:block>
 
@@ -66,6 +66,122 @@
                             <h4 class="h4"><label class="label" >시리즈*</label></h4>
                             <select class="select"  name="series" id="selectSeries" oninput="sortingGenre()">
                             </select>
+                        </div>
+
+                        <div class="genre-box" >
+                            <h4 class="h4">장르*</h4>
+                            <div class="genre-items">
+                                <div class="genre-item">
+                                    <label class="label">상위 장르</label>
+                                    <select class="select upperGenreSelect" name="genreCode" onchange="hiddenLowerGenre()" oninput="receiveFetchLowerGenre()" onload="receiveFetchLowerGenre()">
+                                        <!--                                        <option>웹툰</option>-->
+                                        <!--                                        <option>소설</option>-->
+                                        <!--                                        <option>팬픽</option>-->
+                                        <!--                                        <option>시</option>-->
+                                        <!--                                        <option>일상</option>-->
+                                        <!--                                        <option>창작소재</option>-->
+                                        <!--                                        <option>일러스트</option>-->
+                                        <!--                                        <option>자기계발</option>-->
+                                        <!--                                        <option>미분류</option>-->
+                                    </select>
+
+                                    <div class="box box-order-amount">
+                                        <label class="label">하위 장르</label>
+                                        <ul class="list-group">
+                                            <!--                                            <li class="list-group-item">-->
+                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre1" name="lowerGenre"-->
+                                            <!--                                                       data-point="1000" value="로맨스"/>-->
+                                            <!--                                                <label class="form-check-label" for="lowerGenre1">-->
+                                            <!--                                <span class="inner-text">-->
+                                            <!--                                    <span class="point">로맨스</span>-->
+                                            <!--                                </span>-->
+                                            <!--                                                </label>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            <li class="list-group-item">-->
+                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre2" name="lowerGenre"-->
+                                            <!--                                                       data-point="3000" value="추리"/>-->
+                                            <!--                                                <label class="form-check-label" for="lowerGenre2">-->
+                                            <!--                                <span class="inner-text">-->
+                                            <!--                                    <span class="point">추리</span>-->
+                                            <!--                                </span>-->
+                                            <!--                                                </label>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            <li class="list-group-item">-->
+                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre3" name="lowerGenre"-->
+                                            <!--                                                       data-point="5000" value="판타지"/>-->
+                                            <!--                                                <label class="form-check-label" for="lowerGenre3">-->
+                                            <!--                                <span class="inner-text">-->
+                                            <!--                                    <span class="point">판타지</span>-->
+                                            <!--                                </span>-->
+                                            <!--                                                </label>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            <li class="list-group-item">-->
+                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre4" name="lowerGenre"-->
+                                            <!--                                                       data-point="10000" value="학원물"/>-->
+                                            <!--                                                <label class="form-check-label" for="lowerGenre4">-->
+                                            <!--                                <span class="inner-text">-->
+                                            <!--                                    <span class="point">학원물</span>-->
+                                            <!--                                </span>-->
+                                            <!--                                                </label>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            <li class="list-group-item">-->
+                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre5" name="lowerGenre"-->
+                                            <!--                                                       data-point="15000" value="액션"/>-->
+                                            <!--                                                <label class="form-check-label" for="lowerGenre5">-->
+                                            <!--                                <span class="inner-text">-->
+                                            <!--                                    <span class="point">액션</span>-->
+                                            <!--                                </span>-->
+                                            <!--                                                </label>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            <li class="list-group-item">-->
+                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre6" name="lowerGenre"-->
+                                            <!--                                                       data-point="30000" value="무협"/>-->
+                                            <!--                                                <label class="form-check-label" for="lowerGenre6">-->
+                                            <!--                                <span class="inner-text">-->
+                                            <!--                                    <span class="point">무협</span>-->
+                                            <!--                                </span>-->
+                                            <!--                                                </label>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            <li class="list-group-item">-->
+                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre7" name="lowerGenre"-->
+                                            <!--                                                       data-point="50000" value="드라마"/>-->
+                                            <!--                                                <label class="form-check-label" for="lowerGenre7">-->
+                                            <!--                                <span class="inner-text">-->
+                                            <!--                                    <span class="point">드라마</span>-->
+                                            <!--                                </span>-->
+                                            <!--                                                </label>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            <li class="list-group-item">-->
+                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre8" name="lowerGenre"-->
+                                            <!--                                                       data-point="1000" value="공포/호러"/>-->
+                                            <!--                                                <label class="form-check-label" for="lowerGenre8">-->
+                                            <!--                                <span class="inner-text">-->
+                                            <!--                                    <span class="point">공포/호러</span>-->
+                                            <!--                                </span>-->
+                                            <!--                                                </label>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            <li class="list-group-item">-->
+                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre9" name="lowerGenre"-->
+                                            <!--                                                       data-point="1000" value="미스테리"/>-->
+                                            <!--                                                <label class="form-check-label" for="lowerGenre9">-->
+                                            <!--                                <span class="inner-text">-->
+                                            <!--                                    <span class="point">미스테리</span>-->
+                                            <!--                                </span>-->
+                                            <!--                                                </label>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            <li class="list-group-item">-->
+                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre10" name="lowerGenre"-->
+                                            <!--                                                       data-point="1000" />-->
+                                            <!--                                                <label class="form-check-label" for="lowerGenre10">-->
+                                            <!--                                <span class="inner-text">-->
+                                            <!--                                    <span class="point">코믹</span>-->
+                                            <!--                                </span>-->
+                                            <!--                                                </label>-->
+                                            <!--                                            </li>-->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-item">
@@ -159,7 +275,7 @@
             $optionNone.innerHTML = responseJson.map(item=>createSeriesList(item)).join('');
         }
         window.onload(receiveFetch());
-</script>
+    </script>
     <script>
         /*실시간으로 상위 장르 목록을 가져오는 기능*/
         function createGenreList(genre){
@@ -201,7 +317,7 @@
             $optionNone.innerHTML = responseJson.map(item=> createLowerGenreList(item)).join('');
         }
         window.onload(receiveFetchGenre());
-window.onload(receiveFetchLowerGenre());
+        window.onload(receiveFetchLowerGenre());
 
         /*상위 장르가 웹툰,소설,팬픽이면 하위 장르를 보여주고 상위 장르가 그 이외이면 하위 장르를 숨기는 기능*/
         function hiddenLowerGenre() {
@@ -239,38 +355,38 @@ window.onload(receiveFetchLowerGenre());
                 // const responseJson = await response.json();
                 const response = await fetch('/genre/upperGenre?code='+code);
                 const responseJson = await response.json();
-            const upperGenre = document.querySelectorAll(".upperGenre");
+                const upperGenre = document.querySelectorAll(".upperGenre");
 
                 responseJson.map(item => {
                         console.log(">>>>:"+item.code);
-                upperGenre.forEach(el=>{
-                    console.log(">>>>:"+item.code);
-                if(el.value==item.code){
-                    console.log(">>>"+el.value);
-                    el.selected = true;
-                    upperGenreSelect.value = el.value;
-                     receiveFetchLowerGenre();
-                }
-                })
-                }
+                        upperGenre.forEach(el=>{
+                            console.log(">>>>:"+item.code);
+                            if(el.value==item.code){
+                                console.log(">>>"+el.value);
+                                el.selected = true;
+                                upperGenreSelect.value = el.value;
+                                receiveFetchLowerGenre();
+                            }
+                        })
+                    }
                 );
                 upperGenreSelect.disabled = true;
 
 
-            const response2 = await fetch('/genre/lowerGenre?code='+code);
-            const responseJson2 = await response2.json();
-            const lowerGenre = document.querySelectorAll('.form-check-input');
-            responseJson2.map(item => {
+                const response2 = await fetch('/genre/lowerGenre?code='+code);
+                const responseJson2 = await response2.json();
+                const lowerGenre = document.querySelectorAll('.form-check-input');
+                responseJson2.map(item => {
                         lowerGenre.forEach(el=>{
                             if(item.code==el.value){
                                 el.checked = true;
                             }
-                                el.disabled = true;
+                            el.disabled = true;
                         })
                     }
                 );
 
-        }else{
+            }else{
                 upperGenreSelect.disabled = false;
                 await receiveFetchGenre()
                 await receiveFetchLowerGenre()
