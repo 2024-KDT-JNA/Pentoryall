@@ -22,4 +22,6 @@ public interface GenreOfArtMapper {
     void insertGenreBySeriesCode(long code,long genreCode);
 
     List<GenreOfArtDTO> findGenreBySeriesCodeSeries(long code);
+
+
 }
