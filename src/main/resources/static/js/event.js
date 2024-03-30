@@ -78,6 +78,8 @@ window.onload = function () {
                 })
                 // .then(result => alert(result))
                 .catch((error) => error.text().then((res) => alert(res)));
+        }
+    }
 
     // 회원가입 폼 제출 이벤트 처리
     if (document.querySelector(".regist_form")) {
@@ -136,17 +138,18 @@ window.onload = function () {
             };
         }
 
-    // if (document.getElementById("writeBoard")) {
-    //     const $writeBoard = document.getElementById("writeBoard");
-    //     $writeBoard.onclick = function () {
-    //         location.href = "/board/regist";
-    //     }
-    // }
-    //
-    // if (document.getElementById("writeThumbnail")) {
-    //     const $writeThumbnail = document.getElementById("writeThumbnail");
-    //     $writeThumbnail.onclick = function () {
-    //         location.href = "/thumbnail/regist";
-    //     }
-    // }
+        // if (document.getElementById("writeBoard")) {
+        //     const $writeBoard = document.getElementById("writeBoard");
+        //     $writeBoard.onclick = function () {
+        //         location.href = "/board/regist";
+        //     }
+        // }
+        //
+        // if (document.getElementById("writeThumbnail")) {
+        //     const $writeThumbnail = document.getElementById("writeThumbnail");
+        //     $writeThumbnail.onclick = function () {
+        //         location.href = "/thumbnail/regist";
+        //     }
+        // }
+    }
 }
