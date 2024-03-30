@@ -14,6 +14,7 @@
     <div class="inner">
       <section class="section">
         <h2 class="h2">시리즈 수정 하기</h2>
+        <input th:value="${session.code}" class="code-store" hidden/>
         <form action="/series/update" method="post" enctype="multipart/form-data">
           <div class="series-add-wrap">
             <div class="form-item">
@@ -167,7 +168,7 @@
 
             <div class="form-item">
               <h4 class="h4"><label class="label">내용 요약*</label></h4>
-              <textarea class="textarea textareaInput" name="description" maxlength="500" oninput="shortsLength()" th:value="${series.description}"> </textarea>
+              <textarea class="textarea textareaInput" name="description" maxlength="500" oninput="shortsLength()" th:text="${series.description}"> </textarea>
               <p class="form-message">최대 500자까지 가능</p>
               <p class="recognize-shorts-size">내용 요약은 10자 이상 입력해주세요.</p>
             </div>
@@ -260,7 +261,7 @@
     function createGenreList(genre){
       console.log(genre);
       return `
-            <option value="${genre.code}">
+            <option value="${genre.code}" class="upper-option">
             ${genre.name}
             </option>
             `
@@ -311,8 +312,54 @@
         $recognizeTitleSize.hidden = false;
       }
     }
+    window.addEventListener('load',function(){
+      shortsLength();
+    });
 
+    /*현재 선택 된 시리즈 장르가 선택 되어 있도록 하는 기능*/
+    async function sortingGenre(){
+      await receiveFetchGenre();
+      // await receiveFetchLowerGenre();
 
+      const upperGenreSelect = document.querySelector(".upperGenreSelect");
+      const storeCode = document.querySelector(".code-store");
+      const code = storeCode.value;
+      console.log(">>>>>>"+code);
+        // const response = await fetch('/genre/genreList');
+        // const responseJson = await response.json();
+        const response = await fetch('/genre/selectedGenre?code='+code);
+        const responseJson = await response.json();
+        const upperGenre = document.querySelectorAll(".upper-option");
+console.log("어퍼장르"+upperGenre[1].value);
+      responseJson.map(item => {
+                console.log(">>>>:"+item.code);
+                upperGenre.forEach(el=>{
+                  console.log(">>>>:"+item.code);
+                  if(el.value==item.code){
+                    console.log(">>>"+el.value);
+                    el.selected = true;
+                    upperGenreSelect.value = el.value;
+                    receiveFetchLowerGenre();
+                  }
+                })
+              }
+      );
+
+      const response2 = await fetch('/genre/selectedGenre?code='+code);
+      const responseJson2 = await response2.json();
+      const lowerGenre = document.querySelectorAll('.form-check-input');
+      responseJson2.map(item => {
+                lowerGenre.forEach(el=>{
+                  if(item.code==el.value){
+                    el.checked = true;
+                  }
+                })
+              }
+      );
+    }
+    window.addEventListener('load',function(){
+      sortingGenre();
+    });
   </script>
 </th:block>
 </html>

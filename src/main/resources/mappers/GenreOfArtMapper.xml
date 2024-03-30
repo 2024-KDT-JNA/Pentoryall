@@ -66,4 +66,16 @@
         VALUES
             (#{genreCode},#{code},"SERIES")
     </insert>
+    <select id="findGenreBySeriesCodeSeries">
+        SELECT
+            code,
+            genre_code,
+            series_code,
+            post_code,
+            kind
+        FROM
+            genre_of_art
+        WHERE
+            series_code = #{code} AND kind="SERIES";
+    </select>
 </mapper>

@@ -294,7 +294,9 @@
             const $optionNone = document.querySelector(".list-group");
             $optionNone.innerHTML = responseJson.map(item=>createLowerGenreList(item)).join('');
         }
-window.onload(receiveFetchLowerGenre());
+        window.onload=function(){
+            receiveFetchLowerGenre();
+        }
         /*내용 요약 최소 10자 이상*/
         function shortsLength(){
             const $textarea = document.querySelector(".textareaInput");

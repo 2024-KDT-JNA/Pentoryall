@@ -44,4 +44,8 @@ public class GenreOfArtService {
     public void insertGenreBySeriesCode(long code,long genreCode) {
         genreOfArtMapper.insertGenreBySeriesCode(code,genreCode);
     }
+
+    public List<GenreOfArtDTO> findGenreBySeriesCodeSeries(long code) {
+        return genreOfArtMapper.findGenreBySeriesCodeSeries(code);
+    }
 }

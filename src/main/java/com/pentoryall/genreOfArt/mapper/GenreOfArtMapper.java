@@ -20,4 +20,6 @@ public interface GenreOfArtMapper {
     void deleteSeriesGenreBySeriesCode(long code);
 
     void insertGenreBySeriesCode(long code,long genreCode);
+
+    List<GenreOfArtDTO> findGenreBySeriesCodeSeries(long code);
 }

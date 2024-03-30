@@ -69,4 +69,18 @@ public class GenreController {
         }
         return genreDTO;
     }
+
+    @GetMapping("/selectedGenre")
+    public @ResponseBody List<GenreDTO> functionGetSelectedGenre(@RequestParam long code){
+        List<GenreOfArtDTO> genreOfArtDTOList = genreOfArtService.findGenreBySeriesCodeSeries(code);
+        System.out.println("genreOfArtDTOList = " + genreOfArtDTOList);
+        List<GenreDTO> genreDTO = new ArrayList<>();
+        for(int i = 0 ; i<genreOfArtDTOList.size() ; i++){
+            long genreCode = genreOfArtDTOList.get(i).getGenreCode();
+            GenreDTO genreDTO1 = genreService.selectGenre(genreCode);
+            genreDTO.add(genreDTO1);
+        }
+        System.out.println("genreDTO .....= " + genreDTO);
+        return genreDTO;
+    }
 }
