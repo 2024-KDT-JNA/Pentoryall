@@ -21,21 +21,17 @@
             <section class="section">
                 <div class="login_info">
                     <h2 class="title_text">로그인</h2>
-                    <form th:action="@{/views/user/login}" method="post" id="loginForm">
+                    <form action="/user/login" method="post" id="loginForm">
                         <div class="loginWrap">
                             <div class="inputWrap">
-                                <label for="userId">아이디</label>
+                                <label class="labelTitle" for="userId">아이디</label>
                                 <div class="input_box">
                                     <input type="text" id="userId" name="userId"
                                            placeholder="아이디를 입력해주세요.(영어,숫자 포함 5자 ~ 11자 이내)" required/>
                                 </div>
                             </div>
-                            <div class="success-message hide col_red">사용할 수 있는 아이디입니다</div>
-                            <div class="failure-message hide col_red">아이디는 5~11글자이어야 합니다</div>
-                            <div class="failure-message2 hide col_red">영어 또는 숫자만 가능합니다</div>
-                            <div class="failure-message3 hide col_red">이미 존재하는 아이디입니다</div>
                             <div class="inputWrap">
-                                <label for="password">비밀번호</label>
+                                <label class="labelTitle" for="password">비밀번호</label>
                                 <div class="input_box">
                                     <input type="password" id="password" name="password"
                                            placeholder="비밀번호를 입력해주세요. (문자, 숫자, 특수문자 포함 8자 ~ 20자 이내)" required/>
@@ -48,7 +44,7 @@
                                 <label for="keep" class="keep_text">로그인 상태 유지</label>
                             </div>
                             <ul class="find_texts">
-                                <li>비밀번호 찾기</li>
+                                <li onclick="location.href='/user/findPwd'">비밀번호 찾기</li>
                             </ul>
                         </div>
                         <div class="black_btns btns">

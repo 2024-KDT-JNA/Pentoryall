@@ -19,7 +19,7 @@
                     <h2 class="secession_title">정말 떠나시는 건가요?
                         <br/>한 번 더 생각해 보지 않으시겠어요?
                     </h2>
-                    <form action="/user/withdrawal" method="post">
+                    <form action="/user/delete" method="post">
                         <div class="secessionWrap">
                             <div class="check_box">
                                 <input type="checkbox" id="agree_check1" name="secessionCheckbox"
@@ -94,13 +94,14 @@
                             </label>
                         </div>
                         <div class="inputWrap">
-                            <label for="user_pwd">사용중인 비밀번호</label>
+                            <label for="password">사용중인 비밀번호</label>
                             <div class="input_box">
-                                <input type="text" name="user_pwd" id="user_pwd" placeholder="비밀번호 입력"/>
+                                <input type="text" name="password" id="password" placeholder="비밀번호 입력"/>
+                                <button id="checkPassword">확인</button>
                             </div>
                         </div>
                         <div class="black_btns btns">
-                            <button class="btn" type="submit" id="deleteMember">탈퇴 하기</button>
+                            <button class="btn" type="submit" id="deleteUser">탈퇴하기</button>
                         </div>
                     </form>
                 </div>
@@ -108,26 +109,28 @@
             <!-- ------------------------------------ -->
         </div>
     </div>
-    <script>
-        function checkboxGroup(currentCheckbox) {
-            const checkboxes = document.getElementsByName("secessionCheckbox");
+    <!--    <script>-->
+    <!--        function checkboxGroup(currentCheckbox) {-->
+    <!--            const checkboxes = document.getElementsByName("secessionCheckbox");-->
 
-            // 현재 선택한 체크박스의 값
-            const currentValue = currentCheckbox.value;
+    <!--            // 현재 선택한 체크박스의 값-->
+    <!--            const currentValue = currentCheckbox.value;-->
 
-            for (let i = 0; i < checkboxes.length; i++) {
-                // 현재 선택한 체크박스가 아니고, 현재 값과 동일한 값을 가진 체크박스가 선택되어 있다면 선택을 해제합니다.
-                if (checkboxes[i] !== currentCheckbox && checkboxes[i].value === currentValue && checkboxes[i].checked) {
-                    checkboxes[i].checked = false;
-                }
-            }
-        }
-    </script>
+    <!--            for (let i = 0; i < checkboxes.length; i++) {-->
+    <!--                // 현재 선택한 체크박스가 아니고, 현재 값과 동일한 값을 가진 체크박스가 선택되어 있다면 선택을 해제합니다.-->
+    <!--                if (checkboxes[i] !== currentCheckbox && checkboxes[i].value === currentValue && checkboxes[i].checked) {-->
+    <!--                    checkboxes[i].checked = false;-->
+    <!--                }-->
+    <!--            }-->
+    <!--        }-->
+    <!--    </script>-->
 </th:block>
 
 <th:block layout:fragment="script">
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
-    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+    <script type="text/javascript" src="/js/user.js"></script>
+    <script type="text/javascript" src="/js/agree.js"></script>
+    <script type="text/javascript" src="/js/event.js"></script>
 </th:block>
 </html>

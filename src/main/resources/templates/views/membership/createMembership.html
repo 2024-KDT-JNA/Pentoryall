@@ -51,7 +51,7 @@
                     </div>
                     <div>
                         <button onclick="location.href='/membership/info'">뒤로</button>
-                        <button type="submit">새 멤버십 만들기</button>
+                        <button> 멤버십 만들기</button>
                     </div>
                 </form>
             </section>
@@ -69,17 +69,8 @@
             input.value = value;
         }
     </script>
-    <!-- Bootstrap JS (jQuery dependency) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- JavaScript function to redirect to the membership page -->
-    <script>
-        function redirectToMembershipInfoPage() {
-            window.location.href = "/membership/membershipInfo";
-        }
-    </script>
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
     <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
 </th:block>

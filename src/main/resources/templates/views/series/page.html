@@ -55,16 +55,17 @@
                                 <p th:text="|${series.description}|">
                                 </p>
                             </div>
-                            <div class="series-genre">
-                                <a class="series-genre-upper">#웹툰</a>
-                                <a class="series-genre-lower">#로맨스</a>
-                                <a class="series-genre-lower">#학원물</a>
-                            </div>
+                            <table class="series-genre-wrapper"th:each="genre : ${ genreNames }">
+
+                                <td class="series-genre-lower"  th:text="${ genre }"></td>
+
+                            </table>
                         </div>
 
                         <div class="series-update-delete">
-                            <button class="series-update-button btn"  onclick="location.href='/views/series/add'">수정</button>
+                            <button class="series-update-button btn" th:onclick="'location.href = \'' + @{/series/update(code=${series.code})} + '\''">수정</button>
                             <button class="series-delete-button btn">삭제</button>
+
                         </div>
                     </div>
                     <div class="membership-subscribe-button">
@@ -74,7 +75,7 @@
                     <!--중간 네비게이터-->
                     <div class="container-button">
                         <button class="container-button-like">
-                             ♡ 222
+                            + ♡ 222
                         </button>
                         <a>
                             <button class="container-button-first-post">

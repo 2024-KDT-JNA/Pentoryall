@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface SeriesMapper {
-    SeriesDTO selectSeriesByTitle(String series);
+    SeriesDTO selectSeriesByTitle(long seriesno);
 
     SeriesDTO getSeriesInformationBySeriesCode(long seriesCode);
 
@@ -17,4 +17,8 @@ public interface SeriesMapper {
     long addSeriesOptions(SeriesDTO seriesDTO);
 
     SeriesDTO findSeriesByCode(long code);
+
+    SeriesDTO selectRecentSeriesCode();
+
+    void updateSeries(SeriesDTO seriesDTO,long code);
 }
