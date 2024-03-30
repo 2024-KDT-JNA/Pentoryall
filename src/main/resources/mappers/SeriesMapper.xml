@@ -125,4 +125,15 @@
         ORDER BY create_date DESC
         LIMIT 1;
     </select>
+    <update id="updateSeries">
+        UPDATE
+        series
+        SET
+            title=#{seriesDTO.title},
+            description = #{seriesDTO.description},
+            thumbnail_image = #{seriesDTO.thumbnailImage},
+            is_membership_only = #{seriesDTO.isMembershipOnly}
+        WHERE
+            code=#{code}
+    </update>
 </mapper>

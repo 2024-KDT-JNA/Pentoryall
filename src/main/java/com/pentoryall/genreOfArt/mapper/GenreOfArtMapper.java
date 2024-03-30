@@ -14,4 +14,12 @@ public interface GenreOfArtMapper {
     GenreOfArtDTO getGenre(long seriesCode);
 
     List<GenreOfArtDTO> getLowerGenre(long code);
+
+    List<GenreOfArtDTO> findGenreBySeriesCode(long code);
+
+    void deleteSeriesGenreBySeriesCode(long code);
+
+    void insertGenreBySeriesCode(long code,long genreCode);
+
+    List<GenreOfArtDTO> findGenreBySeriesCodeSeries(long code);
 }

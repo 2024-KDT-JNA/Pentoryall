@@ -19,4 +19,6 @@ public interface SeriesMapper {
     SeriesDTO findSeriesByCode(long code);
 
     SeriesDTO selectRecentSeriesCode();
+
+    void updateSeries(SeriesDTO seriesDTO,long code);
 }
