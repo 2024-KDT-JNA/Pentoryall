@@ -19,7 +19,20 @@ public class GenreService {
         return genreMapper.getGenreList();
     }
 
-    public List<GenreDTO> getLowerGenreList() {
-        return genreMapper.getLowerGenreList();
+    public List<GenreDTO> getLowerGenreList(long code) {
+        return genreMapper.getLowerGenreList(code);
+    }
+
+    public GenreDTO selectGenreTitle(long genreCode) {
+        return genreMapper.selectGenreTitle(genreCode);
+    }
+
+
+    public List<GenreDTO> selectGenreList(long genreCode) {
+        return genreMapper.selectGenreList(genreCode);
+    }
+
+    public GenreDTO selectGenre(long genreCode) {
+        return genreMapper.selectGenre(genreCode);
     }
 }

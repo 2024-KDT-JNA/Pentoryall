@@ -23,6 +23,37 @@
         FROM
             genre
         WHERE
-            ref_genre_code = 1;
+            ref_genre_code=#{code};
     </select>
+    <select id="selectGenreList" resultType="com.pentoryall.genre.dto.GenreDTO">
+        SELECT
+            code,
+            ref_genre_code,
+            name
+        FROM
+            genre
+        WHERE
+            code=#{genreCode}
+    </select>
+    <select id="selectGenre" resultType="com.pentoryall.genre.dto.GenreDTO">
+        SELECT
+            code,
+            ref_genre_code,
+            name
+        FROM
+            genre
+        WHERE
+            code=#{genreCode}
+    </select>
+    <select id="selectGenreTitle" resultType="com.pentoryall.genre.dto.GenreDTO">
+        SELECT
+            code,
+            ref_genre_code,
+            name
+        FROM
+            genre
+        WHERE
+            code=#{genreCode}
+    </select>
+
 </mapper>

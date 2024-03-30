@@ -9,5 +9,13 @@ import java.util.List;
 public interface GenreMapper {
     List<GenreDTO> getGenreList();
 
-    List<GenreDTO> getLowerGenreList();
+    List<GenreDTO> getLowerGenreList(long code);
+
+    GenreDTO selectGenreTitle(long genreCode);
+
+    GenreDTO getGenre(long seriesCode);
+
+    List<GenreDTO> selectGenreList(long genreCode);
+
+    GenreDTO selectGenre(long genreCode);
 }
