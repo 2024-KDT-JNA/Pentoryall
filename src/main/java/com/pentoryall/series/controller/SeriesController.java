@@ -97,12 +97,6 @@ public class SeriesController {
             savePath = "/upload/series-thumbnail-images" + "/" + savedName;
         }
         seriesDTO.setThumbnailImage(savePath);
-            String savePath = "/upload/series-thumbnail-images" + "/" + savedName;
-
-            seriesDTO.setThumbnailImage(savePath);
-        }else{
-            seriesDTO.setThumbnailImage("/images/temp/thumbnail.png");
-        }
 
         System.out.println("seriesDTO = " + seriesDTO);
 
@@ -139,8 +133,8 @@ public class SeriesController {
         List<String> genreNames = new ArrayList<>();
         List<GenreOfArtDTO> genreList = genreOfArtService.findGenreBySeriesCode(code);
         for(int i = 0; i<genreList.size();i++){
-           GenreDTO genreDTO =  genreService.selectGenreTitle(genreList.get(i).getGenreCode());
-           genreNames.add(genreDTO.getName());
+            GenreDTO genreDTO =  genreService.selectGenreTitle(genreList.get(i).getGenreCode());
+            genreNames.add(genreDTO.getName());
         }
 
         session.setAttribute("code",code);
