@@ -32,4 +32,16 @@ public class GenreOfArtService {
     public List<GenreOfArtDTO> getLowerGenre(long code) {
         return genreOfArtMapper.getLowerGenre(code);
     }
+
+    public List<GenreOfArtDTO> findGenreBySeriesCode(long code) {
+        return genreOfArtMapper.findGenreBySeriesCode(code);
+    }
+
+    public void deleteSeriesGenreBySeriesCode(long code) {
+        genreOfArtMapper.deleteSeriesGenreBySeriesCode(code);
+    }
+
+    public void insertGenreBySeriesCode(long code,long genreCode) {
+        genreOfArtMapper.insertGenreBySeriesCode(code,genreCode);
+    }
 }

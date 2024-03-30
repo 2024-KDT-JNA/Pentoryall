@@ -38,4 +38,8 @@ public class SeriesService {
     public SeriesDTO selectRecentSeriesCode() {
         return seriesMapper.selectRecentSeriesCode();
     }
+
+    public void updateSeries(SeriesDTO seriesDTO,long code) {
+        seriesMapper.updateSeries(seriesDTO,code);
+    }
 }

@@ -43,4 +43,27 @@
         WHERE
             series_code = #{seriesCode} AND genre_code IN (SELECT code FROM genre WHERE ref_genre_code IS NOT NULL)
     </select>
+    <select id="findGenreBySeriesCode" resultType="com.pentoryall.genreOfArt.dto.GenreOfArtDTO">
+        SELECT
+            code,
+            genre_code,
+            series_code,
+            post_code,
+            kind
+        FROM
+            genre_of_art
+        WHERE
+            series_code = #{seriesCode}
+    </select>
+    <delete id="deleteSeriesGenreBySeriesCode">
+        DELETE
+        FROM genre_of_art
+        WHERE series_code=#{code}
+    </delete>
+    <insert id="insertGenreBySeriesCode">
+        INSERT INTO
+        genre_of_art(genre_code,series_code,kind)
+        VALUES
+            (#{genreCode},#{code},"SERIES")
+    </insert>
 </mapper>
