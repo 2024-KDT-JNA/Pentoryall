@@ -2,16 +2,16 @@ package com.pentoryall.order.mapper;
 
 import com.pentoryall.PentoryallApplication;
 import com.pentoryall.order.dto.OrderDTO;
-import groovy.util.logging.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
 @SpringBootTest
-@ContextConfiguration(classes = {PentoryallApplication.class})
+@ContextConfiguration(classes = { PentoryallApplication.class })
 class OrderMapperTests {
 
     @Autowired
@@ -19,7 +19,8 @@ class OrderMapperTests {
 
     @Test
     @DisplayName("주문 정보 저장 후 주문번호 조회 테스트 - 성공")
-    public void saveOrderTest() {
+    @Transactional
+    public void insertOrderSuccess() {
 
         // given
         OrderDTO order = new OrderDTO();
@@ -28,9 +29,29 @@ class OrderMapperTests {
         order.setPoint(5000);
 
         // when
-        orderMapper.save(order);
+        orderMapper.insertOrder(order);
 
         // then
-        System.out.println("orderCode :: " + order.getCode());
+        Assertions.assertNotNull(order.getCode());
+    }
+
+
+    @Test
+    @DisplayName("주문 정보 저장 후 주문번호 조회 테스트 - 실패")
+    @Transactional
+    public void insertOrderFailed() {
+
+        // given
+        OrderDTO order = new OrderDTO();
+        /* 존재하지 않는 회원 코드 */
+        order.setUserCode(0L);
+        order.setAmount(5000);
+        order.setPoint(5000);
+
+        // when
+        orderMapper.insertOrder(order);
+
+        // then
+        Assertions.assertNotNull(order.getCode());
     }
 }

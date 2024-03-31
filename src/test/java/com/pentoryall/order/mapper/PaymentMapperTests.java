@@ -1,39 +1,54 @@
 package com.pentoryall.order.mapper;
 
-import com.pentoryall.PentoryallApplication;
 import com.pentoryall.order.dto.PaymentDTO;
-import groovy.util.logging.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-@Slf4j
 @SpringBootTest
-@ContextConfiguration(classes = {PentoryallApplication.class})
 class PaymentMapperTests {
 
     @Autowired
     private PaymentMapper paymentMapper;
 
-
     @Test
     @DisplayName("결제 정보 저장 테스트 - 성공")
-    public void savePaymentTest() {
+    @Transactional
+    public void insertPaymentSuccess() {
 
         // given
         PaymentDTO payment = new PaymentDTO();
-        payment.setOrderCode(9L);
+        payment.setOrderCode(7L);
         payment.setImpUid("imp_uid_123535324");
         payment.setCreateDate(LocalDateTime.now());
 
         // when
-        paymentMapper.save(payment);
+        paymentMapper.insertPayment(payment);
 
         // then
-//        System.out.println("payment :: " + payment.getCode());
+        Assertions.assertNotNull(payment.getCode());
+    }
+
+    @Test
+    @DisplayName("결제 정보 저장 테스트 - 실패")
+    @Transactional
+    public void insertPaymentFailed() {
+
+        // given
+        PaymentDTO payment = new PaymentDTO();
+        payment.setOrderCode(0L);
+        payment.setImpUid("imp_uid_123535324");
+        payment.setCreateDate(LocalDateTime.now());
+
+        // when
+        paymentMapper.insertPayment(payment);
+
+        // then
+        Assertions.assertNotNull(payment.getCode());
     }
 }
