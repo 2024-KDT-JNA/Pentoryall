@@ -44,4 +44,8 @@ public class PostService {
     public void deletePostByPostCode(long code) {
         postMapper.deletePostByPostCode(code);
     }
+@Transactional
+    public void deleteSeriesBySeriesCode(long code) {
+        postMapper.deleteSeriesBySeriesCode(code);
+    }
 }

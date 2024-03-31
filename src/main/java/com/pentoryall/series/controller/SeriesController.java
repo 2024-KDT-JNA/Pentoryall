@@ -10,10 +10,12 @@ import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,12 +31,14 @@ public class SeriesController {
     private final GenreOfArtService genreOfArtService;
     private final GenreService genreService;
     private final PostService postService;
+    private final MessageSourceAccessor messageSourceAccessor;
 
-    public SeriesController(SeriesService seriesService, GenreOfArtService genreOfArtService, GenreService genreService, PostService postService) {
+    public SeriesController(SeriesService seriesService, GenreOfArtService genreOfArtService, GenreService genreService, PostService postService, MessageSourceAccessor messageSourceAccessor) {
         this.seriesService = seriesService;
         this.genreOfArtService = genreOfArtService;
         this.genreService = genreService;
         this.postService = postService;
+        this.messageSourceAccessor = messageSourceAccessor;
     }
 
     @GetMapping("/add")
@@ -155,7 +159,10 @@ public class SeriesController {
                                           @RequestParam List<Long> genreCode,
                                           @RequestParam(required = false) MultipartFile thumbnail,
                                           GenreOfArtDTO genreOfArtDTO,
-                                          HttpSession session){
+                                          HttpSession session,
+                                          RedirectAttributes rttr){
+
+        rttr.addFlashAttribute("message","series.update");
 
         long code = (long) session.getAttribute("code");
 
@@ -222,6 +229,17 @@ public class SeriesController {
 //        genreOfArtService.updateGenreOfArt(genreOfArtDTO);
         String url = "redirect:/series/page?code="+code;
         return url;
+    }
+
+    @GetMapping("/delete")
+    public String deleteSeries(@RequestParam long code){
+        genreOfArtService.deleteSeriesGenreBySeriesCode(code);
+        System.out.println("성공1");
+        postService.deleteSeriesBySeriesCode(code);
+        System.out.println("성공2");
+        seriesService.deleteSeries(code);
+        System.out.println("성공3");
+        return "/views/index";
     }
 
 

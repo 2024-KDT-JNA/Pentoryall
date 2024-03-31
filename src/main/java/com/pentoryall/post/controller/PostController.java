@@ -287,8 +287,11 @@ public class PostController {
         postService.updatePostService(postDTO);
 
         System.out.println("포스트 정보 수정 완료!");
-//        return "redirect:/post/information?code=" + postDTO.getCode();
-        return "/views/index";
+
+        long seriesCode = postDTO.getSeriesCode();
+
+        String url = "redirect:/series/page?code="+seriesCode;
+        return url;
     }
 
     @GetMapping("/delete")

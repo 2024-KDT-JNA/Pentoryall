@@ -79,4 +79,9 @@
         FROM post
         WHERE code = #{code}
     </delete>
+    <delete id="deleteSeriesBySeriesCode">
+        DELETE
+        FROM post
+        WHERE series_code = #{code}
+    </delete>
 </mapper>
