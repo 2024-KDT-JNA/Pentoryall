@@ -53,12 +53,17 @@
         FROM
             genre_of_art
         WHERE
-            series_code = #{seriesCode}
+            series_code = #{seriesCode} AND kind="SERIES"
     </select>
     <delete id="deleteSeriesGenreBySeriesCode">
         DELETE
         FROM genre_of_art
         WHERE series_code=#{code}
+    </delete>
+    <delete id="deleteSeriesGenreByPostCode">
+        DELETE
+        FROM genre_of_art
+        WHERE post_code = #{postCode}
     </delete>
     <insert id="insertGenreBySeriesCode">
         INSERT INTO
@@ -66,7 +71,7 @@
         VALUES
             (#{genreCode},#{code},"SERIES")
     </insert>
-    <select id="findGenreBySeriesCodeSeries">
+    <select id="findGenreBySeriesCodeSeries" resultType="com.pentoryall.genreOfArt.dto.GenreOfArtDTO">
         SELECT
             code,
             genre_code,
@@ -78,7 +83,7 @@
         WHERE
             series_code = #{code} AND kind="SERIES";
     </select>
-    <select id="findGenreBySeriesCode" resultType="com.pentoryall.genreOfArt.dto.GenreOfArtDTO">
+    <select id="selectGenreByPostCode" resultType="com.pentoryall.genreOfArt.dto.GenreOfArtDTO">
         SELECT
             code,
             genre_code,
@@ -88,17 +93,30 @@
         FROM
             genre_of_art
         WHERE
-            series_code = #{seriesCode}
+            post_code = #{code}
     </select>
-    <delete id="deleteSeriesGenreBySeriesCode">
-        DELETE
-        FROM genre_of_art
-        WHERE series_code=#{code}
-    </delete>
-    <insert id="insertGenreBySeriesCode">
+    <select id="selectPostInSeries" resultType="com.pentoryall.genreOfArt.dto.GenreOfArtDTO">
+        SELECT
+            code,
+            genre_code,
+            series_code,
+            post_code,
+            kind
+        FROM
+            genre_of_art
+        WHERE
+            series_code=#{code} AND kind="POST"
+    </select>
+    <insert id="insertGenreBySeriesCodePost">
         INSERT INTO
-        genre_of_art(genre_code,series_code,kind)
+            genre_of_art(genre_code,series_code,post_code,kind)
         VALUES
-            (#{genreCode},#{code},"SERIES")
+            (#{genreCode},#{code},#{postCode},"POST")
+    </insert>
+    <insert id="insertGenreForDTO">
+        INSERT INTO
+            genre_of_art(genre_code,series_code,post_code,kind)
+        VALUES
+            (#{genreCode},#{seriesCode},#{postCode},"POST")
     </insert>
 </mapper>

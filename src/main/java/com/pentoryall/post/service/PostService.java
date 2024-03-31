@@ -36,4 +36,8 @@ public class PostService {
     public List<PostDTO> selectPostsBySeriesCode(long code) {
         return postMapper.selectPostsBySeriesCode(code);
     }
+
+    public void updatePostService(PostDTO postDTO) {
+        postMapper.updatePostService(postDTO);
+    }
 }

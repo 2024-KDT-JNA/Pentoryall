@@ -23,5 +23,15 @@ public interface GenreOfArtMapper {
 
     List<GenreOfArtDTO> findGenreBySeriesCodeSeries(long code);
 
+    List<GenreOfArtDTO> getGenreInformationByPostCode(long seriesCode);
 
+    List<GenreOfArtDTO> selectGenreByPostCode(long code);
+
+    void insertGenreBySeriesCodePost(long postCode,long code, Long genreCode);
+
+    List<GenreOfArtDTO> selectPostInSeries(long code);
+
+    void deleteSeriesGenreByPostCode(long postCode);
+
+    void insertGenreForDTO(GenreOfArtDTO genreOfArtDTO);
 }

@@ -938,18 +938,6 @@ form input::file-selector-button {
 .recognize-shorts-size{
     color: red;
 }
-
-.recognize-shorts-size{
-    color: red;
-}
-.series-genre-wrapper{
-    display: flex;
-    margin-right:10px;
-}
-.series-genre-lower{
-    width: 100px;
-    margin-left:20px;
-}
 .series-genre-wrapper{
     display: flex;
     margin-right:10px;

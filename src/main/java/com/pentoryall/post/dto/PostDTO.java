@@ -27,4 +27,5 @@ public class PostDTO {
     private char isDeleted;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
 }
