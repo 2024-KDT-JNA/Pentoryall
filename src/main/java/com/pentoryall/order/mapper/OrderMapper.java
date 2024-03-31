@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface OrderMapper {
 
-    void save(OrderDTO order);
+    void insertOrder(OrderDTO order);
 
-    OrderDTO findByOrderCode(Long orderCode);
+    OrderDTO selectByOrderCode(Long orderCode);
 }

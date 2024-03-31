@@ -5,7 +5,8 @@
 
 <mapper namespace="com.pentoryall.order.mapper.PaymentMapper">
 
-    <insert id="save" parameterType="com.pentoryall.order.dto.PaymentDTO" useGeneratedKeys="true" keyProperty="code">
+    <insert id="insertPayment" parameterType="com.pentoryall.order.dto.PaymentDTO" useGeneratedKeys="true"
+            keyProperty="code">
         INSERT INTO payment(order_code, imp_uid)
         VALUES (#{orderCode}, #{impUid});
     </insert>

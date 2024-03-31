@@ -4,15 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pentoryall.order.mapper.OrderMapper">
-
-    <insert id="save" parameterType="com.pentoryall.order.dto.OrderDTO" useGeneratedKeys="true" keyProperty="code">
+    <insert id="insertOrder" parameterType="com.pentoryall.order.dto.OrderDTO" useGeneratedKeys="true"
+            keyProperty="code">
         INSERT INTO `order`(user_code, amount, point)
         VALUES (#{userCode}, #{amount}, #{point});
     </insert>
-    <select id="findByOrderCode" resultType="com.pentoryall.order.dto.OrderDTO">
-        SELECT user_code, amount, point
+    <select id="selectByOrderCode" resultType="com.pentoryall.order.dto.OrderDTO">
+        SELECT code, user_code, amount, point, create_date
           FROM `order`
-         WHERE order_code = #{orderCode}
+         WHERE code = #{ orderCode }
     </select>
 </mapper>
 
