@@ -64,17 +64,14 @@
             post
         SET
             series_code=#{seriesCode},
---             user_code=1,
             title=#{title},
             content=#{content},
---             confirm_content=#{postDTO.confirmContent},
             thumbnail_image=#{thumbnailImage},
---             views=#{postDTO.views},
             price=#{price},
             is_paid=#{isPaid},
             is_adult=#{isAdult},
             is_public=#{isPublic}
         WHERE
-            code=#{code}
+            code=#{postDTO.code}
     </update>
 </mapper>

@@ -28,7 +28,7 @@ public class PostService {
         return postMapper.getPostInformationByPostCode(lastCode);
     }
 
-
+    @Transactional
     public void insertGenre(GenreOfArtDTO genreOfArtDTO) {
         postMapper.insertGenre(genreOfArtDTO);
     }
@@ -36,7 +36,7 @@ public class PostService {
     public List<PostDTO> selectPostsBySeriesCode(long code) {
         return postMapper.selectPostsBySeriesCode(code);
     }
-
+@Transactional
     public void updatePostService(PostDTO postDTO) {
         postMapper.updatePostService(postDTO);
     }

@@ -225,10 +225,18 @@ public class PostController {
     @PostMapping("/update")
     public String afterUpdatePost(
             @ModelAttribute PostDTO postDTO,
+            @RequestParam Map<String, String> params,
             @RequestParam(required = false) MultipartFile thumbnail,
             @RequestParam List<Long> genreCode,
             Model model
     ){
+        char isPublic = params.get("isOpen") != null ? params.get("isOpen").charAt(0) : 'N';
+        char isPaid = params.get("isFee") != null ? params.get("isFee").charAt(0) : 'N';
+        char isAdult = params.get("isPossible") != null ? params.get("isPossible").charAt(0) : 'N';
+
+        postDTO.setIsPublic(isPublic);
+        postDTO.setIsPaid(isPaid);
+        postDTO.setIsAdult(isAdult);
 
         /*파일 가공 로직*/
         if(!thumbnail.isEmpty() && thumbnail!=null) {
@@ -269,12 +277,13 @@ public class PostController {
             genreOfArtService.insertGenreForDTO(genreOfArtDTO);
         }
         System.out.println("수정 성공!!!");
-
+        System.out.println("postDTO = " + postDTO);
         /*포스트 정보 수정*/
         postService.updatePostService(postDTO);
 
         System.out.println("포스트 정보 수정 완료!");
-        return "redirect:/post/information?code=" + postDTO.getCode();
+//        return "redirect:/post/information?code=" + postDTO.getCode();
+        return "/views/index";
     }
 
 

@@ -59,7 +59,7 @@
 
                             <label class="toggle-button">
 
-                                <input type="checkbox" class="blind toggle-value" th:value="${post.isPublic}" name="isPublic"/>
+                                <input type="checkbox" class="blind toggle-value" th:value="${post.isPublic}" name="isOpen"/>
 
                                 <span class="toggle-switch"></span>
                             </label>
@@ -192,7 +192,7 @@
                                 <label class="label">유료 컨텐츠 여부*</label>
                             </h4>
                             <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value isFee-input"  th:value="${post.isPaid}" name="isPaid" onchange="IsPointHidden()"/>
+                                <input type="checkbox" class="blind toggle-value isFee-input"  th:value="${post.isPaid}" name="isFee" onchange="IsPointHidden()"/>
                                 <span class="toggle-switch"></span>
                             </label>
                             <div class="point-box" hidden>
@@ -207,7 +207,7 @@
                         <div class="form-item">
                             <label class="label">성인물 여부*</label>
                             <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value" th:value="${post.isAdult}" name="isAdult"/>
+                                <input type="checkbox" class="blind toggle-value" th:value="${post.isAdult}" name="isPossible"/>
                                 <span class="toggle-switch"></span>
                             </label>
                         </div>
