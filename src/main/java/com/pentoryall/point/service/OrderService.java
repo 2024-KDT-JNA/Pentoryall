@@ -1,9 +1,9 @@
-package com.pentoryall.order.service;
+package com.pentoryall.point.service;
 
-import com.pentoryall.order.dto.OrderDTO;
-import com.pentoryall.order.dto.PaymentDTO;
-import com.pentoryall.order.mapper.OrderMapper;
-import com.pentoryall.order.mapper.PaymentMapper;
+import com.pentoryall.point.dto.OrderDTO;
+import com.pentoryall.point.dto.PaymentDTO;
+import com.pentoryall.point.mapper.OrderMapper;
+import com.pentoryall.point.mapper.PaymentMapper;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;

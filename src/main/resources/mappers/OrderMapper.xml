@@ -3,16 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.pentoryall.order.mapper.OrderMapper">
-    <insert id="insertOrder" parameterType="com.pentoryall.order.dto.OrderDTO" useGeneratedKeys="true"
+<mapper namespace="com.pentoryall.point.mapper.OrderMapper">
+    <insert id="insertOrder" parameterType="com.pentoryall.point.dto.OrderDTO" useGeneratedKeys="true"
             keyProperty="code">
         INSERT INTO `order`(user_code, amount, point)
         VALUES (#{userCode}, #{amount}, #{point});
     </insert>
-    <select id="selectByOrderCode" resultType="com.pentoryall.order.dto.OrderDTO">
+    <select id="selectByOrderCode" resultType="com.pentoryall.point.dto.OrderDTO">
         SELECT code, user_code, amount, point, create_date
-          FROM `order`
-         WHERE code = #{ orderCode }
+        FROM `order`
+        WHERE code = #{ orderCode }
     </select>
 </mapper>
 

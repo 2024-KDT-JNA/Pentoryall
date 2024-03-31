@@ -18,7 +18,7 @@ function onClickRequestPay() {
         buyer_name: UserInfo.name,
     }, function (response) {
         if (response.success) {
-            fetch("/order/payment", {
+            fetch("/point/order/payment", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json; charset=UTF-8' },
                 body: JSON.stringify({

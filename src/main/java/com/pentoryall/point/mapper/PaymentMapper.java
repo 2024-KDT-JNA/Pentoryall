@@ -1,6 +1,6 @@
-package com.pentoryall.order.mapper;
+package com.pentoryall.point.mapper;
 
-import com.pentoryall.order.dto.PaymentDTO;
+import com.pentoryall.point.dto.PaymentDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

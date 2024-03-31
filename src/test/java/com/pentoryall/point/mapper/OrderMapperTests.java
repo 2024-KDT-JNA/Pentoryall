@@ -1,7 +1,7 @@
-package com.pentoryall.order.mapper;
+package com.pentoryall.point.mapper;
 
 import com.pentoryall.PentoryallApplication;
-import com.pentoryall.order.dto.OrderDTO;
+import com.pentoryall.point.dto.OrderDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.pentoryall.order.dto;
+package com.pentoryall.point.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

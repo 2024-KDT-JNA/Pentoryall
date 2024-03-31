@@ -1,13 +1,13 @@
-package com.pentoryall.order.controller;
+package com.pentoryall.point.controller;
 
 import com.pentoryall.common.exception.CustomException;
 import com.pentoryall.common.exception.order.InvalidOrderInfoException;
 import com.pentoryall.common.exception.order.OrderFailedException;
-import com.pentoryall.order.dto.OrderDTO;
-import com.pentoryall.order.dto.OrderRequestDTO;
-import com.pentoryall.order.dto.OrderUserDTO;
-import com.pentoryall.order.dto.PaymentDTO;
-import com.pentoryall.order.service.OrderService;
+import com.pentoryall.point.dto.OrderDTO;
+import com.pentoryall.point.dto.OrderRequestDTO;
+import com.pentoryall.point.dto.OrderUserDTO;
+import com.pentoryall.point.dto.PaymentDTO;
+import com.pentoryall.point.service.OrderService;
 import com.pentoryall.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +23,8 @@ import java.util.Objects;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/order")
-public class OrderController {
+@RequestMapping("/point/order")
+public class PointOrderController {
 
     private final OrderService orderService;
 
@@ -77,8 +77,8 @@ public class OrderController {
     }
 
     @GetMapping("/complete")
-    public String orderResultPage(@RequestParam(value = "orderCode") Long code,
-                                  @AuthenticationPrincipal UserDTO sessionUser, Model model) {
+    public String pointChargeResultPage(@RequestParam(value = "orderCode") Long code,
+                                        @AuthenticationPrincipal UserDTO sessionUser, Model model) {
 
         OrderDTO order = orderService.selectOrderByCode(code);
 
@@ -94,9 +94,14 @@ public class OrderController {
         return "views/point/orderResult";
     }
 
+    @GetMapping("/list")
+    public String orderListPage() {
+        return "views/point/orderList";
+    }
+
+
     /* 주문 정보의 회원 코드와 로그인 회원 정보가 일치하는지 검증 */
     private boolean isValidUserInfo(Long userCode, Long sessionUserCode) {
         return userCode == null || !Objects.equals(userCode, sessionUserCode);
     }
-
 }
