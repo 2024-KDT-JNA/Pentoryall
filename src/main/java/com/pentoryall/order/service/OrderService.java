@@ -1,10 +1,11 @@
 package com.pentoryall.order.service;
 
-import com.pentoryall.common.exception.order.OrderFailedException;
 import com.pentoryall.order.dto.OrderDTO;
 import com.pentoryall.order.dto.PaymentDTO;
 import com.pentoryall.order.mapper.OrderMapper;
 import com.pentoryall.order.mapper.PaymentMapper;
+import com.pentoryall.user.dto.UserDTO;
+import com.pentoryall.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,18 +18,25 @@ public class OrderService {
 
     private final PaymentMapper paymentMapper;
 
-    public OrderDTO findByOrderCode(Long orderCode) {
-        return orderMapper.findByOrderCode(orderCode);
+    private final UserMapper userMapper;
+
+    public OrderDTO selectOrderByCode(Long orderCode) {
+        return orderMapper.selectByOrderCode(orderCode);
     }
 
     @Transactional
-    public void save(OrderDTO order, PaymentDTO payment) throws OrderFailedException {
-        orderMapper.save(order);
+    public void savePointChargeInformation(OrderDTO order, PaymentDTO payment) {
 
-        if (order.getCode() == null) {
-            throw new OrderFailedException("주문 정보 저장에 실패하였습니다.");
-        }
+        /* 주문 정보 저장 */
+        orderMapper.insertOrder(order);
+
+        /* 결제 정보 저장 */
         payment.setOrderCode(order.getCode());
-        paymentMapper.save(payment);
+        paymentMapper.insertPayment(payment);
+
+        /* 회원 포인트 갱신 */
+        UserDTO user = userMapper.getUserInformationByUserCode(order.getUserCode());
+        user.setPoint(user.getPoint() + order.getPoint());
+        userMapper.updatePointByUserCode(user);
     }
 }
