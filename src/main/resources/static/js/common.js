@@ -1,6 +1,6 @@
 window.onload = function () {
 
-    if(document.getElementById("aside")) {
+    if (document.getElementById("aside")) {
         /* layout */
         const $sideMenuBtn = document.querySelector('.profile-btn');
         const $overlay = document.querySelector('.overlay');
@@ -18,4 +18,12 @@ window.onload = function () {
         $sideMenuBtn.addEventListener('click', layoutEvents.sideMenuClickHandler);
         $overlay.addEventListener('click', layoutEvents.overlayClickHandler);
     }
+};
+
+function isAllChecked(targetName) {
+    const $checkInputs = document.querySelectorAll(`input[name='${ targetName }']`);
+    let checked = 0;
+    $checkInputs.forEach(checkInput => checkInput.checked && checked++);
+
+    return $checkInputs.length === checked;
 }
