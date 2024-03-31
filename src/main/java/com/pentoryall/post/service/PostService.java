@@ -24,8 +24,8 @@ public class PostService {
         postMapper.insertPost(postDTO);
     }
 
-    public PostDTO getPostInformationByPostCode(long lastCode) {
-        return postMapper.getPostInformationByPostCode(lastCode);
+    public PostDTO getPostInformationByPostCode(long code) {
+        return postMapper.getPostInformationByPostCode(code);
     }
 
     @Transactional
@@ -39,5 +39,9 @@ public class PostService {
 @Transactional
     public void updatePostService(PostDTO postDTO) {
         postMapper.updatePostService(postDTO);
+    }
+@Transactional
+    public void deletePostByPostCode(long code) {
+        postMapper.deletePostByPostCode(code);
     }
 }

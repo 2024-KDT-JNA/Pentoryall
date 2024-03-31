@@ -19,10 +19,12 @@ import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,13 +42,15 @@ public class PostController {
     private final UserService userService;
     private final GenreOfArtService genreOfArtService;
     private final GenreService genreService;
+    private final MessageSourceAccessor messageSourceAccessor;
 
-    public PostController(SeriesService seriesService, PostService postService, UserService userService, GenreOfArtService genreOfArtService,GenreService genreService) {
+    public PostController(SeriesService seriesService, PostService postService, UserService userService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor) {
         this.seriesService = seriesService;
         this.postService = postService;
         this.userService = userService;
         this.genreOfArtService = genreOfArtService;
         this.genreService = genreService;
+        this.messageSourceAccessor = messageSourceAccessor;
     }
 
 
@@ -156,7 +160,8 @@ public class PostController {
         System.out.println("postDTO = " + postDTO);
 //        session.setAttribute("code", postDTO.getCode());
 
-        return "redirect:/post/information?code=" + postDTO.getCode();
+        String url = "redirect:/series/page?code="+seriesCode;
+        return url;
     }
 
     @GetMapping("/information")
@@ -284,6 +289,23 @@ public class PostController {
         System.out.println("포스트 정보 수정 완료!");
 //        return "redirect:/post/information?code=" + postDTO.getCode();
         return "/views/index";
+    }
+
+    @GetMapping("/delete")
+    public String deletePost(@RequestParam long code,
+                             RedirectAttributes rttr){
+        rttr.addFlashAttribute("message",messageSourceAccessor.getMessage("post.delete"));
+        PostDTO postDTO = postService.getPostInformationByPostCode(code);
+
+        long seriesCode = postDTO.getSeriesCode();
+
+        genreOfArtService.deleteSeriesGenreByPostCode(code);
+        System.out.println("장르에 포함된 포스트가 삭제 되었습니다.");
+
+        postService.deletePostByPostCode(code);
+        System.out.println("포스트가 삭제 되었습니다.");
+        String url = "redirect:/series/page?code="+seriesCode;
+        return url;
     }
 
 
