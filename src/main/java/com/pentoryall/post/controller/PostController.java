@@ -1,14 +1,23 @@
 package com.pentoryall.post.controller;
 
+import com.pentoryall.genre.dto.GenreDTO;
+//import com.pentoryall.genre.service.GenreService;
+//import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
+//import com.pentoryall.genre.service.GenreService;
+//import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
+
+//import com.pentoryall.genreOfArt.service.GenreOfArtService;
+
+import com.pentoryall.genre.service.GenreService;
+import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
+import com.pentoryall.genreOfArt.service.GenreOfArtService;
 import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-
 @Controller
 @RequestMapping("/post")
 public class PostController {
@@ -29,12 +37,15 @@ public class PostController {
     private final SeriesService seriesService;
     private final PostService postService;
     private final UserService userService;
+    private final GenreOfArtService genreOfArtService;
+    private final GenreService genreService;
 
-    public PostController(SeriesService seriesService, PostService postService, UserService userService) {
+    public PostController(SeriesService seriesService, PostService postService, UserService userService, GenreOfArtService genreOfArtService,GenreService genreService) {
         this.seriesService = seriesService;
         this.postService = postService;
         this.userService = userService;
-
+        this.genreOfArtService = genreOfArtService;
+        this.genreService = genreService;
     }
 
 
@@ -56,17 +67,21 @@ public class PostController {
     @PostMapping("/add")
     public String postAddController(@RequestParam Map<String, String> params,
                                     @RequestParam(required = false) MultipartFile thumbnail,
+                                    @RequestParam List<Long> genreCode,
+                                    GenreOfArtDTO genreOfArtDTO,
                                     PostDTO postDTO,
                                     Model model
     ) {
         String title = params.get("title");
         String contents = params.get("contents");
         char isPublic = params.get("isPublic") != null ? params.get("isPublic").charAt(0) : 'n';
-        String series = params.get("series");
+        long seriesno = Long.parseLong(params.get("series"));
         char isFee = params.get("isFee") != null ? params.get("isFee").charAt(0) : 'n';
         long neededPoint = Long.parseLong(params.get("neededPoint"));
         char isAdult = params.get("isAdult") != null ? params.get("isAdult").charAt(0) : 'n';
 
+
+        System.out.println("너 성공한거야!");
         System.out.println(title);
         System.out.println("thumbnailImage = " + thumbnail);
         /*파일 가공 로직*/
@@ -92,7 +107,7 @@ public class PostController {
 
             postDTO.setThumbnailImage(saveFileName);
         }
-        SeriesDTO seriesDTO = seriesService.selectSeriesByTitle(series);
+        SeriesDTO seriesDTO = seriesService.selectSeriesByTitle(seriesno);
         System.out.println(seriesDTO);
         long seriesCode = seriesDTO.getCode();
         postDTO.setTitle(title);
@@ -107,6 +122,36 @@ public class PostController {
         System.out.println(postDTO);
         System.out.println("title>>>>>>>>>>>> = " + title);
         postService.insertPost(postDTO);
+        System.out.println("삽입 성공!!");
+
+        System.out.println("????????????"+genreOfArtDTO);
+
+        System.out.println("genreCode!!!!!!!!!!!!!!! = " + genreCode);
+
+
+
+        for(int i = 0 ; i<genreCode.size();i++){
+            long code = genreCode.get(i);
+            System.out.println(code);
+            GenreDTO genreDTO = genreService.selectGenreTitle(code);
+            System.out.println(genreDTO);
+            String kind = genreDTO.getName();
+            System.out.println(kind);
+            genreOfArtDTO.setGenreCode(code);
+            genreOfArtDTO.setPostCode(postDTO.getCode());
+            genreOfArtDTO.setSeriesCode(seriesDTO.getCode());
+            genreOfArtDTO.setKind("POST");
+            System.out.println("전");
+            System.out.println(genreOfArtDTO);
+            genreOfArtService.insertGenreOfArt(genreOfArtDTO);
+            System.out.println("후");
+        }
+
+        System.out.println("성공하셨스므니다.");
+
+
+
+
         System.out.println("postDTO = " + postDTO);
 //        session.setAttribute("code", postDTO.getCode());
 
