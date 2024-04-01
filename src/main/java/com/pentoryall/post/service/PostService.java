@@ -1,6 +1,7 @@
 package com.pentoryall.post.service;
 
 
+import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.post.dto.PostDTO;
 
 import com.pentoryall.post.mapper.PostMapper;
@@ -26,5 +27,7 @@ public class PostService {
     }
 
 
-
+    public void insertGenre(GenreOfArtDTO genreOfArtDTO) {
+        postMapper.insertGenre(genreOfArtDTO);
+    }
 }
