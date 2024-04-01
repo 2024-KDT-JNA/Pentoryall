@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+>
+
+<th:block th:fragment="setting-aside">
+    <aside id="sidebar" class="settings-aside">
+        <h2 class="blind">설정 사이드 메뉴</h2>
+
+        <nav class="settings-nav">
+            <ul>
+                <li>
+                    <a th:href="@{/user/update}">
+                        <i class="bi bi-person"></i>
+                        <!--                         <i class="bi bi-person-gear"></i> -->
+                        <!--                         <i class="bi bi-person-lock"></i> -->
+                        <span>계정 관리</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{#}">
+                        <!--                         <i class="bi bi-pencil-square"></i> -->
+                        <i class="bi bi-marker-tip"></i>
+                        <!--                         <i class="bi bi-vector-pen"></i> -->
+                        <!--                         <i class="bi bi-blockquote-right"></i> -->
+
+                        <span>포스트 관리</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{#}">
+                        <!--                         <i class="bi bi-pencil-square"></i> -->
+                        <i class="bi bi-pencil"></i>
+                        <!--                         <i class="bi bi-vector-pen"></i> -->
+                        <!--                         <i class="bi bi-blockquote-right"></i> -->
+
+                        <span>포스트 관리</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{#}">
+                        <i class="bi bi-calculator"></i>
+                        <span>정산 관리</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{#}">
+                        <i class="bi bi-coin"></i>
+                        <span>정산 관리</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{#}">
+                        <i class="bi bi-cash"></i>
+                        <span>정산 관리</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{#}">
+                        <i class="bi bi-cash-stack"></i>
+                        <span>정산 관리</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{#}">
+                        <i class="bi bi-calculator"></i>
+                        <span>정산 관리</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{#}">
+                        <i class="bi bi-emoji-smile"></i>
+                        <span>멤버십 관리</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{#}">
+                        <i class="bi bi-ticket"></i>
+                        <span>멤버십 관리</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{#}">
+                        <i class="bi bi-hearts"></i>
+                        <span>멤버십 관리</span>
+                    </a>
+
+            </ul>
+        </nav>
+
+        <!--         <nav class="admin-nav"> -->
+        <!--             <ul> -->
+        <!--                 <li> -->
+        <!--                     <a th:href="@{/user/update}"> -->
+        <!--                         <i class="bi bi-person"></i> -->
+        <!--                         &lt;!&ndash;                         <i class="bi bi-person-gear"></i> &ndash;&gt; -->
+        <!--                         &lt;!&ndash;                         <i class="bi bi-person-lock"></i> &ndash;&gt; -->
+        <!--                         <span>계정 관리</span> -->
+        <!--                     </a> -->
+        <!--                 </li> -->
+        <!--                 <li> -->
+        <!--                     <a th:href="@{#}"> -->
+        <!--                         &lt;!&ndash;                         <i class="bi bi-pencil-square"></i> &ndash;&gt; -->
+        <!--                         <i class="bi bi-pencil"></i> -->
+        <!--                         &lt;!&ndash;                         <i class="bi bi-vector-pen"></i> &ndash;&gt; -->
+        <!--                         &lt;!&ndash;                         <i class="bi bi-blockquote-right"></i> &ndash;&gt; -->
+
+        <!--                         <span>포스트 관리</span> -->
+        <!--                     </a> -->
+        <!--                 </li> -->
+        <!--                 <li> -->
+        <!--                     <a th:href="@{#}"> -->
+        <!--                         &lt;!&ndash;                         <i class="bi bi-percent"></i> &ndash;&gt; -->
+        <!--                         <i class="bi bi-coin"></i> -->
+        <!--                         &lt;!&ndash;                         <i class="bi bi-bank"></i> &ndash;&gt; -->
+        <!--                         <span>정산 관리</span> -->
+        <!--                     </a> -->
+        <!--                 </li> -->
+        <!--                 <li> -->
+        <!--                     <a th:href="@{#}"> -->
+        <!--                         <i class="bi bi-emoji-smile"></i> -->
+        <!--                         <i class="bi bi-ticket"></i> -->
+
+        <!--                         <span>멤버십 관리</span> -->
+        <!--                     </a> -->
+        <!--                 </li> -->
+        <!--             </ul> -->
+        <!--         </nav> -->
+    </aside>
+</th:block>
+<script src="/js/event.js"></script>
+</html>
