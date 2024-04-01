@@ -11,11 +11,20 @@
             </a>
         </h1>
         <div class="header-right">
-            <div class="search-input">
-                <form>
-                    <input type="text" class="input" placeholder="검색어 입력" />
+
+                <form action="/series/select" method="post">
+                    <label>검색 옵션</label>
+                    <select name="option" class="select-option">
+                        <option>제목</option>
+                        <option>작가</option>
+                        <option>제목+작가</option>
+                    </select>
+                    <div class="search-input">
+                    <input name="word" type="text" class="input" placeholder="검색어 입력"/>
+                    </div>
+                    <button class="select-btn" type="submit">검색</button>
                 </form>
-            </div>
+
             <th:block sec:authorize="hasRole('ROLE_USER')">
                 <button type="button" class="alert-btn">
                     <span class="blind">알림</span>

@@ -2,6 +2,7 @@ package com.pentoryall.series.service;
 
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.mapper.SeriesMapper;
+import com.pentoryall.user.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,4 +53,11 @@ public class SeriesService {
         return seriesMapper.selectSeriesList();
     }
 
+    public List<SeriesDTO> getSeriesListByWord(String word) {
+        return seriesMapper.getSeriesListByWord(word);
+    }
+
+    public List<SeriesDTO> selectSeriesByUserCode(long userCode) {
+        return seriesMapper.selectSeriesByUserCode(userCode);
+    }
 }

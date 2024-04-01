@@ -26,3 +26,6 @@
 .post-description{
     height:50px;
 }
+.select-btn,.select-option{
+    border: solid 1px;
+}
