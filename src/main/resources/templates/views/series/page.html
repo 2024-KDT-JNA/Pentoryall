@@ -291,15 +291,15 @@
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
     <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
-    <script>
-        const deletebtn = document.querySelector(".series-delete-button ");
-        deletebtn.addEventListener("click",()=>{
-           if(confirm("삭제하면 내부의 포스트들도 모두 삭제 됩니다. 삭제하시겠습니까?")){
-                alert("삭제가 진행 됩니다.");
-           }else{
-               alert("삭제를 취소 합니다.");
-           }
-        })
-    </script>
+<!--    <script>-->
+<!--        const deletebtn = document.querySelector(".series-delete-button ");-->
+<!--        deletebtn.addEventListener("click",()=>{-->
+<!--           if(confirm("삭제하면 내부의 포스트들도 모두 삭제 됩니다. 삭제하시겠습니까?")){-->
+<!--                alert("삭제가 진행 됩니다.");-->
+<!--           }else{-->
+<!--               alert("삭제를 취소 합니다.");-->
+<!--           }-->
+<!--        })-->
+<!--    </script>-->
 </th:block>
 </html>

@@ -43,12 +43,12 @@
 
                         <div class="thumbnail-file-wrap">
                             <div class="upload-thumbnail">
-                                <img id="image-box" class="series-add-thumbnail" th:src="@{post.thumbnailImage}" alt="thumbnail" />
+                                <img id="image-box" class="series-add-thumbnail" th:src="${post.thumbnailImage}" alt="thumbnail" onerror="this.src='./images/temp/thumbnail.png'"/>
                             </div>
                             <div class="form__input--file_wrap">
                                 <div class="fileBox">
                                     <label class="label">파일 업로드</label>
-                                    <input id="image-file-box" type="file" class="input" name="thumbnail" onchange="viewURL()"/>
+                                    <input id="image-file-box" type="file" class="input" name="thumbnail" onchange="viewURL()" th:value="${post.thumbnailImage}"/>
                                     <button class="cancled" type="button" onclick="fileCancled()">취소하기</button>
                                 </div>
                             </div>

@@ -46,4 +46,8 @@ public class SeriesService {
     public void deleteSeries(long code) {
         seriesMapper.deleteSeries(code);
     }
+
+    public List<SeriesDTO> selectSeriesList() {
+        return seriesMapper.selectSeriesList();
+    }
 }
