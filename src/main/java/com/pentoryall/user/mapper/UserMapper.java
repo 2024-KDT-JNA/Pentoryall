@@ -17,4 +17,6 @@ public interface UserMapper {
     int deleteUser(UserDTO user);
 
     UserDTO getUserInformationByUserCode(long userCode);
+
+    void updatePointByUserCode(UserDTO user);
 }

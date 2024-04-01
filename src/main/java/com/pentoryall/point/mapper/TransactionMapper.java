@@ -1,4 +1,4 @@
-package com.pentoryall.transaction.mapper;
+package com.pentoryall.point.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
