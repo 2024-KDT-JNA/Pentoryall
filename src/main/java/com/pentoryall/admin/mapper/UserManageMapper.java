@@ -10,9 +10,10 @@ import java.util.Map;
 
 @Mapper
 public interface UserManageMapper {
-    
+
 
     int selectTotalCount(Map<String, String> searchMap);
 
     List<UserManageDTO> selectAllUserList(SelectCriteria selectCriteria);
+
 }

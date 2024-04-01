@@ -5,5 +5,30 @@
 
 <mapper namespace="com.pentoryall.admin.mapper.PostReportMapper">
 
+    <select id="selectAllPostReportList" resultType="com.pentoryall.admin.DTO.PostReportDTO">
+        SELECT
+            r.code,
+            u.code as user_code,
+            u.user_id,
+            u.nickname,
+            u.state,
+            r.report_date,
+            p.code,
+            p.title
+        FROM
+            report r JOIN user u ON r.user_code = u.code
+                     JOIN post p ON r.post_code = p.code
+        WHERE r.type = 'post'
+        ORDER BY report_date, user_code
+    </select>
+
+
+    <select id="selectTotalCount" resultType="_int">
+        SELECT
+            COUNT(*)
+        FROM
+            report
+    </select>
+
 </mapper>
 
