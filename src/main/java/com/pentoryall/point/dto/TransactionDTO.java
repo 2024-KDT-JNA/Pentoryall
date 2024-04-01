@@ -1,4 +1,4 @@
-package com.pentoryall.transaction.dto;
+package com.pentoryall.point.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
