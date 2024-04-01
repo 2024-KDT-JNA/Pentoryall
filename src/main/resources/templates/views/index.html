@@ -16,7 +16,7 @@
                 <div class="main-series-swiper series-list">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" th:each="series:${seriesList}">
-                            <a href="#">
+                            <a th:onclick="'location.href = \'' + @{/series/page(code=${series.code})} + '\''">
                                 <div class="thumbnail-image">
                                     <img class="best-series-img" th:src="${series.thumbnailImage}" alt="" onerror="this.src='./images/temp/thumbnail.png'"/>
                                 </div>
