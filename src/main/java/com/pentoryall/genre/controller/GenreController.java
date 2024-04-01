@@ -36,18 +36,17 @@ public class GenreController {
     }
 
 
-
     @GetMapping("/lowerGenreList")
-    public @ResponseBody List<GenreDTO> functionGetLowerGenreList(@RequestParam long code) {
+    public @ResponseBody List<GenreDTO> functionGetLowerGenreList(long code) {
         List<GenreDTO> LowergenreList = genreService.getLowerGenreList(code);
         System.out.println(LowergenreList);
         return LowergenreList;
     }
 
     @GetMapping("/upperGenre")
-    public @ResponseBody List<GenreDTO> functionGetUpperGenre(@RequestParam long code){
+    public @ResponseBody List<GenreDTO> functionGetUpperGenre(@RequestParam long code) {
         List<GenreDTO> genreDTO = new ArrayList<>();
-        if(code!=1) {
+        if (code != 1) {
             GenreOfArtDTO genreOfArtDTO = genreOfArtService.getGenre(code);
             System.out.println("genreOfArtDTO = " + genreOfArtDTO);
             long genreCode = genreOfArtDTO.getGenreCode();
@@ -59,10 +58,10 @@ public class GenreController {
     }
 
     @GetMapping("/lowerGenre")
-    public @ResponseBody List<GenreDTO> functionGetLowerGenre(@RequestParam long code){
+    public @ResponseBody List<GenreDTO> functionGetLowerGenre(@RequestParam long code) {
         List<GenreOfArtDTO> genreOfArtDTO = genreOfArtService.getLowerGenre(code);
         List<GenreDTO> genreDTO = new ArrayList<>();
-        for(int i = 0 ; i<genreOfArtDTO.size() ; i++){
+        for (int i = 0; i < genreOfArtDTO.size(); i++) {
             long genreCode = genreOfArtDTO.get(i).getGenreCode();
             GenreDTO genreDTO1 = genreService.selectGenre(genreCode);
             genreDTO.add(genreDTO1);
@@ -71,11 +70,11 @@ public class GenreController {
     }
 
     @GetMapping("/selectedGenre")
-    public @ResponseBody List<GenreDTO> functionGetSelectedGenre(@RequestParam long code){
+    public @ResponseBody List<GenreDTO> functionGetSelectedGenre(@RequestParam long code) {
         List<GenreOfArtDTO> genreOfArtDTOList = genreOfArtService.findGenreBySeriesCodeSeries(code);
         System.out.println("genreOfArtDTOList = " + genreOfArtDTOList);
         List<GenreDTO> genreDTO = new ArrayList<>();
-        for(int i = 0 ; i<genreOfArtDTOList.size() ; i++){
+        for (int i = 0; i < genreOfArtDTOList.size(); i++) {
             long genreCode = genreOfArtDTOList.get(i).getGenreCode();
             GenreDTO genreDTO1 = genreService.selectGenre(genreCode);
             genreDTO.add(genreDTO1);
