@@ -35,7 +35,7 @@ public class LikeController {
         System.out.println("컨트롤러 연결 성공");
         System.out.println(likeDTO.getPostCode());
         System.out.println(likeDTO.getUserCode());
-        likeService.likeUp(likeDTO.getPostCode(), likeDTO.getUserCode());
+        likeService.likeUp(likeDTO);
 
     }
 
@@ -43,6 +43,6 @@ public class LikeController {
     @PostMapping("/likeDown")
     public void likeDown(@RequestBody LikeDTO likeDTO) {
         System.out.println("좋아요 싫어요!");
-        likeService.likeDown(likeDTO.getPostCode(), likeDTO.getUserCode());
+        likeService.likeDown(likeDTO);
     }
 }

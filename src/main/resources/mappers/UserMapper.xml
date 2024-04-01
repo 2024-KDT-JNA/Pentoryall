@@ -4,30 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pentoryall.user.mapper.UserMapper">
     <select id="getUserInformationByUserCode" resultType="com.pentoryall.user.dto.UserDTO">
-        SELECT
-            code,
-            email,
-            user_id,
-            password,
-            nickname,
-            name,
-            birth,
-            profile_image,
-            introduction,
-            revenue,
-            point,
-            role,
-            state,
-            is_certificated,
-            is_subscriber_visible,
-            create_date,
-            update_date,
-            delete_date,
-            suspension_end_date
-        FROM
-            user
-        WHERE
-            code=#{userCode}
+        SELECT code,
+               email,
+               user_id,
+               password,
+               nickname,
+               name,
+               birth,
+               profile_image,
+               introduction,
+               revenue,
+               point,
+               role,
+               state,
+               is_certificated,
+               is_subscriber_visible,
+               create_date,
+               update_date,
+               delete_date,
+               suspension_end_date
+        FROM user
+        WHERE code = #{userCode}
     </select>
     <select id="findByUserId" resultType="com.pentoryall.user.dto.UserDTO">
         SELECT code,
@@ -65,37 +62,24 @@
         INSERT INTO user (user_id, password, name, nickname, email, birth)
         VALUES (#{ userId }, #{ password }, #{ name }, #{ nickname }, #{ email }, #{ birth })
     </insert>
-
-    <!--    <select id="selectEncryptedPwd" resultType="string">-->
-    <!--        SELECT member_pwd-->
-    <!--        FROM tbl_member-->
-    <!--        WHERE member_status = 'Y'-->
-    <!--          AND member_id = #{ memberId }-->
-    <!--    </select>-->
-
-    <!--    <select id="selectUser" resultType="com.pentoryall.user.dto.UserDTO">-->
-    <!--        SELECT member_no,-->
-    <!--               member_id,-->
-    <!--               nickname,-->
-    <!--               phone,-->
-    <!--               email,-->
-    <!--               address,-->
-    <!--               enroll_date,-->
-    <!--               member_role,-->
-    <!--               member_status-->
-    <!--        FROM tbl_member-->
-    <!--        WHERE member_status = 'Y'-->
-    <!--          AND member_id = #{ memberId }-->
-    <!--    </select>-->
-
     <update id="updateUser">
         UPDATE
-            user
-        SET nickname     = #{ nickname },
-            introduction = #{ introduction },
-            password     = #{ password }
+        user
+        SET nickname = #{ nickname },
+        introduction = #{ introduction }
+        <if test="password !=''">
+            ,password = #{ password }
+        </if>
+        /* 프로필이미지가 'removed'와 같을때 NULL로 */
+        <if test="profileImage == 'removed'">
+            ,profile_image = NULL
+        </if>
+        /* 프로필이미지가 NULL */
+        <if test="profileImage !=null and profileImage != 'removed'">
+            ,profile_image = #{ profileImage }
+        </if>
         WHERE state = 'ACTIVE'
-          AND user_id = #{userId}
+        AND user_id = #{userId}
     </update>
 
     <update id="deleteUser">
@@ -105,5 +89,10 @@
         WHERE state = 'ACTIVE'
           AND user_id = #{userId}
     </update>
+    <select id="getPwd" resultType="String">
+        SELECT password
+        FROM user
+        WHERE code = #{ code }
+    </select>
 
 </mapper>

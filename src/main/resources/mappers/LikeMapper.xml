@@ -15,23 +15,19 @@
     <!-- 좋아요 눌럿는지 안눌럿는지 -->
     <select id="findLike" resultType="int">
         SELECT count(*)
-        FROM like
+        FROM `like`
         WHERE post_code = #{postCode}
           AND user_code = #{userCode}
     </select>
     <!-- 좋아요 추가 -->
     <insert id="likeUp">
-        INSERT INTO like (code, post_code, user_code)
-        VALUES ((SELECT IFNULL(MAX(code), 0) + 1 FROM like), #{postCode}, #{userCode}, 1)
+        INSERT INTO `like` (post_code, user_code)
+        VALUES (#{postCode}, #{userCode})
     </insert>
-    <!--    <insert id="likeUp">-->
-    <!--        INSERT INTO like (post_code, user_code)-->
-    <!--        VALUES (#{postCode}, #{userCode})-->
-    <!--    </insert>-->
     <!-- 좋아요 취소 -->
     <delete id="likeDown">
         DELETE
-        FROM like
+        FROM `like`
         WHERE post_code = #{postCode}
           AND user_code = #{userCode}
     </delete>
