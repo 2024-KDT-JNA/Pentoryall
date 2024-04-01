@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace 형식 올바르게 수정 후 사용하세요. -->
+<mapper namespace="com.pentoryall.genre.mapper.GenreMapper">
+<select id="getGenreList" resultType="com.pentoryall.genre.dto.GenreDTO">
+    SELECT
+        code,
+        ref_genre_code,
+        name
+    FROM
+        genre
+    WHERE
+        ref_genre_code IS NULL
+</select>
+    <select id="getLowerGenreList" resultType="com.pentoryall.genre.dto.GenreDTO">
+        SELECT
+            code,
+            ref_genre_code,
+            name
+        FROM
+            genre
+        WHERE
+            ref_genre_code=#{code};
+    </select>
+    <select id="selectGenreList" resultType="com.pentoryall.genre.dto.GenreDTO">
+        SELECT
+            code,
+            ref_genre_code,
+            name
+        FROM
+            genre
+        WHERE
+            code=#{genreCode}
+    </select>
+    <select id="selectGenre" resultType="com.pentoryall.genre.dto.GenreDTO">
+        SELECT
+            code,
+            ref_genre_code,
+            name
+        FROM
+            genre
+        WHERE
+            code=#{genreCode}
+    </select>
+    <select id="selectGenreTitle" resultType="com.pentoryall.genre.dto.GenreDTO">
+        SELECT
+            code,
+            ref_genre_code,
+            name
+        FROM
+            genre
+        WHERE
+            code=#{genreCode}
+    </select>
+
+</mapper>

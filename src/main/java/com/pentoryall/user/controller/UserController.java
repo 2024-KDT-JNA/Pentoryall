@@ -1,5 +1,6 @@
 package com.pentoryall.user.controller;
 
+import com.pentoryall.common.exception.user.MemberModifyException;
 import com.pentoryall.common.exception.user.MemberRegistException;
 import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.user.dto.UserDTO;
@@ -12,9 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,26 +40,20 @@ public class UserController {
 
     /* 로그인 페이지 이동 */
     @GetMapping("/login")
-    public String loginPage() {
-        return "/user/login";
+    public String loginPage(Model model) {
+//        if (error != null) {
+//            model.addAttribute("errorMessage", "존재하지 않는 회원입니다.");
+//        }
+        return "views/user/login";
     }
 
-//    @PostMapping("/login")
-//    public void login(String userId) {
-//        log.info("userId = {}}", userId);
-//
-//    }
 
     /* 로그인 실패 시 */
     @PostMapping("/loginfail")
     public String loginFailed(RedirectAttributes rttr) {
         rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("error.login"));
+        System.out.println(messageSourceAccessor.getMessage("error.login"));
         return "redirect:/user/login";
-    }
-
-    /* 회원 가입 페이지 이동 */
-    @GetMapping("/regist")
-    public void registPage() {
     }
 
     /* 아이디 중복 체크 : 비동기 통신
@@ -64,18 +61,19 @@ public class UserController {
      * (HttpStatus, HttpHeaders, HttpBody 를 포함한다)
      * 규약에 맞는 HttpResponse를 반환하는데 사용 목적이 있다. */
     @PostMapping("/idDupCheck")
-    public ResponseEntity<String> checkDuplication(@RequestBody UserDTO user) {
+    public ResponseEntity<Boolean> checkDuplication(@RequestBody UserDTO user) {
 
         log.info("Request Check ID : {}", user.getUserId());
 
         boolean isDuplicate = userService.selectUserById(user.getUserId());
-        String result = isDuplicate ? "중복 된 아이디가 존재합니다." : "사용 가능한 아이디입니다.";
+        Boolean result = isDuplicate ? true : false;
 
 //        String result = "사용 가능한 아이디입니다.";
 //
 //        if (userService.selectUserById(user.getUserId())) {
 //            result = "중복 된 아이디가 존재합니다.";
 //        }
+        log.info(String.valueOf(result));
 
         return ResponseEntity.ok(result);
 
@@ -90,6 +88,12 @@ public class UserController {
         return newAuth;
     }
 
+    /* 회원 가입 페이지 이동 */
+    @GetMapping("/regist")
+    public String registPage() {
+        return "views/user/regist";
+    }
+
     /* 회원 가입 */
     @PostMapping("/regist")
     public String registUser(UserDTO user, RedirectAttributes rttr) throws MemberRegistException {
@@ -98,20 +102,69 @@ public class UserController {
 
         log.info("Request regist user : {}", user);
 
+        // 회원 가입 시 중복 체크를 다시 한번 수행합니다.
+        if (userService.selectUserById(user.getUserId())) {
+            rttr.addFlashAttribute("errorMessage", "이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요.");
+            return "redirect:/user/regist";
+        }
+
         userService.registUser(user);
 
         rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("user.regist"));
 
-        return "/user/login";
+        return "redirect:/";
     }
 
-    @GetMapping("/delete")
-    public String deleteMember(@AuthenticationPrincipal UserDTO user, RedirectAttributes rttr) throws MemberRemoveException {
+    /* 회원정보 수정 페이지로 */
+    @GetMapping("/update")
+    public String updatePage() {
+        return "views/user/myModify";
+    }
 
-        log.info("login member : {}", user);
+    /* 회원 정보 수정 */
+    @PostMapping("/update")
+    public String modifyUser(UserDTO modifyUser,
+                             @AuthenticationPrincipal UserDTO loginUser, RedirectAttributes rttr) throws MemberModifyException {
 
+        modifyUser.setUserId(loginUser.getUserId());
+
+        log.info("modifyUser request User : {}", modifyUser);
+
+        userService.modifyUser(modifyUser);
+
+        /* 로그인 시 저장 된 Authentication 객체를 변경 된 정보로 교체한다. */
+        SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(loginUser.getUserId()));
+
+        rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("user.modify"));
+
+        return "redirect:/user/update";
+    }
+
+
+    /* 회원탈퇴 페이지 이동*/
+    @GetMapping("/withdrawal")
+    public String getUserDeletePage() {
+        return "views/user/withdrawal";
+    }
+
+    @PostMapping("/delete")
+    public String deleteUser(@AuthenticationPrincipal UserDTO user, RedirectAttributes rttr) throws MemberRemoveException {
+
+        log.info("login user : {}", user);
+
+        /* 회원을 db에서 삭제 */
         userService.removeUser(user);
 
-        return "redirect:/member/logout";
+        /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
+        rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
+
+        /* 로그아웃 처리 (세션만료) */
+        return "redirect:/user/logout";
+    }
+
+    /* 비밀번호 찾기 페이지 이동 */
+    @GetMapping("/findPwd")
+    public String findPwdPage() {
+        return "views/user/findPwd";
     }
 }

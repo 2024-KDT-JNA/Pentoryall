@@ -12,7 +12,11 @@ public interface UserMapper {
 
     int insertUser(UserDTO user);
 
+    int updateUser(UserDTO modifyUser);
+
     int deleteUser(UserDTO user);
-    
-    UserDTO getUserInformationByPostCode(long userCode);
+
+    UserDTO getUserInformationByUserCode(long userCode);
+
+    void updatePointByUserCode(UserDTO user);
 }

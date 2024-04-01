@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,11 +16,11 @@ public class MembershipDTO {
     private String introduction;
     private int price;
     private String color;
-    private String isActive;
-    private String isDeleted;
-    private Date createDate;
-    private Date updateDate;
-    private Date deleteDate;
+    private char isActive;
+    private char isDeleted;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
+    private LocalDateTime deleteDate;
 
 
 }

@@ -1,11 +1,14 @@
 package com.pentoryall.user.service;
 
 
+import com.pentoryall.common.exception.user.MemberModifyException;
 import com.pentoryall.common.exception.user.MemberRegistException;
 import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import com.pentoryall.user.mapper.UserMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +19,10 @@ import java.util.List;
 public class UserService {
 
     private final UserMapper userMapper;
+
+    private final PasswordEncoder passwordEncoder;
+
+//    private final UserRepository userRepository;
 
     public boolean selectUserById(String userId) {
 
@@ -39,8 +46,28 @@ public class UserService {
         if (!(result > 0)) {
             throw new MemberRemoveException("회원 탈퇴에 실패하였습니다.");
         }
-
-//    public UserDTO getUserInformationByPostCode(long userCode) {
-//        return userMapper.getUserInformationByPostCode(userCode);
     }
+
+    public UserDTO getUserInformationByUserCode(long userCode) {
+        return userMapper.getUserInformationByUserCode(userCode);
+    }
+
+    public void modifyUser(UserDTO modifyUser) throws MemberModifyException {
+        // 비밀번호 인코딩
+        String encodedPassword = passwordEncoder.encode(modifyUser.getPassword());
+        modifyUser.setPassword(encodedPassword);
+        int result = userMapper.updateUser(modifyUser);
+
+        if (!(result > 0)) throw new MemberModifyException("회원 정보 수정에 실패하였습니다.");
+    }
+
+//    public String getUserPassword(String userId) {
+//        // userId를 기반으로 데이터베이스에서 해당 사용자의 정보를 조회합니다.
+//        User user = userRepository.findByUserId(userId);
+//        // 조회된 사용자가 없거나 비밀번호가 null인 경우 null을 반환합니다.
+//        if (user == null) {
+//            return null;
+//        }
+//        return user.getPassword();
+//    }
 }

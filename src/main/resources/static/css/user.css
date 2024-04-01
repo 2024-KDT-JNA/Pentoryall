@@ -2,6 +2,18 @@
     color: red;
 }
 
+input[type="button"] {
+    cursor: pointer;
+}
+
+#loginForm {
+    margin-top: 40px;
+}
+
+#loginForm .black_btns {
+    margin-top: 20px;
+}
+
 .login_info {
     max-width: 480px;
     width: 100%;
@@ -10,6 +22,8 @@
 
 .title_text {
     text-align: center;
+    font-size: 36px;
+    font-weight: 700;
 }
 
 .inputWrap {
@@ -22,14 +36,18 @@
     margin-top: 10px;
 }
 
-.inputWrap label {
-    width: 100px;
+.inputWrap .labelTitle {
+    width: 120px;
 }
 
 .input_box {
     width: 100%;
     display: flex;
     align-items: center;
+}
+
+.input_box .input_box_text {
+    padding: 15px;
 }
 
 .input_box input {
@@ -42,11 +60,14 @@
 
 .login_bottom {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    margin-top: 10px;
 }
 
 .login_bottom .find_texts {
     display: flex;
+    cursor: pointer;
+    color: #787878;
 }
 
 .login_bottom .find_texts li {
@@ -98,6 +119,11 @@
     display: none;
 }
 
+.toggle-button input:checked + .toggle-switch {
+    width: 47px;
+    background-color: #1e1e1e
+}
+
 .col_red {
     color: red;
     text-indent: 136px;
@@ -142,6 +168,8 @@
 
 .titleWrap h2 {
     text-align: center;
+    font-size: 36px;
+    font-weight: 700;
 }
 
 .titleWrap h5 {
@@ -280,12 +308,12 @@ input[type="checkbox"]:checked + label span {
     margin: 0 auto;
 }
 
-.findPwd .title_text {
-    text-align: left;
-}
-
 .pwd_form .inputWrap {
     display: block;
+}
+
+.findPwd .find_texts {
+    cursor: pointer;
 }
 
 .black_btn {
@@ -295,6 +323,7 @@ input[type="checkbox"]:checked + label span {
     color: white;
     width: 120px;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 /* 보관함 */
@@ -409,6 +438,7 @@ input[type="checkbox"]:checked + label span {
 }
 
 /* 내 정보 수정 */
+
 .my_profile_info {
     max-width: 780px;
     width: 100%;
@@ -467,7 +497,7 @@ textarea {
 }
 
 .my_profile_bottom .gray_btns {
-    width: 150px;
+    width: 180px;
 }
 
 .my_profile_bottom .white_btns {
@@ -480,6 +510,11 @@ textarea {
     max-width: 780px;
     width: 100%;
     margin: 0 auto;
+}
+
+.secession .secession_title {
+    font-size: 24px;
+    font-weight: 700;
 }
 
 .secession form {
@@ -514,4 +549,59 @@ textarea {
 
 .case_filter_content.active {
     display: block;
+}
+
+.modify_btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+}
+
+.toggle_switch {
+    display: inline-block;
+    position: relative;
+    width: 70px;
+    height: 34px;
+}
+
+.toggle_switch input[type="checkbox"] {
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    font-size: initial;
+    clip: rect(0 0 0 0);
+}
+
+.toggle_switch .slider {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.toggle_switch input[type="checkbox"]:checked + .slider {
+    background-color: #000000;
+}
+
+.toggle_switch .slider::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 26px;
+    height: 26px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+.toggle_switch input[type="checkbox"]:checked + .slider::before {
+    transform: translateX(36px);
 }

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>보관함 > 좋아요(좋아요 한 작품이 있을 때)</title>
+    <!-- favicon -->
+    <!-- <link rel="icon" type="image/png" href="/assets/img/brand/favicon.png" /> -->
+    <!-- <link rel="apple-touch-icon" type="image/png" href="/img/brand/apple-touch-icon.png" /> -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"/>
+    <link rel="stylesheet" as="style" crossorigin
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+    <link rel="stylesheet" ref="https://cdn.jsdelivr.net/npm/swiper@11.0.7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <link rel="stylesheet" href="/css/user.css"/>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.0.7/swiper-bundle.min.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <!-- header area -->
+    <header id="header">header here</header>
+    <!-- main content area -->
+    <div id="main">
+        <div class="container">
+            <div class="notLikePage likePage">
+                <ul class="storage_box">
+                    <li class="storage_box_list"><a href="">좋아요 한 작품</a></li>
+                    <li class="storage_box_list"><a href="">유료 구매 작품</a></li>
+                </ul>
+                <div class="search_info">
+                    <div class="case_filter">
+                        <div class="case_filter_label" onclick="">
+                            <span>검색할 정보를 선택해주세요.</span>
+                            <img class="toggleBtn" src="https://www.exsoft.co.kr/theme/exsoft/img/down.svg">
+                        </div>
+                        <form name="fsearch" method="get" class="search_form" style="width:100%">
+                            <input type="hidden" name="bo_table" value="customer">
+                            <input type="hidden" name="sca" value="">
+                            <input type="hidden" name="sop" value="and">
+                        </form>
+                        <div class="case_filter_content">
+                            <div class="case_filter_data">
+                                <b>장르</b>
+                                <div class="case_filter_list">
+                                    <label>
+                                        <input type="checkbox" name="check_group[]" value="장르"
+                                               class=" group_chk findChk">
+                                        <span class="gro list">장르</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="check_group[]" value="장르"
+                                               class=" group_chk findChk">
+                                        <span class="gro list">장르</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="check_group[]" value="장르"
+                                               class=" group_chk findChk">
+                                        <span class="gro list">장르</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="check_group[]" value="장르"
+                                               class=" group_chk findChk">
+                                        <span class="gro list">장르</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="check_group[]" value="장르"
+                                               class=" group_chk findChk">
+                                        <span class="gro list">장르</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="check_group[]" value="장르"
+                                               class=" group_chk findChk">
+                                        <span class="gro list">장르</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="check_group[]" value="장르"
+                                               class=" group_chk findChk">
+                                        <span class="gro list">장르</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="like_post">
+                    <h5>3개의 포스트</h5>
+                    <div class="like_post_info">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer area -->
+    <footer id="footer">footer here</footer>
+</div>
+<script>
+    const toggleBtn = document.querySelector('.toggleBtn');
+    const relationList = document.querySelector('.case_filter_content');
+
+    toggleBtn.addEventListener('click', (event) => {
+        relationList.classList.toggle('active');
+        event.currentTarget.classList.toggle('close');
+    });
+</script>
+</body>
+</html>

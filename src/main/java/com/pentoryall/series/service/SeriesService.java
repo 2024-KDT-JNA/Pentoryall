@@ -14,8 +14,8 @@ public class SeriesService {
         this.seriesMapper = seriesMapper;
     }
 
-    public SeriesDTO selectSeriesByTitle(String series) {
-        return seriesMapper.selectSeriesByTitle(series);
+    public SeriesDTO selectSeriesByTitle(long seriesno) {
+        return seriesMapper.selectSeriesByTitle(seriesno);
     }
 
 
@@ -25,6 +25,31 @@ public class SeriesService {
 
     public List<SeriesDTO> getSeriesList(int i) {
         return seriesMapper.getSeriesList(i);
+    }
+
+    public long addSeriesOptions(SeriesDTO seriesDTO) {
+         return seriesMapper.addSeriesOptions(seriesDTO);
+    }
+
+    public SeriesDTO findSeriesByCode(long code) {
+        return seriesMapper.findSeriesByCode(code);
+    }
+
+    public SeriesDTO selectRecentSeriesCode() {
+        return seriesMapper.selectRecentSeriesCode();
+    }
+
+    public void updateSeries(SeriesDTO seriesDTO,long code) {
+        seriesMapper.updateSeries(seriesDTO,code);
+    }
+
+    public void deleteSeries(long code) {
+        seriesMapper.deleteSeries(code);
+    }
+
+
+    public List<SeriesDTO> selectSeriesList() {
+        return seriesMapper.selectSeriesList();
     }
 
 }
