@@ -14,9 +14,11 @@ import java.util.List;
 public class MainController {
 
     private final SeriesService seriesService;
+    private final PostService postService;
 
-    public MainController(SeriesService seriesService) {
+    public MainController(SeriesService seriesService, PostService postService) {
         this.seriesService = seriesService;
+        this.postService = postService;
     }
 
     @RequestMapping({ "/", "/main", "/index" })
@@ -24,6 +26,10 @@ public class MainController {
         List<SeriesDTO> seriesDTO = seriesService.selectSeriesList();
         model.addAttribute("seriesList",seriesDTO);
         System.out.println("seriesDTO = " + seriesDTO);
+
+        List<PostDTO> postDTO = postService.selectPostList();
+        System.out.println("postList = " + postDTO);
+        model.addAttribute("postList",postDTO);
         return "/views/index";
     }
 

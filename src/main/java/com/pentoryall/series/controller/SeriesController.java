@@ -74,6 +74,7 @@ public class SeriesController {
             @RequestParam(required = false) MultipartFile thumbnail,
             @ModelAttribute("series") SeriesDTO seriesDTO,
             @RequestParam List<Long> genreCode,
+
             GenreOfArtDTO genreOfArtDTO,
             Model model
     ) {
@@ -139,6 +140,7 @@ public class SeriesController {
     @GetMapping("/update")
     public String updateSeries(@RequestParam long code,
                                Model model,
+
                                HttpSession session) {
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(code);
         System.out.println("seriesDTO = " + seriesDTO);
@@ -220,7 +222,6 @@ public class SeriesController {
             }
             System.out.println("수수정 완료!");
         }
-
         seriesDTO.setThumbnailImage(savePath);
         System.out.println("seriesDTO = " + seriesDTO);
 

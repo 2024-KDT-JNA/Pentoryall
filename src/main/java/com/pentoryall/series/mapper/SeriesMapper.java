@@ -23,7 +23,7 @@ public interface SeriesMapper {
     void updateSeries(SeriesDTO seriesDTO,long code);
 
     void deleteSeries(long code);
-  
+
     List<SeriesDTO> selectSeriesList();
 
 }
