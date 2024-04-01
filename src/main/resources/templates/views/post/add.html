@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
- <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css"/>
+    <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css"/>
 
 </th:block>
 
@@ -275,7 +275,7 @@
             $optionNone.innerHTML = responseJson.map(item=>createSeriesList(item)).join('');
         }
         window.onload(receiveFetch());
-</script>
+    </script>
     <script>
         /*실시간으로 상위 장르 목록을 가져오는 기능*/
         function createGenreList(genre){
@@ -317,7 +317,7 @@
             $optionNone.innerHTML = responseJson.map(item=> createLowerGenreList(item)).join('');
         }
         window.onload(receiveFetchGenre());
-window.onload(receiveFetchLowerGenre());
+        window.onload(receiveFetchLowerGenre());
 
         /*상위 장르가 웹툰,소설,팬픽이면 하위 장르를 보여주고 상위 장르가 그 이외이면 하위 장르를 숨기는 기능*/
         function hiddenLowerGenre() {
@@ -355,38 +355,38 @@ window.onload(receiveFetchLowerGenre());
                 // const responseJson = await response.json();
                 const response = await fetch('/genre/upperGenre?code='+code);
                 const responseJson = await response.json();
-            const upperGenre = document.querySelectorAll(".upperGenre");
+                const upperGenre = document.querySelectorAll(".upperGenre");
 
                 responseJson.map(item => {
                         console.log(">>>>:"+item.code);
-                upperGenre.forEach(el=>{
-                    console.log(">>>>:"+item.code);
-                if(el.value==item.code){
-                    console.log(">>>"+el.value);
-                    el.selected = true;
-                    upperGenreSelect.value = el.value;
-                     receiveFetchLowerGenre();
-                }
-                })
-                }
+                        upperGenre.forEach(el=>{
+                            console.log(">>>>:"+item.code);
+                            if(el.value==item.code){
+                                console.log(">>>"+el.value);
+                                el.selected = true;
+                                upperGenreSelect.value = el.value;
+                                receiveFetchLowerGenre();
+                            }
+                        })
+                    }
                 );
                 upperGenreSelect.disabled = true;
 
 
-            const response2 = await fetch('/genre/lowerGenre?code='+code);
-            const responseJson2 = await response2.json();
-            const lowerGenre = document.querySelectorAll('.form-check-input');
-            responseJson2.map(item => {
+                const response2 = await fetch('/genre/lowerGenre?code='+code);
+                const responseJson2 = await response2.json();
+                const lowerGenre = document.querySelectorAll('.form-check-input');
+                responseJson2.map(item => {
                         lowerGenre.forEach(el=>{
                             if(item.code==el.value){
                                 el.checked = true;
                             }
-                                el.disabled = true;
+                            el.disabled = true;
                         })
                     }
                 );
 
-        }else{
+            }else{
                 upperGenreSelect.disabled = false;
                 await receiveFetchGenre()
                 await receiveFetchLowerGenre()

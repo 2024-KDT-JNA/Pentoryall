@@ -4,12 +4,12 @@ import com.pentoryall.genre.dto.GenreDTO;
 import com.pentoryall.genre.service.GenreService;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.genreOfArt.service.GenreOfArtService;
+import com.pentoryall.post.dto.PostDTO;
+import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
-import com.pentoryall.user.dto.UserDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,11 +30,13 @@ public class SeriesController {
     private final SeriesService seriesService;
     private final GenreOfArtService genreOfArtService;
     private final GenreService genreService;
+    private final PostService postService;
 
-    public SeriesController(SeriesService seriesService, GenreOfArtService genreOfArtService, GenreService genreService) {
+    public SeriesController(SeriesService seriesService, GenreOfArtService genreOfArtService, GenreService genreService, PostService postService) {
         this.seriesService = seriesService;
         this.genreOfArtService = genreOfArtService;
         this.genreService = genreService;
+        this.postService = postService;
     }
 
     @GetMapping("/add")
@@ -43,6 +45,7 @@ public class SeriesController {
     }
     @GetMapping("/page")
     public String seriesPage(long code,
+                             PostDTO postDTO,
                              Model model){
         SeriesDTO seriesDTO = seriesService.findSeriesByCode(code);
         model.addAttribute("series",seriesDTO);
@@ -52,7 +55,13 @@ public class SeriesController {
             GenreDTO genreDTO = genreService.selectGenreTitle(genreOfArtDTO.get(i).getGenreCode());
             genreNames.add(genreDTO.getName());
         }
+
+        List<PostDTO> postLists = postService.selectPostsBySeriesCode(code);
+
+
         System.out.println("genreNames = " + genreNames);
+        model.addAttribute("postList",postLists);
+        System.out.println("postLists **********= " + postLists);
         model.addAttribute("genreNames",genreNames);
         return "/views/series/page";
     }
@@ -133,8 +142,8 @@ public class SeriesController {
         List<String> genreNames = new ArrayList<>();
         List<GenreOfArtDTO> genreList = genreOfArtService.findGenreBySeriesCode(code);
         for(int i = 0; i<genreList.size();i++){
-           GenreDTO genreDTO =  genreService.selectGenreTitle(genreList.get(i).getGenreCode());
-           genreNames.add(genreDTO.getName());
+            GenreDTO genreDTO =  genreService.selectGenreTitle(genreList.get(i).getGenreCode());
+            genreNames.add(genreDTO.getName());
         }
 
         session.setAttribute("code",code);

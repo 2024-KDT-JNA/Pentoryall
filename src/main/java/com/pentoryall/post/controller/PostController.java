@@ -74,11 +74,11 @@ public class PostController {
     ) {
         String title = params.get("title");
         String contents = params.get("contents");
-        char isPublic = params.get("isPublic") != null ? params.get("isPublic").charAt(0) : 'n';
+        char isPublic = params.get("isPublic") != null ? params.get("isPublic").charAt(0) : 'N';
         long seriesno = Long.parseLong(params.get("series"));
-        char isFee = params.get("isFee") != null ? params.get("isFee").charAt(0) : 'n';
+        char isFee = params.get("isFee") != null ? params.get("isFee").charAt(0) : 'N';
         long neededPoint = Long.parseLong(params.get("neededPoint"));
-        char isAdult = params.get("isAdult") != null ? params.get("isAdult").charAt(0) : 'n';
+        char isAdult = params.get("isAdult") != null ? params.get("isAdult").charAt(0) : 'N';
 
 
         System.out.println("너 성공한거야!");

@@ -37,4 +37,26 @@
             code=#{code}
     </select>
 
+    <select id="selectPostsBySeriesCode">
+        SELECT
+            code,
+            series_code,
+            user_code,
+            title,
+            content,
+            confirm_content,
+            thumbnail_image,
+            views,
+            price,
+            is_paid,
+            is_adult,
+            is_public,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            post
+        WHERE
+            series_code=#{code}
+    </select>
 </mapper>
