@@ -19,7 +19,7 @@ public class LikeController {
     public String likePage() {
         return "views/user/likePage";
     }
-    
+
     @ResponseBody
     @PostMapping("/likeUp")
     public void likeUp(@RequestBody LikeDTO likeDTO) {

@@ -1,5 +1,9 @@
 package com.pentoryall.post.controller;
 
+import com.pentoryall.genre.dto.GenreDTO;
+import com.pentoryall.genre.service.GenreService;
+import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
+import com.pentoryall.genreOfArt.service.GenreOfArtService;
 import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
@@ -213,6 +217,7 @@ public class PostController {
 
         model.addAttribute("post", postDTO);
         model.addAttribute("genre", genreOfArtDTO);
+        System.out.println("성공");
         return "/views/post/update";
     }
 
