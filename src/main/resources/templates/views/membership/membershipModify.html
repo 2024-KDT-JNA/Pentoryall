@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css"/>
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
+            <section class="section">
+                <h2 class="h2">멤버십 플랜 수정</h2>
+                <form id="modifyForm" action="/membership/modify" method="post">
+                    <p>*표시는 필수 입력 항목입니다.</p>
+                    <h3 class="h3">플랜 정보</h3>
+                    <div>
+                        <label for="planTitle" class="h4">플랜 제목*</label><br>
+                        <input type="text" id="planTitle" name="name" class="Multi-input"
+                               placeholder="플랜의 이름을 지어주세요" maxlength="20" required>
+                        <br>
+                        <p>다른 플랜 제목과 중복되지 않도록, 최대 20자까지 입력할 수 있습니다.</p>
+                        <p><b>유용한 팁</b> 플랜에 공개할 포스트의 특징, 상하위 플랜과의 관계 등을 고려해 직관적인 제목을 지어보세요!</p>
+                    </div>
+                    <br>
+                    <div class="membership-open-membership-intro">
+                        <h4> 플랜 소개*</h4>
+                        <input type="text" class="Multi-input" name="introduction"
+                               placeholder="플랜을 소개해주세요" maxlength="20"><br>
+                        <p><b>유용한 팁</b>플랜 멤버에게 어떤 창작 계획이 있는지 구체적으로 써보세요.<br>
+                            차기작 준비, 테블릿 구매 등 후원을 요청하는 이유를 쓸 수도 있어요.</p>
+                    </div>
+                    <div>
+                        <h3 class="h3">후원 플랜 설정</h3>
+                        <h4 class="h4">후원 금액(원)</h4>
+                        <input type="number" placeholder="원하시는 후원 금액을 적어주세요." min="1000" max="100000" readonly/><br/>
+                        <p>최소 1000원, 최대 1,000,000원의 범위 내에서 100원 단위로 입력할 수 있습니다.</p>
+                        <p><b>주의사항</b> 후원금 액수는 한 번 정하면 변경할 수 없으니 신중하게 결정하세요.</p>
+                    </div>
+                    <div>
+                        <h3 class="h3">디자인</h3>
+                        <label for="planColor" class="h4">플랜 색상</label>
+                        <input type="color" id="planColor" name="color" class="ColorPicker">
+                    </div>
+                    <div>
+                        <button onclick="location.href='/membership/planInfo'">뒤로</button>
+                        <button onclick="submitForm()">멤버십 수정 완료</button>
+                        <button onclick="location.href='/membership/delete'">멤버십 탈퇴</button>
+                    </div>
+                </form>
+            </section>
+            <!-- ------------------------------------ -->
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+        function submitForm() {
+            document.getElementById("modifyForm").submit();
+        }
+    </script>
+
+    <!-- JavaScript function to redirect to the membership page -->
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+</th:block>
+</html>
