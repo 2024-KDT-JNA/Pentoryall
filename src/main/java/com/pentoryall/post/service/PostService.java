@@ -48,8 +48,8 @@ public class PostService {
     public void deleteSeriesBySeriesCode(long code) {
         postMapper.deleteSeriesBySeriesCode(code);
     }
-
     public List<PostDTO> selectPostList() {
         return postMapper.selectPostList();
     }
+
 }
