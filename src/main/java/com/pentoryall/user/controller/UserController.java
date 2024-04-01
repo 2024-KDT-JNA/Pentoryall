@@ -208,7 +208,7 @@ public class UserController {
             userService.removeUser(user);
 
             /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
-            rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
+            //rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
 
             /* 로그아웃 처리 (세션 만료) */
             return "redirect:/user/logout";

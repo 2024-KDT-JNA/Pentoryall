@@ -40,33 +40,6 @@
         INSERT INTO user (user_id, password, name, nickname, email, birth)
         VALUES (#{ userId }, #{ password }, #{ name }, #{ nickname }, #{ email }, #{ birth })
     </insert>
-    <!--    <insert id="insertProfile">-->
-    <!--        INSERT INTO user (profile_image)-->
-    <!--            VALUE (#{profileImage})-->
-    <!--    </insert>-->
-
-    <!--    <select id="selectEncryptedPwd" resultType="string">-->
-    <!--        SELECT member_pwd-->
-    <!--        FROM tbl_member-->
-    <!--        WHERE member_status = 'Y'-->
-    <!--          AND member_id = #{ memberId }-->
-    <!--    </select>-->
-
-    <!--    <select id="selectUser" resultType="com.pentoryall.user.dto.UserDTO">-->
-    <!--        SELECT member_no,-->
-    <!--               member_id,-->
-    <!--               nickname,-->
-    <!--               phone,-->
-    <!--               email,-->
-    <!--               address,-->
-    <!--               enroll_date,-->
-    <!--               member_role,-->
-    <!--               member_status-->
-    <!--        FROM tbl_member-->
-    <!--        WHERE member_status = 'Y'-->
-    <!--          AND member_id = #{ memberId }-->
-    <!--    </select>-->
-
     <update id="updateUser">
         UPDATE
         user
