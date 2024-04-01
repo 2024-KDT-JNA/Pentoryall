@@ -42,18 +42,19 @@ public class SeriesController {
     }
 
     @GetMapping("/add")
-    public String addSeries(){
+    public String addSeries() {
         return "/views/series/add";
     }
+
     @GetMapping("/page")
     public String seriesPage(long code,
                              PostDTO postDTO,
-                             Model model){
+                             Model model) {
         SeriesDTO seriesDTO = seriesService.findSeriesByCode(code);
-        model.addAttribute("series",seriesDTO);
+        model.addAttribute("series", seriesDTO);
         List<GenreOfArtDTO> genreOfArtDTO = genreOfArtService.findGenreBySeriesCode(code);
         List<String> genreNames = new ArrayList<>();
-        for(int i = 0 ; i<genreOfArtDTO.size();i++){
+        for (int i = 0; i < genreOfArtDTO.size(); i++) {
             GenreDTO genreDTO = genreService.selectGenreTitle(genreOfArtDTO.get(i).getGenreCode());
             genreNames.add(genreDTO.getName());
         }
@@ -62,11 +63,12 @@ public class SeriesController {
 
 
         System.out.println("genreNames = " + genreNames);
-        model.addAttribute("postList",postLists);
+        model.addAttribute("postList", postLists);
         System.out.println("postLists **********= " + postLists);
-        model.addAttribute("genreNames",genreNames);
+        model.addAttribute("genreNames", genreNames);
         return "/views/series/page";
     }
+
     @PostMapping("/add")
     public String addSeriesOptions(
             @RequestParam(required = false) MultipartFile thumbnail,
@@ -74,7 +76,7 @@ public class SeriesController {
             @RequestParam List<Long> genreCode,
             GenreOfArtDTO genreOfArtDTO,
             Model model
-    ){
+    ) {
 
         System.out.println("seriesDTO = " + seriesDTO);
 
@@ -82,18 +84,18 @@ public class SeriesController {
 
         System.out.println("seriesDTO = " + seriesDTO);
         System.out.println("thumbnailImage = " + thumbnail);
-        String savePath="";
+        String savePath = "";
         /*파일 가공*/
-        if(thumbnail!=null && !thumbnail.isEmpty()) {
+        if (thumbnail != null && !thumbnail.isEmpty()) {
             String filePath = IMAGE_DIR + "series-thumbnail-images";
 
             File dir = new File(filePath);
 
             if (!dir.exists()) dir.mkdirs();
 
-            String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
-            String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
-            String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
+            String originFileName = thumbnail.getOriginalFilename();// 업로드 파일명
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));// 업로드 파일명에서 확장자 분리
+            String savedName = UUID.randomUUID() + ext;// 고유한 파일명 생성 + 확장자 추가
             System.out.println("filePath = " + filePath);
             String finalFilePath = filePath + "/" + savedName;
             System.out.println("finalFilePath = " + finalFilePath);
@@ -121,7 +123,7 @@ public class SeriesController {
 
         System.out.println("genreCode>>>>>>>>>>>>> = " + genreCode);
 
-        for(int i = 0 ; i<genreCode.size();i++){
+        for (int i = 0; i < genreCode.size(); i++) {
             long code = genreCode.get(i);
             genreOfArtDTO.setGenreCode(code);
             genreOfArtDTO.setSeriesCode(seriesCode);
@@ -130,27 +132,27 @@ public class SeriesController {
         }
 
         System.out.println("성공함");
-        long urlCode = seriesDTO.getCode()+1;
-        return "redirect:/series/page?code="+urlCode;
+        long urlCode = seriesDTO.getCode() + 1;
+        return "redirect:/series/page?code=" + urlCode;
     }
 
     @GetMapping("/update")
     public String updateSeries(@RequestParam long code,
                                Model model,
-                               HttpSession session){
+                               HttpSession session) {
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(code);
         System.out.println("seriesDTO = " + seriesDTO);
 
         List<String> genreNames = new ArrayList<>();
         List<GenreOfArtDTO> genreList = genreOfArtService.findGenreBySeriesCode(code);
-        for(int i = 0; i<genreList.size();i++){
-            GenreDTO genreDTO =  genreService.selectGenreTitle(genreList.get(i).getGenreCode());
+        for (int i = 0; i < genreList.size(); i++) {
+            GenreDTO genreDTO = genreService.selectGenreTitle(genreList.get(i).getGenreCode());
             genreNames.add(genreDTO.getName());
         }
 
-        session.setAttribute("code",code);
-        model.addAttribute("series",seriesDTO);
-        model.addAttribute("genreNames",genreNames);
+        session.setAttribute("code", code);
+        model.addAttribute("series", seriesDTO);
+        model.addAttribute("genreNames", genreNames);
         return "/views/series/update";
     }
 
@@ -160,9 +162,9 @@ public class SeriesController {
                                           @RequestParam(required = false) MultipartFile thumbnail,
                                           GenreOfArtDTO genreOfArtDTO,
                                           HttpSession session,
-                                          RedirectAttributes rttr){
+                                          RedirectAttributes rttr) {
 
-        rttr.addFlashAttribute("message","series.update");
+        rttr.addFlashAttribute("message", "series.update");
 
         long code = (long) session.getAttribute("code");
 
@@ -171,7 +173,7 @@ public class SeriesController {
 
         /*파일 가공*/
         String savePath = "";
-        if(thumbnail!=null && !thumbnail.isEmpty()) {
+        if (thumbnail != null && !thumbnail.isEmpty()) {
 
             String filePath = IMAGE_DIR + "series-thumbnail-images";
 
@@ -180,9 +182,9 @@ public class SeriesController {
             if (!dir.exists()) dir.mkdirs();
 
 
-            String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
-            String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
-            String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
+            String originFileName = thumbnail.getOriginalFilename();// 업로드 파일명
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));// 업로드 파일명에서 확장자 분리
+            String savedName = UUID.randomUUID() + ext;// 고유한 파일명 생성 + 확장자 추가
             System.out.println("filePath = " + filePath);
             String finalFilePath = filePath + "/" + savedName;
             System.out.println("finalFilePath = " + finalFilePath);
@@ -197,24 +199,24 @@ public class SeriesController {
         }
         Set postNo = new HashSet<>();
         List<GenreOfArtDTO> genreOfArtDTOList = genreOfArtService.selectPostInSeries(code);
-        for(int i = 0 ; i<genreOfArtDTOList.size() ; i++){
+        for (int i = 0; i < genreOfArtDTOList.size(); i++) {
             postNo.add(genreOfArtDTOList.get(i).getPostCode());
         }
 
-        System.out.println("포오스틱:"+postNo);
+        System.out.println("포오스틱:" + postNo);
 
         List<Long> postList = List.copyOf(postNo);
 
         System.out.println("포으스틱 배열로 변환 = " + postList);
         /*Genre 코드 genreOfArtDTO에 삽입*/
-        for(int i = 0 ; i< genreCode.size();i++){
+        for (int i = 0; i < genreCode.size(); i++) {
             genreOfArtService.deleteSeriesGenreBySeriesCode(code);
             System.out.println("삭삭제 완료!");
         }
-        for(int i = 0 ; i<genreCode.size();i++){
-            genreOfArtService.insertGenreBySeriesCode(code,genreCode.get(i));
-            for(int k = 0 ; k<postList.size();k++) {
-                genreOfArtService.insertGenreBySeriesCodePost(postList.get(k),code, genreCode.get(i));
+        for (int i = 0; i < genreCode.size(); i++) {
+            genreOfArtService.insertGenreBySeriesCode(code, genreCode.get(i));
+            for (int k = 0; k < postList.size(); k++) {
+                genreOfArtService.insertGenreBySeriesCodePost(postList.get(k), code, genreCode.get(i));
             }
             System.out.println("수수정 완료!");
         }
@@ -223,16 +225,16 @@ public class SeriesController {
         System.out.println("seriesDTO = " + seriesDTO);
 
         System.out.println("code ??????= " + code);
-        seriesService.updateSeries(seriesDTO,code);
+        seriesService.updateSeries(seriesDTO, code);
         System.out.println("성공하셨습니다앙");
 
-//        genreOfArtService.updateGenreOfArt(genreOfArtDTO);
-        String url = "redirect:/series/page?code="+code;
+        //        genreOfArtService.updateGenreOfArt(genreOfArtDTO);
+        String url = "redirect:/series/page?code=" + code;
         return url;
     }
 
     @GetMapping("/delete")
-    public String deleteSeries(@RequestParam long code){
+    public String deleteSeries(@RequestParam long code) {
         genreOfArtService.deleteSeriesGenreBySeriesCode(code);
         System.out.println("성공1");
         postService.deleteSeriesBySeriesCode(code);
@@ -241,6 +243,4 @@ public class SeriesController {
         System.out.println("성공3");
         return "/views/index";
     }
-
-
 }

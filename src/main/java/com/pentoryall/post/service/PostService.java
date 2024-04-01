@@ -3,7 +3,6 @@ package com.pentoryall.post.service;
 
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.post.dto.PostDTO;
-
 import com.pentoryall.post.mapper.PostMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,20 +35,19 @@ public class PostService {
     public List<PostDTO> selectPostsBySeriesCode(long code) {
         return postMapper.selectPostsBySeriesCode(code);
     }
-@Transactional
+
+    @Transactional
     public void updatePostService(PostDTO postDTO) {
         postMapper.updatePostService(postDTO);
     }
-@Transactional
+
+    @Transactional
     public void deletePostByPostCode(long code) {
         postMapper.deletePostByPostCode(code);
     }
-@Transactional
+
+    @Transactional
     public void deleteSeriesBySeriesCode(long code) {
         postMapper.deleteSeriesBySeriesCode(code);
-    }
-
-    public List<PostDTO> selectPostList() {
-        return postMapper.selectPostList();
     }
 }

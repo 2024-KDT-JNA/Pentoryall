@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
-    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css" />
 </th:block>
 
 <th:block layout:fragment="content">
@@ -31,51 +31,31 @@
                 <div class="table-box">
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox" id="checkAll-post-1" name="comment_report" />
-                                <label for="checkAll-post-1">전체 선택</label>
-                            </th>
-                            <th>번호</th>
-                            <th>아이디</th>
-                            <th>닉네임</th>
-                            <th>신고사유</th>
-                            <th>신고일자</th>
-                        </tr>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="checkAll-post-1" name="comment_report" />
+                                    <label for="checkAll-post-1">전체 선택</label>
+                                </th>
+                                <th>번호</th>
+                                <th>아이디</th>
+                                <th>닉네임</th>
+                                <th>신고사유</th>
+                                <th>신고일자</th>
+                                <th>제목</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th><input type="checkbox" id="checkAll-post-2" name="" class="form-check-input" /></th>
-                            <td>1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" id="checkAll-post-3" name="" class="form-check-input" /></th>
-                            <td>2</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" id="checkAll-post-4" name="" class="form-check-input" /></th>
-                            <td>3</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" id="checkAll-post-5" name="" class="form-check-input" /></th>
-                            <td>4</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                            <tr th:each="postReportList : ${postReportList}">
+                                <th>
+                                    <input type="checkbox" id="checkAll-post-2" name="comment_report" class="form-check-input" />
+                                </th>
+                                <td data-unlock="listCode" th:text="${postReportList.code}"></td>
+                                <td data-unlock="listUserCode" th:text="${postReportList.userCode}"></td>
+                                <td data-unlock="listUserId" th:text="${postReportList.userId}"></td>
+                                <td data-unlock="listNickName" th:text="${postReportList.nickName}"></td>
+                                <td data-unlock="listReportDate" th:text="${postReportList.reportDate}"></td>
+                                <td data-unlock="listTitle" th:text="${postReportList.title}"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -93,7 +73,7 @@
                     </ul>
                 </div>
             </section>
-            <div class="popUpWrap">
+            <div class="popUpWrap" style="display: none">
                 <div class="popUp_bg">
                     <div class="popUp_info">
                         <h3 class="h3">신고 정보</h3>
@@ -101,25 +81,25 @@
                         <div class="table-box">
                             <table class="table">
                                 <thead>
-                                <tr>
-                                    <th colspan="2">아이디</th>
-                                    <th>1bfish106</th>
-                                    <th colspan="2">닉네임</th>
-                                    <th>고등어</th>
-                                </tr>
+                                    <tr>
+                                        <th colspan="2">아이디</th>
+                                        <th>1bfish106</th>
+                                        <th colspan="2">닉네임</th>
+                                        <th>고등어</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td colspan="2">포스트 제목</td>
-                                    <td colspan="4">나는 성인물을 쓴다.</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">포스트 신고 횟수</td>
-                                    <td colspan="4">4회</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="6">포스트 링크</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="2">포스트 제목</td>
+                                        <td colspan="4">나는 성인물을 쓴다.</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">포스트 신고 횟수</td>
+                                        <td colspan="4">4회</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">포스트 링크</td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <div class="popUp_btns">
@@ -130,7 +110,7 @@
                     </div>
                 </div>
             </div>
-            <div class="popUpWrap">
+            <div class="popUpWrap" style="display: none">
                 <div class="popUp_bg">
                     <div class="popUp_info">
                         <h3 class="h3">안내창</h3>

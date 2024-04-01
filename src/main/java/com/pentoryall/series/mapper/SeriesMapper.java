@@ -25,4 +25,5 @@ public interface SeriesMapper {
     void deleteSeries(long code);
 
     List<SeriesDTO> selectSeriesList();
+
 }
