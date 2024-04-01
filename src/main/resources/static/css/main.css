@@ -17,4 +17,9 @@
 .genre-tab-list { display: flex; justify-content: space-between; width: 80%; margin: 0 auto; padding: 7px 20px; border-radius: 28px; box-shadow: 1px 1px 6px 0px #efefef; } 
 .genre-tab-list li { width: 120px; overflow: hidden; border-radius: 30px; text-align: center; } 
 .genre-tab-list li button { display: block; width: 100%; padding: 8px 0; } 
-.genre-tab-list li.active { background-color: #e4e4e4; } 
+.genre-tab-list li.active { background-color: #e4e4e4; }
+
+.best-series-img{
+    width:180px;
+    height:218px;
+}

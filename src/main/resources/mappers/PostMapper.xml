@@ -84,4 +84,5 @@
         FROM post
         WHERE series_code = #{code}
     </delete>
+
 </mapper>
