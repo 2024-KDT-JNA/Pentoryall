@@ -5,6 +5,7 @@ import com.pentoryall.user.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -19,7 +20,15 @@ public class LikeController {
     public String likePage() {
         return "views/user/likePage";
     }
-    
+
+    @GetMapping("/likeInfo")
+    public String getLikeInfo(Model model, @RequestParam("postCode") int postCode, @RequestParam("userCode") String userCode) {
+
+        model.addAttribute("board_no", postCode);
+        model.addAttribute("user_no", userCode);
+        return "likeInfoPage"; // 좋아요 정보를 표시할 페이지의 이름
+    }
+
     @ResponseBody
     @PostMapping("/likeUp")
     public void likeUp(@RequestBody LikeDTO likeDTO) {

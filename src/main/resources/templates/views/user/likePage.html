@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/css/user.css"/>
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11.0.7/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -91,6 +92,8 @@
 
                     </div>
                 </div>
+                <h1>좋아요 예시버튼</h1>
+                <button class="LikeBtn">좋아요</button>
             </div>
         </div>
     </div>
@@ -105,6 +108,56 @@
         relationList.classList.toggle('active');
         event.currentTarget.classList.toggle('close');
     });
+</script>
+<script>
+    var likeval = 0;
+
+    // let board_no = ${Detail.freeboard_no};
+    // let user_no = '${login.user_id}';
+    let postCode = 1;
+    let userCode = 1;
+    if (likeval > 0) {
+        console.log(likeval + "좋아요 누름");
+        $('.LikeBtn').html("좋아요 취소");
+        $('.LikeBtn').click(function () {
+            $.ajax({
+                type: 'post',
+                // url: '<c:url value ="/user/likeDown"/>',
+                url: '/user/likeDown', // 직접 URL 입력
+                contentType: 'application/json',
+                data: JSON.stringify(
+                    {
+                        "post_code": postCode,
+                        "user_code": userCode
+                    }
+                ),
+                success: function (data) {
+                    alert('취소 성공');
+                }
+            })// 아작스 끝
+        })
+
+    } else {
+        console.log(likeval + "좋아요 안누름")
+        console.log(userCode);
+        $('.LikeBtn').click(function () {
+            $.ajax({
+                type: 'post',
+                // url: '<c:url value ="/user/likeUp"/>',
+                url: '/user/likeUp', // 직접 URL 입력
+                contentType: 'application/json',
+                data: JSON.stringify(
+                    {
+                        "post_code": postCode,
+                        "user_code": userCode
+                    }
+                ),
+                success: function (data) {
+                    alert('성공염');
+                }
+            })// 아작스 끝
+        })
+    }
 </script>
 </body>
 </html>

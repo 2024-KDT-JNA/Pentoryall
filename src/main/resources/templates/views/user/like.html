@@ -11,56 +11,60 @@
 <div class="container">
     <h1>좋아요 페이지</h1>
     <!-- 좋아요 버튼 -->
+    
     <button class="LikeBtn">좋아요</button>
 </div>
 
 <!-- JavaScript 코드 -->
 <script>
-    var likeval = ${like};
+    var likeval = 0;
 
     // let board_no = ${Detail.freeboard_no};
     // let user_no = '${login.user_id}';
-    // let int postCode = 1;
-    // let int userCode = 1;
-    if(likeval > 0){
+    let postCode = 1;
+    let userCode = 1;
+    if (likeval > 0) {
         console.log(likeval + "좋아요 누름");
         $('.LikeBtn').html("좋아요 취소");
-        $('.LikeBtn').click(function() {
+        $('.LikeBtn').click(function () {
             $.ajax({
-                type :'post',
-                url : '<c:url value ="/FreeBoard/likeDown"/>',
+                type: 'post',
+                // url: '<c:url value ="/FreeBoard/likeDown"/>',
+                url: '/FreeBoard/likeDown', // 직접 URL 입력
                 contentType: 'application/json',
-                data : JSON.stringify(
+                data: JSON.stringify(
                     {
-                        "board_no" : board_no,
-                        "user_no" : user_no
+                        "post_code": postCode,
+                        "user_code": userCode
                     }
                 ),
-                success : function(data) {
+                success: function (data) {
                     alert('취소 성공');
                 }
             })// 아작스 끝
         })
 
-    }else{
+    } else {
         console.log(likeval + "좋아요 안누름")
-        console.log(user_no);
-        $('.LikeBtn').click(function() {
+        console.log(userCode);
+        $('.LikeBtn').click(function () {
             $.ajax({
-                type :'post',
-                url : '<c:url value ="/FreeBoard/likeUp"/>',
+                type: 'post',
+                // url: '<c:url value ="/FreeBoard/likeUp"/>',
+                url: '/FreeBoard/likeUp', // 직접 URL 입력
                 contentType: 'application/json',
-                data : JSON.stringify(
+                data: JSON.stringify(
                     {
-                        "board_no" : board_no,
-                        "user_no" : user_no
+                        "post_code": postCode,
+                        "user_code": userCode
                     }
                 ),
-                success : function(data) {
+                success: function (data) {
                     alert('성공염');
                 }
             })// 아작스 끝
         })
+    }
 </script>
 </body>
 </html>
