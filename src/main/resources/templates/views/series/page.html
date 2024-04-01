@@ -108,7 +108,8 @@
             <div th:each="post : ${postList}">
 
                 <div class="post-information-thumbnail">
-                    <img class="post-information-thumbnail-content" th:src="@{${post.thumbnailImage}}">
+                    <img class="post-information-thumbnail-content" th:src="${post.thumbnailImage != null
+                        ? post.thumbnailImage : '/images/temp/profile.png'}">
                     <!--자물쇠 모양 이미지-->
                     <th:block th:if="${post.isPaid =='Y'}">
                     <img  class="bi bi-lock-fill" th:src="@{/images/temp/자물쇠.png}"/>

@@ -217,6 +217,7 @@ public class PostController {
 
         model.addAttribute("post", postDTO);
         model.addAttribute("genre", genreOfArtDTO);
+        System.out.println("성공");
         return "/views/post/update";
     }
 

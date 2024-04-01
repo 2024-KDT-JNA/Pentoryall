@@ -13,11 +13,7 @@
         <div class="header-right">
             <div class="search-input">
                 <form>
-                    <!-- <label  id="">
-                        <i class="bi bi-search"></i>
-                        <span class="blind">검색</span>
-                    </label> -->
-                    <input type="text" class="input" placeholder="검색어 입력"/>
+                    <input type="text" class="input" placeholder="검색어 입력" />
                 </form>
             </div>
             <th:block sec:authorize="hasRole('ROLE_USER')">
@@ -45,6 +41,7 @@
                     <a th:href="@{/user/logout}" class="button">로그아웃</a>
                     </div>
                 </th:block>
+
             <th:block sec:authorize="isAnonymous()">
                 <div class="link login-link">
                     <a th:href="@{/user/login}" class="button">로그인</a>
@@ -70,11 +67,6 @@
                         <span class="nickname" sec:authentication="principal.nickname">닉네임</span>
                         <span class="username" sec:authentication="principal.name">이름</span>
                     </div>
-                    <th:block>
-                        <div class="login-link" sec:authorize="isAnonymous()">
-                            <a th:href="@{/user/login}">로그인을 해주세요.</a>
-                        </div>
-                    </th:block>
                     <div class="profile-point">
                         <dl class="point-info">
                             <dt>포인트</dt>
