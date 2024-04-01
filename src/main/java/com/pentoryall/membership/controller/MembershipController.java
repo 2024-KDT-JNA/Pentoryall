@@ -1,5 +1,3 @@
-
-
 package com.pentoryall.membership.controller;
 
 import com.pentoryall.membership.dto.MembershipDTO;
@@ -10,7 +8,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/membership")
 public class MembershipController {
+
     private final MembershipService membershipService;
 
     @Autowired
@@ -32,9 +34,9 @@ public class MembershipController {
             // 성공할 경우 처리
             membershipService.createMembership(membershipDTO);
             // 생성된 멤버십 정보를 Model에 추가
-            //model.addAttribute("info", createMembership);
+            // model.addAttribute("info", createMembership);
             // 성공 메시지를 Model에 추가
-            //model.addAttribute("message", "멤버십이 성공적으로 개설되었습니다! 이름: " + createMembership.getName());
+            // model.addAttribute("message", "멤버십이 성공적으로 개설되었습니다! 이름: " + createMembership.getName());
             return "/views/membership/successCreate";
         } catch (DataIntegrityViolationException e) {
             // 데이터 무결성 제약 조건 위반 등의 예외 처리
@@ -120,4 +122,5 @@ public class MembershipController {
 //
 //      return "redirect:/membership/myMembership";
 //    }
+
 
