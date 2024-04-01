@@ -134,6 +134,7 @@ public class UserController {
     public String modifyUser(UserDTO modifyUser,
                              @AuthenticationPrincipal UserDTO loginUser, RedirectAttributes rttr,
                              Model model,
+                             @RequestParam(required = false) boolean profileDelete,
                              @RequestParam(required = false) MultipartFile profile) throws MemberModifyException {
 
         modifyUser.setUserId(loginUser.getUserId());
@@ -168,7 +169,10 @@ public class UserController {
             model.addAttribute("modifyUser", modifyUser);
             modifyUser.setProfileImage(saveFileName);
         }
-
+        /*  */
+        if (profileDelete) {
+            modifyUser.setProfileImage("removed");
+        }
         userService.modifyUser(modifyUser);
 
         /* 로그인 시 저장 된 Authentication 객체를 변경 된 정보로 교체한다. */

@@ -44,9 +44,16 @@
         UPDATE
         user
         SET nickname = #{ nickname },
-        introduction = #{ introduction },
-        password = #{ password }
-        <if test="profileImage !=null">
+        introduction = #{ introduction }
+        <if test="password !=''">
+            ,password = #{ password }
+        </if>
+        /* 프로필이미지가 'removed'와 같을때 NULL로 */
+        <if test="profileImage == 'removed'">
+            ,profile_image = NULL
+        </if>
+        /* 프로필이미지가 NULL */ ㅜㅇㄴ
+        <if test="profileImage !=null and profileImage != 'removed'">
             ,profile_image = #{ profileImage }
         </if>
         WHERE state = 'ACTIVE'

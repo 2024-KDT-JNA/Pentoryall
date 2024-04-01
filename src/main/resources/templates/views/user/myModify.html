@@ -20,7 +20,7 @@
             <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
             <section class="section">
                 <div class="my_profile_info">
-                    <form action="/user/update" method="post" enctype="multipart/form-data">
+                    <form name="userModifyForm" action="/user/update" method="post" enctype="multipart/form-data">
                         <div class="my_profile_top">
                             <div class="left">
                                 <div class="img">
@@ -131,7 +131,14 @@
             $fileImg.src = "/images/temp/profile.png";
             $imageFileBox.value = "";
 
+            const $userModifyForm = document.forms.userModifyForm;
+
+            /* 제거했을때 넘어오는 코드 */
+            $userModifyForm.insertAdjacentHTML("beforeend", `<input type="hidden" name="profileDelete" value="true"/>`);
+
         }
+
+        console.log(document.forms)
     </script>
 
 </th:block>

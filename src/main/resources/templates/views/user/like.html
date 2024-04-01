@@ -2,61 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좋아요 페이지</title>
+    <!-- jQuery 라이브러리 추가 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="container">
     <h1>좋아요 페이지</h1>
-    <!-- 게시물 내용 등을 여기에 표시 -->
-
     <!-- 좋아요 버튼 -->
     <button class="LikeBtn">좋아요</button>
 </div>
-    <script>
-        var likeval = [[${likeval}]];
 
-        let board_no = ${Detail.freeboard_no};
-        let user_no = '${login.user_code}';
-        if(likeval > 0){
-            console.log(likeval + "좋아요 누름");
-            $('.LikeBtn').html("좋아요 취소");
-            $('.LikeBtn').click(function() {
-                $.ajax({
-                    type :'post',
-                    url : '<c:url value ="/FreeBoard/likeDown"/>',
-                    contentType: 'application/json',
-                    data : JSON.stringify(
-                        {
-                            "board_no" : board_no,
-                            "user_no" : user_no
-                        }
-                    ),
-                    success : function(data) {
-                        alert('취소 성공');
-                    }
-                })// 아작스 끝
-            })
+<!-- JavaScript 코드 -->
+<script>
+    var likeval = ${like};
 
-        }else{
-            console.log(likeval + "좋아요 안누름")
-            console.log(user_no);
-            $('.LikeBtn').click(function() {
-                $.ajax({
-                    type :'post',
-                    url : '<c:url value ="/FreeBoard/likeUp"/>',
-                    contentType: 'application/json',
-                    data : JSON.stringify(
-                        {
-                            "board_no" : board_no,
-                            "user_no" : user_no
-                        }
-                    ),
-                    success : function(data) {
-                        alert('성공염');
+    // let board_no = ${Detail.freeboard_no};
+    // let user_no = '${login.user_id}';
+    // let int postCode = 1;
+    // let int userCode = 1;
+    if(likeval > 0){
+        console.log(likeval + "좋아요 누름");
+        $('.LikeBtn').html("좋아요 취소");
+        $('.LikeBtn').click(function() {
+            $.ajax({
+                type :'post',
+                url : '<c:url value ="/FreeBoard/likeDown"/>',
+                contentType: 'application/json',
+                data : JSON.stringify(
+                    {
+                        "board_no" : board_no,
+                        "user_no" : user_no
                     }
-                })// 아작스 끝
-            })
-    </script>
+                ),
+                success : function(data) {
+                    alert('취소 성공');
+                }
+            })// 아작스 끝
+        })
+
+    }else{
+        console.log(likeval + "좋아요 안누름")
+        console.log(user_no);
+        $('.LikeBtn').click(function() {
+            $.ajax({
+                type :'post',
+                url : '<c:url value ="/FreeBoard/likeUp"/>',
+                contentType: 'application/json',
+                data : JSON.stringify(
+                    {
+                        "board_no" : board_no,
+                        "user_no" : user_no
+                    }
+                ),
+                success : function(data) {
+                    alert('성공염');
+                }
+            })// 아작스 끝
+        })
+</script>
 </body>
 </html>
