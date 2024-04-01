@@ -12,11 +12,13 @@ public interface PostMapper {
 
     void insertPost(PostDTO postDTO);
 
-    PostDTO getPostInformationByPostCode(long lastCode);
+    PostDTO getPostInformationByPostCode(long code);
 
     void insertGenre(GenreOfArtDTO genreOfArtDTO);
 
     List<PostDTO> selectPostsBySeriesCode(long code);
 
     void updatePostService(PostDTO postDTO);
+
+    void deletePostByPostCode(long code);
 }

@@ -74,4 +74,9 @@
         WHERE
             code=#{postDTO.code}
     </update>
+    <delete id="deletePostByPostCode">
+        DELETE
+        FROM post
+        WHERE code = #{code}
+    </delete>
 </mapper>
