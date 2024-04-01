@@ -23,6 +23,21 @@ public class CommentReportDTO {
 
     private Date reportDate;
 
+    private String content;
+
+    private Date createDate;
+
+    private String title;
+
+    private long userCode;
+
+    private long postCode;
+
+    private long commentCode;
+
+    private String name;
+
+
 
 
 }

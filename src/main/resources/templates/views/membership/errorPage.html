@@ -1,15 +1,16 @@
-!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Membership Creation Success</title>
+    <title>Error Page</title>
 </head>
 <body>
-
-
-<h1>멤버십 수정 성공</h1>
-<p>멤버십 정보를 불러오는 중에 오류가 발생했습니다.</p>
-<button type="button" onclick="location.href='/membership/planInfo'">확인</button>
-<p th:text="${membership.name}"></p>
+<div th:if="${membership == null}">
+    <p>멤버십 정보를 가져오는 동안 오류가 발생했습니다.</p>
+</div>
+<div th:if="${membership != null}">
+    <p>멤버십 이름: <span th:text="${membership.name}"></span></p>
+    <!-- 기타 멤버십 속성 출력 -->
+</div>
 </body>
 </html>

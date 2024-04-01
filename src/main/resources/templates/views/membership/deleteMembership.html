@@ -24,7 +24,9 @@
                 <form id="deleteForm" action="/membership/delete" method="post">
                     <input type="hidden" name="_method" value="delete"/>
 
-                    <input type="hidden" name="membershipCode" th:value="${code}"/> <!-- membershipCode 값을 설정 -->
+                    <input type="hidden" name="membershipCode" th:value="${membership.code}"/> <!-- membershipCode 값을 설정 -->
+
+
 
                     <div class="notification">
                         <p>플랜을 종료하게 되면, 새로운 회원을 받을 수 없습니다.</p>
@@ -34,7 +36,7 @@
                         <p>플랜 종료 예정일</p>
                     </div>
                     <div class="plan-End-DAte">
-                        <p th:text="${memberShip.name}"></p>
+                        <p th:text="${membership.name}"></p>
                         <p id="endDate"> </p>
                     </div>
                     <div class="text-box">
@@ -89,7 +91,7 @@
             function getCurrentDate() {
                 var today = new Date();
                 var dd = String(today.getDate()).padStart(2, '0');
-                var mm = String(today.getMonth() + 2).padStart(2, '0'); // 한 달을 더함
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); // 한 달을 더함
                 var yyyy = today.getFullYear();
 
                 return yyyy + '-' + mm + '-' + dd;

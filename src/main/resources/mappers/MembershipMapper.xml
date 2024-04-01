@@ -7,6 +7,7 @@
     <insert id="createMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
         INSERT INTO membership
         (
+         code,
          user_code,
          name,
          introduction,
@@ -14,51 +15,65 @@
          color
 )
         VALUES (
+                #{code},
                 #{userCode},
                 #{name},
                 #{introduction},
                 #{price},
                 #{color})
     </insert>
-    <select id="getAllMemberships" resultType="com.pentoryall.membership.dto.MembershipDTO">
-        SELECT name,
+    <select id="selectMembershipByUserCode" resultType="com.pentoryall.membership.dto.MembershipDTO">
+        SELECT code,
+               user_code,
+               name,
                introduction,
                price,
-               color
+               color,
+               is_active,
+               is_deleted,
+               create_date,
+               update_date,
+               delete_date
         FROM membership
-        WHERE user_code = #{userCode}
+        WHERE membership.user_code = #{userCode}
+          AND is_deleted = 'N'
     </select>
+
     <update id="modifyMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
         UPDATE membership
         SET name = #{name},
             introduction = #{introduction},
             color = #{color}
+        WHERE user_code = #{userCode}
+    </update>
+
+    <update id="updateIsDeleted" parameterType="java.lang.Long">
+        UPDATE membership
+        SET is_deleted = 'Y'
         WHERE code = #{code}
     </update>
 
-    <update id="updateIsDelete">
-    UPDATE membership
-    SET is_deleted = 'Y'
-    WHERE code = #{code}
-    </update>
 
-    <select id="getMembershipByCode" parameterType="long" resultType="com.pentoryall.membership.dto.MembershipDTO">
-        SELECT * FROM membership WHERE code = #{code}
-    </select>
-<select id="selectMembershipByUserCode" resultType="com.pentoryall.membership.dto.MembershipDTO">
-    SELECT code,
-           user_code,
-           name,
-           introduction,
-           price,
-           color,
-           is_active,
-           is_deleted,
-           create_date,
-           update_date,
-           delete_date
-    FROM membership
-    WHERE user_code = #{userCode}
 
-</select>
+
+    <!--    <select id="getAllMemberships" resultType="com.pentoryall.membership.dto.MembershipDTO">-->
+<!--        SELECT name,-->
+<!--               introduction,-->
+<!--               price,-->
+<!--               color-->
+<!--        FROM membership-->
+<!--        WHERE user_code = #{userCode}-->
+<!--    </select>-->
+
+
+<!--    <update id="updateIsDeleted">-->
+<!--    UPDATE membership-->
+<!--    SET is_deleted = 'Y'-->
+<!--    WHERE code = #{code}-->
+<!--    </update>-->
+
+<!--    <select id="getMembershipByCode" parameterType="long" resultType="com.pentoryall.membership.dto.MembershipDTO">-->
+<!--        SELECT * FROM membership WHERE code = #{code}-->
+<!--    </select>-->
+
 </mapper>

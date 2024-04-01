@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pentoryall.user.mapper.LikeMapper">
+
+    <select id="findByUserId" resultType="com.pentoryall.user.dto.LikeDTO">
+        SELECT code,
+               user_code,
+               post_code
+        FROM like
+        WHERE post_code = #{postCode}
+    </select>
+
+    <!-- 좋아요 눌럿는지 안눌럿는지 -->
+    <select id="findLike" resultType="int">
+        SELECT count(*)
+        FROM like
+        WHERE post_code = #{postCode}
+          AND user_code = #{userCode}
+    </select>
+    <!-- 좋아요 추가 -->
+    <insert id="likeUp">
+        INSERT INTO like (code, post_code, user_code)
+        VALUES ((SELECT IFNULL(MAX(code), 0) + 1 FROM like), #{postCode}, #{userCode}, 1)
+    </insert>
+    <!--    <insert id="likeUp">-->
+    <!--        INSERT INTO like (post_code, user_code)-->
+    <!--        VALUES (#{postCode}, #{userCode})-->
+    <!--    </insert>-->
+    <!-- 좋아요 취소 -->
+    <delete id="likeDown">
+        DELETE
+        FROM like
+        WHERE post_code = #{postCode}
+          AND user_code = #{userCode}
+    </delete>
+</mapper>

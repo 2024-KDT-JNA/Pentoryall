@@ -438,6 +438,32 @@ input[type="checkbox"]:checked + label span {
 }
 
 /* 내 정보 수정 */
+.file_box {
+    position: relative;
+}
+
+.upload_btn, .remove_btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ccc;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.upload_btn {
+    background-color: #007bff;
+}
+
+.remove_btn {
+    display: none;
+}
+
+#image-file-box:hover + .remove_btn {
+    display: block;
+}
 
 .my_profile_info {
     max-width: 780px;

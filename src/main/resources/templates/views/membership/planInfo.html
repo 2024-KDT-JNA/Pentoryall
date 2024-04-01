@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{/layout/story}">
@@ -23,18 +22,12 @@
                             <ul>
                                 <li >
                                     <p th:text="${membership.name}"></p>
+
+                                    <p th:text="${membership.introduction}"></p>
                                     <p th:text="${membership.price}"></p>
                                     <p>/월</p>
-                                    <p th:text="${membership.introduction}"></p>
                                     <p th:text="${membership.color}"></p>
                                 </li>
-<!--                                <li th:each="membership : ${plan}">-->
-<!--                                    <p th:text="${membership.name}"></p>-->
-<!--                                    <p th:text="${membership.price}"></p>-->
-<!--                                    <p>/월</p>-->
-<!--                                    <p th:text="${membership.introduction}"></p>-->
-<!--                                    <p th:text="${membership.color}"></p>-->
-<!--                                </li>-->
                             </ul>
                             <div>
                                 <button type="button" onclick="location.href='/membership/modify'">멤버십 관리</button>
@@ -49,3 +42,12 @@
 
 <th:block layout:fragment="script"></th:block>
 </html>
+
+
+<!--                                <li th:each="membership : ${plan}">-->
+<!--                                    <p th:text="${membership.name}"></p>-->
+<!--                                    <p th:text="${membership.price}"></p>-->
+<!--                                    <p>/월</p>-->
+<!--                                    <p th:text="${membership.introduction}"></p>-->
+<!--                                    <p th:text="${membership.color}"></p>-->
+<!--                                </li>-->
