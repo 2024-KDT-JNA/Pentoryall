@@ -1,0 +1,15 @@
+!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Membership Creation Success</title>
+</head>
+<body>
+
+
+<h1>멤버십 수정 성공</h1>
+<p>멤버십 정보를 불러오는 중에 오류가 발생했습니다.</p>
+<button type="button" onclick="location.href='/membership/planInfo'">확인</button>
+<p th:text="${membership.name}"></p>
+</body>
+</html>

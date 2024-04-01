@@ -44,19 +44,24 @@ public class MembershipController {
 
     /*셀렉트 컨트롤러 */
     @GetMapping("/planInfo")
-    public String selectMembershipInfo(Model model) {
-        List<MembershipDTO> membershipList = membershipService.getAllMemberships();
-        System.out.println(membershipList);
-        if (membershipList.isEmpty() || membershipList == null) {
-            // 빈 리스트일 경우에도 해당 페이지를 반환하도록 변경
-            System.out.println(membershipList + "테스트용 멤버십");
-            return "/views/membership/membershipInfo";
-        } else {
-            model.addAttribute("plan", membershipList);
-            System.out.println(membershipList + "테스트용이랍니다.");
-            return "/views/membership/planInfo";
+    public String selectMembershipInfo(Model model, @AuthenticationPrincipal UserDTO user) {
+
+        try {
+            MembershipDTO membership = membershipService.selectMembershipByUserCode(user.getCode());
+            if (membership != null && membership.getCode() > 0) {
+                model.addAttribute("membership", membership);
+                return "/views/membership/planInfo";
+            } else {
+                // 멤버십이 없는 경우에 대한 처리
+                return "/views/membership/membershipInfo";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMessage", "멤버십 정보를 불러오는 중에 오류가 발생했습니다: " + e.getMessage());
+            return "/views/membership/errorPage";
         }
     }
+
 
     @PostMapping("/modify")
     public String modifyMembership(Model model, @ModelAttribute("membership") MembershipDTO membershipDTO) {
@@ -73,41 +78,54 @@ public class MembershipController {
     }
 
     @PostMapping("/delete")
-    public String deleteMembership(@ModelAttribute MembershipDTO membershipDTO) {
+    public String updateIsDeleted(@RequestParam(name = "membershipCode") Long code, Model model){
         try {
-            membershipService.deleteMembership(membershipDTO.getCode());
-            return "/views/membership/successDelete"; // 삭제 작업이 완료되면 /membership/delete로 이동
-        } catch (Exception e) {
+
+            membershipService.updateIsDeleted(code, 'Y');
+            MembershipDTO membershipDTO = membershipService.getMembershipByCode(code);
+            model.addAttribute("membershipDTO", membershipDTO);
+            return "/views/membership/successDelete";
+        }catch (Exception e){
             e.printStackTrace();
-            return "/views/membership/failDelete"; // 삭제 작업 중 예외 발생 시 실패 뷰 반환
+            model.addAttribute("errorMessage" ,"멤버십 탈퇴 과정 중에 오류가 발생하였습니다. : " + e.getMessage());
+            return "/views/membership/failDelete";
         }
-    }
 
-    /* 페이지 메핑 */
-    @GetMapping("/list")
-    public String getMembershipList() {
-        return "/views/membership/membershipList";
-    }
 
-    @GetMapping("/info")
-    public String getMembershipInfo() {
-        return "/views/membership/membershipInfo";
-    }
+}
 
-    @GetMapping("/create")
-    public String createMembership() {
-        return "/views/membership/createMembership";
-    }
 
-    @GetMapping("/modify")
-    public String modifyMembership() {
-        return "/views/membership/membershipModify";
-    }
+/* 페이지 메핑 */
+@GetMapping("/list")
+public String getMembershipList() {
+    return "/views/membership/membershipList";
+}
 
-    @GetMapping("/delete")
-    public String deleteMembership() {
-        return "/views/membership/deleteMembership";
-    }
+@GetMapping("/info")
+public String getMembershipInfo() {
+    return "/views/membership/membershipInfo";
+}
+
+@GetMapping("/create")
+public String createMembership() {
+    return "/views/membership/createMembership";
+}
+
+@GetMapping("/modify")
+public String modifyMembership() {
+    return "/views/membership/membershipModify";
+}
+
+@GetMapping("/delete")
+public String deleteMembership(@AuthenticationPrincipal UserDTO user,
+                               Model model) {
+    long userCode = user.getCode();
+    membershipService.updateIsDeleted(userCode, 'Y');
+    System.out.println("sadasdas");
+    MembershipDTO membershipDTO = membershipService.selectMembershipByUserCode(user.getCode());
+    model.addAttribute("memberShip",membershipDTO);
+    return "/views/membership/deleteMembership";
+}
 }
 
 

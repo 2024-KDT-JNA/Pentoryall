@@ -5,7 +5,8 @@
 <mapper namespace="com.pentoryall.user.mapper.UserMapper">
 
     <select id="findByUserId" resultType="com.pentoryall.user.dto.UserDTO">
-        SELECT email,
+        SELECT code,
+            email,
                user_id,
                password,
                nickname,

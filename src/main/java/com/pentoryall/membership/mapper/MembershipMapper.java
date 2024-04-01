@@ -14,7 +14,11 @@ public interface MembershipMapper {
 
     void modifyMembership(MembershipDTO membershipDTO);
 
-    void deleteMembership(long code);
+    void updateIsDelete(Long code);
+
+    void updateMembership(MembershipDTO membershipDTO);
+
+    MembershipDTO getMembershipByCode(long code);
+
+    MembershipDTO selectMembershipByUserCode(long code);
 }
-
-
