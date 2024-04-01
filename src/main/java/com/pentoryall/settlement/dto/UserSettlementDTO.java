@@ -14,8 +14,8 @@ public class UserSettlementDTO {
     Long code;
     Long userCode;
     int bankCode;
-    int accountNumber;
+    String accountNumber;
     String accountHolder;
-    String isDeleted; /* Enum? */
+    char isDeleted;
     LocalDateTime createDate;
 }
