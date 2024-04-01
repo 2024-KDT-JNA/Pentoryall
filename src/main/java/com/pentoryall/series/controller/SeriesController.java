@@ -244,4 +244,10 @@ public class SeriesController {
         System.out.println("성공3");
         return "/views/index";
     }
+
+    @PostMapping("/select")
+    public String selectSeriesByword(@RequestParam String word){
+
+        return "/views/series/select";
+    }
 }

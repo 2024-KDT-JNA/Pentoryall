@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
+            <section class="section">
+                <h2 class="h2">제목</h2>
+                <!-- 여기에 컨텐츠 복사/붙여넣기 해주세요 -->
+            </section>
+            <!-- ------------------------------------ -->
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+     <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
+</th:block>
+<th:block layout:fragment="script">
+gdgd
+</th:block>
+</html>
