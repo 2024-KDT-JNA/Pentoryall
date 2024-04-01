@@ -14,10 +14,17 @@
          color
 )
         VALUES (
-                1,
-                #{name},
-                #{introduction},
-                #{price},
-                #{color})
+                #{userCode},
+                #{ name },
+                #{ introduction },
+                #{ price },
+                #{ color })
     </insert>
+    <select id="getAllMemberships" resultType="com.pentoryall.membership.dto.MembershipDTO">
+        SELECT name,
+               introduction,
+               price,
+               color
+        FROM membership
+    </select>
 </mapper>

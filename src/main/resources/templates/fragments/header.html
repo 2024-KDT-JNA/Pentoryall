@@ -13,83 +13,76 @@
         <div class="header-right">
             <div class="search-input">
                 <form>
-                    <!-- <label  id="">
-                        <i class="bi bi-search"></i>
-                        <span class="blind">검색</span>
-                    </label> -->
-                    <input type="text" class="input" placeholder="검색어 입력"/>
+                    <input type="text" class="input" placeholder="검색어 입력" />
                 </form>
             </div>
-
-            <button type="button" class="alert-btn">
-                <span class="blind">알림</span>
-                <i class="bi bi-bell"></i>
-                <span class="alert-dot">
-                    <span class="blind">새로운 알림</span>
-                </span>
-            </button>
-
-            <button type="button" class="profile-btn" sec:authorize="isAuthenticated()">
-                <div class="profile-image" sec:authorize="hasRole('ROLE_USER')">
-                    <img src="/images/temp/profile.png" alt="프로필"/>
+            <th:block sec:authorize="hasRole('ROLE_USER')">
+                <button type="button" class="alert-btn">
+                    <span class="blind">알림</span>
+                    <i class="bi bi-bell"></i>
+                    <span class="alert-dot">
+                        <span class="blind">새로운 알림</span>
+                    </span>
+                </button>
+                <div class="profile-image">
+                    <button type="button" class="profile-btn" sec:authorize="isAuthenticated()">
+                        <img src="/images/temp/profile.png" alt="프로필" />
+                    </button>
                 </div>
-                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <h3><span class="username" sec:authentication="principal.name"></span>님</h3>
-                    <div class="greet-button">
-                        <button type="button">관리자 페이지</button>
-                    </div>
-                </th:block>
-            </button>
+            </th:block>
+
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="link">
+                    <a th:href="@{/user/login}" class="button btn-admin">관리자 페이지</a>
+                </div>
+                <div class="link">
+                    <a th:href="@{/user/logout}" class="button">로그아웃</a>
+                </div>
+            </th:block>
+
             <th:block sec:authorize="isAnonymous()">
-                <div class="login-link">
-                    <a th:href="@{views/user/login}" class="button">로그인</a>
+                <div class="link login-link">
+                    <a th:href="@{/user/login}" class="button">로그인</a>
                 </div>
-                <div class="login-link">
-                    <a th:href="@{views/user/regist}" class="button">회원가입</a>
+                <div class="link login-link">
+                    <a th:href="@{/user/regist}" class="button">회원가입</a>
                 </div>
             </th:block>
         </div>
     </header>
 
-    <aside id="aside" class="overlay b30">
+    <aside id="aside" class="overlay b30" sec:authorize="isAuthenticated()">
         <h2 class="blind">사이드 메뉴</h2>
 
         <div class="aside-wrap">
             <div class="aside-header">
                 <div class="user-profile">
                     <div class="profile-image">
-                        <img src="/images/temp/profile.png" alt="유저 프로필"/>
+                        <img src="/images/temp/profile.png" alt="유저 프로필" />
                     </div>
-                    <div class="profile-info" sec:authorize="isAuthenticated()">
+                    <div class="profile-info">
                         <span class="nickname" sec:authentication="principal.nickname">닉네임</span>
                         <span class="username" sec:authentication="principal.name">이름</span>
                     </div>
-                    <th:block sec:authorize="isAnonymous()">
-                        <div class="login-link">
-                            <a th:href="@{views/user/login}">로그인을 해주세요.</a>
-                        </div>
-                    </th:block>
-                    <div class="profile-point" sec:authorize="isAuthenticated()">
+                    <div class="profile-point">
                         <dl class="point-info">
                             <dt>포인트</dt>
                             <dd sec:authentication="principal.point">0P</dd>
                         </dl>
-                        <a href="/order" class="button">충전</a>
+                        <a th:href="@{/order}" class="button"> 충전</a>
+
                     </div>
                 </div>
             </div>
             <div class="aside-body">
                 <nav class="aside-nav">
                     <ul>
-                        <li>
-                            <!-- <i class="bi bi-vector-pen"></i> -->
-                            <a href="/story">마이 스토리</a>
-                        </li>
-                        <li><a href="#">보관함</a></li>
-                        <li><a href="/subscribe/storyList">구독/멤버십</a></li>
-                        <li><a href="/point">포인트</a></li>
-                        <li><a href="#">계정 설정</a></li>
-                        <li id="logout"><a th:href="@{views/user/logout}">로그아웃</a></li>
+                        <li><a th:href="@{/story}">마이 스토리</a></li>
+                        <li><a th:href="@{/user/like}">보관함</a></li>
+                        <li><a th:href="@{/subscribe/storyList}">구독/멤버십</a></li>
+                        <li><a th:href="@{/point}">포인트</a></li>
+                        <li><a th:href="@{/user/update}">계정 설정</a></li>
+                        <li id="logout"><a th:href="@{/user/logout}">로그아웃</a></li>
                     </ul>
                 </nav>
             </div>

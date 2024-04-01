@@ -25,14 +25,14 @@
                delete_date,
                suspension_end_date
         FROM user
-        WHERE is_certificated = 'N'
+        WHERE state = 'ACTIVE'
           AND user_id = #{ userId }
     </select>
 
     <select id="selectUserById" resultType="string">
         SELECT user_id
         FROM user
-        WHERE is_certificated = 'N'
+        WHERE state = 'ACTIVE'
           AND user_id = #{ userId }
     </select>
 
@@ -41,44 +41,43 @@
         VALUES (#{ userId }, #{ password }, #{ name }, #{ nickname }, #{ email }, #{ birth })
     </insert>
 
-    <select id="selectEncryptedPwd" resultType="string">
-        SELECT member_pwd
-        FROM tbl_member
-        WHERE member_status = 'Y'
-          AND member_id = #{ memberId }
-    </select>
+    <!--    <select id="selectEncryptedPwd" resultType="string">-->
+    <!--        SELECT member_pwd-->
+    <!--        FROM tbl_member-->
+    <!--        WHERE member_status = 'Y'-->
+    <!--          AND member_id = #{ memberId }-->
+    <!--    </select>-->
 
-    <select id="selectUser" resultType="com.pentoryall.user.dto.UserDTO">
-        SELECT member_no,
-               member_id,
-               nickname,
-               phone,
-               email,
-               address,
-               enroll_date,
-               member_role,
-               member_status
-        FROM tbl_member
-        WHERE member_status = 'Y'
-          AND member_id = #{ memberId }
-    </select>
+    <!--    <select id="selectUser" resultType="com.pentoryall.user.dto.UserDTO">-->
+    <!--        SELECT member_no,-->
+    <!--               member_id,-->
+    <!--               nickname,-->
+    <!--               phone,-->
+    <!--               email,-->
+    <!--               address,-->
+    <!--               enroll_date,-->
+    <!--               member_role,-->
+    <!--               member_status-->
+    <!--        FROM tbl_member-->
+    <!--        WHERE member_status = 'Y'-->
+    <!--          AND member_id = #{ memberId }-->
+    <!--    </select>-->
 
     <update id="updateUser">
         UPDATE
-            tbl_member
-        SET nickname = #{ nickname },
-            phone    = #{ phone },
-            email    = #{ email },
-            address  = #{ address }
-        WHERE member_status = 'Y'
-          AND member_no = #{ memberNo }
+            user
+        SET nickname     = #{ nickname },
+            introduction = #{ introduction },
+            password     = #{ password }
+        WHERE state = 'ACTIVE'
+          AND user_id = #{userId}
     </update>
 
     <update id="deleteUser">
         UPDATE
             user
-        SET is_certificated = 'N'
-        WHERE is_certificated = 'Y'
+        SET state = 'WITHDRAWN'
+        WHERE state = 'ACTIVE'
           AND user_id = #{userId}
     </update>
 
