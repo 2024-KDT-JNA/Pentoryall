@@ -1,5 +1,3 @@
-
-
 package com.pentoryall.membership.controller;
 
 import com.pentoryall.membership.dto.MembershipDTO;
@@ -29,14 +27,10 @@ public class MembershipController {
     public String createMembership(Model model, @ModelAttribute("membership") MembershipDTO membershipDTO, @AuthenticationPrincipal UserDTO user) {
         try {
             membershipDTO.setUserCode(user.getCode());
-            // 성공할 경우 처리
             membershipService.createMembership(membershipDTO);
-            // 생성된 멤버십 정보를 Model에 추가
-            //model.addAttribute("info", createMembership);
-            // 성공 메시지를 Model에 추가
-            //model.addAttribute("message", "멤버십이 성공적으로 개설되었습니다! 이름: " + createMembership.getName());
             return "/views/membership/successCreate";
         } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
             // 데이터 무결성 제약 조건 위반 등의 예외 처리
             model.addAttribute("errorMessage", "제시된 양식에 따라 다시 작성해 주세요: " + e.getMessage());
             return "/views/membership/failCreate";
@@ -55,12 +49,37 @@ public class MembershipController {
         System.out.println(membershipList);
         if (membershipList.isEmpty() || membershipList == null) {
             // 빈 리스트일 경우에도 해당 페이지를 반환하도록 변경
-            System.out.println(membershipList + "dasdasd");
+            System.out.println(membershipList + "테스트용 멤버십");
             return "/views/membership/membershipInfo";
         } else {
             model.addAttribute("plan", membershipList);
-            System.out.println(membershipList + "dsadsadas");
+            System.out.println(membershipList + "테스트용이랍니다.");
             return "/views/membership/planInfo";
+        }
+    }
+
+    @PostMapping("/modify")
+    public String modifyMembership(Model model, @ModelAttribute("membership") MembershipDTO membershipDTO) {
+        try {
+            membershipService.modifyMembership(membershipDTO);
+            return "/views/membership/successModify";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMessage", "멤버십을 수정하는 중에 오류가 발생했습니다: " + e.getMessage());
+            return "redirect:/membership/failModify";
+
+        }
+
+    }
+
+    @PostMapping("/delete")
+    public String deleteMembership(@ModelAttribute MembershipDTO membershipDTO) {
+        try {
+            membershipService.deleteMembership(membershipDTO.getCode());
+            return "/views/membership/successDelete"; // 삭제 작업이 완료되면 /membership/delete로 이동
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "/views/membership/failDelete"; // 삭제 작업 중 예외 발생 시 실패 뷰 반환
         }
     }
 
@@ -80,6 +99,15 @@ public class MembershipController {
         return "/views/membership/createMembership";
     }
 
+    @GetMapping("/modify")
+    public String modifyMembership() {
+        return "/views/membership/membershipModify";
+    }
+
+    @GetMapping("/delete")
+    public String deleteMembership() {
+        return "/views/membership/deleteMembership";
+    }
 }
 
 

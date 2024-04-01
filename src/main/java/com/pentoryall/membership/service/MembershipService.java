@@ -19,11 +19,22 @@ public class MembershipService {
     public void createMembership(MembershipDTO membershipDTO) {
         membershipMapper.createMembership(membershipDTO);
     }
+
     public List<MembershipDTO> getAllMemberships() {
         return membershipMapper.getAllMemberships();
     }
 
-}
+    @Transactional
+    public void modifyMembership(MembershipDTO membershipDTO) {
+        membershipMapper.modifyMembership(membershipDTO);
 
+
+    }
+
+    @Transactional
+    public void deleteMembership(long code) {
+        membershipMapper.deleteMembership(code);
+    }
+}
 
 

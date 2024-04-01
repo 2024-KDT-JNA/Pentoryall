@@ -15,10 +15,10 @@
 )
         VALUES (
                 #{userCode},
-                #{ name },
-                #{ introduction },
-                #{ price },
-                #{ color })
+                #{name},
+                #{introduction},
+                #{price},
+                #{color})
     </insert>
     <select id="getAllMemberships" resultType="com.pentoryall.membership.dto.MembershipDTO">
         SELECT name,
@@ -26,5 +26,21 @@
                price,
                color
         FROM membership
+        WHERE is_deleted = 'n'
     </select>
+    <update id="modifyMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
+        UPDATE membership
+        SET name = #{name},
+            introduction = #{introduction},
+            color = #{color}
+        WHERE user_code = #{userCode}
+    </update>
+
+    <update id="deleteMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
+    DELETE FROM membership
+    SET  #{isDeleted}
+    </update>
+
+
+
 </mapper>
