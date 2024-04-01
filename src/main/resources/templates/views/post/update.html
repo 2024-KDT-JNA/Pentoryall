@@ -16,23 +16,25 @@
         <div class="inner">
             <section class="section">
                 <h2 class="h2" th:text="${session.title}"></h2>
-                <h2 class="h2">포스트 등록하기</h2>
+                <h2 class="h2">포스트 수정 하기</h2>
 
                 <div class="form-item">
-                    <form class="postAdd" action="/post/add" method="post" id="postAdd" enctype="multipart/form-data" onsubmit="return check_form()">
+                    <form class="postAdd" action="/post/update" method="post" id="postAdd" enctype="multipart/form-data" onsubmit="return check_form()">
                         <h4 class="h4"><label class="label">제목*</label></h4>
 
 
                         <div class="title-wrap">
                             <div class="upload-thumbnail post-title-input">
                                 <input class="title-input" name="title" maxlength="50" type="text" th:value="${session.title}" th:placeholder="${session.title}"/>
+
                                 <p class="recognize-title-size" hidden>제목을 1글자 이상 입력하여주세요.</p>
                             </div>
                         </div>
 
                         <div class="contents-wrap">
                             <div class="upload-thumbnail">
-                                <input name="contents"  type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden required="false"/>
+                                <input name="content"  type="text" th:value="${session.contents}" th:placeholder="${session.contents}"  hidden required="false"/>
+                                <input name="code" th:value="${post.code}"/>
                             </div>
                         </div>
 
@@ -41,7 +43,7 @@
 
                         <div class="thumbnail-file-wrap">
                             <div class="upload-thumbnail">
-                                <img id="image-box" class="series-add-thumbnail" src="/images/temp/thumbnail.png" alt="thumbnail" />
+                                <img id="image-box" class="series-add-thumbnail" th:src="@{post.thumbnailImage}" alt="thumbnail" />
                             </div>
                             <div class="form__input--file_wrap">
                                 <div class="fileBox">
@@ -57,14 +59,15 @@
 
                             <label class="toggle-button">
 
-                                <input type="checkbox" class="blind toggle-value" value="N" name="isPublic"/>
+                                <input type="checkbox" class="blind toggle-value" th:value="${post.isPublic}" name="isOpen"/>
 
                                 <span class="toggle-switch"></span>
                             </label>
                         </div>
                         <div class="form-item">
                             <h4 class="h4"><label class="label" >시리즈*</label></h4>
-                            <select class="select"  name="series" id="selectSeries" oninput="sortingGenre()">
+                            <input class="selectValue" th:value="${post.seriesCode}" hidden/>
+                            <select class="select"  name="seriesCode" id="selectSeries" oninput="sortingGenre()">
                             </select>
                         </div>
 
@@ -189,13 +192,13 @@
                                 <label class="label">유료 컨텐츠 여부*</label>
                             </h4>
                             <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value isFee-input"  value="N" name="isFee" onchange="IsPointHidden()"/>
+                                <input type="checkbox" class="blind toggle-value isFee-input"  th:value="${post.isPaid}" name="isFee" onchange="IsPointHidden()"/>
                                 <span class="toggle-switch"></span>
                             </label>
                             <div class="point-box" hidden>
                                 <p class="isFee">필요 포인트 설정</p>
                                 <div class="needed-point">
-                                    <input class="input point-input" min="0" type="number" value="200" step="100" name="neededPoint" />
+                                    <input class="input point-input" min="0" type="number" th:value="${post.price}" step="100" name="price" />
                                     <p class="point-fee">P</p>
                                 </div>
                             </div>
@@ -204,14 +207,14 @@
                         <div class="form-item">
                             <label class="label">성인물 여부*</label>
                             <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value" value="N" name="isAdult"/>
+                                <input type="checkbox" class="blind toggle-value" th:value="${post.isAdult}" name="isPossible"/>
                                 <span class="toggle-switch"></span>
                             </label>
                         </div>
 
 
                         <div class="form-item">
-                            <button type="submit" class="button" id="okbtn">확인</button>
+                            <button type="submit" class="button" id="okbtn" onclick=>확인</button>
                             <button onclick="location.href='/post/writer'" class="button">취소</button>
                         </div>
                     </form>
@@ -224,9 +227,36 @@
 </th:block>
 
 <th:block layout:fragment="script">
+
+    <!--새로운-->
     <script>
-        const $okbtn = document.getElementById("okbtn");
-        $okbtn.addEventListener("mouseover",()=>{
+        /*토글의 value가 Y이면 check되어 있도록*/
+        function valueChecked(){
+            const toggles = document.querySelectorAll(".toggle-value");
+            toggles.forEach(el => {
+                if(el.value=='Y'){
+                    el.checked = true;
+                }
+            })
+        }
+        window.addEventListener('load',function(){
+            valueChecked();
+        });
+
+        /*유료 컨텐츠 여부가 체크 되어있다면 포인트 input도 활성화 되도록*/
+        function showPoint(){
+            const isFee = document.querySelector(".isFee-input");
+            const pointBox = document.querySelector(".point-box");
+            if(isFee.value=='Y'){
+                pointBox.hidden = false;
+            }
+        }
+        window.addEventListener('load',function(){
+            showPoint();
+        });
+
+            const $okbtn = document.getElementById("okbtn");
+            $okbtn.addEventListener("mouseover",()=>{
 
             document.querySelectorAll(".box-order-amount .form-check-input").forEach(el => {
                 if(el.checked) {
@@ -234,12 +264,13 @@
                 }
             })
         })
-        //토글 버튼 on/off value 부여
-        // 토글 버튼(체크박스) 요소를 찾습니다.
-        const toggleButton = document.querySelectorAll('.toggle-value');
 
-        // 체크박스의 상태 변경을 감지하는 이벤트 리스너를 추가합니다.
-        for(var i = 0 ; i<toggleButton.length;i++) {
+            //토글 버튼 on/off value 부여
+            // 토글 버튼(체크박스) 요소를 찾습니다.
+            const toggleButton = document.querySelectorAll('.toggle-value');
+
+            // 체크박스의 상태 변경을 감지하는 이벤트 리스너를 추가합니다.
+            for(var i = 0 ; i<toggleButton.length;i++) {
             toggleButton[i].addEventListener('change', function () {
                 // 체크박스가 체크되면 'On', 아니면 'Off'로 value 값을 설정합니다.
                 if (this.checked) {
@@ -251,11 +282,7 @@
                 console.log('토글 버튼의 value 값:', this.value);
             })
         }
-
-    </script>
-    <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
-    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
-    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+        </script>
     <script>
         /*실시간으로 시리즈 목록을 가져오는 기능*/
         function createSeriesList(series){
@@ -436,5 +463,8 @@
             })
         }
     </script>
+
+
+
 </th:block>
 </html>

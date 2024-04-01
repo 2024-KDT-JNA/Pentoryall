@@ -128,7 +128,7 @@
 
 
                     <div class="series-post-update-delete">
-                        <button class="series-update-button btn">수정</button>
+                        <button class="series-update-button btn" th:onclick="'location.href = \'' + @{/post/updatewriter(code=${post.code})} + '\''">수정</button>
                         <button class="series-delete-button btn">삭제</button>
                     </div>
 

@@ -17,6 +17,7 @@ import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -190,5 +191,100 @@ public class PostController {
         System.out.println(seriesList);
         return seriesList;
     }
+
+    @GetMapping("/updatewriter")
+    public String updatePostWriter(long code,
+                                   HttpSession session,
+                                   Model model
+                                   ){
+        PostDTO postDTO = postService.getPostInformationByPostCode(code);
+        System.out.println("postDTO$$$$$$$$$$ = " + postDTO);
+//        List<GenreOfArtDTO> genreList = genreOfArtService.findGenreBySeriesCode(postDTO.getSeriesCode());
+//        System.out.println("genreList ^^^^^^^^^^^= " + genreList);
+        model.addAttribute("post",postDTO);
+//        model.addAttribute("genreList",genreList);
+        return "/views/post/updatewriter";
+    }
+    @GetMapping("/update")
+    public String updatePostOptions(long code,
+                                    Model model){
+        System.out.println("code !!!!!!!= " + code);
+        System.out.println("성공해써");
+
+        PostDTO postDTO = postService.getPostInformationByPostCode(code);
+        List<GenreOfArtDTO> genreOfArtDTO = genreOfArtService.selectGenreByPostCode(code);
+
+        System.out.println("장르코코 : "+genreOfArtDTO);
+        System.out.println("포스트코코 : "+postDTO);
+
+        model.addAttribute("post",postDTO);
+        model.addAttribute("genre",genreOfArtDTO);
+        return "/views/post/update";
+    }
+
+    @PostMapping("/update")
+    public String afterUpdatePost(
+            @ModelAttribute PostDTO postDTO,
+            @RequestParam Map<String, String> params,
+            @RequestParam(required = false) MultipartFile thumbnail,
+            @RequestParam List<Long> genreCode,
+            Model model
+    ){
+        char isPublic = params.get("isOpen") != null ? params.get("isOpen").charAt(0) : 'N';
+        char isPaid = params.get("isFee") != null ? params.get("isFee").charAt(0) : 'N';
+        char isAdult = params.get("isPossible") != null ? params.get("isPossible").charAt(0) : 'N';
+
+        postDTO.setIsPublic(isPublic);
+        postDTO.setIsPaid(isPaid);
+        postDTO.setIsAdult(isAdult);
+
+        /*파일 가공 로직*/
+        if(!thumbnail.isEmpty() && thumbnail!=null) {
+            String filePath = IMAGE_DIR + "post-thumbnail-images";
+            String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
+            String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
+
+            String finalFilePath = filePath + "/" + savedName;
+            File dir = new File(filePath);
+            if (!dir.exists()) dir.mkdirs();
+
+            try {
+                thumbnail.transferTo(new File(finalFilePath));
+                model.addAttribute("savedName", savedName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String saveFileName = "/upload/post-thumbnail-images/" + savedName;
+
+
+            postDTO.setThumbnailImage(saveFileName);
+        }
+
+        System.out.println("postDTO ~~~~~~~~~~~~~= " + postDTO);
+        System.out.println("genreCode$$$$$$$$$$$ = " + genreCode);
+
+        /*장르 수정*/
+        GenreOfArtDTO genreOfArtDTO = new GenreOfArtDTO();
+        genreOfArtDTO.setPostCode(postDTO.getCode());
+        genreOfArtDTO.setSeriesCode(postDTO.getSeriesCode());
+
+        genreOfArtService.deleteSeriesGenreByPostCode(postDTO.getCode());
+        System.out.println("삭제 성공!!!");
+        for(int i = 0 ; i<genreCode.size();i++) {
+            genreOfArtDTO.setGenreCode(genreCode.get(i));
+            genreOfArtService.insertGenreForDTO(genreOfArtDTO);
+        }
+        System.out.println("수정 성공!!!");
+        System.out.println("postDTO = " + postDTO);
+        /*포스트 정보 수정*/
+        postService.updatePostService(postDTO);
+
+        System.out.println("포스트 정보 수정 완료!");
+//        return "redirect:/post/information?code=" + postDTO.getCode();
+        return "/views/index";
+    }
+
 
 }

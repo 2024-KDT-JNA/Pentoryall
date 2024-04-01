@@ -17,4 +17,6 @@ public interface PostMapper {
     void insertGenre(GenreOfArtDTO genreOfArtDTO);
 
     List<PostDTO> selectPostsBySeriesCode(long code);
+
+    void updatePostService(PostDTO postDTO);
 }

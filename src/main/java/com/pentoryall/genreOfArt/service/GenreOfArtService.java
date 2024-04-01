@@ -20,7 +20,7 @@ public class GenreOfArtService {
     public void insertGenreOfArt(GenreOfArtDTO genreOfArtDTO) {
         genreOfArtMapper.insertGenreOfArt(genreOfArtDTO);
     }
-
+    @Transactional
     public void insertSeriesGenre(GenreOfArtDTO genreOfArtDTO) {
         genreOfArtMapper.insertSeriesGenre(genreOfArtDTO);
     }
@@ -36,16 +36,40 @@ public class GenreOfArtService {
     public List<GenreOfArtDTO> findGenreBySeriesCode(long code) {
         return genreOfArtMapper.findGenreBySeriesCode(code);
     }
-
+    @Transactional
     public void deleteSeriesGenreBySeriesCode(long code) {
         genreOfArtMapper.deleteSeriesGenreBySeriesCode(code);
     }
-
+    @Transactional
     public void insertGenreBySeriesCode(long code,long genreCode) {
         genreOfArtMapper.insertGenreBySeriesCode(code,genreCode);
     }
 
     public List<GenreOfArtDTO> findGenreBySeriesCodeSeries(long code) {
         return genreOfArtMapper.findGenreBySeriesCodeSeries(code);
+    }
+
+    public List<GenreOfArtDTO> getGenreInformationByPostCode(long seriesCode) {
+        return genreOfArtMapper.getGenreInformationByPostCode(seriesCode);
+    }
+
+    public List<GenreOfArtDTO> selectGenreByPostCode(long code) {
+        return genreOfArtMapper.selectGenreByPostCode(code);
+    }
+    @Transactional
+    public void insertGenreBySeriesCodePost(long postCode,long code, Long genreCode) {
+        genreOfArtMapper.insertGenreBySeriesCodePost(postCode,code,genreCode);
+    }
+
+    public List<GenreOfArtDTO> selectPostInSeries(long code) {
+        return genreOfArtMapper.selectPostInSeries(code);
+    }
+    @Transactional
+    public void deleteSeriesGenreByPostCode(long postCode) {
+        genreOfArtMapper.deleteSeriesGenreByPostCode(postCode);
+    }
+@Transactional
+    public void insertGenreForDTO(GenreOfArtDTO genreOfArtDTO) {
+        genreOfArtMapper.insertGenreForDTO(genreOfArtDTO);
     }
 }

@@ -17,9 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/series")
@@ -190,6 +188,17 @@ public class SeriesController {
 
             savePath = "/upload/series-thumbnail-images" + "/" + savedName;
         }
+        Set postNo = new HashSet<>();
+        List<GenreOfArtDTO> genreOfArtDTOList = genreOfArtService.selectPostInSeries(code);
+        for(int i = 0 ; i<genreOfArtDTOList.size() ; i++){
+            postNo.add(genreOfArtDTOList.get(i).getPostCode());
+        }
+
+        System.out.println("포오스틱:"+postNo);
+
+        List<Long> postList = List.copyOf(postNo);
+
+        System.out.println("포으스틱 배열로 변환 = " + postList);
         /*Genre 코드 genreOfArtDTO에 삽입*/
         for(int i = 0 ; i< genreCode.size();i++){
             genreOfArtService.deleteSeriesGenreBySeriesCode(code);
@@ -197,6 +206,9 @@ public class SeriesController {
         }
         for(int i = 0 ; i<genreCode.size();i++){
             genreOfArtService.insertGenreBySeriesCode(code,genreCode.get(i));
+            for(int k = 0 ; k<postList.size();k++) {
+                genreOfArtService.insertGenreBySeriesCodePost(postList.get(k),code, genreCode.get(i));
+            }
             System.out.println("수수정 완료!");
         }
 
@@ -211,4 +223,6 @@ public class SeriesController {
         String url = "redirect:/series/page?code="+code;
         return url;
     }
+
+
 }

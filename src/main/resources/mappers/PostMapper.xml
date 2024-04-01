@@ -59,4 +59,19 @@
         WHERE
             series_code=#{code}
     </select>
+    <update id="updatePostService">
+        UPDATE
+            post
+        SET
+            series_code=#{seriesCode},
+            title=#{title},
+            content=#{content},
+            thumbnail_image=#{thumbnailImage},
+            price=#{price},
+            is_paid=#{isPaid},
+            is_adult=#{isAdult},
+            is_public=#{isPublic}
+        WHERE
+            code=#{postDTO.code}
+    </update>
 </mapper>
