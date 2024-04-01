@@ -19,4 +19,6 @@ public interface UserMapper {
     UserDTO getUserInformationByUserCode(long userCode);
 
     String getPwd(long code);
+
+    void updatePointByUserCode(UserDTO user);
 }

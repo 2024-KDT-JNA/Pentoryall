@@ -4,44 +4,39 @@
       layout:decorate="~{/layout/default}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css"/>
-    <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css"/>
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css" />
 </th:block>
 
 <th:block layout:fragment="content">
     <div class="sub-content">
         <div class="inner">
-            <section class="section section-order" th:if="${success eq true}">
-                <h2 class="h2">포인트 충전이 완료되었습니다.</h2>
+            <section class="section section-order">
+                <h2 class="h2 h2-complete">
+                    <i class="bi bi-check2-square is-active"></i>
+                    <span>포인트 충전이<br> 완료되었습니다.</span>
+                </h2>
 
-                <div class="box">
-                    <dl>
-                        <dt>충전 금액</dt>
-                        <dd th:text="|${order.amount}원 (${order.point}P)|">50,000원 (50,000P)</dd>
-                        <dt>충전 금액</dt>
-                        <dd>카드 결제</dd>
-                    </dl>
-                    <dl>
-                        <dt>결제 후 사용 가능한 포인트</dt>
-                        <!--                         <dd th:text="${user.point}"></dd> -->
+                <div class="box box-complete">
+                    <dl class="desc-list">
+                        <dt class="desc-list-dt">주문번호</dt>
+                        <dd class="desc-list-dd" th:text="${orderCode}"></dd>
+
+                        <dt class="desc-list-dt">결제일시</dt>
+                        <dd class="desc-list-dd" th:text="${paidAt}"></dd>
+
+                        <dt class="desc-list-dt">충전 금액</dt>
+                        <dd class="desc-list-dd">
+                            <span th:text="|${#numbers.formatInteger(paidAmount, 3, 'COMMA')}원 |"></span>
+                            <span th:text="|(${ #numbers.formatInteger(paidPoint, 3, 'COMMA')}P)|"></span>
+                        </dd>
+                        <dt class="desc-list-dt border-top">보유 포인트</dt>
+                        <dd class="desc-list-dd border-top" th:text="|${#numbers.formatInteger(#authentication.principal.point, 3, 'COMMA')}P|"></dd>
                     </dl>
                 </div>
-            </section>
-            <section class="section section-order" th:if="${success eq false}">
-                <h2 class="h2">포인트 충전이 실패하였습니다.</h2>
-
-                <!--                 <div class="box"> -->
-                <!--                     <dl> -->
-                <!--                         <dt>충전 금액</dt> -->
-                <!--                         <dd th:text="|${order.amount}원 (${order.point}P)|">50,000원 (50,000P)</dd> -->
-                <!--                         <dt>충전 금액</dt> -->
-                <!--                         <dd>카드 결제</dd> -->
-                <!--                     </dl> -->
-                <!--                     <dl> -->
-                <!--                         <dt>결제 후 사용 가능한 포인트</dt> -->
-                <!--                         <dd th:text="${user.point}">카드 결제</dd> -->
-                <!--                     </dl> -->
-                <!--                 </div> -->
+                <div class="box-bottom">
+                    <a th:href="@{/}" class="button dark">메인으로</a>
+                </div>
             </section>
         </div>
     </div>

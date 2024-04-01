@@ -36,4 +36,53 @@
         WHERE
             code=#{code}
     </select>
+
+    <select id="selectPostsBySeriesCode">
+        SELECT
+            code,
+            series_code,
+            user_code,
+            title,
+            content,
+            confirm_content,
+            thumbnail_image,
+            views,
+            price,
+            is_paid,
+            is_adult,
+            is_public,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            post
+        WHERE
+            series_code=#{code}
+    </select>
+    <update id="updatePostService">
+        UPDATE
+            post
+        SET
+            series_code=#{seriesCode},
+            title=#{title},
+            content=#{content},
+            thumbnail_image=#{thumbnailImage},
+            price=#{price},
+            is_paid=#{isPaid},
+            is_adult=#{isAdult},
+            is_public=#{isPublic}
+        WHERE
+            code=#{code}
+    </update>
+    <delete id="deletePostByPostCode">
+        DELETE
+        FROM post
+        WHERE code = #{code}
+    </delete>
+    <delete id="deleteSeriesBySeriesCode">
+        DELETE
+        FROM post
+        WHERE series_code = #{code}
+    </delete>
+
 </mapper>

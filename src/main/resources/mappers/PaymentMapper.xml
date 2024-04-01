@@ -3,9 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.pentoryall.order.mapper.PaymentMapper">
+<mapper namespace="com.pentoryall.point.mapper.PaymentMapper">
 
-    <insert id="save" parameterType="com.pentoryall.order.dto.PaymentDTO" useGeneratedKeys="true" keyProperty="code">
+    <insert id="insertPayment" parameterType="com.pentoryall.point.dto.PaymentDTO" useGeneratedKeys="true"
+            keyProperty="code">
         INSERT INTO payment(order_code, imp_uid)
         VALUES (#{orderCode}, #{impUid});
     </insert>
