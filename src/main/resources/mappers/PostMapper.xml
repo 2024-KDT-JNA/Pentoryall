@@ -72,7 +72,7 @@
             is_adult=#{isAdult},
             is_public=#{isPublic}
         WHERE
-            code=#{postDTO.code}
+            code=#{code}
     </update>
     <delete id="deletePostByPostCode">
         DELETE
