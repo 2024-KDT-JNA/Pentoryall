@@ -13,6 +13,14 @@
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
     <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
 </th:block>
+<script>
+    function start(){
+    const message = '[[${message}]]';
+    console.log(message);
+    message && alert(message);}
+    window.addEventListener("load",start)
+</script>
+
 
 <th:block layout:fragment="content">
     <div class="sub-content">
@@ -55,16 +63,16 @@
                                 <p th:text="|${series.description}|">
                                 </p>
                             </div>
-                            <div class="series-genre">
-                                <a class="series-genre-upper">#웹툰</a>
-                                <a class="series-genre-lower">#로맨스</a>
-                                <a class="series-genre-lower">#학원물</a>
-                            </div>
+                            <table class="series-genre-wrapper"th:each="genre : ${ genreNames }">
+
+                                <td class="series-genre-lower"  th:text="${ genre }"></td>
+
+                            </table>
                         </div>
 
                         <div class="series-update-delete">
-                            <button class="series-update-button btn">수정</button>
-                            <button class="series-delete-button btn">삭제</button>
+                            <button class="series-update-button btn" th:onclick="|location.href='@{/series/update(code=${series.code})}'|">수정</button>
+                            <button class="series-delete-button btn" th:onclick="|location.href='@{/series/delete(code=${series.code})}'|">삭제</button>
 
                         </div>
                     </div>
@@ -86,9 +94,9 @@
 
 
                     <div class="series-bundle">
-                        <div class="series-bundle-total">총 100화</div>
+                        <div class="series-bundle-total" th:text="|총 ${postList.size()} 화|"></div>
                         <div class="series-add-post">
-                            <button class="series-bundle-add btn">
+                            <button class="series-bundle-add btn" onclick="location.href='/post/writer'">
                                 추가하기
                             </button>
                         </div>
@@ -97,17 +105,21 @@
                 </div>
 
                 <!--포스트-->
+            <div th:each="post : ${postList}">
+
                 <div class="post-information-thumbnail">
-                    <img class="post-information-thumbnail-content" src="/images/temp/series-thumbnail.png">
+                    <img class="post-information-thumbnail-content" th:src="@{${post.thumbnailImage}}">
                     <!--자물쇠 모양 이미지-->
-                    <img class="bi bi-lock-fill" src="/images/temp/자물쇠.png"/>
-                    <div  class="post-information-lock"><p>200P</p></div>
-                    <!--19금 딱지 이미지-->
-                    <!--					<img class="post-information-adult" src="/images/common/logo_pentorial.svg"/>-->
+                    <th:block th:if="${post.isPaid =='Y'}">
+                    <img  class="bi bi-lock-fill" th:src="@{/images/temp/자물쇠.png}"/>
+                    <div  class="post-information-lock"><p th:text="|${post.price}P|"></p></div>
+                    </th:block>
+                    <th:block th:if="${post.isAdult == 'Y'}">
+                    <img class="post-information-adult" th:src="@{/images/temp/adult.png}"/>
+                    </th:block>
                     <div class="series-post-content-information">
                         <div class="post-information-title">
-                            <p class="post-information-title-content">
-                                00화. 제목
+                            <p class="post-information-title-content" th:text="|${postStat.index}화. ${post.title}|">
                             </p>
                         </div>
                         <div class="b">
@@ -124,150 +136,152 @@
 
 
                     <div class="series-post-update-delete">
-                        <button class="series-update-button btn">수정</button>
-                        <button class="series-delete-button btn">삭제</button>
+                        <button class="series-update-button btn" th:onclick="'location.href = \'' + @{/post/updatewriter(code=${post.code})} + '\''">수정</button>
+                        <button class="series-delete-button btn" th:onclick="'location.href = \'' + @{/post/delete(code=${post.code})} + '\''">삭제</button>
                     </div>
 
                 </div>
 
+<!--                <div class="post-information-thumbnail">-->
+<!--                    <img class="post-information-thumbnail-content" src="/images/temp/series-thumbnail.png">-->
+<!--                    &lt;!&ndash;자물쇠 모양 이미지&ndash;&gt;-->
+<!--                    <img class="bi bi-lock-fill" src="/images/temp/자물쇠.png"/>-->
+<!--                    <div  class="post-information-lock"><p>200P</p></div>-->
+<!--                    &lt;!&ndash;19금 딱지 이미지&ndash;&gt;-->
+<!--                    &lt;!&ndash;					<img class="post-information-adult" src="/images/common/logo_pentorial.svg"/>&ndash;&gt;-->
+<!--                    <div class="series-post-content-information">-->
+<!--                        <div class="post-information-title">-->
+<!--                            <p class="post-information-title-content">-->
+<!--                                00화. 제목-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <div class="b">-->
+<!--                            <button class="post-information-like">-->
+<!--                                ♡ 222-->
+<!--                            </button>-->
+<!--                            <div class="post-information-log">-->
+<!--                                <p class="post-information-log-title">-->
+<!--                                <p class="post-information-log-content">조회 : 34회</p>-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                <div class="post-information-thumbnail">
-                    <img class="post-information-thumbnail-content" src="/images/temp/series-thumbnail.png">
-                    <!--자물쇠 모양 이미지-->
-                    <img class="bi bi-lock-fill" src="/images/temp/자물쇠.png"/>
-                    <div  class="post-information-lock"><p>200P</p></div>
-                    <!--19금 딱지 이미지-->
-                    <!--					<img class="post-information-adult" src="/images/common/logo_pentorial.svg"/>-->
-                    <div class="series-post-content-information">
-                        <div class="post-information-title">
-                            <p class="post-information-title-content">
-                                00화. 제목
-                            </p>
-                        </div>
-                        <div class="b">
-                            <button class="post-information-like">
-                                ♡ 222
-                            </button>
-                            <div class="post-information-log">
-                                <p class="post-information-log-title">
-                                <p class="post-information-log-content">조회 : 34회</p>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
 
+<!--                    <div class="series-post-update-delete">-->
+<!--                        <button class="series-update-button btn">수정</button>-->
+<!--                        <button class="series-delete-button btn">삭제</button>-->
+<!--                    </div>-->
 
-                    <div class="series-post-update-delete">
-                        <button class="series-update-button btn">수정</button>
-                        <button class="series-delete-button btn">삭제</button>
-                    </div>
-
-                </div>
-
+<!--                </div>-->
 
 
 
-                <div class="post-information-thumbnail">
-                    <img class="post-information-thumbnail-content" src="/images/temp/series-thumbnail.png">
-                    <!--자물쇠 모양 이미지-->
-                    <img class="bi bi-lock-fill" src="/images/temp/자물쇠.png"/>
-                    <div  class="post-information-lock"><p>200P</p></div>
-                    <!--19금 딱지 이미지-->
-                    <!--					<img class="post-information-adult" src="/images/common/logo_pentorial.svg"/>-->
-                    <div class="series-post-content-information">
-                        <div class="post-information-title">
-                            <p class="post-information-title-content">
-                                00화. 제목
-                            </p>
-                        </div>
-                        <div class="b">
-                            <button class="post-information-like">
-                                ♡ 222
-                            </button>
-                            <div class="post-information-log">
-                                <p class="post-information-log-title">
-                                <p class="post-information-log-content">조회 : 34회</p>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+
+<!--                <div class="post-information-thumbnail">-->
+<!--                    <img class="post-information-thumbnail-content" src="/images/temp/series-thumbnail.png">-->
+<!--                    &lt;!&ndash;자물쇠 모양 이미지&ndash;&gt;-->
+<!--                    <img class="bi bi-lock-fill" src="/images/temp/자물쇠.png"/>-->
+<!--                    <div  class="post-information-lock"><p>200P</p></div>-->
+<!--                    &lt;!&ndash;19금 딱지 이미지&ndash;&gt;-->
+<!--                    &lt;!&ndash;					<img class="post-information-adult" src="/images/common/logo_pentorial.svg"/>&ndash;&gt;-->
+<!--                    <div class="series-post-content-information">-->
+<!--                        <div class="post-information-title">-->
+<!--                            <p class="post-information-title-content">-->
+<!--                                00화. 제목-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <div class="b">-->
+<!--                            <button class="post-information-like">-->
+<!--                                ♡ 222-->
+<!--                            </button>-->
+<!--                            <div class="post-information-log">-->
+<!--                                <p class="post-information-log-title">-->
+<!--                                <p class="post-information-log-content">조회 : 34회</p>-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
 
-                    <div class="series-post-update-delete">
-                        <button class="series-update-button btn">수정</button>
-                        <button class="series-delete-button btn">삭제</button>
-                    </div>
+<!--                    <div class="series-post-update-delete">-->
+<!--                        <button class="series-update-button btn">수정</button>-->
+<!--                        <button class="series-delete-button btn">삭제</button>-->
+<!--                    </div>-->
 
-                </div>
-
-
-
-                <div class="post-information-thumbnail">
-                    <img class="post-information-thumbnail-content" src="/images/temp/series-thumbnail.png">
-                    <!--자물쇠 모양 이미지-->
-                    <img class="bi bi-lock-fill" src="/images/temp/자물쇠.png"/>
-                    <div  class="post-information-lock"><p>200P</p></div>
-                    <!--19금 딱지 이미지-->
-                    <!--					<img class="post-information-adult" src="/images/common/logo_pentorial.svg"/>-->
-                    <div class="series-post-content-information">
-                        <div class="post-information-title">
-                            <p class="post-information-title-content">
-                                00화. 제목
-                            </p>
-                        </div>
-                        <div class="b">
-                            <button class="post-information-like">
-                                ♡ 222
-                            </button>
-                            <div class="post-information-log">
-                                <p class="post-information-log-title">
-                                <p class="post-information-log-content">조회 : 34회</p>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="series-post-update-delete">
-                        <button class="series-update-button btn">수정</button>
-                        <button class="series-delete-button btn">삭제</button>
-                    </div>
-
-                </div>
+<!--                </div>-->
 
 
 
-                <div class="post-information-thumbnail">
-                    <img class="post-information-thumbnail-content" src="/images/temp/series-thumbnail.png">
-                    <!--자물쇠 모양 이미지-->
-                    <img class="bi bi-lock-fill" src="/images/temp/자물쇠.png"/>
-                    <div  class="post-information-lock"><p>200P</p></div>
-                    <!--19금 딱지 이미지-->
-                    <!--					<img class="post-information-adult" src="/images/common/logo_pentorial.svg"/>-->
-                    <div class="series-post-content-information">
-                        <div class="post-information-title">
-                            <p class="post-information-title-content">
-                                00화. 제목
-                            </p>
-                        </div>
-                        <div class="b">
-                            <button class="post-information-like">
-                                ♡ 222
-                            </button>
-                            <div class="post-information-log">
-                                <p class="post-information-log-title">
-                                <p class="post-information-log-content">조회 : 34회</p>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+<!--                <div class="post-information-thumbnail">-->
+<!--                    <img class="post-information-thumbnail-content" src="/images/temp/series-thumbnail.png">-->
+<!--                    &lt;!&ndash;자물쇠 모양 이미지&ndash;&gt;-->
+<!--                    <img class="bi bi-lock-fill" src="/images/temp/자물쇠.png"/>-->
+<!--                    <div  class="post-information-lock"><p>200P</p></div>-->
+<!--                    &lt;!&ndash;19금 딱지 이미지&ndash;&gt;-->
+<!--                    &lt;!&ndash;					<img class="post-information-adult" src="/images/common/logo_pentorial.svg"/>&ndash;&gt;-->
+<!--                    <div class="series-post-content-information">-->
+<!--                        <div class="post-information-title">-->
+<!--                            <p class="post-information-title-content">-->
+<!--                                00화. 제목-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <div class="b">-->
+<!--                            <button class="post-information-like">-->
+<!--                                ♡ 222-->
+<!--                            </button>-->
+<!--                            <div class="post-information-log">-->
+<!--                                <p class="post-information-log-title">-->
+<!--                                <p class="post-information-log-content">조회 : 34회</p>-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
 
-                    <div class="series-post-update-delete">
-                        <button class="series-update-button btn">수정</button>
-                        <button class="series-delete-button btn">삭제</button>
-                    </div>
-                </div>
+<!--                    <div class="series-post-update-delete">-->
+<!--                        <button class="series-update-button btn">수정</button>-->
+<!--                        <button class="series-delete-button btn">삭제</button>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+
+
+
+<!--                <div class="post-information-thumbnail">-->
+<!--                    <img class="post-information-thumbnail-content" src="/images/temp/series-thumbnail.png">-->
+<!--                    &lt;!&ndash;자물쇠 모양 이미지&ndash;&gt;-->
+<!--                    <img class="bi bi-lock-fill" src="/images/temp/자물쇠.png"/>-->
+<!--                    <div  class="post-information-lock"><p>200P</p></div>-->
+<!--                    &lt;!&ndash;19금 딱지 이미지&ndash;&gt;-->
+<!--                    &lt;!&ndash;					<img class="post-information-adult" src="/images/common/logo_pentorial.svg"/>&ndash;&gt;-->
+<!--                    <div class="series-post-content-information">-->
+<!--                        <div class="post-information-title">-->
+<!--                            <p class="post-information-title-content">-->
+<!--                                00화. 제목-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <div class="b">-->
+<!--                            <button class="post-information-like">-->
+<!--                                ♡ 222-->
+<!--                            </button>-->
+<!--                            <div class="post-information-log">-->
+<!--                                <p class="post-information-log-title">-->
+<!--                                <p class="post-information-log-content">조회 : 34회</p>-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+<!--                    <div class="series-post-update-delete">-->
+<!--                        <button class="series-update-button btn">수정</button>-->
+<!--                        <button class="series-delete-button btn">삭제</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+            </div>
+
             </section>
         </div>
     </div>
@@ -277,6 +291,16 @@
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
     <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+<!--    <script>-->
+<!--        const deletebtn = document.querySelector(".series-delete-button ");-->
+<!--        deletebtn.addEventListener("click",()=>{-->
+<!--           if(confirm("삭제하면 내부의 포스트들도 모두 삭제 됩니다. 삭제하시겠습니까?")){-->
+<!--                alert("삭제가 진행 됩니다.");-->
+<!--           }else{-->
+<!--               alert("삭제를 취소 합니다.");-->
+<!--           }-->
+<!--        })-->
+<!--    </script>-->
 
 </th:block>
 </html>

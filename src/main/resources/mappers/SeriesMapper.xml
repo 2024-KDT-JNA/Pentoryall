@@ -19,7 +19,7 @@
         FROM
             series
         WHERE
-            title=#{series}
+            code=#{seriesno}
     </select>
 
 
@@ -58,7 +58,7 @@
     </select>
 
     <insert id="addSeriesOptions">
-        <selectKey keyProperty="code" order="AFTER" resultType="_long">
+        <selectKey keyProperty="code" order="BEFORE" resultType="_long">
             SELECT max(code) from series
         </selectKey>
         INSERT INTO
@@ -93,4 +93,71 @@
         WHERE
             code=#{code}
     </select>
+    <select id="selectGenreList"  resultType="com.pentoryall.series.dto.SeriesDTO">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
+        WHERE
+            code=#{code}
+    </select>
+    <select id="selectRecentSeriesCode">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
+        ORDER BY create_date DESC
+        LIMIT 1;
+    </select>
+    <update id="updateSeries">
+        UPDATE
+        series
+        SET
+            title=#{seriesDTO.title},
+            description = #{seriesDTO.description},
+            thumbnail_image = #{seriesDTO.thumbnailImage},
+            is_membership_only = #{seriesDTO.isMembershipOnly}
+        WHERE
+            code=#{code}
+    </update>
+    <delete id="deleteSeries">
+        DELETE
+        FROM
+            series
+        WHERE
+            code=#{code}
+    </delete>
+    <select id="selectSeriesList">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
+        WHERE
+            code != 1
+    </select>
+
 </mapper>

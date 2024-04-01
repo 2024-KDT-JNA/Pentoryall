@@ -5,6 +5,7 @@ import com.pentoryall.common.exception.user.MemberModifyException;
 import com.pentoryall.common.exception.user.MemberRegistException;
 import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.user.dto.UserDTO;
+import lombok.RequiredArgsConstructor;
 import com.pentoryall.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
