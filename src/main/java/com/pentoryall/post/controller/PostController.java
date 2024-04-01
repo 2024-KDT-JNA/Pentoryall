@@ -1,13 +1,6 @@
 package com.pentoryall.post.controller;
 
 import com.pentoryall.genre.dto.GenreDTO;
-//import com.pentoryall.genre.service.GenreService;
-//import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
-//import com.pentoryall.genre.service.GenreService;
-//import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
-
-//import com.pentoryall.genreOfArt.service.GenreOfArtService;
-
 import com.pentoryall.genre.service.GenreService;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.genreOfArt.service.GenreOfArtService;
@@ -35,6 +28,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/post")
 public class PostController {
+
     @Value("${image.image-dir}")
     private String IMAGE_DIR;
     private final SeriesService seriesService;
@@ -90,11 +84,11 @@ public class PostController {
         System.out.println(title);
         System.out.println("thumbnailImage = " + thumbnail);
         /*파일 가공 로직*/
-        if(!thumbnail.isEmpty() && thumbnail!=null) {
+        if (!thumbnail.isEmpty() && thumbnail != null) {
             String filePath = IMAGE_DIR + "post-thumbnail-images";
-            String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
-            String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
-            String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
+            String originFileName = thumbnail.getOriginalFilename();// 업로드 파일명
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));// 업로드 파일명에서 확장자 분리
+            String savedName = UUID.randomUUID() + ext;// 고유한 파일명 생성 + 확장자 추가
 
             String finalFilePath = filePath + "/" + savedName;
             File dir = new File(filePath);
@@ -129,13 +123,12 @@ public class PostController {
         postService.insertPost(postDTO);
         System.out.println("삽입 성공!!");
 
-        System.out.println("????????????"+genreOfArtDTO);
+        System.out.println("????????????" + genreOfArtDTO);
 
         System.out.println("genreCode!!!!!!!!!!!!!!! = " + genreCode);
 
 
-
-        for(int i = 0 ; i<genreCode.size();i++){
+        for (int i = 0; i < genreCode.size(); i++) {
             long code = genreCode.get(i);
             System.out.println(code);
             GenreDTO genreDTO = genreService.selectGenreTitle(code);
@@ -155,12 +148,10 @@ public class PostController {
         System.out.println("성공하셨스므니다.");
 
 
-
-
         System.out.println("postDTO = " + postDTO);
-//        session.setAttribute("code", postDTO.getCode());
+        //        session.setAttribute("code", postDTO.getCode());
 
-        String url = "redirect:/series/page?code="+seriesCode;
+        String url = "redirect:/series/page?code=" + seriesCode;
         return url;
     }
 
@@ -201,29 +192,30 @@ public class PostController {
     public String updatePostWriter(long code,
                                    HttpSession session,
                                    Model model
-                                   ){
+    ) {
         PostDTO postDTO = postService.getPostInformationByPostCode(code);
         System.out.println("postDTO$$$$$$$$$$ = " + postDTO);
-//        List<GenreOfArtDTO> genreList = genreOfArtService.findGenreBySeriesCode(postDTO.getSeriesCode());
-//        System.out.println("genreList ^^^^^^^^^^^= " + genreList);
-        model.addAttribute("post",postDTO);
-//        model.addAttribute("genreList",genreList);
+        //        List<GenreOfArtDTO> genreList = genreOfArtService.findGenreBySeriesCode(postDTO.getSeriesCode());
+        //        System.out.println("genreList ^^^^^^^^^^^= " + genreList);
+        model.addAttribute("post", postDTO);
+        //        model.addAttribute("genreList",genreList);
         return "/views/post/updatewriter";
     }
+
     @GetMapping("/update")
     public String updatePostOptions(long code,
-                                    Model model){
+                                    Model model) {
         System.out.println("code !!!!!!!= " + code);
         System.out.println("성공해써");
 
         PostDTO postDTO = postService.getPostInformationByPostCode(code);
         List<GenreOfArtDTO> genreOfArtDTO = genreOfArtService.selectGenreByPostCode(code);
 
-        System.out.println("장르코코 : "+genreOfArtDTO);
-        System.out.println("포스트코코 : "+postDTO);
+        System.out.println("장르코코 : " + genreOfArtDTO);
+        System.out.println("포스트코코 : " + postDTO);
 
-        model.addAttribute("post",postDTO);
-        model.addAttribute("genre",genreOfArtDTO);
+        model.addAttribute("post", postDTO);
+        model.addAttribute("genre", genreOfArtDTO);
         return "/views/post/update";
     }
 
@@ -234,7 +226,7 @@ public class PostController {
             @RequestParam(required = false) MultipartFile thumbnail,
             @RequestParam List<Long> genreCode,
             Model model
-    ){
+    ) {
         char isPublic = params.get("isOpen") != null ? params.get("isOpen").charAt(0) : 'N';
         char isPaid = params.get("isFee") != null ? params.get("isFee").charAt(0) : 'N';
         char isAdult = params.get("isPossible") != null ? params.get("isPossible").charAt(0) : 'N';
@@ -244,11 +236,11 @@ public class PostController {
         postDTO.setIsAdult(isAdult);
 
         /*파일 가공 로직*/
-        if(!thumbnail.isEmpty() && thumbnail!=null) {
+        if (!thumbnail.isEmpty() && thumbnail != null) {
             String filePath = IMAGE_DIR + "post-thumbnail-images";
-            String originFileName = thumbnail.getOriginalFilename();//업로드 파일명
-            String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
-            String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
+            String originFileName = thumbnail.getOriginalFilename();// 업로드 파일명
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));// 업로드 파일명에서 확장자 분리
+            String savedName = UUID.randomUUID() + ext;// 고유한 파일명 생성 + 확장자 추가
 
             String finalFilePath = filePath + "/" + savedName;
             File dir = new File(filePath);
@@ -277,7 +269,7 @@ public class PostController {
 
         genreOfArtService.deleteSeriesGenreByPostCode(postDTO.getCode());
         System.out.println("삭제 성공!!!");
-        for(int i = 0 ; i<genreCode.size();i++) {
+        for (int i = 0; i < genreCode.size(); i++) {
             genreOfArtDTO.setGenreCode(genreCode.get(i));
             genreOfArtService.insertGenreForDTO(genreOfArtDTO);
         }
@@ -290,14 +282,14 @@ public class PostController {
 
         long seriesCode = postDTO.getSeriesCode();
 
-        String url = "redirect:/series/page?code="+seriesCode;
+        String url = "redirect:/series/page?code=" + seriesCode;
         return url;
     }
 
     @GetMapping("/delete")
     public String deletePost(@RequestParam long code,
-                             RedirectAttributes rttr){
-        rttr.addFlashAttribute("message",messageSourceAccessor.getMessage("post.delete"));
+                             RedirectAttributes rttr) {
+        rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("post.delete"));
         PostDTO postDTO = postService.getPostInformationByPostCode(code);
 
         long seriesCode = postDTO.getSeriesCode();
@@ -307,27 +299,7 @@ public class PostController {
 
         postService.deletePostByPostCode(code);
         System.out.println("포스트가 삭제 되었습니다.");
-        String url = "redirect:/series/page?code="+seriesCode;
+        String url = "redirect:/series/page?code=" + seriesCode;
         return url;
     }
-
-    @GetMapping("/delete")
-    public String deletePost(@RequestParam long code,
-                             RedirectAttributes rttr){
-        rttr.addFlashAttribute("message",messageSourceAccessor.getMessage("post.delete"));
-        PostDTO postDTO = postService.getPostInformationByPostCode(code);
-
-        long seriesCode = postDTO.getSeriesCode();
-
-        genreOfArtService.deleteSeriesGenreByPostCode(code);
-        System.out.println("장르에 포함된 포스트가 삭제 되었습니다.");
-
-        postService.deletePostByPostCode(code);
-        System.out.println("포스트가 삭제 되었습니다.");
-        String url = "redirect:/series/page?code="+seriesCode;
-        return url;
-    }
-
-
-
 }

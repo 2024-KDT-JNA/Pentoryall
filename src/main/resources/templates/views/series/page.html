@@ -71,8 +71,8 @@
                         </div>
 
                         <div class="series-update-delete">
-                            <button class="series-update-button btn" th:onclick="'location.href = \'' + @{/series/update(code=${series.code})} + '\''">수정</button>
-                            <button class="series-delete-button btn" th:onclick="'location.href = \'' + @{/series/delete(code=${series.code})} + '\''">삭제</button>
+                            <button class="series-update-button btn" th:onclick="|location.href='@{/series/update(code=${series.code})}'|">수정</button>
+                            <button class="series-delete-button btn" th:onclick="|location.href='@{/series/delete(code=${series.code})}'|">삭제</button>
 
                         </div>
                     </div>
