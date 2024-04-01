@@ -72,11 +72,16 @@
             is_adult=#{isAdult},
             is_public=#{isPublic}
         WHERE
-            code=#{postDTO.code}
+            code=#{code}
     </update>
     <delete id="deletePostByPostCode">
         DELETE
         FROM post
         WHERE code = #{code}
+    </delete>
+    <delete id="deleteSeriesBySeriesCode">
+        DELETE
+        FROM post
+        WHERE series_code = #{code}
     </delete>
 </mapper>

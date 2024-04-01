@@ -42,4 +42,8 @@ public class SeriesService {
     public void updateSeries(SeriesDTO seriesDTO,long code) {
         seriesMapper.updateSeries(seriesDTO,code);
     }
+
+    public void deleteSeries(long code) {
+        seriesMapper.deleteSeries(code);
+    }
 }

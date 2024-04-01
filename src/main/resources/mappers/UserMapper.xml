@@ -2,10 +2,34 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<!-- namespace 형식 올바르게 수정 후 사용하세요. -->
 <mapper namespace="com.pentoryall.user.mapper.UserMapper">
     <select id="getUserInformationByUserCode" resultType="com.pentoryall.user.dto.UserDTO">
+        SELECT
+            code,
+            email,
+            user_id,
+            password,
+            nickname,
+            name,
+            birth,
+            profile_image,
+            introduction,
+            revenue,
+            point,
+            role,
+            state,
+            is_certificated,
+            is_subscriber_visible,
+            create_date,
+            update_date,
+            delete_date,
+            suspension_end_date
+        FROM
+            user
+        WHERE
+            code=#{userCode}
+    </select>
+    <select id="findByUserId" resultType="com.pentoryall.user.dto.UserDTO">
         SELECT code,
                email,
                user_id,
@@ -25,13 +49,61 @@
                update_date,
                delete_date,
                suspension_end_date
-          FROM user
-         WHERE code = #{userCode}
+        FROM user
+        WHERE state = 'ACTIVE'
+          AND user_id = #{ userId }
     </select>
 
-    <update id="updatePointByUserCode">
-        UPDATE user
-           SET point = #{ point }
-         WHERE code = #{ code }
+    <select id="selectUserById" resultType="string">
+        SELECT user_id
+        FROM user
+        WHERE state = 'ACTIVE'
+          AND user_id = #{ userId }
+    </select>
+
+    <insert id="insertUser">
+        INSERT INTO user (user_id, password, name, nickname, email, birth)
+        VALUES (#{ userId }, #{ password }, #{ name }, #{ nickname }, #{ email }, #{ birth })
+    </insert>
+
+    <!--    <select id="selectEncryptedPwd" resultType="string">-->
+    <!--        SELECT member_pwd-->
+    <!--        FROM tbl_member-->
+    <!--        WHERE member_status = 'Y'-->
+    <!--          AND member_id = #{ memberId }-->
+    <!--    </select>-->
+
+    <!--    <select id="selectUser" resultType="com.pentoryall.user.dto.UserDTO">-->
+    <!--        SELECT member_no,-->
+    <!--               member_id,-->
+    <!--               nickname,-->
+    <!--               phone,-->
+    <!--               email,-->
+    <!--               address,-->
+    <!--               enroll_date,-->
+    <!--               member_role,-->
+    <!--               member_status-->
+    <!--        FROM tbl_member-->
+    <!--        WHERE member_status = 'Y'-->
+    <!--          AND member_id = #{ memberId }-->
+    <!--    </select>-->
+
+    <update id="updateUser">
+        UPDATE
+            user
+        SET nickname     = #{ nickname },
+            introduction = #{ introduction },
+            password     = #{ password }
+        WHERE state = 'ACTIVE'
+          AND user_id = #{userId}
     </update>
+
+    <update id="deleteUser">
+        UPDATE
+            user
+        SET state = 'WITHDRAWN'
+        WHERE state = 'ACTIVE'
+          AND user_id = #{userId}
+    </update>
+
 </mapper>

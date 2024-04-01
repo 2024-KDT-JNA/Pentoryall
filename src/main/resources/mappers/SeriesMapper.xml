@@ -136,4 +136,11 @@
         WHERE
             code=#{code}
     </update>
+    <delete id="deleteSeries">
+        DELETE
+        FROM
+            series
+        WHERE
+            code=#{code}
+    </delete>
 </mapper>

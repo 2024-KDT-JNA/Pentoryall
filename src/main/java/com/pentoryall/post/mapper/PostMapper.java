@@ -21,4 +21,6 @@ public interface PostMapper {
     void updatePostService(PostDTO postDTO);
 
     void deletePostByPostCode(long code);
+
+    void deleteSeriesBySeriesCode(long code);
 }

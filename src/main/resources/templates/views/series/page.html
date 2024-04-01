@@ -14,9 +14,13 @@
     <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
 </th:block>
 <script>
+    function start(){
     const message = '[[${message}]]';
-    message && alert(message);
+    console.log(message);
+    message && alert(message);}
+    window.addEventListener("load",start)
 </script>
+
 
 <th:block layout:fragment="content">
     <div class="sub-content">
@@ -68,7 +72,7 @@
 
                         <div class="series-update-delete">
                             <button class="series-update-button btn" th:onclick="'location.href = \'' + @{/series/update(code=${series.code})} + '\''">수정</button>
-                            <button class="series-delete-button btn">삭제</button>
+                            <button class="series-delete-button btn" th:onclick="'location.href = \'' + @{/series/delete(code=${series.code})} + '\''">삭제</button>
 
                         </div>
                     </div>
@@ -287,6 +291,15 @@
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
     <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
-
+    <script>
+        const deletebtn = document.querySelector(".series-delete-button ");
+        deletebtn.addEventListener("click",()=>{
+           if(confirm("삭제하면 내부의 포스트들도 모두 삭제 됩니다. 삭제하시겠습니까?")){
+                alert("삭제가 진행 됩니다.");
+           }else{
+               alert("삭제를 취소 합니다.");
+           }
+        })
+    </script>
 </th:block>
 </html>

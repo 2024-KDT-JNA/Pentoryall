@@ -173,8 +173,8 @@
                         </div>
 
                         <div class="form-item">
-                            <button class="submit" id="okbtn2" onclick="saveSeries()">확인</button>
-                            <button onclick="location.href='/index'">취소</button>
+                            <button class="submit button" id="okbtn2" onclick="saveSeries()">확인</button>
+                            <button class="button" onclick="location.href='/index'">취소</button>
                         </div>
                     </div>
                 </form>
@@ -188,15 +188,6 @@
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
     <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
     <script>
-        const $okbtn = document.getElementById("okbtn2");
-        $okbtn.addEventListener("mouseover",()=>{
-            document.querySelectorAll(".box-order-amount .form-check-input").forEach(el => {
-                if(el.checked) {
-                    console.log(el.value)
-                }
-            })
-        })
-
         /*썸네일 파일 결정 시 이미지 태그에 같은 이미지 뜨는 효과*/
         function viewURL() {
             const $imageFile = document.querySelector("#fileUpload");
