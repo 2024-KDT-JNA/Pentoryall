@@ -12,8 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -53,7 +51,8 @@ public class UserService {
     }
 
     public void modifyUser(UserDTO modifyUser) throws MemberModifyException {
-        // 비밀번호 인코딩
+        System.out.println(modifyUser);
+        // 비밀번호 인코딩(암호화)
         String encodedPassword = passwordEncoder.encode(modifyUser.getPassword());
         modifyUser.setPassword(encodedPassword);
         int result = userMapper.updateUser(modifyUser);
@@ -61,13 +60,25 @@ public class UserService {
         if (!(result > 0)) throw new MemberModifyException("회원 정보 수정에 실패하였습니다.");
     }
 
-//    public String getUserPassword(String userId) {
-//        // userId를 기반으로 데이터베이스에서 해당 사용자의 정보를 조회합니다.
+    public String getPwd(long code) {
+
+        String pwd = userMapper.getPwd(code);
+
+        return pwd;
+    }
+
+//    public boolean isPasswordCorrect(String userId, String enteredPassword) {
+//        // 사용자 정보를 DB에서 가져옵니다.
 //        User user = userRepository.findByUserId(userId);
-//        // 조회된 사용자가 없거나 비밀번호가 null인 경우 null을 반환합니다.
+//
 //        if (user == null) {
-//            return null;
+//            return false; // 사용자가 존재하지 않으면 비밀번호 일치 여부를 false로 반환합니다.
 //        }
-//        return user.getPassword();
+//
+//        // DB에서 가져온 사용자의 비밀번호를 가져옵니다.
+//        String storedPassword = user.getPassword();
+//
+//        // 입력된 비밀번호와 DB에서 가져온 비밀번호를 비교하여 일치 여부를 확인합니다.
+//        return passwordEncoder.matches(enteredPassword, storedPassword);
 //    }
 }

@@ -20,17 +20,20 @@
             <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
             <section class="section">
                 <div class="my_profile_info">
-                    <form action="/user/update" method="post">
+                    <form action="/user/update" method="post" enctype="multipart/form-data">
                         <div class="my_profile_top">
                             <div class="left">
                                 <div class="img">
-                                    <img src="" alt=""/>
+                                    <img id="image-box" th:src="${#authentication.principal.profileImage != null
+                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
                                 </div>
-                                <div class="gray_btns btns">
-                                    <button class="btn" type="button">이미지 업로드</button>
-                                </div>
-                                <div class="gray_btns btns">
-                                    <button class="btn" type="button">이미지 제거</button>
+                                <div class="file_box">
+                                    <input id="image-file-box" type="file" value="이미지 업로드" name="profile"
+                                           onchange="viewURL()"/>
+                                    <label for="image-file-box" class="upload_btn">이미지 업로드</label>
+                                    <div class="gray_btns btns">
+                                        <button class="btn" type="button" onclick="fileCancled()">이미지 제거</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="right">
@@ -109,6 +112,27 @@
     <script th:src="@{/js/common.js}" src="/js/common.js"></script>
     <script th:src="@{/js/event.js}" src="/js/event.js"></script>
     <script th:src="@{/js/user.js}" src="/js/user.js"></script>
-    -->
+    <script>
+        function viewURL() {
+            const $imageFile = document.querySelector("#image-file-box");
+            const fReader = new FileReader();
+            fReader.readAsDataURL($imageFile.files[0]);
+            fReader.onload = function (event) {
+                const img = document.querySelector("#image-box");
+                img.src = event.target.result;
+                console.log("path : ", event.target.result);
+            }
+        }
+
+        function fileCancled() {
+            const $fileImg = document.querySelector("#image-box");
+            const $imageFileBox = document.querySelector("#image-file-box");
+
+            $fileImg.src = "/images/temp/profile.png";
+            $imageFileBox.value = "";
+
+        }
+    </script>
+
 </th:block>
 </html>

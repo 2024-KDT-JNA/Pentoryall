@@ -17,17 +17,18 @@
                 </form>
             </div>
             <th:block sec:authorize="hasRole('ROLE_USER')">
-                <button type="button" class="alert-btn">
-                    <span class="blind">알림</span>
-                    <i class="bi bi-bell"></i>
-                    <span class="alert-dot">
-                        <span class="blind">새로운 알림</span>
-                    </span>
-                </button>
-                <div class="profile-image">
-                    <button type="button" class="profile-btn" sec:authorize="isAuthenticated()">
-                        <img src="/images/temp/profile.png" alt="프로필" />
-                    </button>
+            <button type="button" class="alert-btn">
+                <span class="blind">알림</span>
+                <i class="bi bi-bell"></i>
+                <span class="alert-dot">
+                    <span class="blind">새로운 알림</span>
+                </span>
+            </button>
+
+            <button type="button" class="profile-btn" sec:authorize="isAuthenticated()">
+                <div class="profile-image" sec:authorize="hasRole('ROLE_USER')">
+                    <img th:src="${#authentication.principal.profileImage != null
+                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
                 </div>
             </th:block>
 
@@ -58,7 +59,8 @@
             <div class="aside-header">
                 <div class="user-profile">
                     <div class="profile-image">
-                        <img src="/images/temp/profile.png" alt="유저 프로필" />
+                        <img th:src="${#authentication.principal.profileImage != null
+                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
                     </div>
                     <div class="profile-info">
                         <span class="nickname" sec:authentication="principal.nickname">닉네임</span>

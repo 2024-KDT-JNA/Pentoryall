@@ -112,31 +112,31 @@ window.onload = function () {
         //     }
         // }
 
-        if (document.getElementById("deleteUser")) {
-            const $deleteUser = document.getElementById("deleteUser");
-            $deleteUser.onclick = function () {
-                if (confirm('정말 탈퇴하시겠습니까?')) {
-                    fetch("/user/delete", {
-                        method: "POST"
-                    })
-                        .then(response => {
-                            if (response.ok) {
-                                // 성공적으로 탈퇴가 처리된 경우
-                                alert("탈퇴가 처리되었습니다.");
-                                location.href = "/"; // 메인 페이지로 리다이렉트
-                            } else {
-                                // 탈퇴 처리에 실패한 경우
-                                alert("탈퇴 처리에 실패했습니다.");
-                            }
-                        })
-                        .catch(error => {
-                            // 네트워크 오류 등의 이유로 요청이 실패한 경우
-                            console.error("Error:", error);
-                            alert("탈퇴 처리에 실패했습니다.");
-                        });
-                }
-            };
-        }
+        // if (document.getElementById("deleteUser")) {
+        //     const $deleteUser = document.getElementById("deleteUser");
+        //     $deleteUser.onclick = function () {
+        //         if (confirm('정말 탈퇴하시겠습니까?')) {
+        //             fetch("/user/delete", {
+        //                 method: "POST"
+        //             })
+        //                 .then(response => {
+        //                     if (response.ok) {
+        //                         // 성공적으로 탈퇴가 처리된 경우
+        //                         alert("탈퇴가 처리되었습니다.");
+        //                         location.href = "/"; // 메인 페이지로 리다이렉트
+        //                     } else {
+        //                         // 탈퇴 처리에 실패한 경우
+        //                         alert("탈퇴 처리에 실패했습니다.");
+        //                     }
+        //                 })
+        //                 .catch(error => {
+        //                     // 네트워크 오류 등의 이유로 요청이 실패한 경우
+        //                     console.error("Error:", error);
+        //                     alert("탈퇴 처리에 실패했습니다.");
+        //                 });
+        //         }
+        //     };
+        // }
 
         // if (document.getElementById("writeBoard")) {
         //     const $writeBoard = document.getElementById("writeBoard");
