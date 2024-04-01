@@ -1,4 +1,4 @@
-package com.pentoryall.order.dto;
+package com.pentoryall.point.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,9 +15,4 @@ public class PaymentDTO {
     Long orderCode;
     String impUid;
     LocalDateTime createDate;
-
-    public PaymentDTO(PaymentRequestDTO orderPayment) {
-        this.impUid = orderPayment.getImpUid();
-        this.createDate = orderPayment.getPaidAt();
-    }
 }
