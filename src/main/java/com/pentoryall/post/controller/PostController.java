@@ -302,23 +302,4 @@ public class PostController {
         String url = "redirect:/series/page?code=" + seriesCode;
         return url;
     }
-
-    @GetMapping("/delete")
-    public String deletePost(long code,
-                             RedirectAttributes rttr) {
-        rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("post.delete"));
-        PostDTO postDTO = postService.getPostInformationByPostCode(code);
-
-        long seriesCode = postDTO.getSeriesCode();
-
-        genreOfArtService.deleteSeriesGenreByPostCode(code);
-        System.out.println("장르에 포함된 포스트가 삭제 되었습니다.");
-
-        postService.deletePostByPostCode(code);
-        System.out.println("포스트가 삭제 되었습니다.");
-        String url = "redirect:/series/page?code=" + seriesCode;
-        return url;
-    }
-
-
 }
