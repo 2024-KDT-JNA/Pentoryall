@@ -1,130 +1,119 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:sec="">
 
 <th:block th:fragment="setting-aside">
     <aside id="sidebar" class="settings-aside">
         <h2 class="blind">설정 사이드 메뉴</h2>
 
-        <nav class="settings-nav">
-            <ul>
-                <li>
-                    <a th:href="@{/user/update}">
-                        <i class="bi bi-person"></i>
-                        <!--                         <i class="bi bi-person-gear"></i> -->
-                        <!--                         <i class="bi bi-person-lock"></i> -->
-                        <span>계정 관리</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{#}">
-                        <!--                         <i class="bi bi-pencil-square"></i> -->
-                        <i class="bi bi-marker-tip"></i>
-                        <!--                         <i class="bi bi-vector-pen"></i> -->
-                        <!--                         <i class="bi bi-blockquote-right"></i> -->
+        <th:block sec:authorize="hasRole('ROLE_USER')">
+            <!-- 일반 회원 -->
+            <!-- [스토리 > 설정] 사이드 메뉴 -->
+            <nav class="settings-nav">
+                <ul class="nav-depth1">
+                    <li class="depth1-li on">
+                        <button class="depth1-btn">
+                            <i class="bi bi-person"></i>
+                            <span class="depth1-text">계정</span>
+                        </button>
+                        <ul class="nav-depth2">
+                            <li class="depth2-li">
+                                <button class="depth2-text">회원 정보</button>
+                            </li>
+                            <li class="depth2-li">
+                                <button class="depth2-text">계좌 정보</button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="depth1-li">
+                        <button class="depth1-btn">
+                            <i class="bi bi-pencil"></i>
+                            <span class="depth1-text">포스트</span>
+                        </button>
+                    </li>
+                    <li class="depth1-li">
+                        <button class="depth1-btn">
+                            <i class="bi bi-calculator"></i>
+                            <span class="depth1-text">수익/정산</span>
+                        </button>
+                        <ul class="nav-depth2">
+                            <li class="depth2-li">
+                                <button class="depth2-text">수익 내역</button>
+                            </li>
+                            <li class="depth2-li">
+                                <button class="depth2-text">정산 요청</button>
+                            </li>
+                            <li class="depth2-li">
+                                <button class="depth2-text">정산 내역</button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="depth1-li">
+                        <button class="depth1-btn">
+                            <i class="bi bi-emoji-smile"></i>
+                            <span class="depth1-text">멤버십</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </th:block>
 
-                        <span>포스트 관리</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{#}">
-                        <!--                         <i class="bi bi-pencil-square"></i> -->
-                        <i class="bi bi-pencil"></i>
-                        <!--                         <i class="bi bi-vector-pen"></i> -->
-                        <!--                         <i class="bi bi-blockquote-right"></i> -->
-
-                        <span>포스트 관리</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{#}">
-                        <i class="bi bi-calculator"></i>
-                        <span>정산 관리</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{#}">
-                        <i class="bi bi-coin"></i>
-                        <span>정산 관리</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{#}">
-                        <i class="bi bi-cash"></i>
-                        <span>정산 관리</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{#}">
-                        <i class="bi bi-cash-stack"></i>
-                        <span>정산 관리</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{#}">
-                        <i class="bi bi-calculator"></i>
-                        <span>정산 관리</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{#}">
-                        <i class="bi bi-emoji-smile"></i>
-                        <span>멤버십 관리</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{#}">
-                        <i class="bi bi-ticket"></i>
-                        <span>멤버십 관리</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{#}">
-                        <i class="bi bi-hearts"></i>
-                        <span>멤버십 관리</span>
-                    </a>
-
-            </ul>
-        </nav>
-
-        <!--         <nav class="admin-nav"> -->
-        <!--             <ul> -->
-        <!--                 <li> -->
-        <!--                     <a th:href="@{/user/update}"> -->
-        <!--                         <i class="bi bi-person"></i> -->
-        <!--                         &lt;!&ndash;                         <i class="bi bi-person-gear"></i> &ndash;&gt; -->
-        <!--                         &lt;!&ndash;                         <i class="bi bi-person-lock"></i> &ndash;&gt; -->
-        <!--                         <span>계정 관리</span> -->
-        <!--                     </a> -->
-        <!--                 </li> -->
-        <!--                 <li> -->
-        <!--                     <a th:href="@{#}"> -->
-        <!--                         &lt;!&ndash;                         <i class="bi bi-pencil-square"></i> &ndash;&gt; -->
-        <!--                         <i class="bi bi-pencil"></i> -->
-        <!--                         &lt;!&ndash;                         <i class="bi bi-vector-pen"></i> &ndash;&gt; -->
-        <!--                         &lt;!&ndash;                         <i class="bi bi-blockquote-right"></i> &ndash;&gt; -->
-
-        <!--                         <span>포스트 관리</span> -->
-        <!--                     </a> -->
-        <!--                 </li> -->
-        <!--                 <li> -->
-        <!--                     <a th:href="@{#}"> -->
-        <!--                         &lt;!&ndash;                         <i class="bi bi-percent"></i> &ndash;&gt; -->
-        <!--                         <i class="bi bi-coin"></i> -->
-        <!--                         &lt;!&ndash;                         <i class="bi bi-bank"></i> &ndash;&gt; -->
-        <!--                         <span>정산 관리</span> -->
-        <!--                     </a> -->
-        <!--                 </li> -->
-        <!--                 <li> -->
-        <!--                     <a th:href="@{#}"> -->
-        <!--                         <i class="bi bi-emoji-smile"></i> -->
-        <!--                         <i class="bi bi-ticket"></i> -->
-
-        <!--                         <span>멤버십 관리</span> -->
-        <!--                     </a> -->
-        <!--                 </li> -->
-        <!--             </ul> -->
-        <!--         </nav> -->
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <!-- 관리자 회원 -->
+            <!-- [관리자 페이지] 사이드 메뉴 -->
+            <nav class="settings-nav">
+                <ul class="nav-depth1">
+                    <li class="depth1-li on">
+                        <button class="depth1-btn">
+                            <i class="bi bi-person-fill"></i>
+                            <span class="depth1-text">회원 관리</span>
+                        </button>
+                    </li>
+                    <li class="depth1-li">
+                        <button class="depth1-btn">
+                            <i class="bi bi-collection-fill"></i>
+                            <span class="depth1-text">장르 관리</span>
+                        </button>
+                    </li>
+                    <li class="depth1-li">
+                        <button class="depth1-btn">
+                            <i class="bi bi-cone-striped"></i>
+                            <span class="depth1-text">신고 관리</span>
+                        </button>
+                        <ul class="nav-depth2">
+                            <li class="depth2-li">
+                                <button class="depth2-text">댓글 신고</button>
+                            </li>
+                            <li class="depth2-li">
+                                <button class="depth2-text">포스트 신고</button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="depth1-li">
+                        <button class="depth1-btn">
+                            <i class="bi bi-pencil-fill"></i>
+                            <span class="depth1-text">포스트 관리</span>
+                        </button>
+                        <ul class="nav-depth2">
+                            <li class="depth2-li">
+                                <button class="depth2-text">포스트 관리</button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="depth1-li">
+                        <button class="depth1-btn">
+                            <i class="bi bi-calculator-fill"></i>
+                            <span class="depth1-text">정산 관리</span>
+                        </button>
+                        <ul class="nav-depth2">
+                            <li class="depth2-li">
+                                <button class="depth2-text">정산 요청 조회</button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </th:block>
     </aside>
 </th:block>
 <script src="/js/event.js"></script>
