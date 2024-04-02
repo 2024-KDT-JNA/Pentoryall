@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
-@RequestMapping("/user/settlement")
+@RequestMapping("/settings/user/settlement")
 @RequiredArgsConstructor
 public class UserSettlementController {
 
