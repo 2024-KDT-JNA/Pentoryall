@@ -17,4 +17,7 @@ public interface CommentReportMapper {
 
     int restoreUserState(long userCode, String state);
 
+    boolean isUserReported(String userCode);
+
+    void deleteUserReports(String userCode);
 }

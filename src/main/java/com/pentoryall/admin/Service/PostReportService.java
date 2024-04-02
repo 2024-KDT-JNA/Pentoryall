@@ -43,4 +43,11 @@ public class PostReportService {
 
         return postListAndPaging;
     }
+
+
+    public int deleteByPostCode(long postCode, String isDeleted) {
+
+        System.out.println("서비스 postCode : " + postCode);
+        return postReportMapper.deleteByPostCode(postCode, isDeleted);
+    }
 }

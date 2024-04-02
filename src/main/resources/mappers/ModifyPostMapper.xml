@@ -4,6 +4,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pentoryall.admin.mapper.ModifyPostMapper">
+    <select id="selectAllModifyList" resultType="com.pentoryall.post.dto.PostDTO">
+        SELECT
+            code,
+            user_code,
+            title,
+            confirm_content,
+            price,
+            create_date
+        FROM
+            post
+        WHERE
+            confirm_content IS NOT NULL;
+    </select>
+
+    <select id="selectTotalCount" resultType="_int">
+        SELECT
+            COUNT(*)
+        FROM
+            report
+    </select>
+    
+    <select id="modifyByPostCode">
+        SELECT
+            code,
+            user_code,
+            title,
+            confirm_content,
+            price,
+            create_date
+        FROM post
+        WHERE code = #{postCode}
+    </select>
+
 
 </mapper>
 

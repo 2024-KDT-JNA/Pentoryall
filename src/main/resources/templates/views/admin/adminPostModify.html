@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
-    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+   <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css" />
 </th:block>
 
 <th:block layout:fragment="content">
@@ -36,55 +36,24 @@
                         <th class="tg-0lax">아이디</th>
                         <th class="tg-0lax">닉네임</th>
                         <th class="tg-0lax">수정요청사유</th>
-                        <th class="tg-0lax">수정요청일자</th>
                         <th class="tg-0lax">포스트가격</th>
+                        <th class="tg-0lax">수정요청일자</th>
+                        <th class="tg-0lax">수정관리</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th>
+                    <tr th:each="modifyPostAllList : ${modifyPostAllList}">
+                        <td>
                             <input type="checkbox" id="checkAll-modify-2" name="" class="form-check-input" />
-                        </th>
-                        <td class="tg-0lax">1</td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <input type="checkbox" id="checkAll-modify-3" name="" class="form-check-input" />
-                        </th>
-                        <td class="tg-0lax">2</td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <input type="checkbox" id="checkAll-modify-4" name="" class="form-check-input" />
-                        </th>
-                        <td class="tg-0lax">3</td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <input type="checkbox" id="checkAll-modify-5" name="" class="form-check-input" />
-                        </th>
-                        <td class="tg-0lax">4</td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                    </tr>
+                        </td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.code}" class="tg-0lax">1</td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.userCode}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.title}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.confirmContent}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.price}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.createDate}" class="tg-0lax"></td>
+<!--                        <td><button type="button" class="button btn-modify" th:attr="data-user=${modifyPostAllList.postCode}">수락</button></td>-->
+<!--                    </tr>-->
                     </tbody>
                 </table>
                 <div class="page">
@@ -104,7 +73,7 @@
             <!-- ------------------------------------ -->
             <!-- Pop-Up -->
             <div>
-                <div class="popUpWrap">
+                <div class="popUpWrap" style="display: none">
                     <div class="popUp_bg">
                         <div class="popUp_info">
                             <h3 class="h3">수정 정보</h3>
@@ -145,7 +114,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="popUpWrap">
+                <div class="popUpWrap" style="display: none">
                     <div class="popUp_bg">
                         <div class="popUp_info">
                             <h3 class="h3">안내창</h3>
