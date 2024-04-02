@@ -14,4 +14,6 @@ public interface SubscribeMapper {
 //    void cancelSubscription(SubscriptionCode subscriptionCode);
 
     List<SubscribeDTO> getAllSubscribers(long code);
+
+
 }

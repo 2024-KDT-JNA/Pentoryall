@@ -47,6 +47,8 @@ public class SubscribeController {
             if (subscribersList.isEmpty()) {
                 return "/views/subscribe/noSubscriberList";
             } else {
+                int subscriberCount = subscribeService.getSubscriberCount(user.getCode());
+                model.addAttribute("subscriberCount", subscriberCount);
                 model.addAttribute("subscribers", subscribersList);
             }return "/views/subscribe/subscriberList";
         }
