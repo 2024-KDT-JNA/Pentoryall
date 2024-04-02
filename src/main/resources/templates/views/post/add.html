@@ -19,7 +19,7 @@
                 <h2 class="h2">포스트 등록하기</h2>
 
                 <div class="form-item">
-                    <form class="postAdd" action="/post/add" method="post" id="postAdd" enctype="multipart/form-data" onsubmit="return check_form()">
+                    <form name="postForm" class="postAdd" action="/post/add" method="post" id="postAdd" enctype="multipart/form-data" onsubmit="return check_form()">
                         <h4 class="h4"><label class="label">제목*</label></h4>
 
 
@@ -410,6 +410,11 @@
 
             $fileImg.src="/images/temp/thumbnail.png";
             $imageFileBox.value = "";
+
+            // const postForm = document.forms.postForm;
+            // console.log(postForm);
+            // /* 제거했을때 넘어오는 코드 */
+            // postForm.insertAdjacentHTML("beforeend", <input type="hidden" name="profileDelete" value="true"/>);
         }
 
 

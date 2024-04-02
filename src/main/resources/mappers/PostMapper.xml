@@ -84,5 +84,68 @@
         FROM post
         WHERE series_code = #{code}
     </delete>
-
+<select id="selectPostList">
+    SELECT
+        code,
+        series_code,
+        user_code,
+        title,
+        content,
+        confirm_content,
+        thumbnail_image,
+        views,
+        price,
+        is_paid,
+        is_adult,
+        is_public,
+        is_deleted,
+        create_date,
+        update_date
+    FROM
+        post
+</select>
+    <select id="getSeriesListByWord">
+        SELECT
+            code,
+            series_code,
+            user_code,
+            title,
+            content,
+            confirm_content,
+            thumbnail_image,
+            views,
+            price,
+            is_paid,
+            is_adult,
+            is_public,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            post
+        WHERE
+            title LIKE CONCAT('%', #{word}, '%')
+    </select>
+    <select id="selectPostByUserCode">
+        SELECT
+            code,
+            series_code,
+            user_code,
+            title,
+            content,
+            confirm_content,
+            thumbnail_image,
+            views,
+            price,
+            is_paid,
+            is_adult,
+            is_public,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            post
+        WHERE
+            user_code=#{userCode}
+    </select>
 </mapper>

@@ -34,7 +34,7 @@
                         <div class="contents-wrap">
                             <div class="upload-thumbnail">
                                 <input name="content"  type="text" th:value="${session.contents}" th:placeholder="${session.contents}"  hidden required="false"/>
-                                <input name="code" th:value="${post.code}"/>
+                                <input name="code" th:value="${post.code}" hidden/>
                             </div>
                         </div>
 
@@ -43,7 +43,8 @@
 
                         <div class="thumbnail-file-wrap">
                             <div class="upload-thumbnail">
-                                <img id="image-box" class="series-add-thumbnail" th:src="${post.thumbnailImage}" alt="thumbnail" onerror="this.src='./images/temp/thumbnail.png'"/>
+                                <img id="image-box" class="series-add-thumbnail" th:src="${post.thumbnailImage != null
+                        ? post.thumbnailImage : '/images/temp/profile.png'}" alt="thumbnail" />
                             </div>
                             <div class="form__input--file_wrap">
                                 <div class="fileBox">

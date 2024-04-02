@@ -10,7 +10,22 @@ public interface MembershipMapper {
 
     void createMembership(MembershipDTO membershipDTO);
 
-    List<MembershipDTO> getAllMemberships();
+    MembershipDTO selectMembershipByUserCode(long userCode);
+
+    void modifyMembership(MembershipDTO membershipDTO);
+
+
+    void updateIsDeleted(long code, char Y);
+
 }
 
-
+//
+//
+//    void updateIsDeleted(long code);
+//
+//    void updateMembership(MembershipDTO membershipDTO);
+//
+//    MembershipDTO getMembershipByCode(long code);
+//
+//    MembershipDTO selectMembershipByUserCode(long code);
+//}

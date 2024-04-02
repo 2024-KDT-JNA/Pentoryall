@@ -8,6 +8,8 @@ import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
+import com.pentoryall.user.dto.UserDTO;
+import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -32,13 +34,15 @@ public class SeriesController {
     private final GenreService genreService;
     private final PostService postService;
     private final MessageSourceAccessor messageSourceAccessor;
+    private final UserService userService;
 
-    public SeriesController(SeriesService seriesService, GenreOfArtService genreOfArtService, GenreService genreService, PostService postService, MessageSourceAccessor messageSourceAccessor) {
+    public SeriesController(SeriesService seriesService, GenreOfArtService genreOfArtService, GenreService genreService, PostService postService, MessageSourceAccessor messageSourceAccessor, UserService userService) {
         this.seriesService = seriesService;
         this.genreOfArtService = genreOfArtService;
         this.genreService = genreService;
         this.postService = postService;
         this.messageSourceAccessor = messageSourceAccessor;
+        this.userService = userService;
     }
 
     @GetMapping("/add")
@@ -74,6 +78,7 @@ public class SeriesController {
             @RequestParam(required = false) MultipartFile thumbnail,
             @ModelAttribute("series") SeriesDTO seriesDTO,
             @RequestParam List<Long> genreCode,
+
             GenreOfArtDTO genreOfArtDTO,
             Model model
     ) {
@@ -139,6 +144,7 @@ public class SeriesController {
     @GetMapping("/update")
     public String updateSeries(@RequestParam long code,
                                Model model,
+
                                HttpSession session) {
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(code);
         System.out.println("seriesDTO = " + seriesDTO);
@@ -220,7 +226,6 @@ public class SeriesController {
             }
             System.out.println("수수정 완료!");
         }
-
         seriesDTO.setThumbnailImage(savePath);
         System.out.println("seriesDTO = " + seriesDTO);
 
@@ -242,5 +247,67 @@ public class SeriesController {
         seriesService.deleteSeries(code);
         System.out.println("성공3");
         return "/views/index";
+    }
+
+    @PostMapping("/select")
+    public String selectSeriesByword(@RequestParam String word,
+                                     @RequestParam String option,
+                                     Model model){
+        System.out.println("option = " + option);
+        System.out.println("word = " + word);
+        List<SeriesDTO> seriesList = new ArrayList<>();
+        List<PostDTO> postList = new ArrayList<>();
+        if(option.equals("제목")) {
+            seriesList = seriesService.getSeriesListByWord(word);
+            postList = postService.getSeriesListByWord(word);
+            System.out.println("seriesListdddddd = " + seriesList);
+            System.out.println("postList>>>>>> = " + postList);
+        }else if(option.equals("작가")){
+            List<UserDTO> userList = userService.getUserListByWord(word);
+            List<Long> userCodeList = new ArrayList<>();
+            for(int i = 0 ; i<userList.size() ; i++){
+                userCodeList.add(userList.get(i).getCode());
+            }
+            System.out.println("userCodeList = " + userCodeList);
+            for(int i = 0 ; i<userCodeList.size();i++){
+                seriesList = seriesService.selectSeriesByUserCode(userCodeList.get(i));
+                postList = postService.selectPostByUserCode(userCodeList.get(i));
+            }
+
+            System.out.println("seriesList^^^^ = " + seriesList);
+            System.out.println("postList!!! = " + postList);
+
+        }else{
+            seriesList = seriesService.getSeriesListByWord(word);
+            postList = postService.getSeriesListByWord(word);
+
+            List<SeriesDTO> tempSeries = new ArrayList<>();
+            List<PostDTO> tempPost = new ArrayList<>();
+
+            List<UserDTO> userList = userService.getUserListByWord(word);
+            List<Long> userCodeList = new ArrayList<>();
+            for(int i = 0 ; i<userList.size() ; i++){
+                userCodeList.add(userList.get(i).getCode());
+            }
+            for(int i = 0 ; i<userCodeList.size();i++){
+                tempSeries = seriesService.selectSeriesByUserCode(userCodeList.get(i));
+                tempPost = postService.selectPostByUserCode(userCodeList.get(i));
+            }
+            for(int i =0 ; i<tempSeries.size();i++){
+                seriesList.add(tempSeries.get(i));
+            }
+            for(int i =0 ; i<tempPost.size();i++){
+                postList.add(tempPost.get(i));
+            }
+
+            System.out.println("seriesList^^^^ = " + seriesList);
+            System.out.println("postList!!! = " + postList);
+
+        }
+
+        model.addAttribute("seriesList",seriesList);
+        model.addAttribute("postList",postList);
+
+        return "/views/series/select";
     }
 }

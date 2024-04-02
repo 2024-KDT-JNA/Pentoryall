@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -65,6 +67,10 @@ public class UserService {
         String pwd = userMapper.getPwd(code);
 
         return pwd;
+    }
+
+    public List<UserDTO> getUserListByWord(String word) {
+        return userMapper.getUserListByWord(word);
     }
 
 //    public boolean isPasswordCorrect(String userId, String enteredPassword) {

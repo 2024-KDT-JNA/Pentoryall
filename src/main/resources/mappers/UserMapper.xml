@@ -105,5 +105,30 @@
         WHERE state = 'ACTIVE'
           AND user_id = #{userId}
     </update>
-
+<select id="getUserListByWord">
+    SELECT
+        code,
+        email,
+        user_id,
+        password,
+        nickname,
+        name,
+        birth,
+        profile_image,
+        introduction,
+        revenue,
+        point,
+        role,
+        state,
+        is_certificated,
+        is_subscriber_visible,
+        create_date,
+        update_date,
+        delete_date,
+        suspension_end_date
+    FROM
+        user
+    WHERE
+        nickname LIKE CONCAT('%', #{word}, '%')
+</select>
 </mapper>

@@ -23,3 +23,9 @@
     width:180px;
     height:218px;
 }
+.post-description{
+    height:50px;
+}
+.select-btn,.select-option{
+    border: solid 1px;
+}

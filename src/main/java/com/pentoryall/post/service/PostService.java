@@ -50,4 +50,16 @@ public class PostService {
     public void deleteSeriesBySeriesCode(long code) {
         postMapper.deleteSeriesBySeriesCode(code);
     }
+
+    public List<PostDTO> selectPostList() {
+        return postMapper.selectPostList();
+    }
+
+    public List<PostDTO> getSeriesListByWord(String word) {
+        return postMapper.getSeriesListByWord(word);
+    }
+
+    public List<PostDTO> selectPostByUserCode(Long userCode) {
+        return postMapper.selectPostByUserCode(userCode);
+    }
 }
