@@ -1,10 +1,10 @@
 /* ======== Layout ========================== */
-#wrap { position: relative; min-width: 1280px; }
+#wrap { position: relative; }
 
 /* header */
 #header { display: flex; z-index: 300; align-items: center; justify-content: space-between; width: 100%; padding: 16px; border-bottom: 1px solid #ddd; background-color: #fff; }
 
-.common-header { position: -webkit-sticky; position: sticky; top: 0; left: 0; min-width: 1280px; }
+.common-header { position: -webkit-sticky; position: sticky; top: 0; left: 0; min-width: 600px; }
 .common-header .header-title .logo { display: block; width: 147px; height: 48px; background-image: url(../images/common/logo_pentoryall.png); background-size: 147px 48px; background-repeat: no-repeat; }
 .common-header .header-right { display: flex; flex-wrap: wrap; align-items: center; }
 
@@ -14,7 +14,9 @@
 .header-right .profile-btn { width: 48px; height: 48px; background-color: #fff; }
 /* .header-right .alert-dot { --bs-bg-opacity: 1; position: absolute; top: 20%; left: 70%; padding: .25rem; border-radius: 50%; background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity)); } */
 .header-right .bi-bell { font-size: 24px; }
-.header-right .profile-btn .profile-image { width: 36px; height: 36px; }
+.header-right .profile-btn .profile-image { width: 36px; height: 36px; border: 1px solid #ddd}
+.header-right .btn-admin { color: #fff; background-color: #0d6efd }
+.header-right .link {margin-left: 7px}
 
 /* side menu */
 #aside { display: none; z-index: 999; position: fixed; top: 0; right: 0; width: 300px; height: 100%; background-color: #fff; }
@@ -33,7 +35,7 @@
 #footer { min-height: 240px; background-color: #f4f4f4 }
 
 /* layout */
-#container { position: relative }
+#container {overflow: hidden; position: relative; min-height: calc(100vh - 81px); }
 .content { padding-top: 80px; padding-bottom: 40px }
 /* .inner { width: 1140px; margin: 0 auto; overflow-x:hidden; } */
 .inner { width: 1000px; height: 100%; margin: 0 auto; overflow: hidden; }
@@ -93,7 +95,12 @@ body.overflow { overflow: hidden; }
 .input, .select { height: 42px }
 .input, .select, .textarea { width: 100%; padding: 8px 8px 8px 16px; border: 1px solid #ddd; border-radius: 7px; font-size: 16px; }
 .input::placeholder { color: #999; }
+a.button {display: inline-block}
 .button { padding: 8px 24px; border-radius: 7px; background-color: #ddd; font-size: 16px; line-height: 24px; }
+
+.button.disabled {opacity: .7; cursor: not-allowed}
+.button.blue {color: #fff; background-color: #0d6efd;}
+.button.dark {color: #fff; background-color: #333;}
 
 .form-item { width: 100%; }
 .form-item + .form-item { margin-top: 18px }
@@ -151,6 +158,7 @@ body.overflow { overflow: hidden; }
 
 /* ================================== */
 .summary-wrap { width: 100%; margin: 40px auto; padding: 30px; border-radius: 7px; background-color: #f4f4f4; }
+.summary-wrap .p {line-height: 150%;}
 .summary-wrap .desc-list { display: flex; align-items: center; }
 .summary-wrap .desc-list-dt { margin-right: 20px }
 .summary-wrap .desc-list-dd { font-weight: 600; font-size: 22px; }
@@ -161,7 +169,7 @@ body.overflow { overflow: hidden; }
 .profile-image img { width: 100%; }
 
 .user-profile { padding: 32px 24px 0; text-align: center; }
-.user-profile .profile-image { width: 128px; height: 128px; margin: 0 auto }
+.user-profile .profile-image { width: 128px; height: 128px; margin: 0 auto; border: 1px solid #ddd }
 .user-profile .profile-info { margin: 20px 30px }
 
 .user-profile .profile-info span { display: block; }
@@ -171,4 +179,4 @@ body.overflow { overflow: hidden; }
 .genre-box .genre-items { display: flex; }
 .genre-box .label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 14px; }
 .genre-box .genre-item { padding: 6px 20px 10px; background: #f4f4f4; }
-.genre-box .genre-item { width: 200px; } 
+.genre-box .genre-item { width: 1000px; }

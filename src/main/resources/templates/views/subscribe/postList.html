@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="style">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+
+    <!--    <link rel="stylesheet" th:href="@{/css/story.css}" href="/css/story.css" />-->
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="story-content">
+        <div class="inner">
+            <!-- h2 타이틀을 사용하는 컨텐츠들을 section으로 묶어서 관리해주세요. -->
+            <section>
+                <h2>구독/멤버십</h2>
+                <section>
+                    <div>
+                        <div>
+                            <button onclick="location.href='/subscribe/storyList'">구독</button>
+                            <button onclick="location.href='/membership/list'">멤버십</button>
+                        </div>
+                    </div>
+                    <div>
+                        <button onclick="location.href='/subscribe/storyList'">스토리</button>
+                        <button onclick="location.href='/subscribe/postList'">포스트</button>
+                    </div>
+                    <div>
+                        <div>
+                            <h4 class="h4">게시글 제목입니다.</h4>
+                            <p>게시글 간단한 내용이지롱 게시글 간단한 내용이지롱<br /></p>
+                            <p>게시글 간단한 내용이지롱 게시글 간단한 내용이지롱</p>
+                        </div>
+                        <div>
+                            <p>닉네임</p>
+                            <p>조회수</p>
+                            <p>좋아요</p>
+                            <p>댓글수</p>
+                            <p>YYYY.MM.DD</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h4 class="h4">게시글 제목입니다.</h4>
+                            <p>게시글 간단한 내용이지롱 게시글 간단한 내용이지롱<br /></p>
+                            <p>게시글 간단한 내용이지롱 게시글 간단한 내용이지롱</p>
+                        </div>
+                        <div>
+                            <p>닉네임</p>
+                            <p>조회수</p>
+                            <p>좋아요</p>
+                            <p>댓글수</p>
+                            <p>YYYY.MM.DD</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h4 class="h4">게시글 제목입니다.</h4>
+                            <p>게시글 간단한 내용이지롱 게시글 간단한 내용이지롱<br /></p>
+                            <p>게시글 간단한 내용이지롱 게시글 간단한 내용이지롱</p>
+                        </div>
+                        <div>
+                            <p>닉네임</p>
+                            <p>조회수</p>
+                            <p>좋아요</p>
+                            <p>댓글수</p>
+                            <p>YYYY.MM.DD</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h4 class="h4">게시글 제목입니다.</h4>
+                            <p>게시글 간단한 내용이지롱 게시글 간단한 내용이지롱<br /></p>
+                            <p>게시글 간단한 내용이지롱 게시글 간단한 내용이지롱</p>
+                        </div>
+                        <div>
+                            <p>닉네임</p>
+                            <p>조회수</p>
+                            <p>좋아요</p>
+                            <p>댓글수</p>
+                            <p>YYYY.MM.DD</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h4 class="h4">게시글 제목입니다.</h4>
+                            <p>게시글 간단한 내용이지롱 게시글 간단한 내용이지롱<br /></p>
+                            <p>게시글 간단한 내용이지롱 게시글 간단한 내용이지롱</p>
+                        </div>
+                        <div>
+                            <p>닉네임</p>
+                            <p>조회수</p>
+                            <p>좋아요</p>
+                            <p>댓글수</p>
+                            <p>YYYY.MM.DD</p>
+                        </div>
+                    </div>
+                </section>
+            <!-- ------------------------------------ -->
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script"></th:block>
+</html>

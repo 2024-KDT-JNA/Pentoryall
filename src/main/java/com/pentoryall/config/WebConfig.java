@@ -1,5 +1,6 @@
 package com.pentoryall.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -11,9 +12,13 @@ public class WebConfig implements WebMvcConfigurer {
 
     /* addResourceHandlers : 정적 리소스와 관련하여 static 경로는 기본으로 설정 되어 있으므로 추가적인 정적 리소스 경로를
      * 설정할 때 사용한다. */
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**")
-                .addResourceLocations("classpath:/upload/");
+
+        registry
+                .addResourceHandler("/upload/**")
+                .addResourceLocations("file:///"+IMAGE_DIR);
     }
 }
