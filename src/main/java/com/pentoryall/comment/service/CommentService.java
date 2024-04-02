@@ -18,4 +18,16 @@ public class CommentService {
     public List<CommentDetailDTO> selectCommentByPostCode(long code) {
         return commentMapper.selectCommentByPostCode(code);
     }
+
+    public List<CommentDetailDTO> loadComment(CommentDetailDTO commentDTO) {
+        return commentMapper.loadComment(commentDTO);
+    }
+
+    public void removeReply(CommentDetailDTO commentDetailDTO) {
+        commentMapper.removeReply(commentDetailDTO);
+    }
+
+    public void addComment(CommentDetailDTO commentAdd) {
+        commentMapper.addComment(commentAdd);
+    }
 }

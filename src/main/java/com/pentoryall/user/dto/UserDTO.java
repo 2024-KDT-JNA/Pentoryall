@@ -18,7 +18,7 @@ import java.util.Collection;
 @Setter
 @ToString
 public class UserDTO implements UserDetails {
-    private long code;
+    private Long code;
     private String email;
     private String userId;
     private String password;

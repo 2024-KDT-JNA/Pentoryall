@@ -6,7 +6,7 @@
 <!-- namespace 형식 올바르게 수정 후 사용하세요. -->
 <mapper namespace="com.pentoryall.comment.mapper.CommentMapper">
     <resultMap id="commentResultMap" type="com.pentoryall.comment.dto.CommentDetailDTO">
-        <id property="code" column="a.code"/>
+        <id property="code" column="code"/>
         <result property="postCode" column="post_code"/>
         <result property="refCommentCode" column="ref_comment_code"/>
         <result property="content" column="content"/>
@@ -38,7 +38,7 @@
     <select id="selectCommentByPostCode" resultMap="commentResultMap">
         SELECT
             a.code,
-            a.user_code,
+--             a.user_code,
             a.post_code,
             a.ref_comment_code,
             a.content,
@@ -71,5 +71,37 @@
         WHERE
             a.post_code=#{code}
     </select>
+    <select id="loadComment" resultMap="commentResultMap">
+        SELECT
+            a.code,
+            a.post_code,
+            a.content,
+            a.user_code,
+            a.create_date,
+            b.code,
+            b.nickname
+        FROM
+            comment a
+        JOIN
+            user b ON (a.user_code = b.code)
+        WHERE
+            a.post_code=#{postCode}
+        AND
+            a.is_deleted = 'N'
+        ORDER BY
+            a.code
+    </select>
+    <update id="removeReply">
+        UPDATE
+            comment
+        SET
+            is_deleted = 'Y'
+        WHERE
+            code = #{code}
+    </update>
+    <insert id="addComment">
+        INSERT INTO comment(post_code,content,user_code)
+        VALUES (#{postCode},#{content},#{user.code})
+    </insert>
 </mapper>
 

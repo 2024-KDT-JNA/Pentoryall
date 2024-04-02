@@ -10,12 +10,13 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class CommentDetailDTO {
-    private long code;
-    private long postCode;
-    private long refCommentCode;
+    private Long code;
+    private UserDTO user;
+    private Long postCode;
+    private Long refCommentCode;
     private String content;
     private char isDeleted;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-    private UserDTO user;
+
 }

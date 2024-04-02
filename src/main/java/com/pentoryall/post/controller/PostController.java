@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -180,7 +181,7 @@ public class PostController {
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
 
         List<CommentDetailDTO> commentList = commentService.selectCommentByPostCode(code);
-
+        System.out.println("유저 정보 : "+commentList.get(0).getUser());
         System.out.println("commentList =>>> " + commentList);
         System.out.println("postDTO = " + postDTO);
         System.out.println("userDTO = " + userDTO);
@@ -318,9 +319,31 @@ public class PostController {
     @PostMapping("/addComment")
     public ResponseEntity<String> addComment(@RequestBody CommentDetailDTO commentAdd,
                                              @AuthenticationPrincipal UserDTO user){
+        commentAdd.setCode(1L);
+        System.out.println("commentAdd1 :"+commentAdd.getCode());
+        System.out.println("commentAdd1.5 :"+commentAdd.getPostCode());
+        System.out.println("commentAdd2 :"+commentAdd.getContent());
+        System.out.println("도달하고 있는가");
         commentAdd.setUser(user);
         System.out.println("commentAdd = " + commentAdd);
-        postService.addComment(commentAdd);
+        commentService.addComment(commentAdd);
+        System.out.println("db에 잘 등록 됬어요~");
         return ResponseEntity.ok("댓글 등록 완료");
     }
+
+    @GetMapping("/loadComment")
+    public ResponseEntity<List<CommentDetailDTO>> loadComment(CommentDetailDTO commentDTO){
+        System.out.println("commentDTO.getPostCode() = " + commentDTO.getPostCode());
+        List<CommentDetailDTO> commentList = commentService.loadComment(commentDTO);
+        System.out.println("commentList^^ = " + commentList);
+        return ResponseEntity.ok(commentList);
+    }
+    @PostMapping("/removeComment")
+    public ResponseEntity<String> removeReply(@RequestBody CommentDetailDTO commentDetailDTO) {
+        System.out.println("commentDetailDTO =~~~~~~ " + commentDetailDTO.getCode());
+        commentService.removeReply(commentDetailDTO);
+        System.out.println("잘 삭제되어씀");
+        return ResponseEntity.ok("댓글 삭제 완료");
+    }
+
 }

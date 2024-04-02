@@ -12,15 +12,15 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class PostDTO {
-    private long code;
-    private long seriesCode;
-    private long userCode;
+    private Long code;
+    private Long seriesCode;
+    private Long userCode;
     private String title;
     private String content;
     private String confirmContent;
     private String thumbnailImage;
-    private long views;
-    private long price;
+    private Long views;
+    private Long price;
     private char isPaid;
     private char isAdult;
     private char isPublic;

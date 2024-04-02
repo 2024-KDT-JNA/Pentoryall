@@ -10,4 +10,10 @@ import java.util.List;
 public interface CommentMapper {
 
     List<CommentDetailDTO> selectCommentByPostCode(long code);
+
+    List<CommentDetailDTO> loadComment(CommentDetailDTO commentDTO);
+
+    void removeReply(CommentDetailDTO commentDetailDTO);
+
+    void addComment(CommentDetailDTO commentAdd);
 }

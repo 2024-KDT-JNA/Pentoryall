@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{/layout/default}">
 
 <th:block layout:fragment="link">
@@ -101,7 +101,7 @@
                         <div><p class="go-navigator">></p></div>
                     </div>
                 </div>
-
+                <input class="test1" th:value="${#authentication.principal.code}"/>
                 <!--댓글-->
                 <div>
                     <div>
@@ -110,13 +110,13 @@
 
                     <div class="comment-add">
                         <form>
-                            <textarea class="comment-writing-area" placeholder="댓글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
-                            <button class="comment-add-btn">작성하기</button>
+                            <textarea onchange="test()" id="comment-writing-area" class="comment-writing-area" placeholder="댓글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
+                            <button id="comment-add-btn" class="comment-add-btn">작성하기</button>
                         </form>
                     </div>
                 </div>
 
-                <!-- 댓글 출력 -->
+<!--                 댓글 출력-->
                 <div class="comment-area" th:each="comment : ${commentList}" >
                     <div class="comment-content-area" th:text="${comment.content}"></div>
                     <p class="comment-writer-area" th:text="${comment.user.nickname}">작성자</p>
@@ -125,49 +125,64 @@
                         <button th:onclick="removeComment([[${comment.code}]])">댓글 삭제</button>
                     </div>
                 </div>
+
+
             </section>
         </div>
     </div>
 </th:block>
 
 <th:block layout:fragment="script">
+    <script>
+        function test(){
+            const text = document.querySelector(".comment-writing-area");
+            console.log(text.value);
+            const postCode = '[[${post.code}]]'
+            console.log("뽀스트넘버ㅣ"+postCode);
+           const test1 = document.querySelector(".test1");
+           console.log(test1);
+           console.log('콘소리'+`[[${#authentication.principal.code}]]`);
+        }
+    </script>
 <script>
     /*댓글 작성*/
-    if(document.querySelector(".comment-add-btn")){
-        const $addComment = document.querySelector(".comment-add-btn");
-        const $writeComment = document.querySelector(".comment-writing-area");
+    if(document.getElementById("comment-add-btn")){
+        const $addComment = document.getElementById("comment-add-btn");
+        const $writeComment = document.getElementById("comment-writing-area");
 
-        $addComment.onclick=function(){
-            if(!$writeComment.value.trim()){
+        $addComment.onclick=function() {
+            if (!$writeComment.value.trim()) {
                 alert('내용을 작성해주세요');
                 return;
             }
+
+            const postCode = '[[${post.code}]]'
+            console.log("뽀스트넘버ㅣ"+postCode);
+            const content = $writeComment.value;
+
+            fetch('/post/addComment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json; charset=UTF-8'
+                },
+                body : JSON.stringify({ postCode, content })
+            })
+                .then(res => {
+                    console.log("rress:"+res);
+                    $writeComment.value = '';
+                    loadComment();
+                })
+                .catch(error => console.log(error));
         }
-
-        const postNo = '[[${post.code}]]'
-        const comment = $writeComment.value;
-
-        fetch('/post/addComment',{
-            method:'POST',
-            headers:{
-                'Content-Type' : 'application/json; charset=UTF-8'
-            },
-            body : JSON.stringify({postNo,comment})
-        })
-            .then(res => {
-                $writeComment.value='';
-                loadComment();
-    })
-            .catch(error => console.log(error));
-
     }
 
-    /*댓글 삽입 삭제 발생 시 최신 댓글을 다시 로드하는 기능*/
+    // /*댓글 삽입 삭제 발생 시 최신 댓글을 다시 로드하는 기능*/
     function loadComment() {
 
         const postNo = `[[${post.code}]]`;
 
-        fetch('/post/loadComment?code=' + postNo)
+
+        fetch('/post/loadComment?postCode=' + postNo)
             .then(result => result.json())
             .then(data => makeCommentTable(data))
             .catch(error => console.log(error));
@@ -186,7 +201,7 @@
 
             $content.textContent = comment.content;
             $nickname.textContent = comment.user.nickname;
-            $createdDate.textContent = comment.createdDate;
+            $createdDate.textContent = comment.createDate;
 
             if(`[[${#authentication.principal.code}]]`==comment.user.code){
                 $button.innerHTML = `<button onclick='removeComment(${comment.code})'>댓글삭제</button>`;
@@ -210,5 +225,7 @@
     }
 
 </script>
+
+
 </th:block>
 </html>
