@@ -1,5 +1,8 @@
 package com.pentoryall.post.controller;
 
+import com.pentoryall.comment.dto.CommentDTO;
+import com.pentoryall.comment.dto.CommentDetailDTO;
+import com.pentoryall.comment.service.CommentService;
 import com.pentoryall.genre.dto.GenreDTO;
 import com.pentoryall.genre.service.GenreService;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
@@ -13,6 +16,8 @@ import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,14 +40,16 @@ public class PostController {
     private final SeriesService seriesService;
     private final PostService postService;
     private final UserService userService;
+    private final CommentService commentService;
     private final GenreOfArtService genreOfArtService;
     private final GenreService genreService;
     private final MessageSourceAccessor messageSourceAccessor;
 
-    public PostController(SeriesService seriesService, PostService postService, UserService userService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor) {
+    public PostController(SeriesService seriesService, PostService postService, UserService userService, CommentService commentService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor) {
         this.seriesService = seriesService;
         this.postService = postService;
         this.userService = userService;
+        this.commentService = commentService;
         this.genreOfArtService = genreOfArtService;
         this.genreService = genreService;
         this.messageSourceAccessor = messageSourceAccessor;
@@ -172,13 +179,16 @@ public class PostController {
 
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
 
+        List<CommentDetailDTO> commentList = commentService.selectCommentByPostCode(code);
+
+        System.out.println("commentList =>>> " + commentList);
         System.out.println("postDTO = " + postDTO);
         System.out.println("userDTO = " + userDTO);
         System.out.println("seriesDTO = " + seriesDTO);
         model.addAttribute("post", postDTO);
         model.addAttribute("user", userDTO);
         model.addAttribute("series", seriesDTO);
-
+        model.addAttribute("commentList",commentList);
         return "views/post/list";
     }
 
@@ -303,5 +313,14 @@ public class PostController {
         System.out.println("포스트가 삭제 되었습니다.");
         String url = "redirect:/series/page?code=" + seriesCode;
         return url;
+    }
+
+    @PostMapping("/addComment")
+    public ResponseEntity<String> addComment(@RequestBody CommentDetailDTO commentAdd,
+                                             @AuthenticationPrincipal UserDTO user){
+        commentAdd.setUser(user);
+        System.out.println("commentAdd = " + commentAdd);
+        postService.addComment(commentAdd);
+        return ResponseEntity.ok("댓글 등록 완료");
     }
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{/layout/default}">
 
 <th:block layout:fragment="link">
@@ -103,15 +104,26 @@
 
                 <!--댓글-->
                 <div>
-                    <h2 class="p-post-comment">댓글 쓰기</h2>
+                    <div>
+                        <h2 class="p-post-comment">댓글 작성</h2>
+                    </div>
+
+                    <div class="comment-add">
+                        <form>
+                            <textarea class="comment-writing-area" placeholder="댓글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
+                            <button class="comment-add-btn">작성하기</button>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="comment-add">
-                    <form>
-                        <textarea class="comment-writing-area"> </textarea>
-                        <br />
-                        <button class="comment-add-btn">등록</button>
-                    </form>
+                <!-- 댓글 출력 -->
+                <div class="comment-area" th:each="comment : ${commentList}" >
+                    <div class="comment-content-area" th:text="${comment.content}"></div>
+                    <p class="comment-writer-area" th:text="${comment.user.nickname}">작성자</p>
+                    <p class="comment-date-area" th:text="${comment.createDate}">작성 날짜</p>
+                    <div th:if="${comment.user.code == #authentication.principal.code}">
+                        <button th:onclick="removeComment([[${comment.code}]])">댓글 삭제</button>
+                    </div>
                 </div>
             </section>
         </div>
@@ -119,6 +131,84 @@
 </th:block>
 
 <th:block layout:fragment="script">
+<script>
+    /*댓글 작성*/
+    if(document.querySelector(".comment-add-btn")){
+        const $addComment = document.querySelector(".comment-add-btn");
+        const $writeComment = document.querySelector(".comment-writing-area");
 
+        $addComment.onclick=function(){
+            if(!$writeComment.value.trim()){
+                alert('내용을 작성해주세요');
+                return;
+            }
+        }
+
+        const postNo = '[[${post.code}]]'
+        const comment = $writeComment.value;
+
+        fetch('/post/addComment',{
+            method:'POST',
+            headers:{
+                'Content-Type' : 'application/json; charset=UTF-8'
+            },
+            body : JSON.stringify({postNo,comment})
+        })
+            .then(res => {
+                $writeComment.value='';
+                loadComment();
+    })
+            .catch(error => console.log(error));
+
+    }
+
+    /*댓글 삽입 삭제 발생 시 최신 댓글을 다시 로드하는 기능*/
+    function loadComment() {
+
+        const postNo = `[[${post.code}]]`;
+
+        fetch('/post/loadComment?code=' + postNo)
+            .then(result => result.json())
+            .then(data => makeCommentTable(data))
+            .catch(error => console.log(error));
+    }
+
+    /*댓글 목록 데이터를 테이블화 하는 함수*/
+    function makeCommentTable(commentList){
+        const commentArea = document.querySelector(".comment-area");
+        commentArea.innerHTML='';
+        commentList.forEach(comment => {
+            const $comment = document.createElement("div");
+            const $content = document.createElement("div");
+            const $nickname = document.createElement("p");
+            const $createdDate = document.createElement("p");
+            const $button = document.createElement("div");
+
+            $content.textContent = comment.content;
+            $nickname.textContent = comment.user.nickname;
+            $createdDate.textContent = comment.createdDate;
+
+            if(`[[${#authentication.principal.code}]]`==comment.user.code){
+                $button.innerHTML = `<button onclick='removeComment(${comment.code})'>댓글삭제</button>`;
+            }
+
+            $comment.append($content,$nickname,$createdDate,$button);
+            commentArea.append($comment);
+        })
+    }
+
+    /*댓글 삭제*/
+    function removeComment(commentNo){
+        fetch('/post/removeComment',{
+            method:'POST',
+            headers : {
+                'Content-Type' : 'application/json; charset=UTF-8'
+            },
+            body : JSON.stringify({commentNo})
+        }).then(() => loadComment())
+            .catch(error => console.log(error));
+    }
+
+</script>
 </th:block>
 </html>

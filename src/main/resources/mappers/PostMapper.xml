@@ -148,4 +148,8 @@
         WHERE
             user_code=#{userCode}
     </select>
+    <insert id="addComment">
+        INSERT INTO comment(post_code,content,user_code)
+        VALUES (#{postCode},#{content},#{user.code})
+    </insert>
 </mapper>

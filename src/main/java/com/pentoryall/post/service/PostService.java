@@ -1,6 +1,7 @@
 package com.pentoryall.post.service;
 
 
+import com.pentoryall.comment.dto.CommentDetailDTO;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.post.mapper.PostMapper;
@@ -61,5 +62,9 @@ public class PostService {
 
     public List<PostDTO> selectPostByUserCode(Long userCode) {
         return postMapper.selectPostByUserCode(userCode);
+    }
+@Transactional
+    public void addComment(CommentDetailDTO commentAdd) {
+        postMapper.addComment(commentAdd);
     }
 }
