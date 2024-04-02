@@ -25,17 +25,13 @@
             report
     </select>
     
-    <select id="modifyByPostCode">
-        SELECT
-            code,
-            user_code,
-            title,
-            confirm_content,
-            price,
-            create_date
-        FROM post
-        WHERE code = #{postCode}
-    </select>
+    <update id="modifyByPostCode">
+        UPDATE
+            post
+        SET is_confirmed = 'Y'
+        WHERE is_confirmed = 'N'
+          AND code = #{postCode}
+    </update>
 
 
 </mapper>

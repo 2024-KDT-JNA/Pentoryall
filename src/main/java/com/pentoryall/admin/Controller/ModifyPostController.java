@@ -53,14 +53,12 @@ public class ModifyPostController {
     public String confirmByPostCode(@RequestParam("postCode") Long postCode,
                                     RedirectAttributes rttr) {
         System.out.println("postCode = " + postCode);
-        int result = modifyPostService.modifyByPostCode((postCode)," ");
+        int result = modifyPostService.modifyByPostCode((postCode),"confirmContent");
         if (result > 0) {
             rttr.addAttribute("message", "포스트를 성공적으로 수정했습니다.");
-            System.out.println("컨트롤러 postCode : " + postCode);
-
-
 
         }
+        System.out.println("컨트롤러 postCode : " + postCode);
 
         return "redirect:/admin/modify/posts";
     }

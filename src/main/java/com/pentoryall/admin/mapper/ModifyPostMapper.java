@@ -12,8 +12,7 @@ public interface ModifyPostMapper {
 
     List<PostDTO> selectAllModifyList(SelectCriteria selectCriteria);
 
-
-    int modifyByPostCode(Long postCode, String confirmContent);
+    int modifyByPostCode(long postCode, String confirmContent);
 }
 
 

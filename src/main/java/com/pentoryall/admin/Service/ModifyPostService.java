@@ -44,7 +44,7 @@ public class ModifyPostService {
         return modifyPostListAndPaging;
     }
 
-    public int modifyByPostCode(Long postCode, String confirmContent) {
+    public int modifyByPostCode(long postCode, String confirmContent) {
 
         System.out.println("서비스 postCode : " + postCode);
         return modifyPostMapper.modifyByPostCode(postCode, confirmContent);

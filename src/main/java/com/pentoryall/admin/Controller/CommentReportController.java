@@ -1,5 +1,4 @@
 package com.pentoryall.admin.Controller;
-import com.pentoryall.admin.Exception.MemberStopException;
 import com.pentoryall.admin.Service.CommentReportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
