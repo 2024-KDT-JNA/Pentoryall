@@ -6,6 +6,7 @@ import com.pentoryall.settlement.service.UserSettlementService;
 import com.pentoryall.user.dto.UserDTO;
 import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -24,8 +25,10 @@ public class UserSettlementController {
 
     private final UserSettlementService userSettlementService;
 
+    private final MessageSourceAccessor messageSourceAccessor;
+
     @GetMapping
-    public String getUserSettlement(@AuthenticationPrincipal UserDTO sessionUser, Model model) throws AuthenticationException {
+    public String userSettlement(@AuthenticationPrincipal UserDTO sessionUser, Model model) throws AuthenticationException {
         UserSettlementDTO selectedUserSettlement = userSettlementService.selectByUserCode(sessionUser.getCode());
         if (selectedUserSettlement == null) {
             model.addAttribute("userSettlement", new UserSettlementDTO());
@@ -37,13 +40,22 @@ public class UserSettlementController {
     }
 
     @PostMapping
-    public String addUserSettlement(@ModelAttribute("userSettlement") UserSettlementDTO modifyUserSettlement,
-                                    @AuthenticationPrincipal UserDTO sessionUser,
-                                    RedirectAttributes rttr) {
-        // userSettlementService.insertOrDeleteUserSettlement();
+    public String saveUserSettlement(@ModelAttribute("userSettlement") UserSettlementDTO modifyUserSettlement,
+                                     @AuthenticationPrincipal UserDTO sessionUser,
+                                     RedirectAttributes rttr) {
 
-        System.out.println(modifyUserSettlement);
-        rttr.addAttribute("userSettlement", userSettlementService.selectByUserCode(sessionUser.getCode()));
-        return "redirect:";
+        if (modifyUserSettlement.getUserCode() <= 0)
+            modifyUserSettlement.setUserCode(sessionUser.getCode());
+        
+        /* 계좌 검증 되었다는 가정하에.. */
+        UserSettlementDTO selectedUserSettlement
+                = userSettlementService.selectByUserCode(sessionUser.getCode());
+
+        if (selectedUserSettlement == null || !selectedUserSettlement.equals(modifyUserSettlement)) {
+            userSettlementService.insertNewUserSettlement(modifyUserSettlement);
+            rttr.addAttribute("redirectMessage", messageSourceAccessor.getMessage("save.success"));
+        }
+
+        return "redirect:/settings/user/settlement";
     }
 }
