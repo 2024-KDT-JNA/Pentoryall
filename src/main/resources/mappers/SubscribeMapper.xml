@@ -4,10 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pentoryall.subscribe.mapper.SubscribeMapper">
 
-    <select id="selectMembership" resultType="com.pentoryall.subscribe.dto.SubscribeDTO">
+    <select id="getAllSubscribers" resultType="com.pentoryall.subscribe.dto.SubscribeDTO" parameterType="long">
         SELECT
             code,
             user_code,
-            subscribe_user_code
+            subscribe_user_code,
+            subscribed_date
+        FROM subscribe
+        WHERE subscribe_user_code = #{subscribeUserCode}
     </select>
 </mapper>

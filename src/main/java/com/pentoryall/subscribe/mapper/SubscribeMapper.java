@@ -1,6 +1,5 @@
 package com.pentoryall.subscribe.mapper;
 
-import com.pentoryall.membership.dto.MembershipDTO;
 import com.pentoryall.subscribe.dto.SubscribeDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,7 +9,9 @@ import java.util.List;
 public interface SubscribeMapper {
 
 
-    void addSubscribe(SubscribeDTO subscribeDTO);
+//    void addSubscription(SubscribeDTO subscribeDTO);
+//
+//    void cancelSubscription(SubscriptionCode subscriptionCode);
 
-    void cancelSubscribe(SubscribeDTO subscribeDTO);
+    List<SubscribeDTO> getAllSubscribers(long code);
 }
