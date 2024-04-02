@@ -1,5 +1,6 @@
 package com.pentoryall.settlement.dto;
 
+import com.pentoryall.settlement.status.SettlementState;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,12 +13,11 @@ import java.time.LocalDateTime;
 public class SettlementDTO {
 
     Long code;
+    Long userSettlementCode;
     int requestAmount;
     int actualAmount;
-    String state; /* Enum? */
+    SettlementState state;
     String cause;
     LocalDateTime createDate;
     LocalDateTime processDate;
-
-    UserSettlementDTO userSettlement;
 }
