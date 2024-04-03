@@ -1,21 +1,33 @@
 package com.pentoryall.settlement.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class UserSettlementDTO {
 
     Long code;
     Long userCode;
     int bankCode;
-    int accountNumber;
+    String accountNumber;
     String accountHolder;
-    String isDeleted; /* Enum? */
+    char isDeleted;
     LocalDateTime createDate;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserSettlementDTO that = (UserSettlementDTO) o;
+        return bankCode == that.bankCode && Objects.equals(userCode, that.userCode) && Objects.equals(accountNumber, that.accountNumber) && Objects.equals(accountHolder, that.accountHolder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userCode, bankCode, accountNumber, accountHolder);
+    }
 }

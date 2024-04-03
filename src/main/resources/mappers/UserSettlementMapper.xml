@@ -4,6 +4,30 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pentoryall.settlement.mapper.UserSettlementMapper">
-    
+
+    <select id="selectByUserCode" resultType="com.pentoryall.settlement.dto.UserSettlementDTO">
+        SELECT code, user_code, bank_code, account_number, account_holder, is_deleted, create_date
+          FROM user_settlement
+         WHERE user_code = #{ userCode }
+           AND is_deleted = 'N'
+         ORDER BY code DESC
+         LIMIT 1
+    </select>
+    <select id="selectLastCodeByUserCode" resultType="java.lang.Long">
+        SELECT MAX(code)
+          FROM user_settlement
+         WHERE user_code = #{ userCode }
+           AND is_deleted = 'N'
+         ORDER BY code DESC
+    </select>
+    <insert id="insertUserSettlement" parameterType="com.pentoryall.settlement.dto.UserSettlementDTO">
+        INSERT INTO user_settlement (user_code, bank_code, account_number, account_holder)
+        VALUES (#{userCode}, #{bankCode}, #{accountNumber}, #{accountHolder})
+    </insert>
+    <update id="deleteByUserSettlementCode">
+        UPDATE user_settlement
+           SET is_deleted ='Y'
+         WHERE code = #{ userSettlementCode }
+    </update>
 </mapper>
 

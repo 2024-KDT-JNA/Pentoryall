@@ -11,4 +11,6 @@ public interface PostReportMapper {
     int selectTotalCount(Map<String, String> searchMap);
 
     List<PostReportDTO> selectAllPostReportList(SelectCriteria selectCriteria);
+
+    int deleteByPostCode(long postCode, String isDeleted);
 }

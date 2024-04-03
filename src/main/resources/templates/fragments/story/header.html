@@ -7,8 +7,7 @@
         <div class="inner user-profile-wrap">
             <div class="user-profile">
                 <div class="profile-image">
-                    <img th:src="${#authentication.principal.profileImage != null
-                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
+                    <img src="./images/temp/profile.png" alt="유저 프로필"/>
                 </div>
                 <div class="profile-info">
                     <span class="nickname" sec:authentication="principal.nickname">닉네임</span>
@@ -24,7 +23,7 @@
             <div class="user-intro">
                 <div class="intro-text">
                     <strong class="title">자기소개</strong>
-                    <p class="intro" th:text="${#authentication.principal.introduction}"></p>
+                    <p class="intro" sec:authentication="principal.introduction"></p>
                 </div>
                 <div class="setting-btn">
                     <button class="button">구독</button>
@@ -39,7 +38,6 @@
                 <li><a href="#">포스트</a></li>
                 <li><a href="#">시리즈</a></li>
                 <li><a href="/membership/planInfo">멤버십</a></li>
-
                 <li><a href="/subscribe/story/subscriber/list">구독</a></li>
             </ul>
         </nav>

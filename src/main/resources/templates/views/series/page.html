@@ -31,7 +31,8 @@
                     <div class="container-inner">
                         <div class="series-thumbnail">
                             <button type="button" class="series-thumbnail-button">
-                                <img class="series-thumbnail-button-img" th:src="${series.thumbnailImage}">
+                                <img class="series-thumbnail-button-img" th:src="${series.thumbnailImage != null
+                        ? series.thumbnailImage : '/images/temp/profile.png'}">
                             </button>
                         </div>
                         <div class="series-title">

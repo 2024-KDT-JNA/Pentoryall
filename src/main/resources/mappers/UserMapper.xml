@@ -57,12 +57,6 @@
         WHERE state = 'ACTIVE'
           AND user_id = #{ userId }
     </select>
-    <select id="selectUserByNickname" resultType="string">
-        SELECT user_id
-        FROM user
-        WHERE state = 'ACTIVE'
-          AND nickname = #{nickname}
-    </select>
 
     <insert id="insertUser">
         INSERT INTO user (user_id, password, name, nickname, email, birth)
@@ -101,4 +95,30 @@
         WHERE code = #{ code }
     </select>
 
+<select id="getUserListByWord">
+    SELECT
+        code,
+        email,
+        user_id,
+        password,
+        nickname,
+        name,
+        birth,
+        profile_image,
+        introduction,
+        revenue,
+        point,
+        role,
+        state,
+        is_certificated,
+        is_subscriber_visible,
+        create_date,
+        update_date,
+        delete_date,
+        suspension_end_date
+    FROM
+        user
+    WHERE
+        nickname LIKE CONCAT('%', #{word}, '%')
+</select>
 </mapper>

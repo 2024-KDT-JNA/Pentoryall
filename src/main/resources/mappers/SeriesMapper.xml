@@ -159,5 +159,36 @@
         WHERE
             code != 1
     </select>
-
+<select id="getSeriesListByWord">
+    SELECT
+        code,
+        user_code,
+        title,
+        description,
+        thumbnail_image,
+        is_membership_only,
+        is_deleted,
+        create_date,
+        update_date
+    FROM
+        series
+    WHERE
+        title LIKE CONCAT('%', #{word}, '%')
+</select>
+    <select id="selectSeriesByUserCode">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
+        WHERE
+            user_code=#{userCode}
+    </select>
 </mapper>

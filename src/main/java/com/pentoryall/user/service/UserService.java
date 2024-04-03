@@ -5,11 +5,14 @@ import com.pentoryall.common.exception.user.MemberModifyException;
 import com.pentoryall.common.exception.user.MemberRegistException;
 import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.user.dto.UserDTO;
+import lombok.RequiredArgsConstructor;
 import com.pentoryall.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -77,6 +80,10 @@ public class UserService {
 //    public String getLikedPostCount() {
 //        return userMapper.getLikedPostCount();
 //    }
+
+    public List<UserDTO> getUserListByWord(String word) {
+        return userMapper.getUserListByWord(word);
+    }
 
 //    public boolean isPasswordCorrect(String userId, String enteredPassword) {
 //        // 사용자 정보를 DB에서 가져옵니다.
