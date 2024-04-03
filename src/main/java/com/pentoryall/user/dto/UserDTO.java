@@ -18,7 +18,7 @@ import java.util.Collection;
 @Setter
 @ToString
 public class UserDTO implements UserDetails {
-    private Long code;
+    private long code;
     private String email;
     private String userId;
     private String password;
@@ -52,7 +52,7 @@ public class UserDTO implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return name;
     }
 
     @Override
@@ -74,4 +74,5 @@ public class UserDTO implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

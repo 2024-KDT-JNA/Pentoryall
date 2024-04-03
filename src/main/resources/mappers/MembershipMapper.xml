@@ -27,4 +27,52 @@
                color
         FROM membership
     </select>
+
+    <update id="modifyMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
+        UPDATE membership
+        SET name = #{name},
+            introduction = #{introduction},
+            color = #{color}
+        WHERE user_code = #{userCode}
+    </update>
+
+    <update id="updateIsDeleted" parameterType="java.lang.Long">
+        UPDATE membership
+        SET is_deleted = 'Y',
+            delete_date = NOW()
+        WHERE code = #{code}
+    </update>
+
+    <insert id="joinMembership" parameterType="com.pentoryall.membership.dto.MembershipJoinDTO">
+    INSERT INTO membership_join
+            (membership_code, user_code, create_date, end_date)
+
+    VALUES (
+            #{membershipCode},
+            #{userCode},
+            #{createDate},
+            #{endDate})
+    </insert>
+
+
+    <!--    <select id="getAllMemberships" resultType="com.pentoryall.membership.dto.MembershipDTO">-->
+<!--        SELECT name,-->
+<!--               introduction,-->
+<!--               price,-->
+<!--               color-->
+<!--        FROM membership-->
+<!--        WHERE user_code = #{userCode}-->
+<!--    </select>-->
+
+
+<!--    <update id="updateIsDeleted">-->
+<!--    UPDATE membership-->
+<!--    SET is_deleted = 'Y'-->
+<!--    WHERE code = #{code}-->
+<!--    </update>-->
+
+<!--    <select id="getMembershipByCode" parameterType="long" resultType="com.pentoryall.membership.dto.MembershipDTO">-->
+<!--        SELECT * FROM membership WHERE code = #{code}-->
+<!--    </select>-->
+
 </mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pentoryall.user.mapper.LikePostMapper">
+
+    <select id="getLikedPostsByUserCode" resultType="com.pentoryall.user.dto.LikePostDTO">
+        SELECT post.code,
+               post.series_code,
+               series.title AS series_title,
+               user.nickname,
+               user.profile_image,
+               post.user_code,
+               post.title   AS post_title,
+               post.content,
+               post.confirm_content,
+               post.thumbnail_image,
+               post.views,
+               post.price,
+               post.is_paid,
+               post.is_adult,
+               post.is_public,
+               post.is_deleted,
+               post.create_date,
+               post.update_date
+        FROM `like`
+                 JOIN post ON post.code = `like`.post_code
+            -- 시리즈 NULL 값 일수있기때문에 LEFT JOIN
+                 LEFT JOIN series ON post.series_code = series.code
+                 JOIN user ON post.user_code = user.code
+        WHERE `like`.user_code = #{userCode}
+    </select>
+    <select id="getLikeCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM `like`
+        WHERE user_code = #{userCode}
+    </select>
+</mapper>

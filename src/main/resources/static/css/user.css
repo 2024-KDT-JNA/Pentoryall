@@ -440,21 +440,23 @@ input[type="checkbox"]:checked + label span {
 /* 내 정보 수정 */
 .file_box {
     position: relative;
+    margin-top: 20px;
 }
 
 .upload_btn, .remove_btn {
-    position: absolute;
-    top: 0;
-    right: 0;
     background-color: #ccc;
-    border: none;
     color: #fff;
-    padding: 8px 12px;
     cursor: pointer;
 }
 
 .upload_btn {
-    background-color: #007bff;
+    width: 124px;
+    display: inline-block;
+    background: #D9D9D9;
+    border-radius: 5px;
+    padding: 15px 0;
+    text-align: center;
+    color: black;
 }
 
 .remove_btn {
@@ -475,6 +477,10 @@ input[type="checkbox"]:checked + label span {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.my_profile_top .img {
+    overflow: hidden;
 }
 
 .my_profile_top .btn {
