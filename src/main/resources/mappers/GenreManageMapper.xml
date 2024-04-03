@@ -5,5 +5,39 @@
 
 <mapper namespace="com.pentoryall.admin.mapper.GenreManageMapper">
 
+    <select id="selectFirstGenreList" resultType="com.pentoryall.admin.DTO.GenreManageDTO">
+        SELECT code,
+               name
+        FROM genre
+        WHERE ref_genre_code IS NULL
+
+    </select>
+
+    <select id="selectSecondGenreList" resultType="com.pentoryall.admin.DTO.GenreManageDTO">
+        SELECT code,
+               name
+        FROM genre
+        WHERE ref_genre_code IN (1)
+    </select>
+
+    <insert id="addFirstGenre" parameterType="String">
+        INSERT INTO genre (name)
+        VALUES (#{name})
+    </insert>
+
+    <insert id="addSecondGenre" parameterType="String">
+        INSERT INTO genre (name, ref_genre_code)
+        VALUES (#{name}, 1),
+               (#{name}, 2),
+               (#{name}, 3);
+    </insert>
+
+    <delete id="deleteSecondGenre" parameterType="String">
+        DELETE
+        FROM genre
+        WHERE name = #{name};
+    </delete>
+
+
 </mapper>
 

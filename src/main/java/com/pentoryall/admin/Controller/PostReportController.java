@@ -4,8 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +47,21 @@ public class PostReportController {
         System.out.println(postReportListAndPaging.get("postReportList"));
 
         return "views/admin/adminPostReport";
+    }
+
+    @PostMapping("/posts/delete")
+    public String deleteByPostCode(@RequestParam("postCode") Long postCode,
+                                   RedirectAttributes rttr) {
+
+        System.out.println("postCode = " + postCode);
+        int result = postReportService.deleteByPostCode((postCode), "Y");
+        if (result > 0) {
+            rttr.addFlashAttribute("message", "포스트를 성공적으로 삭제했습니다.");
+        }
+
+        System.out.println("컨트롤러 postCode : " + postCode);
+
+        return "redirect:/admin/report/posts";
     }
 
 

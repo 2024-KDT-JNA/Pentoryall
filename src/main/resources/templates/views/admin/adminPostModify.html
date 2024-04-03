@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/default}">
+      layout:decorate="~{/layout/settings}">
 
 <th:block layout:fragment="link">
     <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
-    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+   <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css" />
 </th:block>
 
 <th:block layout:fragment="content">
+    <script>
+        const message = '[[${message}]]';
+        message && alert(message);
+    </script>
     <div class="sub-content">
         <div class="inner">
             <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
@@ -36,57 +40,24 @@
                         <th class="tg-0lax">아이디</th>
                         <th class="tg-0lax">닉네임</th>
                         <th class="tg-0lax">수정요청사유</th>
-                        <th class="tg-0lax">수정요청일자</th>
                         <th class="tg-0lax">포스트가격</th>
+                        <th class="tg-0lax">수정요청일자</th>
+                        <th class="tg-0lax">수정관리</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <th>
-                            <input type="checkbox" id="checkAll-modify-2" name="" class="form-check-input" />
-                        </th>
-                        <td class="tg-0lax">1</td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <input type="checkbox" id="checkAll-modify-3" name="" class="form-check-input" />
-                        </th>
-                        <td class="tg-0lax">2</td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <input type="checkbox" id="checkAll-modify-4" name="" class="form-check-input" />
-                        </th>
-                        <td class="tg-0lax">3</td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <input type="checkbox" id="checkAll-modify-5" name="" class="form-check-input" />
-                        </th>
-                        <td class="tg-0lax">4</td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <tbody>
+                        <th:block th:each="modifyPostAllList : ${modifyPostAllList}">
+                            <th><input type="checkbox" id="checkAll-modify-2" name="" class="form-check-input" /></th>
+                            <td data-modify="listCode" th:text="${modifyPostAllList.code}" class="tg-0lax">1</td>
+                            <td data-modify="listCode" th:text="${modifyPostAllList.userCode}" class="tg-0lax"></td>
+                            <td data-modify="listCode" th:text="${modifyPostAllList.title}" class="tg-0lax"></td>
+                            <td data-modify="listCode" th:text="${modifyPostAllList.confirmContent}" class="tg-0lax"></td>
+                            <td data-modify="listCode" th:text="${modifyPostAllList.price}" class="tg-0lax"></td>
+                            <td data-modify="listCode" th:text="${modifyPostAllList.createDate}" class="tg-0lax"></td>
+                            <td><button type="button" class="button btn-modify" th:attr="data-user=${modifyPostAllList.postCode}">수락</button></td>
+                        </th:block>
+                        </tbody>
+                    </table>
                 <div class="page">
                     <ul class="pagination-modifyPost">
                         <li><a href="#" class="first">처음페이지</a></li>
@@ -103,61 +74,54 @@
             </section>
             <!-- ------------------------------------ -->
             <!-- Pop-Up -->
-            <div>
-                <div class="popUpWrap">
-                    <div class="popUp_bg">
-                        <div class="popUp_info">
-                            <h3 class="h3">수정 정보</h3>
-
-                            <div class="table-box">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th colspan="2">아이디</th>
-                                        <th>1bfish106</th>
-                                        <th colspan="2">닉네임</th>
-                                        <th>고등어</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td colspan="2">포스트 제목</td>
-                                        <td colspan="4">프로젝트를 하고싶지않아요</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">수정사유</td>
-                                        <td colspan="4">오타</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">수정상세사유</td>
-                                        <td colspan="4">어쩌구를 저쩌구로 고쳐야함</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6">포스트 링크</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="popUp_btns">
-                                <button class="button">승인</button>
-                                <button class="button">반려</button>
-                            </div>
-                        </div>
-                    </div>
+            <div class="layer-popup layer-popup-small blind">
+                <div class="pop-header">
+                    <h2 class="h2">포스트 삭제</h2>
+                    <button class="close-btn">
+                        <i class="bi bi-x"></i>
+                        <span class="blind">닫기</span>
+                    </button>
                 </div>
-                <div class="popUpWrap">
-                    <div class="popUp_bg">
-                        <div class="popUp_info">
-                            <h3 class="h3">안내창</h3>
-                            <p>(제목)의 포스트 수정을 승인하시겠습니까?</p>
-                            <div class="popUp_btns">
-                                <button class="button">승인</button>
-                                <button class="button">반려</button>
+                <div class="pop-content">
+                    <div class="pop-content-inner">
+                        <h3 class="h3">해당 포스트 수정을 승인 하시겠습니까?</h3>
+                        <div class="form-item">
+                            <div class="pop-btn">
+                                <form action="/admin/modify/posts/confirm" method="post" id="reportForm">
+                                    <input type="hidden" name="postCode" id="postCode">
+                                    <button type="submit" class="button" >확인</button>
+                                    <button type="button" class="button" >취소</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <script type="text/javascript">
+
+                const $deleteBtns = document.querySelectorAll('.btn-modify');
+                const $postCodeInput = document.getElementById('postCode');
+
+                $deleteBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const postCode = btn.getAttribute('data-user');
+                        $postCodeInput.value = postCode;
+                        showPopup();
+                    });
+                });
+
+                function showPopup() {
+                    const popup = document.querySelector('.layer-popup-small');
+                    popup.classList.remove('blind');
+                }
+
+                document.querySelector('.close-btn').addEventListener('click', function() {
+                    const popup = document.querySelector('.layer-popup-small');
+                    popup.classList.add('blind');
+                });
+            </script>
+
         </div>
     </div>
 </th:block>

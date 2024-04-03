@@ -5,11 +5,11 @@ spring:
     cache: false
     check-template-location: true
   # spring.datasource
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/pentoryall
-    username: ohgiraffers
-    password: ohgiraffers
+ datasource:
+     driver-class-name: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://localhost/pentoryall
+     username: ohgiraffers
+     password: ohgiraffers
   # spring.email
   mail:
     host: smtp.gmail.com  # SMTP 서버 호스트
@@ -40,4 +40,3 @@ mybatis:
 # [image] image upload directory
 image:
   image-dir: src/main/resources/upload/
-

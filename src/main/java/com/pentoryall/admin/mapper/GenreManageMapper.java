@@ -7,5 +7,13 @@ import java.util.List;
 
 @Mapper
 public interface GenreManageMapper {
-    List<GenreManageDTO> selectAllGenreList();
+    List<GenreManageDTO> selectFirstGenreList();
+
+    List<GenreManageDTO> selectSecondGenreList();
+
+    void addFirstGenre(String name);
+
+    void addSecondGenre(String name);
+
+    void deleteSecondGenre(String name);
 }

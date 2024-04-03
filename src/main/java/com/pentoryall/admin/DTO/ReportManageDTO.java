@@ -1,6 +1,14 @@
 package com.pentoryall.admin.DTO;
 
-public class reportManage {
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class ReportManageDTO {
 
     private long code;
     private long userCode;

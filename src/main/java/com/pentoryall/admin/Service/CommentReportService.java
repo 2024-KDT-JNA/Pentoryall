@@ -22,8 +22,11 @@ public class CommentReportService {
 
     private final CommentReportMapper commentReportMapper;
 
-    public CommentReportService(CommentReportMapper commentReportMapper, UserManageMapper userManageMapper) {
+    private final UserManageMapper userManageMapper;
+
+    public CommentReportService(CommentReportMapper commentReportMapper, UserManageMapper userManageMapper, UserManageMapper userManageMapper1) {
         this.commentReportMapper = commentReportMapper;
+        this.userManageMapper = userManageMapper1;
     }
 
 
@@ -50,17 +53,19 @@ public class CommentReportService {
     }
 
 
-    public void releaseUserById(long userCode) throws MemberStopException {
-        int result = commentReportMapper.noStopUser(userCode);
-
-        if (!(result > 0)) {
-            throw new MemberStopException("회원 정지해제에 실패하였습니다.");
-        }
-    }
+//    public void releaseUserById(long userCode) throws MemberStopException {
+//        int result = commentReportMapper.noStopUser(userCode);
+//
+//        if (!(result > 0)) {
+//            throw new MemberStopException("회원 정지해제에 실패하였습니다.");
+//        }
+//    }
 
     public int updateStateByUserCode(long userCode, String state) {
 
         return commentReportMapper.restoreUserState( userCode, state);
     }
+
+
 
 }
