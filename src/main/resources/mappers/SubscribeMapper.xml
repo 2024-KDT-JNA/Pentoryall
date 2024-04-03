@@ -23,12 +23,12 @@
 
 
     <select id="getAllSubscribeStory" resultType="com.pentoryall.subscribe.dto.SubscribeDTO">
-        SELECT
-            s.code,
-            s.user_code,
-            s.subscribe_user_code,
-            s.subscribed_date,
-            u.nickname
+        SELECT s.code,
+               s.user_code,
+               s.subscribe_user_code,
+               s.subscribed_date,
+               u.nickname,
+               u.introduction
         FROM subscribe s
                  JOIN user u
                       ON u.code = s.subscribe_user_code

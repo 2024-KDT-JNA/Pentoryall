@@ -77,8 +77,8 @@ public class SubscribeController {
         String userName = user.getName();
         model.addAttribute("userName", userName);
 
-        String introduction = user.getIntroduction();
-        model.addAttribute("introduction", introduction);
+//        String introduction = user.getIntroduction();
+//        model.addAttribute("introduction", introduction);
         model.addAttribute("subscribers", subscribersList);
 
         if (subscribersList.isEmpty()) {
