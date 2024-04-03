@@ -14,6 +14,6 @@ public class SubscribeDTO {
     private long userCode;
     private long subscribeUserCode;
     private LocalDate subscribedDate;
-
+    private String nickname;
 
 }
