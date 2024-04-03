@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/default}">
+      layout:decorate="~{/layout/settings}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css"/>
     <!--     여기에 연결할 외부 CSS 링크를 지정 -->
     <!--     생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
     <link rel="stylesheet" th:href="@{/css/user.css}" href="/css/user.css"/>
@@ -73,7 +72,9 @@
                                 <label class="labelTitle">정산</label>
                                 <div class="input_box">
                                     <div class="gray_btns btns">
-                                        <button class="btn">정산관리 페이지로 가기</button>
+                                        <input class="btn" type="button"
+                                               onclick="location.href='/settings/user/settlement'"
+                                               value="정산관리 페이지로 가기"/>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +92,7 @@
                                 <div class="input_box">
                                     <div class="gray_btns btns">
                                         <input class="btn" type="button"
-                                               onclick="location.href='/user/withdrawal'" value="계정탈퇴 페이지 가기"/>
+                                               onclick="location.href='/user/withdrawal'" value="계정탈퇴 페이지로 가기"/>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +111,6 @@
 <th:block layout:fragment="script">
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
-    <script th:src="@{/js/common.js}" src="/js/common.js"></script>
     <script th:src="@{/js/event.js}" src="/js/event.js"></script>
     <script th:src="@{/js/user.js}" src="/js/user.js"></script>
     <script>

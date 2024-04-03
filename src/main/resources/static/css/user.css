@@ -479,6 +479,10 @@ input[type="checkbox"]:checked + label span {
     justify-content: space-between;
 }
 
+.my_profile_top .img {
+    overflow: hidden;
+}
+
 .my_profile_top .btn {
     margin-top: 20px;
 }
