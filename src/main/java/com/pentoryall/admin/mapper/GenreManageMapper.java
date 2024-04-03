@@ -16,4 +16,5 @@ public interface GenreManageMapper {
     void addSecondGenre(String name);
 
     void deleteSecondGenre(String name);
+
 }

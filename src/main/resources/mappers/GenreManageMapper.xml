@@ -37,7 +37,5 @@
         FROM genre
         WHERE name = #{name};
     </delete>
-
-
 </mapper>
 
