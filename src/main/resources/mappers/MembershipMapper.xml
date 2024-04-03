@@ -7,7 +7,6 @@
     <insert id="createMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
         INSERT INTO membership
         (
-         code,
          user_code,
          name,
          introduction,
@@ -15,28 +14,18 @@
          color
 )
         VALUES (
-                #{code},
                 #{userCode},
-                #{name},
-                #{introduction},
-                #{price},
-                #{color})
+                #{ name },
+                #{ introduction },
+                #{ price },
+                #{ color })
     </insert>
-    <select id="selectMembershipByUserCode" resultType="com.pentoryall.membership.dto.MembershipDTO">
-        SELECT code,
-               user_code,
-               name,
+    <select id="getAllMemberships" resultType="com.pentoryall.membership.dto.MembershipDTO">
+        SELECT name,
                introduction,
                price,
-               color,
-               is_active,
-               is_deleted,
-               create_date,
-               update_date,
-               delete_date
+               color
         FROM membership
-        WHERE membership.user_code = #{userCode}
-          AND is_deleted = 'N'
     </select>
 
     <update id="modifyMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">

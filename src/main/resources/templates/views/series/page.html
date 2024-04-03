@@ -108,7 +108,7 @@
                 <!--포스트-->
             <div th:each="post : ${postList}">
 
-                <div class="post-information-thumbnail">
+                <div class="post-information-thumbnail" th:onclick="'location.href = \'' + @{/post/information(code=${post.code})} + '\''">
                     <img class="post-information-thumbnail-content" th:src="${post.thumbnailImage != null
                         ? post.thumbnailImage : '/images/temp/profile.png'}">
                     <!--자물쇠 모양 이미지-->
@@ -125,7 +125,7 @@
                             </p>
                         </div>
                         <div class="b">
-                            <button class="post-information-like">
+                            <button class="post-information-like" th:onclick="'event.stopPropagation();'">
                                 ♡ 222
                             </button>
                             <div class="post-information-log">
@@ -138,8 +138,8 @@
 
 
                     <div class="series-post-update-delete">
-                        <button class="series-update-button btn" th:onclick="'location.href = \'' + @{/post/updatewriter(code=${post.code})} + '\''">수정</button>
-                        <button class="series-delete-button btn" th:onclick="'location.href = \'' + @{/post/delete(code=${post.code})} + '\''">삭제</button>
+                        <button class="series-update-button btn" th:onclick="'event.stopPropagation(); location.href = \'' + @{/post/updatewriter(code=${post.code})} + '\''">수정</button>
+                        <button class="series-delete-button btn" th:onclick="'event.stopPropagation(); location.href = \'' + @{/post/delete(code=${post.code})} + '\''">삭제</button>
                     </div>
 
                 </div>

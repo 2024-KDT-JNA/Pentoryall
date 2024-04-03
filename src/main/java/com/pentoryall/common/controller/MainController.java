@@ -1,5 +1,7 @@
 package com.pentoryall.common.controller;
 
+import com.pentoryall.genre.dto.GenreDTO;
+import com.pentoryall.genre.service.GenreService;
 import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
@@ -15,10 +17,12 @@ public class MainController {
 
     private final SeriesService seriesService;
     private final PostService postService;
+    private final GenreService genreService;
 
-    public MainController(SeriesService seriesService, PostService postService) {
+    public MainController(SeriesService seriesService, PostService postService, GenreService genreService) {
         this.seriesService = seriesService;
         this.postService = postService;
+        this.genreService = genreService;
     }
 
     @RequestMapping({ "/", "/main", "/index" })
@@ -27,9 +31,12 @@ public class MainController {
         model.addAttribute("seriesList",seriesDTO);
         System.out.println("seriesDTO = " + seriesDTO);
 
+        List<GenreDTO> genreList = genreService.getGenreList();
+
         List<PostDTO> postDTO = postService.selectPostList();
         System.out.println("postList = " + postDTO);
         model.addAttribute("postList",postDTO);
+        model.addAttribute("genreList",genreList);
         return "/views/index";
     }
 
