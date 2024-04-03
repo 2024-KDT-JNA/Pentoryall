@@ -24,7 +24,8 @@
 .settings-wrap {display: flex;}
 .settings-wrap .content {padding: 80px 40px 0}
 .settings-wrap .sub-content { margin-left: 80px}
-.settings-wrap .settings-aside { top: 81px; height: calc(100vh - 81px); width: 180px; padding: 20px; border-right: 1px solid #ddd; vertical-align: middle}
+
+.settings-wrap .settings-aside {min-width: 180px; width: 180px; height: calc(100vh - 81px); padding: 20px; border-right: 1px solid #ddd; vertical-align: middle}
 .settings-wrap .settings-nav .bi {width: 30px; padding-right: 4px; font-size: 20px}
 .settings-wrap .settings-nav .depth1-li.on .depth1-btn {font-weight: bold;}
 .settings-wrap .settings-nav .depth1-btn {padding-bottom: 12px}

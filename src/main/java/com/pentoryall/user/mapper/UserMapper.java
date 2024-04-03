@@ -24,5 +24,9 @@ public interface UserMapper {
 
     void updatePointByUserCode(UserDTO user);
 
+    String selectUserByNickname(String nickname);
+
+    String getLikedPostCount();
+
     List<UserDTO> getUserListByWord(String word);
 }

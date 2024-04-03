@@ -1,5 +1,4 @@
-package com.pentoryall.post.dto;
-
+package com.pentoryall.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,13 +9,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class PostDTO {
-
-    private long postCode;
-    private long code;
+public class LikePostDTO {
     private long seriesCode;
+    private String seriesTitle;
+    private String nickname;
+    private String profileImage;
     private long userCode;
-    private String title;
+    private String postTitle;
     private String content;
     private String confirmContent;
     private String thumbnailImage;
@@ -28,5 +27,4 @@ public class PostDTO {
     private char isDeleted;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-
 }

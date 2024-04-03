@@ -1,5 +1,6 @@
 package com.pentoryall.user.service;
 
+import com.pentoryall.user.dto.LikeDTO;
 import com.pentoryall.user.mapper.LikeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,11 +10,11 @@ import org.springframework.stereotype.Service;
 public class LikeService {
     private final LikeMapper likeMapper;
 
-    public void likeUp(long postCode, long userCode) {
-        likeMapper.likeUp(postCode, userCode);
+    public void likeUp(LikeDTO likeDTO) {
+        likeMapper.likeUp(likeDTO);
     }
 
-    public void likeDown(long postCode, long userCode) {
-        likeMapper.likeDown(postCode, userCode);
+    public void likeDown(LikeDTO likeDTO) {
+        likeMapper.likeDown(likeDTO);
     }
 }

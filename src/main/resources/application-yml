@@ -1,4 +1,8 @@
 # [spring]
+server:
+  port: 8080
+  error:
+    whitelabel.enabled: false
 spring:
   # spring.thymeleaf
   thymeleaf:
@@ -15,7 +19,7 @@ spring:
     host: smtp.gmail.com  # SMTP 서버 호스트
     port: 587             # SMTP 서버 포트
     username: pentoryall  # 이메일 아이디
-    password: PASSWORD_HERE
+    password: PASSWORD_HERD
     properties:
       mail:
         smtp:
@@ -40,4 +44,9 @@ mybatis:
 # [image] image upload directory
 image:
   image-dir: src/main/resources/upload/
-
+# -------------------------------------------------
+# [PortOne]
+portone:
+  api:
+    key: PORTONE_API_KEY
+    secret: PORTONE_API_SECRET
