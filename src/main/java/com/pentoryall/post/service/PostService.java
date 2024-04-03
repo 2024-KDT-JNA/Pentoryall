@@ -67,4 +67,8 @@ public class PostService {
     public void addComment(CommentDetailDTO commentAdd) {
         postMapper.addComment(commentAdd);
     }
+
+    public PostDTO getLatestPost() {
+       return postMapper.getLatestPost();
+    }
 }

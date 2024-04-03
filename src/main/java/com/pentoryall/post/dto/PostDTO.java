@@ -3,6 +3,9 @@ package com.pentoryall.post.dto;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 

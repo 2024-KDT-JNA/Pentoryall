@@ -236,30 +236,30 @@
 
         <section class="section section-genre-best">
             <h2 class="h2">장르 별 베스트</h2>
+
             <div class="inner">
+                <form action="/post/genre" method="post">
                 <!-- 1차 장르 목록 -->
                 <nav class="genre-tab">
-                    <ul class="genre-tab-list">
-                        <li class="active">
-                            <button>소설</button>
+                    <select name="genre" class="genre-tab-list"  oninput="receiveFetchLowerGenre()">
+                        <li class="active"  th:each="genre : ${genreList}">
+                            <option class="genre-btn" th:text="|${genre.name}|" th:value="${genre.code}"></option>
                         </li>
-                        <li>
-                            <button>웹툰</button>
-                        </li>
-                        <li>
-                            <button>일기</button>
-                        </li>
-                        <li>
-                            <button>팬픽</button>
-                        </li>
-                        <li>
-                            <button>시</button>
-                        </li>
-                        <li>
-                            <button>기타</button>
-                        </li>
-                    </ul>
+                    </select>
                 </nav>
+                <!-- 2차 장르 목록 -->
+                <nav class="genre-tab lower-tab">
+                    <div class="box box-order-amount">
+                        <label class="label">하위 장르</label>
+                        <ul class="list-group">
+<!--                        <li class="active" id="lower-genre" >-->
+<!--                            <option class="genre-btn" th:text="|${genre.name}|" th:value="${genre.code}"></option>-->
+<!--                        </li>-->
+                        </ul>
+                    </div>
+                </nav>
+                    <button class="button">검색</button>
+                </form>
                 <div class="post-list">
                     <div class="post-item">
                         <div class="thumbnail-image">
@@ -406,9 +406,51 @@
 
 <th:block layout:fragment="script">
     <script th:src="@{/js/main.js}" src="/js/main.js"></script>
+
     <script>
-        const message = '[[${message}]]';
-        message && alert(message);
+        function createLowerGenreList(genre){
+            console.log(genre);
+            return `
+           <li class="list-group-item">
+                                                <input class="form-check-input blind" type="checkbox" name="genre" id="${genre.name}"
+                                                      value="${genre.code}" />
+                                                <label class="form-check-label" for="${genre.name}">
+                                <span class="inner-text">
+                                    <span class="lowerGenre">${genre.name}</span>
+                                </span>
+                                                </label>
+                                            </li>
+            `
+        }
+        async function receiveFetchLowerGenre(){
+            const upperGenre = document.querySelector(".genre-tab-list");
+            const code = upperGenre.value;
+            console.log(code);
+            const response = await fetch('/genre/lowerGenreList?code='+code);
+            const responseJson = await response.json();
+            const $optionNone = document.querySelector(".list-group");
+            $optionNone.innerHTML = responseJson.map(item=>createLowerGenreList(item)).join('');
+        }
+        window.onload=function(){
+            receiveFetchLowerGenre();
+        }
+    function view(){
+            console.log("이거 작동하나욤")
+            const genre = document.getElementById("lower-genre");
+            console.log("ㅎㅇ장르 코드 : "+genre.value);
+    }
+        function hiddenLowerGenre(){
+            const genre = document.querySelector(".genre-tab-list");
+            const lowerGenre = document.getElementById("lower-genre");
+            if(genre.value==1||genre.value==2||genre.value==3){
+                lowerGenre.hidden = false;
+            }else{
+                lowerGenre.hidden = true;
+            }
+        }
+
+
+
     </script>
 </th:block>
 </html>

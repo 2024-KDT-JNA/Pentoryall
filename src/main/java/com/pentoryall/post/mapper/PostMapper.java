@@ -32,4 +32,6 @@ public interface PostMapper {
     List<PostDTO> selectPostByUserCode(Long userCode);
 
     void addComment(CommentDetailDTO commentAdd);
+
+    PostDTO getLatestPost();
 }

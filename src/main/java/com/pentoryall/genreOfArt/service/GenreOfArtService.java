@@ -1,8 +1,11 @@
 package com.pentoryall.genreOfArt.service;
 
 import com.pentoryall.genre.dto.GenreDTO;
+import com.pentoryall.genreOfArt.controller.GenreRequest;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.genreOfArt.mapper.GenreOfArtMapper;
+import com.pentoryall.post.dto.PostDTO;
+import com.pentoryall.series.dto.SeriesDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,5 +74,29 @@ public class GenreOfArtService {
 @Transactional
     public void insertGenreForDTO(GenreOfArtDTO genreOfArtDTO) {
         genreOfArtMapper.insertGenreForDTO(genreOfArtDTO);
+    }
+
+    public List<GenreOfArtDTO> selectSeriesByGenre(Long genreCode) {
+        return genreOfArtMapper.selectSeriesByGenre(genreCode);
+    }
+
+    public List<SeriesDTO> selectSeriesByGenreNull(Long upperGenre,Long lowerGenre) {
+        return genreOfArtMapper.selectSeriesByGenreNull(upperGenre,lowerGenre);
+    }
+
+    public List<PostDTO> selectPostByGenreNull(Long upperGenre) {
+        return genreOfArtMapper.selectPostByGenreNull(upperGenre);
+    }
+
+    public List<PostDTO> selectPostByGenre(Long upperGenre, Long lowerGenre) {
+        return genreOfArtMapper.selectPostByGenre(upperGenre,lowerGenre);
+    }
+
+    public GenreOfArtDTO selectSeriesGenre(Long seriesCode, Long genreCode) {
+        return genreOfArtMapper.selectSeriesGenre(seriesCode,genreCode);
+    }
+
+    public List<GenreOfArtDTO> selectPostNotInSeries(Long genreCode) {
+        return genreOfArtMapper.selectPostNotInSeries(genreCode);
     }
 }

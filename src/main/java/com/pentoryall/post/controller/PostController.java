@@ -26,10 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @Controller
@@ -136,6 +133,9 @@ public class PostController {
 
         System.out.println("genreCode!!!!!!!!!!!!!!! = " + genreCode);
 
+        PostDTO postDTO1 = postService.getLatestPost();
+
+        System.out.println("postDTO1 = " + postDTO1);
 
         for (int i = 0; i < genreCode.size(); i++) {
             long code = genreCode.get(i);
@@ -145,7 +145,7 @@ public class PostController {
             String kind = genreDTO.getName();
             System.out.println(kind);
             genreOfArtDTO.setGenreCode(code);
-            genreOfArtDTO.setPostCode(postDTO.getCode());
+            genreOfArtDTO.setPostCode(postDTO1.getCode());
             genreOfArtDTO.setSeriesCode(seriesDTO.getCode());
             genreOfArtDTO.setKind("POST");
             System.out.println("전");
@@ -344,6 +344,80 @@ public class PostController {
         commentService.removeReply(commentDetailDTO);
         System.out.println("잘 삭제되어씀");
         return ResponseEntity.ok("댓글 삭제 완료");
+    }
+
+    @PostMapping("/genre")
+    public String selectByGenre(@RequestParam List<Long> genre,
+                                Model model){
+
+        System.out.println("genre = " + genre);
+
+        List<GenreOfArtDTO> genreOfArtDTOList = genreOfArtService.selectSeriesByGenre(genre.get(0));
+        List<Long> seriesCode = new ArrayList<>();
+        for(int i = 0 ; i<genreOfArtDTOList.size();i++){
+            seriesCode.add(genreOfArtDTOList.get(i).getSeriesCode());
+        }
+        System.out.println("seriesCode = " + seriesCode);
+        System.out.println("genreOfArtDTOList = " + genreOfArtDTOList);
+
+        boolean[] result = new boolean[seriesCode.size()];
+        for(int i =0 ; i<result.length;i++){
+            result[i]=true;
+        }
+        System.out.println("result[0] = " + result[0]);
+        for(int i = 0 ; i<seriesCode.size(); i++){
+            for(int k = 1 ; k<genre.size();k++) {
+                GenreOfArtDTO genreOfArtDTO = genreOfArtService.selectSeriesGenre(seriesCode.get(i),genre.get(k));
+                if(genreOfArtDTO==null){
+                    result[i]=false;
+                }
+            }
+        }
+
+        System.out.println("result =>> " + Arrays.toString(result));
+
+        List<Integer> temp = new ArrayList<>();
+        for(int i =0  ; i<result.length;i++){
+            if(result[i]==true){
+                temp.add(i);
+            }
+        }
+        List<SeriesDTO> seriesList = new ArrayList<>();
+        for(int i =0 ; i<temp.size();i++){
+        SeriesDTO seriesDTO = seriesService.selectSeriesByTitle(seriesCode.get((temp.get(i))));
+        seriesList.add(seriesDTO);
+        }
+        System.out.println("seriesList =>> " + seriesList);
+
+        /*포스트 검색*/
+        List<PostDTO> postList = new ArrayList<>();
+        List<PostDTO> postDTO = new ArrayList<>();
+        for(int i =0 ; i<seriesList.size();i++) {
+            postDTO = postService.selectPostsBySeriesCode(seriesList.get(i).getCode());
+            for(int k = 0 ; k<postDTO.size();k++){
+                postList.add(postDTO.get(k));
+            }
+        }
+//
+//        List<Long> postNo = new ArrayList<>();
+//        for(int i =0 ; i<genre.size();i++) {
+//            List<GenreOfArtDTO> genreOfArtDTO = genreOfArtService.selectPostNotInSeries(genre.get(i));
+//            for(int k = 0 ; k<genreOfArtDTO.size();k++) {
+//                postNo.add(genreOfArtDTO.get(k).getPostCode());
+//            }
+//        }
+//
+//        System.out.println("postNo = " + postNo);
+//        for(int i = 0 ; i<postNo.size() ; i++){
+//            PostDTO postDTO1 = postService.getPostInformationByPostCode(postNo.get(i));
+//            postList.add(postDTO1);
+//        }
+        System.out.println(" 포스트리스트= " +postList );
+
+        model.addAttribute("seriesList",seriesList);
+        model.addAttribute("postList",postList);
+        return "/views/series/select";
+
     }
 
 }

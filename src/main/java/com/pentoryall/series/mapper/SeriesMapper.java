@@ -28,5 +28,7 @@ public interface SeriesMapper {
 
     List<SeriesDTO> getSeriesListByWord(String word);
 
-    List<SeriesDTO> selectSeriesByUserCode(long userCode);
+    List<SeriesDTO> selectSeriesByUserCode(Long code);
+
+    List<SeriesDTO> selectAllSeries();
 }

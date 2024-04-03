@@ -1,5 +1,6 @@
 package com.pentoryall.series.service;
 
+import com.pentoryall.genreOfArt.controller.GenreRequest;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.mapper.SeriesMapper;
 import com.pentoryall.user.dto.UserDTO;
@@ -57,7 +58,12 @@ public class SeriesService {
         return seriesMapper.getSeriesListByWord(word);
     }
 
-    public List<SeriesDTO> selectSeriesByUserCode(long userCode) {
-        return seriesMapper.selectSeriesByUserCode(userCode);
+
+    public List<SeriesDTO> selectSeriesByUserCode(Long code) {
+        return seriesMapper.selectSeriesByUserCode(code);
+    }
+
+    public List<SeriesDTO> selectAllSeries() {
+        return seriesMapper.selectAllSeries();
     }
 }
