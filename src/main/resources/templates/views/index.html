@@ -3,6 +3,7 @@
       layout:decorate="~{/layout/default}">
 <th:block layout:fragment="link">
     <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </th:block>
 
 <th:block layout:fragment="content">
@@ -18,7 +19,8 @@
                         <div class="swiper-slide" th:each="series:${seriesList}">
                             <a th:onclick="'location.href = \'' + @{/series/page(code=${series.code})} + '\''">
                                 <div class="thumbnail-image">
-                                    <img class="best-series-img" th:src="${series.thumbnailImage}" alt="" onerror="this.src='./images/temp/thumbnail.png'"/>
+                                    <img class="best-series-img" th:src="${series.thumbnailImage}" alt=""
+                                         onerror="this.src='./images/temp/thumbnail.png'"/>
                                 </div>
                                 <p class="description" th:text="${series.title}"></p>
                             </a>
@@ -99,13 +101,15 @@
                 <div class="post-list">
                     <div class="post-item" th:each="post:${postList}">
                         <div class="thumbnail-image">
-                            <img th:src="${post.thumbnailImage}" alt="미리보기" onerror="this.src='./images/temp/thumbnail.png'"/>
+                            <img th:src="${post.thumbnailImage}" alt="미리보기"
+                                 onerror="this.src='./images/temp/thumbnail.png'"/>
                         </div>
                         <div class="post-content">
                             <div class="post-text">
                                 <h3 class="post-name" th:text="${post.title}"></h3>
-<!--                                <p class="post-description" th:utext="${post.content}"></p>-->
-                            </div><br>
+                                <!--                                <p class="post-description" th:utext="${post.content}"></p>-->
+                            </div>
+                            <br>
                             <div class="post-meta">
                                 <dl class="date">
                                     <dt>
@@ -123,8 +127,11 @@
                                 </dl>
                                 <dl class="like">
                                     <dt>
-                                        <i class="bi bi-heart"></i>
-                                        <span class="blind">좋아요</span>
+                                        <!--                                        <i class="bi bi-heart"></i>-->
+                                        <!--                                        <span class="blind">좋아요</span>-->
+                                        <div class="like_post_info">
+                                            <button class="likeBtn"><i class="far fa-heart"></i></button>
+                                        </div>
                                     </dt>
                                     <dd>100</dd>
                                 </dl>
@@ -138,98 +145,98 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="post-item">-->
-<!--                        <div class="thumbnail-image">-->
-<!--                            <img src="./images/temp/thumbnail.png" alt="미리보기"/>-->
-<!--                        </div>-->
-<!--                        <div class="post-content">-->
-<!--                            <div class="post-text">-->
-<!--                                <a href="#" class="series-name">시리즈명</a>-->
-<!--                                <h3 class="post-name">게시글 제목</h3>-->
-<!--                                <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit.-->
-<!--                                    Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio,-->
-<!--                                    cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi-->
-<!--                                    porro.</p>-->
-<!--                            </div>-->
-<!--                            <div class="post-meta">-->
-<!--                                <dl class="date">-->
-<!--                                    <dt>-->
-<!--                                        <i class="bi bi-calendar"></i>-->
-<!--                                        <span class="blind">작성일</span>-->
-<!--                                    </dt>-->
-<!--                                    <dd>2024.03.20</dd>-->
-<!--                                </dl>-->
-<!--                                <dl class="views">-->
-<!--                                    <dt>-->
-<!--                                        <i class="bi bi-eye"></i>-->
-<!--                                        <span class="blind">조회수</span>-->
-<!--                                    </dt>-->
-<!--                                    <dd>1324</dd>-->
-<!--                                </dl>-->
-<!--                                <dl class="like">-->
-<!--                                    <dt>-->
-<!--                                        <i class="bi bi-heart"></i>-->
-<!--                                        <span class="blind">좋아요</span>-->
-<!--                                    </dt>-->
-<!--                                    <dd>100</dd>-->
-<!--                                </dl>-->
-<!--                                <dl class="comment">-->
-<!--                                    <dt>-->
-<!--                                        <i class="bi bi-reply"></i>-->
-<!--                                        <span class="blind">댓글</span>-->
-<!--                                    </dt>-->
-<!--                                    <dd>14</dd>-->
-<!--                                </dl>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="post-item">-->
-<!--                        <div class="thumbnail-image">-->
-<!--                            <img src="./images/temp/thumbnail.png" alt="미리보기"/>-->
-<!--                        </div>-->
-<!--                        <div class="post-content">-->
-<!--                            <div class="post-text">-->
-<!--                                <a href="#" class="series-name">시리즈명</a>-->
-<!--                                <a href="#">-->
-<!--                                    <h3 class="post-name">게시글 제목</h3>-->
-<!--                                    <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing-->
-<!--                                        elit. Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos,-->
-<!--                                        commodi optio, cumque ullam similique impedit voluptatibus nisi enim. Quae-->
-<!--                                        deleniti deserunt modi porro.</p>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                            <div class="post-meta">-->
-<!--                                <dl class="date">-->
-<!--                                    <dt>-->
-<!--                                        <i class="bi bi-calendar"></i>-->
-<!--                                        <span class="blind">작성일</span>-->
-<!--                                    </dt>-->
-<!--                                    <dd>2024.03.20</dd>-->
-<!--                                </dl>-->
-<!--                                <dl class="views">-->
-<!--                                    <dt>-->
-<!--                                        <i class="bi bi-eye"></i>-->
-<!--                                        <span class="blind">조회수</span>-->
-<!--                                    </dt>-->
-<!--                                    <dd>1324</dd>-->
-<!--                                </dl>-->
-<!--                                <dl class="like">-->
-<!--                                    <dt>-->
-<!--                                        <i class="bi bi-heart"></i>-->
-<!--                                        <span class="blind">좋아요</span>-->
-<!--                                    </dt>-->
-<!--                                    <dd>100</dd>-->
-<!--                                </dl>-->
-<!--                                <dl class="comment">-->
-<!--                                    <dt>-->
-<!--                                        <i class="bi bi-reply"></i>-->
-<!--                                        <span class="blind">댓글</span>-->
-<!--                                    </dt>-->
-<!--                                    <dd>14</dd>-->
-<!--                                </dl>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <!--                    <div class="post-item">-->
+                    <!--                        <div class="thumbnail-image">-->
+                    <!--                            <img src="./images/temp/thumbnail.png" alt="미리보기"/>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="post-content">-->
+                    <!--                            <div class="post-text">-->
+                    <!--                                <a href="#" class="series-name">시리즈명</a>-->
+                    <!--                                <h3 class="post-name">게시글 제목</h3>-->
+                    <!--                                <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit.-->
+                    <!--                                    Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio,-->
+                    <!--                                    cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi-->
+                    <!--                                    porro.</p>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="post-meta">-->
+                    <!--                                <dl class="date">-->
+                    <!--                                    <dt>-->
+                    <!--                                        <i class="bi bi-calendar"></i>-->
+                    <!--                                        <span class="blind">작성일</span>-->
+                    <!--                                    </dt>-->
+                    <!--                                    <dd>2024.03.20</dd>-->
+                    <!--                                </dl>-->
+                    <!--                                <dl class="views">-->
+                    <!--                                    <dt>-->
+                    <!--                                        <i class="bi bi-eye"></i>-->
+                    <!--                                        <span class="blind">조회수</span>-->
+                    <!--                                    </dt>-->
+                    <!--                                    <dd>1324</dd>-->
+                    <!--                                </dl>-->
+                    <!--                                <dl class="like">-->
+                    <!--                                    <dt>-->
+                    <!--                                        <i class="bi bi-heart"></i>-->
+                    <!--                                        <span class="blind">좋아요</span>-->
+                    <!--                                    </dt>-->
+                    <!--                                    <dd>100</dd>-->
+                    <!--                                </dl>-->
+                    <!--                                <dl class="comment">-->
+                    <!--                                    <dt>-->
+                    <!--                                        <i class="bi bi-reply"></i>-->
+                    <!--                                        <span class="blind">댓글</span>-->
+                    <!--                                    </dt>-->
+                    <!--                                    <dd>14</dd>-->
+                    <!--                                </dl>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="post-item">-->
+                    <!--                        <div class="thumbnail-image">-->
+                    <!--                            <img src="./images/temp/thumbnail.png" alt="미리보기"/>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="post-content">-->
+                    <!--                            <div class="post-text">-->
+                    <!--                                <a href="#" class="series-name">시리즈명</a>-->
+                    <!--                                <a href="#">-->
+                    <!--                                    <h3 class="post-name">게시글 제목</h3>-->
+                    <!--                                    <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing-->
+                    <!--                                        elit. Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos,-->
+                    <!--                                        commodi optio, cumque ullam similique impedit voluptatibus nisi enim. Quae-->
+                    <!--                                        deleniti deserunt modi porro.</p>-->
+                    <!--                                </a>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="post-meta">-->
+                    <!--                                <dl class="date">-->
+                    <!--                                    <dt>-->
+                    <!--                                        <i class="bi bi-calendar"></i>-->
+                    <!--                                        <span class="blind">작성일</span>-->
+                    <!--                                    </dt>-->
+                    <!--                                    <dd>2024.03.20</dd>-->
+                    <!--                                </dl>-->
+                    <!--                                <dl class="views">-->
+                    <!--                                    <dt>-->
+                    <!--                                        <i class="bi bi-eye"></i>-->
+                    <!--                                        <span class="blind">조회수</span>-->
+                    <!--                                    </dt>-->
+                    <!--                                    <dd>1324</dd>-->
+                    <!--                                </dl>-->
+                    <!--                                <dl class="like">-->
+                    <!--                                    <dt>-->
+                    <!--                                        <i class="bi bi-heart"></i>-->
+                    <!--                                        <span class="blind">좋아요</span>-->
+                    <!--                                    </dt>-->
+                    <!--                                    <dd>100</dd>-->
+                    <!--                                </dl>-->
+                    <!--                                <dl class="comment">-->
+                    <!--                                    <dt>-->
+                    <!--                                        <i class="bi bi-reply"></i>-->
+                    <!--                                        <span class="blind">댓글</span>-->
+                    <!--                                    </dt>-->
+                    <!--                                    <dd>14</dd>-->
+                    <!--                                </dl>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                 </div>
             </div>
         </section>
@@ -406,6 +413,7 @@
 
 <th:block layout:fragment="script">
     <script th:src="@{/js/main.js}" src="/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const message = '[[${message}]]';
         message && alert(message);

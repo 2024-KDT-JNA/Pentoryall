@@ -11,8 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -69,6 +67,16 @@ public class UserService {
 
         return pwd;
     }
+
+    public boolean selectUserByNickname(String nickname) {
+        String result = userMapper.selectUserByNickname(nickname);
+
+        return result != null;
+    }
+
+//    public String getLikedPostCount() {
+//        return userMapper.getLikedPostCount();
+//    }
 
 //    public boolean isPasswordCorrect(String userId, String enteredPassword) {
 //        // 사용자 정보를 DB에서 가져옵니다.

@@ -30,9 +30,11 @@ import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
+//@RestController
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("EmailAuthVerified")
 public class UserController {
 
     @Value("${image.image-dir}")
@@ -45,6 +47,21 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     private final MessageSourceAccessor messageSourceAccessor;
+
+//    @PostMapping("/emails/verification-requests")
+//    public ResponseEntity sendMessage(@RequestParam("email") @Valid @CustomEmail String email) {
+//        userService.sendCodeToEmail(email);
+//
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/emails/verifications")
+//    public ResponseEntity verificationEmail(@RequestParam("email") @Valid @CustomEmail String email,
+//                                            @RequestParam("code") String authCode) {
+//        EmailVerificationResult response = userService.verifiedCode(email, authCode);
+//
+//        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+//    }
 
     /* 로그인 페이지 이동 */
     @GetMapping("/login")
@@ -64,7 +81,7 @@ public class UserController {
         return "redirect:/user/login";
     }
 
-    /* 아이디 중복 체크 : 비동기 통신
+    /* 아이디 중복 체크 : 비동기 통신 start
      * ResponseEntity : 사용자의 HttpRequest에 대한 응답 데이터를 포함하는 클래스
      * (HttpStatus, HttpHeaders, HttpBody 를 포함한다)
      * 규약에 맞는 HttpResponse를 반환하는데 사용 목적이 있다. */
@@ -76,16 +93,27 @@ public class UserController {
         boolean isDuplicate = userService.selectUserById(user.getUserId());
         Boolean result = isDuplicate ? true : false;
 
-//        String result = "사용 가능한 아이디입니다.";
-//
-//        if (userService.selectUserById(user.getUserId())) {
-//            result = "중복 된 아이디가 존재합니다.";
-//        }
+        log.info(String.valueOf(result));
+
+        return ResponseEntity.ok(result);
+    }
+    /* 아이디 중복체크 end */
+
+    /* 닉네임 중복체크 start */
+    @PostMapping("/nicknameDupCheck")
+    public ResponseEntity<Boolean> checkNicknameDuplication(@RequestBody UserDTO user) {
+
+        log.info("Request Check nickname : {}", user.getNickname());
+
+        boolean isDuplicate = userService.selectUserByNickname(user.getNickname());
+        Boolean result = isDuplicate ? true : false;
+
         log.info(String.valueOf(result));
 
         return ResponseEntity.ok(result);
 
     }
+    /* 닉네임 중복체크 end */
 
     protected Authentication createNewAuthentication(String userId) {
 
@@ -212,6 +240,9 @@ public class UserController {
             System.out.println("들어가긴하나");
             userService.removeUser(user);
 
+//            // 세션 무효화 (로그아웃 처리)
+//            request.getSession().invalidate();
+
             /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
             //rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
 
@@ -226,13 +257,17 @@ public class UserController {
 
     @PostMapping("/checkPassword")
     public ResponseEntity<Map<String, Boolean>> checkPassword(@RequestBody Map<String, String> requestData,
-                                                              @AuthenticationPrincipal UserDTO user) {
+                                                              @AuthenticationPrincipal UserDTO user) throws MemberRemoveException {
         String enteredPassword = requestData.get("password");
 
         String pwd = userService.getPwd(user.getCode());
 
+
         // 비밀번호 일치 여부를 판단하여 결과를 반환합니다.
         boolean isValidPassword = passwordEncoder.matches(enteredPassword, pwd);
+        if (isValidPassword) {
+            userService.removeUser(user);
+        }
 
         Map<String, Boolean> responseData = new HashMap<>();
         responseData.put("isValidPassword", isValidPassword);

@@ -57,6 +57,12 @@
         WHERE state = 'ACTIVE'
           AND user_id = #{ userId }
     </select>
+    <select id="selectUserByNickname" resultType="string">
+        SELECT user_id
+        FROM user
+        WHERE state = 'ACTIVE'
+          AND nickname = #{nickname}
+    </select>
 
     <insert id="insertUser">
         INSERT INTO user (user_id, password, name, nickname, email, birth)

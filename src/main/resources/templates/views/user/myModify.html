@@ -52,14 +52,15 @@
                             <div class="inputWrap">
                                 <label class="labelTitle" for="user_email">이메일</label>
                                 <div class="input_box">
-<!--                                    <p class="input_box_text" th:text="${ #authentication.principal.email }"></p>-->
+                                    <p class="input_box_text" th:text="${ #authentication.principal.email }"></p>
                                 </div>
                             </div>
                             <div class="inputWrap">
                                 <label class="labelTitle" for="user_nickname">닉네임</label>
                                 <div class="input_box">
-                                    <input type="text" id="user_nickname" name="nickname"
-<!--                                           th:value="${ #authentication.principal.nickname }" required/>-->
+                                    <!--                                    <input type="text" id="user_nickname" name="nickname"/>-->
+                                    <input th:value="${ #authentication.principal.nickname }" required/>
+                                    <!--                                           th:value="${ #authentication.principal.nickname }" required/>-->
                                 </div>
                             </div>
                             <div class="inputWrap">

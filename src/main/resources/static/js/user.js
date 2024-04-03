@@ -44,7 +44,7 @@ elInputUsername.onkeyup = function () {
         }
         // 조건을 모두 만족할 경우
         else if (idLength(elInputUsername.value) || onlyNumberAndEnglish(elInputUsername.value)) {
-            elSuccessMessage.classList.remove('hide'); // 사용할 수 있는 아이디입니다
+            // elSuccessMessage.classList.remove('hide'); // 사용할 수 있는 아이디입니다
             elFailureMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
             elFailureMessageTwo.classList.add('hide'); // 실패 메시지2가 가려져야 함
             elFailureMessageThree.classList.add('hide'); // 이미 존재하는 아이디입니다 메시지 가려야 함
