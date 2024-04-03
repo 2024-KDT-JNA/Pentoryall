@@ -16,6 +16,7 @@ public class UserSettlementService {
         return userSettlementMapper.selectByUserCode(userCode);
     }
 
+
     @Transactional
     public void insertNewUserSettlement(UserSettlementDTO userSettlement) {
 
@@ -31,4 +32,5 @@ public class UserSettlementService {
 
         userSettlementMapper.insertUserSettlement(userSettlement);
     }
+
 }

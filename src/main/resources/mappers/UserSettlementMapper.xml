@@ -10,6 +10,7 @@
           FROM user_settlement
          WHERE user_code = #{ userCode }
            AND is_deleted = 'N'
+
          ORDER BY code DESC
          LIMIT 1
     </select>

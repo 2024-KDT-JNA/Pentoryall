@@ -52,7 +52,7 @@ public class UserDTO implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return name;
     }
 
     @Override
@@ -74,4 +74,6 @@ public class UserDTO implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
+

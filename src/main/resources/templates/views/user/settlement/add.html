@@ -3,6 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org" lang="ko">
 <th:block layout:fragment="link">
+
+
     <link rel="stylesheet" th:href="@{/css/user.css}" href="/css/user.css" />
 </th:block>
 
@@ -10,15 +12,16 @@
     <div class="content">
         <div class="inner">
             <section class="section section-settlement">
+
                 <h2 class="h2" th:text="#{page.settings.user.settlement}">정산 계좌 정보</h2>
 
                 <form th:action="@{/settings/user/settlement}" th:method="post" th:object="${userSettlement}" onsubmit="saveUserSettlementForm(this)" name="userSettlementForm">
                     <input type="hidden" th:field="*{userCode}">
-
                     <div class="my_profile_bottom">
                         <div class="inputWrap">
                             <label for="bankCode" class="labelTitle">은행</label>
                             <div class="input_box">
+
                                 <select id="bankCode" name="bankCode" th:field="*{bankCode}">
                                     <option th:value="0" th:selected="${bankCode} == null">== 선택 ==</option>
                                     <option th:value="2" th:selected="${bankCode} == value">산업</option>
@@ -47,18 +50,22 @@
                                     <option th:value="90" th:selected="${bankCode} == value">카카오</option>
                                     <option th:value="92" th:selected="${bankCode} == value">토스</option>
                                 </select>
+
                             </div>
                         </div>
                         <div class="inputWrap">
                             <label for="accountNumber" class="labelTitle">계좌번호</label>
                             <div class="input_box">
+
                                 <input type="text" id="accountNumber" name="accountNumber" th:field="*{accountNumber}" maxlength="14" placeholder="숫자만 입력" oninput="restrictInputToNumeric(this)"
                                        pattern="[0-9]+" required>
+
                             </div>
                         </div>
                         <div class="inputWrap">
                             <label for="accountHolder" class="labelTitle">예금주</label>
                             <div class="input_box">
+
                                 <input type="text" id="accountHolder" name="accountHolder" th:field="*{accountHolder}" required>
                             </div>
                         </div>
@@ -73,6 +80,7 @@
 </th:block>
 
 <th:block layout:fragment="script">
+
     <script th:src="@{/js/settlement.js}" src="/js/settlement.js"></script>
 </th:block>
 </html>
