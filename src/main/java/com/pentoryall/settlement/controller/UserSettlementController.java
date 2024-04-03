@@ -41,20 +41,13 @@ public class UserSettlementController {
 
     @PostMapping
     public String saveUserSettlement(@ModelAttribute("userSettlement") UserSettlementDTO modifyUserSettlement,
-                                     @AuthenticationPrincipal UserDTO sessionUser,
-                                     RedirectAttributes rttr) {
-
-        if (modifyUserSettlement.getUserCode() <= 0)
+                                     @AuthenticationPrincipal UserDTO sessionUser, RedirectAttributes rttr) {
+        if (modifyUserSettlement.getUserCode() == null) {
             modifyUserSettlement.setUserCode(sessionUser.getCode());
-        
-        /* 계좌 검증 되었다는 가정하에.. */
-        UserSettlementDTO selectedUserSettlement
-                = userSettlementService.selectByUserCode(sessionUser.getCode());
-
-        if (selectedUserSettlement == null || !selectedUserSettlement.equals(modifyUserSettlement)) {
-            userSettlementService.insertNewUserSettlement(modifyUserSettlement);
-            rttr.addAttribute("redirectMessage", messageSourceAccessor.getMessage("save.success"));
         }
+
+        userSettlementService.insertNewUserSettlement(modifyUserSettlement);
+        rttr.addFlashAttribute("alertMessage", messageSourceAccessor.getMessage("save.success"));
 
         return "redirect:/settings/user/settlement";
     }

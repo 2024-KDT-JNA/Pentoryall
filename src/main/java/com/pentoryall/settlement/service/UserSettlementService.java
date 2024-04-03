@@ -20,11 +20,14 @@ public class UserSettlementService {
     public void insertNewUserSettlement(UserSettlementDTO userSettlement) {
 
         /* 마지막으로 입력된 값 찾기 */
-        long lastInsertCode = userSettlementMapper.selectLastCodeByUserCode(userSettlement.getUserCode());
-        if (lastInsertCode > 0) {
-            userSettlementMapper.deleteByUserSettlementCode(lastInsertCode);
-        }
+        UserSettlementDTO selectedUserSettlement = userSettlementMapper.selectByUserCode(userSettlement.getUserCode());
+        if (selectedUserSettlement != null) {
+            if (userSettlement.equals(selectedUserSettlement))
+                return;
 
+            userSettlementMapper.deleteByUserSettlementCode(selectedUserSettlement.getCode());
+
+        }
 
         userSettlementMapper.insertUserSettlement(userSettlement);
     }
