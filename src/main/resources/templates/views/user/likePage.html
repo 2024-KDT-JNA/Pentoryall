@@ -1,110 +1,231 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>보관함 > 좋아요(좋아요 한 작품이 있을 때)</title>
-    <!-- favicon -->
-    <!-- <link rel="icon" type="image/png" href="/assets/img/brand/favicon.png" /> -->
-    <!-- <link rel="apple-touch-icon" type="image/png" href="/img/brand/apple-touch-icon.png" /> -->
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"/>
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
-    <link rel="stylesheet" ref="https://cdn.jsdelivr.net/npm/swiper@11.0.7/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="/css/reset.css"/>
-    <link rel="stylesheet" href="/css/common.css"/>
-    <link rel="stylesheet" href="/css/user.css"/>
-    <!-- JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11.0.7/swiper-bundle.min.js"></script>
-</head>
-<body>
-<div id="wrap">
-    <!-- header area -->
-    <header id="header">header here</header>
-    <!-- main content area -->
-    <div id="main">
-        <div class="container">
-            <div class="notLikePage likePage">
-                <ul class="storage_box">
-                    <li class="storage_box_list"><a href="">좋아요 한 작품</a></li>
-                    <li class="storage_box_list"><a href="">유료 구매 작품</a></li>
-                </ul>
-                <div class="search_info">
-                    <div class="case_filter">
-                        <div class="case_filter_label" onclick="">
-                            <span>검색할 정보를 선택해주세요.</span>
-                            <img class="toggleBtn" src="https://www.exsoft.co.kr/theme/exsoft/img/down.svg">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+<th:block layout:fragment="link">'
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css"/>
+    <link rel="stylesheet" th:href="@{/css/user.css}" href="/css/user.css"/>
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+</th:block>
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
+            <section class="section">
+                <div class="notLikePage likePage">
+                    <ul class="storage_box">
+                        <li class="storage_box_list"><a href="">좋아요 한 작품</a></li>
+                        <li class="storage_box_list"><a href="">유료 구매 작품</a></li>
+                    </ul>
+                    <div class="search_info">
+                        <div class="case_filter">
+                            <div class="case_filter_label" onclick="">
+                                <span>검색할 정보를 선택해주세요.</span>
+                                <img class="toggleBtn" src="https://www.exsoft.co.kr/theme/exsoft/img/down.svg">
+                            </div>
+                            <form name="fsearch" action="" method="get" class="search_form" style="width:100%">
+                                <input type="hidden" name="bo_table" value="customer">
+                                <input type="hidden" name="sca" value="">
+                                <input type="hidden" name="sop" value="and">
+                            </form>
+                            <div class="case_filter_content">
+                                <div class="case_filter_data">
+                                    <b>장르</b>
+                                    <div class="case_filter_list">
+                                        <label>
+                                            <input type="checkbox" name="check_group[]" value="장르"
+                                                   class=" group_chk findChk">
+                                            <span class="gro list">로맨스</span>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="check_group[]" value="장르"
+                                                   class=" group_chk findChk">
+                                            <span class="gro list">무협</span>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="check_group[]" value="장르"
+                                                   class=" group_chk findChk">
+                                            <span class="gro list">액션</span>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="check_group[]" value="장르"
+                                                   class=" group_chk findChk">
+                                            <span class="gro list">장르</span>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="check_group[]" value="장르"
+                                                   class=" group_chk findChk">
+                                            <span class="gro list">장르</span>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="check_group[]" value="장르"
+                                                   class=" group_chk findChk">
+                                            <span class="gro list">장르</span>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="check_group[]" value="장르"
+                                                   class=" group_chk findChk">
+                                            <span class="gro list">장르</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <form name="fsearch" method="get" class="search_form" style="width:100%">
-                            <input type="hidden" name="bo_table" value="customer">
-                            <input type="hidden" name="sca" value="">
-                            <input type="hidden" name="sop" value="and">
-                        </form>
-                        <div class="case_filter_content">
-                            <div class="case_filter_data">
-                                <b>장르</b>
-                                <div class="case_filter_list">
-                                    <label>
-                                        <input type="checkbox" name="check_group[]" value="장르"
-                                               class=" group_chk findChk">
-                                        <span class="gro list">장르</span>
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="check_group[]" value="장르"
-                                               class=" group_chk findChk">
-                                        <span class="gro list">장르</span>
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="check_group[]" value="장르"
-                                               class=" group_chk findChk">
-                                        <span class="gro list">장르</span>
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="check_group[]" value="장르"
-                                               class=" group_chk findChk">
-                                        <span class="gro list">장르</span>
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="check_group[]" value="장르"
-                                               class=" group_chk findChk">
-                                        <span class="gro list">장르</span>
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="check_group[]" value="장르"
-                                               class=" group_chk findChk">
-                                        <span class="gro list">장르</span>
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="check_group[]" value="장르"
-                                               class=" group_chk findChk">
-                                        <span class="gro list">장르</span>
-                                    </label>
+                    </div>
+                    <div class="like_post">
+                        <h5>
+                            <!-- Likecontroller에 likeCount변수로 선언 -->
+                            <dd><span class="likedPostCount" th:text="${likeCount}"></span>개의 포스트</dd>
+                        </h5>
+                    </div>
+                    <div class="like_post_info">
+                        <button class="likeBtn"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="not_post" style="display: none;">
+                        <h5>좋아요한 포스트가 없습니다.</h5>
+                        <div class="black_btns btns">
+                            <button class="btn">컬렉션 둘러보기</button>
+                        </div>
+                    </div>
+                    <div class="inner">
+                        <div class="post-list">
+                            <div class="post-item" th:each="post:${likedPosts}">
+                                <div class="thumbnail-image">
+                                    <img th:src="${post.thumbnailImage != null
+                        ? post.thumbnailImage : '/images/temp/thumbnail.png'}"/>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-text">
+                                        <h3 class="post-name" th:text="${post.postTitle}"></h3>
+                                        <!--                                <p class="post-description" th:utext="${post.content}"></p>-->
+                                    </div>
+                                    <br>
+                                    <div class="post-meta">
+                                        <dl class="date">
+                                            <dt>
+                                                <i class="bi bi-calendar"></i>
+                                                <span class="blind">작성일</span>
+                                            </dt>
+                                            <dd th:text="${post.createDate}"></dd>
+                                        </dl>
+                                        <dl class="views">
+                                            <dt>
+                                                <i class="bi bi-eye"></i>
+                                                <span class="blind">조회수</span>
+                                            </dt>
+                                            <dd>1324</dd>
+                                        </dl>
+                                        <dl class="like">
+                                            <dt>
+                                                <div class="like_post_info">
+                                                    <button class="likeBtn"><i class="far fa-heart"></i></button>
+                                                </div>
+                                            </dt>
+                                            <dd>100</dd>
+                                        </dl>
+                                        <dl class="comment">
+                                            <dt>
+                                                <i class="bi bi-reply"></i>
+                                                <span class="blind">댓글</span>
+                                            </dt>
+                                            <dd>14</dd>
+                                        </dl>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="like_post">
-                    <h5>3개의 포스트</h5>
-                    <div class="like_post_info">
-
-                    </div>
-                </div>
-            </div>
+            </section>
+            <!-- ------------------------------------ -->
         </div>
     </div>
-    <!-- footer area -->
-    <footer id="footer">footer here</footer>
-</div>
-<script>
-    const toggleBtn = document.querySelector('.toggleBtn');
-    const relationList = document.querySelector('.case_filter_content');
+</th:block>
 
-    toggleBtn.addEventListener('click', (event) => {
-        relationList.classList.toggle('active');
-        event.currentTarget.classList.toggle('close');
-    });
-</script>
-</body>
+<th:block layout:fragment="script">
+    <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+    <script>
+        const toggleBtn = document.querySelector('.toggleBtn');
+        const relationList = document.querySelector('.case_filter_content');
+
+        toggleBtn.addEventListener('click', (event) => {
+            relationList.classList.toggle('active');
+            event.currentTarget.classList.toggle('close');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            const toggleBtn = document.querySelector('.toggleBtn');
+            const relationList = document.querySelector('.case_filter_content');
+
+            toggleBtn.addEventListener('click', (event) => {
+                relationList.classList.toggle('active');
+                event.currentTarget.classList.toggle('close');
+            });
+
+            var isLiked = false;
+
+            var postCode = 1;
+            var userCode = 1;
+            // let likedPostsLength = $('#post').data('liked-posts-length');
+
+            // if (likedPostsLength === 0) {
+            //     $('.not_post').show();
+            // } else {
+            //     $('.not_post').hide();
+            // }       //
+
+            $('.likeBtn').click(function () {
+                if (isLiked) {
+                    $.ajax({
+                        type: 'post',
+                        url: '/user/likeDown',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            postCode,
+                            userCode
+                        }),
+                        success: function (data) {
+                            isLiked = false;
+                            $('.likeBtn').html('<i class="far fa-heart"></i>');
+                            console.log("좋아요 취소 성공");
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        type: 'post',
+                        url: '/user/likeUp',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            postCode,
+                            userCode
+                        }),
+                        success: function (data) {
+                            isLiked = true;
+                            $('.likeBtn').html('<i class="fas fa-heart"></i>');
+                            console.log("좋아요 성공");
+                        }
+                    });
+                }
+            });
+        });
+
+        // $.ajax({
+        //     type: 'GET',
+        //     url: '/user/likedPostCount', // 좋아요된 포스트 개수를 가져오는 엔드포인트
+        //     success: function (data) {
+        //         // 성공적으로 데이터를 받으면 HTML에 업데이트
+        //         $('.likedPostCount').text(data.count); // 예를 들어, likedPostCount 클래스를 가진 요소에 개수를 업데이트
+        //     },
+        //     error: function (error) {
+        //         console.error('Error fetching liked post count:', error);
+        //     }
+        // });
+    </script>
+</th:block>
 </html>

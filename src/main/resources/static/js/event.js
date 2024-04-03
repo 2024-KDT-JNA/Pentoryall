@@ -6,29 +6,6 @@ window.onload = function () {
         const $login = document.getElementById("login");
         $login.onclick = function () {
             location.href = "/user/login";
-            // // 로그인 버튼 클릭 시
-            // document.getElementById("loginSubmit").onclick = function () {
-            //     var userId = document.getElementById("userId").value;
-            //     var password = document.getElementById("password").value;
-            //
-            //     // AJAX 또는 Fetch API를 사용하여 서버로 로그인 요청을 보냅니다.
-            //     // 요청이 올바른 URL과 데이터를 포함하는지 확인합니다.
-            //     fetch("/user/login", {
-            //         method: "POST",
-            //         headers: {
-            //             "Content-Type": "application/json"
-            //         },
-            //         body: JSON.stringify({userId: userId, password: password})
-            //     }).then(response => {
-            //         if (response.ok) {
-            //             // 로그인 성공 시 리다이렉트 또는 다른 동작 수행
-            //         } else {
-            //             // 로그인 실패 시 에러 처리
-            //         }
-            //     }).catch(error => {
-            //         console.error("Error:", error);
-            //     });
-            // };
         }
     }
 
@@ -46,6 +23,7 @@ window.onload = function () {
         }
     }
 
+    /* 아이디 중복처리 start */
     let isDuplicationChecked = false;
 
     if (document.getElementById("duplicationCheck")) {
@@ -80,6 +58,44 @@ window.onload = function () {
                 .catch((error) => error.text().then((res) => alert(res)));
         }
     }
+    /* 아이디 중복처리 end */
+
+    /* 닉네임 중복처리 start */
+    let isNicknameDuplicationChecked = false;
+
+    if (document.getElementById("nicknameDuplicationCheck")) {
+
+        const $duplication = document.getElementById("nicknameDuplicationCheck");
+
+        // $duplication.removeAttribute("disabled");
+
+        $duplication.onclick = function () {
+            let nickname = document.getElementById("nickname").value.trim();
+
+            fetch("/user/nicknameDupCheck", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({nickname: nickname})
+            })
+                /* Response객체로 가지고 온 result 데이터 .json()으로 파싱처리 필요 */
+                .then(result => result.json())
+                .then(result => {
+                    if (result === true) {
+                        alert("중복된 닉네임 입니다.");
+                    } else if (result === false) {
+                        alert(
+                            "사용가능한 닉네임 입니다."
+                        )
+                        isNicknameDuplicationChecked = true;
+                    }
+                })
+                // .then(result => alert(result))
+                .catch((error) => error.text().then((res) => alert(res)));
+        }
+    }
+    /* 닉네임 중복처리 end */
 
     // 회원가입 폼 제출 이벤트 처리
     if (document.querySelector(".regist_form")) {
@@ -87,6 +103,10 @@ window.onload = function () {
         $registForm.onsubmit = function (event) {
             if (!isDuplicationChecked) { // 중복 확인이 되지 않은 경우
                 alert("아이디 중복 확인을 해주세요."); // 알림창 표시
+                event.preventDefault(); // 폼 제출 방지
+            }
+            if (!isNicknameDuplicationChecked) {
+                alert("닉네임 중복 확인을 해주세요."); // 알림창 표시
                 event.preventDefault(); // 폼 제출 방지
             }
         }
