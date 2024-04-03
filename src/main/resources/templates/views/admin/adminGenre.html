@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/default}">
+      layout:decorate="~{/layout/settings}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css"/>
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
-    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css"/>
 </th:block>
 
 <th:block layout:fragment="content">
@@ -17,109 +17,127 @@
             <section class="section">
                 <h2 class="h2">장르 관리</h2>
 
-                <div class="genre-group">
-                    <h3 class="h3">상위 장르</h3>
+                <div class="box-genre-group">
+                    <div class="genre-group">
+                        <h3 class="h3">상위 장르</h3>
 
-                    <ul class="first-genre-group genre">
-                        <li class="first-genre-list">웹툰</li>
-                        <li class="first-genre-list">소설</li>
-                        <li class="first-genre-list">팬픽</li>
-                        <li class="first-genre-list">시</li>
-                        <li class="first-genre-list">일상</li>
-                        <li class="first-genre-list">창작소재</li>
-                        <li class="first-genre-list">일러스트</li>
-                        <li class="first-genre-list">자기계발</li>
-                        <li class="first-genre-list">미분류</li>
-                    </ul>
-                </div>
-
-                <div class="genre-group">
-                    <h3 class="h3">하위 장르</h3>
-
-                    <ul class="second-genre-group genre">
-                        <li class="first-genre-list">
-                            <span>소설</span>
-                            <button>X</button>
-                        </li>
-                        <li class="first-genre-list">
-                            <span>로맨스</span>
-                            <button>X</button>
-                        </li>
-                        <li class="first-genre-list">
-                            <span>추리</span>
-                            <button>X</button>
-                        </li>
-                        <li class="first-genre-list">
-                            <span>판타지</span>
-                            <button>X</button>
-                        </li>
-                        <li class="first-genre-list">
-                            <span>학원물</span>
-                            <button>X</button>
-                        </li>
-                        <li class="first-genre-list">
-                            <span>액션</span>
-                            <button>X</button>
-                        </li>
-                        <li class="first-genre-list">
-                            <span>무협</span>
-                            <button>X</button>
-                        </li>
-                        <li class="first-genre-list">
-                            <span>드라마</span>
-                            <button>X</button>
-                        </li>
-                        <li class="first-genre-list">
-                            <span>공포/호러</span>
-                            <button>X</button>
-                        </li>
-                        <li class="first-genre-list">
-                            <span>미스테리</span>
-                            <button>X</button>
-                        </li>
-                        <li class="first-genre-list">
-                            <span>코믹</span>
-                            <button>X</button>
-                        </li>
-                    </ul>
-                </div>
-
-                <form id="searchForm">
-                    <div class="genre-add-box">
-                        <div class="genre-option form-item">
-                            <select class="select">
-                                <option value="">전체</option>
-                                <option value="T">상위 장르</option>
-                                <option value="C">하위 장르</option>
-                            </select>
-                        </div>
-                        <div class="genre-keyword form-item">
-                            <input type="text" class="input" value="장르를 입력하세요." />
-                        </div>
-                        <div class="genre-btn form-item">
-                            <button class="button">추가</button>
-                        </div>
+                        <ul class="first-genre-group genre">
+                            <th:block th:each="genreList : ${genreList}">
+                                <li class="first-genre-list" th:text="${genreList.name}"></li>
+                            </th:block>
+                        </ul>
+                        <form action="/admin/genre/add" method="post" name="addFirstGenreForm">
+                            <input type="text" class="first-genre-list" name="genreName" placeholder="추가할 장르명을 입력하세요.">
+                            <button type="submit" class="button" id="addFirstGenreButton">추가</button>
+                        </form>
                     </div>
-                </form>
+
+                    <div class="genre-group">
+                        <h3 class="h3">하위 장르</h3>
+
+                        <ul class="second-genre-group genre">
+                            <th:block th:each="genreSecondList : ${genreSecondList}">
+                                <li class="first-genre-list" th:text="${genreSecondList.name}"></li>
+                                <li>
+                                    <button type="submit" class="button" id="addSecondGenreDelete">X</button>
+                                </li>
+                            </th:block>
+                        </ul>
+                        <form action="/admin/genre/add" method="post" name="addSecondGenreForm">
+                            <input type="text" class="first-genre-list" name="genreName" placeholder="추가할 장르명을 입력하세요.">
+                            <button type="submit" class="button" id="addSecondGenreButton">추가</button>
+                        </form>
+                    </div>
+                </div>
             </section>
-            <!-- ------------------------------------ -->
-            <div class="popUpWrap" style="display: none">
-                <div class="popUp_bg">
-                    <div class="popUp_info-genre">
-                        <h4 class="h4">해당 장르가 존재합니다.</h4>
-                        <div class="black_btns btns">
-                            <button class="btn" type="submit">닫기</button>
-                        </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------ -->
+    <div class="popUpWrap" style="display: none">
+        <div class="popUp_bg">
+            <div class="popUp_info-genre">
+                <h4 class="h4">해당 장르가 존재합니다.</h4>
+                <div class="black_btns btns">
+                    <button class="btn" type="submit">닫기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pop-content">
+            <div class="pop-content-inner">
+                <h3 class="h3">장르를 추가하시겠습니까?</h3>
+                <div class="form-item">
+                    <div class="pop-btn">
+                        <form action="/admin/genre/add" method="post" id="genreForm">
+                            <input type="hidden" name="name" id="name">
+                            <button type="submit" class="button">확인</button>
+                            <button type="button" class="button">취소</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </th:block>
 
 <th:block layout:fragment="script">
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
     <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+
+            document.addFirstGenreForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const genreNameInput = document.querySelector('input[name="genreName"]');
+                const genreName = genreNameInput.value.trim(); // 입력값 공백 제거
+
+                if (!genreName) {
+                    alert('장르명을 입력하세요.');
+                    return; // 장르명이 비어 있으면 추가하지 않고 함수 종료
+                }
+
+                confirmAddGenre(genreName);
+            });
+
+            document.addSecondGenreForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const genreNameInput = document.querySelector('form[name="addSecondGenreForm"] input[name="genreName"]');
+                const genreName = genreNameInput.value.trim(); // 입력값 공백 제거
+
+                if (!genreName) {
+                    alert('장르명을 입력하세요.');
+                    return; // 장르명이 비어 있으면 추가하지 않고 함수 종료
+                }
+
+                confirmAddGenre(genreName);
+            });
+
+
+            const $deleteBtns = document.querySelectorAll('.btn-first-add');
+            const $genreNameInput = document.getElementById('name');
+
+            $deleteBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const name = btn.getAttribute('data-genre');
+                    $genreNameInput.value = name;
+                    confirmAddGenre(name);
+                });
+            });
+
+            function confirmAddGenre(name) {
+                if (confirm('"' + name + '" 장르를 추가하시겠습니까?')) {
+                    const genreForm = document.getElementById('genreForm');
+                    const genreNameInput = document.getElementById('name');
+                    genreNameInput.value = name; // 선택한 장르명을 input에 할당
+                    genreForm.submit(); // 폼 서버에 제출
+                }
+            }
+        });
+
+
+    </script>
 </th:block>
 </html>

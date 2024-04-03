@@ -12,6 +12,8 @@ import java.util.Date;
 @ToString
 public class PostReportDTO {
 
+    private long postCode;
+
     private long code;
 
     private long userCode;
@@ -23,6 +25,8 @@ public class PostReportDTO {
     private String title;
 
     private String type;
+
+    private long confirmContent;
 
     private Date reportDate;
 }

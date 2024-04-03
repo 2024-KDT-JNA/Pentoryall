@@ -1,5 +1,4 @@
 package com.pentoryall.admin.Controller;
-import com.pentoryall.admin.Exception.MemberStopException;
 import com.pentoryall.admin.Service.CommentReportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -61,19 +60,19 @@ public class CommentReportController {
         return "redirect:/admin/report/comments";
     }
 
-    @PostMapping("/report/list")
-    public String noStopUser(@RequestParam("userCode") Long userCode,
-                             RedirectAttributes rttr) throws MemberStopException {
-
-        log.info("{}",userCode);
-        // 회원을 정지 상태에서 해제합니다.
-        commentReportService.releaseUserById(userCode);
-
-        // 성공적으로 회원을 해제한 경우 메시지를 전달하고 이전 페이지로 리다이렉트합니다.
-        rttr.addFlashAttribute("message", "회원을 성공적으로 해제했습니다.");
-
-        return "redirect:/admin/report/list";
-
-    }
+//    @PostMapping("/report/list")
+//    public String noStopUser(@RequestParam("userCode") Long userCode,
+//                             RedirectAttributes rttr) throws MemberStopException {
+//
+//        log.info("{}",userCode);
+//        // 회원을 정지 상태에서 해제합니다.
+//        commentReportService.releaseUserById(userCode);
+//
+//        // 성공적으로 회원을 해제한 경우 메시지를 전달하고 이전 페이지로 리다이렉트합니다.
+//        rttr.addFlashAttribute("message", "회원을 성공적으로 해제했습니다.");
+//
+//        return "redirect:/admin/report/list";
+//
+//    }
 
 }
