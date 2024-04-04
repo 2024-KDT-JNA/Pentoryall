@@ -4,7 +4,6 @@
       layout:decorate="~{/layout/default}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css" />
 </th:block>
 
@@ -31,7 +30,7 @@
                             <span th:text="|(${ #numbers.formatInteger(paidPoint, 3, 'COMMA')}P)|"></span>
                         </dd>
                         <dt class="desc-list-dt border-top">보유 포인트</dt>
-                        <dd class="desc-list-dd border-top" th:text="|${#numbers.formatInteger(#authentication.principal.point, 3, 'COMMA')}P|"></dd>
+                        <dd class="desc-list-dd border-top" th:text="|${#authentication.principal.point > 0 ? #numbers.formatInteger(#authentication.principal.point, 3, 'COMMA') : 0}P|"></dd>
                     </dl>
                 </div>
                 <div class="box-bottom">
