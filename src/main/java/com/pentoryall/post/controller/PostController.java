@@ -1,5 +1,8 @@
 package com.pentoryall.post.controller;
 
+import com.pentoryall.comment.dto.CommentDTO;
+import com.pentoryall.comment.dto.CommentDetailDTO;
+import com.pentoryall.comment.service.CommentService;
 import com.pentoryall.genre.dto.GenreDTO;
 import com.pentoryall.genre.service.GenreService;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
@@ -13,6 +16,8 @@ import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 
 @Controller
@@ -35,14 +38,16 @@ public class PostController {
     private final SeriesService seriesService;
     private final PostService postService;
     private final UserService userService;
+    private final CommentService commentService;
     private final GenreOfArtService genreOfArtService;
     private final GenreService genreService;
     private final MessageSourceAccessor messageSourceAccessor;
 
-    public PostController(SeriesService seriesService, PostService postService, UserService userService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor) {
+    public PostController(SeriesService seriesService, PostService postService, UserService userService, CommentService commentService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor) {
         this.seriesService = seriesService;
         this.postService = postService;
         this.userService = userService;
+        this.commentService = commentService;
         this.genreOfArtService = genreOfArtService;
         this.genreService = genreService;
         this.messageSourceAccessor = messageSourceAccessor;
@@ -128,6 +133,9 @@ public class PostController {
 
         System.out.println("genreCode!!!!!!!!!!!!!!! = " + genreCode);
 
+        PostDTO postDTO1 = postService.getLatestPost();
+
+        System.out.println("postDTO1 = " + postDTO1);
 
         for (int i = 0; i < genreCode.size(); i++) {
             long code = genreCode.get(i);
@@ -137,7 +145,7 @@ public class PostController {
             String kind = genreDTO.getName();
             System.out.println(kind);
             genreOfArtDTO.setGenreCode(code);
-            genreOfArtDTO.setPostCode(postDTO.getCode());
+            genreOfArtDTO.setPostCode(postDTO1.getCode());
             genreOfArtDTO.setSeriesCode(seriesDTO.getCode());
             genreOfArtDTO.setKind("POST");
             System.out.println("전");
@@ -172,13 +180,16 @@ public class PostController {
 
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
 
+        List<CommentDetailDTO> commentList = commentService.selectCommentByPostCode(code);
+        System.out.println("유저 정보 : "+commentList.get(0).getUser());
+        System.out.println("commentList =>>> " + commentList);
         System.out.println("postDTO = " + postDTO);
         System.out.println("userDTO = " + userDTO);
         System.out.println("seriesDTO = " + seriesDTO);
         model.addAttribute("post", postDTO);
         model.addAttribute("user", userDTO);
         model.addAttribute("series", seriesDTO);
-
+        model.addAttribute("commentList",commentList);
         return "views/post/list";
     }
 
@@ -304,4 +315,109 @@ public class PostController {
         String url = "redirect:/series/page?code=" + seriesCode;
         return url;
     }
+
+    @PostMapping("/addComment")
+    public ResponseEntity<String> addComment(@RequestBody CommentDetailDTO commentAdd,
+                                             @AuthenticationPrincipal UserDTO user){
+        commentAdd.setCode(1L);
+        System.out.println("commentAdd1 :"+commentAdd.getCode());
+        System.out.println("commentAdd1.5 :"+commentAdd.getPostCode());
+        System.out.println("commentAdd2 :"+commentAdd.getContent());
+        System.out.println("도달하고 있는가");
+        commentAdd.setUser(user);
+        System.out.println("commentAdd = " + commentAdd);
+        commentService.addComment(commentAdd);
+        System.out.println("db에 잘 등록 됬어요~");
+        return ResponseEntity.ok("댓글 등록 완료");
+    }
+
+    @GetMapping("/loadComment")
+    public ResponseEntity<List<CommentDetailDTO>> loadComment(CommentDetailDTO commentDTO){
+        System.out.println("commentDTO.getPostCode() = " + commentDTO.getPostCode());
+        List<CommentDetailDTO> commentList = commentService.loadComment(commentDTO);
+        System.out.println("commentList^^ = " + commentList);
+        return ResponseEntity.ok(commentList);
+    }
+    @PostMapping("/removeComment")
+    public ResponseEntity<String> removeReply(@RequestBody CommentDetailDTO commentDetailDTO) {
+        System.out.println("commentDetailDTO =~~~~~~ " + commentDetailDTO.getCode());
+        commentService.removeReply(commentDetailDTO);
+        System.out.println("잘 삭제되어씀");
+        return ResponseEntity.ok("댓글 삭제 완료");
+    }
+
+    @PostMapping("/genre")
+    public String selectByGenre(@RequestParam List<Long> genre,
+                                Model model){
+
+        System.out.println("genre = " + genre);
+
+        List<GenreOfArtDTO> genreOfArtDTOList = genreOfArtService.selectSeriesByGenre(genre.get(0));
+        List<Long> seriesCode = new ArrayList<>();
+        for(int i = 0 ; i<genreOfArtDTOList.size();i++){
+            seriesCode.add(genreOfArtDTOList.get(i).getSeriesCode());
+        }
+        System.out.println("seriesCode = " + seriesCode);
+        System.out.println("genreOfArtDTOList = " + genreOfArtDTOList);
+
+        boolean[] result = new boolean[seriesCode.size()];
+        for(int i =0 ; i<result.length;i++){
+            result[i]=true;
+        }
+        System.out.println("result[0] = " + result[0]);
+        for(int i = 0 ; i<seriesCode.size(); i++){
+            for(int k = 1 ; k<genre.size();k++) {
+                GenreOfArtDTO genreOfArtDTO = genreOfArtService.selectSeriesGenre(seriesCode.get(i),genre.get(k));
+                if(genreOfArtDTO==null){
+                    result[i]=false;
+                }
+            }
+        }
+
+        System.out.println("result =>> " + Arrays.toString(result));
+
+        List<Integer> temp = new ArrayList<>();
+        for(int i =0  ; i<result.length;i++){
+            if(result[i]==true){
+                temp.add(i);
+            }
+        }
+        List<SeriesDTO> seriesList = new ArrayList<>();
+        for(int i =0 ; i<temp.size();i++){
+        SeriesDTO seriesDTO = seriesService.selectSeriesByTitle(seriesCode.get((temp.get(i))));
+        seriesList.add(seriesDTO);
+        }
+        System.out.println("seriesList =>> " + seriesList);
+
+        /*포스트 검색*/
+        List<PostDTO> postList = new ArrayList<>();
+        List<PostDTO> postDTO = new ArrayList<>();
+        for(int i =0 ; i<seriesList.size();i++) {
+            postDTO = postService.selectPostsBySeriesCode(seriesList.get(i).getCode());
+            for(int k = 0 ; k<postDTO.size();k++){
+                postList.add(postDTO.get(k));
+            }
+        }
+//
+//        List<Long> postNo = new ArrayList<>();
+//        for(int i =0 ; i<genre.size();i++) {
+//            List<GenreOfArtDTO> genreOfArtDTO = genreOfArtService.selectPostNotInSeries(genre.get(i));
+//            for(int k = 0 ; k<genreOfArtDTO.size();k++) {
+//                postNo.add(genreOfArtDTO.get(k).getPostCode());
+//            }
+//        }
+//
+//        System.out.println("postNo = " + postNo);
+//        for(int i = 0 ; i<postNo.size() ; i++){
+//            PostDTO postDTO1 = postService.getPostInformationByPostCode(postNo.get(i));
+//            postList.add(postDTO1);
+//        }
+        System.out.println(" 포스트리스트= " +postList );
+
+        model.addAttribute("seriesList",seriesList);
+        model.addAttribute("postList",postList);
+        return "/views/series/select";
+
+    }
+
 }

@@ -11,4 +11,5 @@ public class LikeDTO {
     private long code;
     private long userCode;
     private long postCode;
+    private boolean isLiked;
 }

@@ -1,10 +1,11 @@
 package com.pentoryall.user.mapper;
 
+import com.pentoryall.user.dto.LikeDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface LikeMapper {
-    void likeUp(long postCode, long userCode);
+    void likeUp(LikeDTO likeDTO);
 
-    void likeDown(long postCode, long userCode);
+    void likeDown(LikeDTO likeDTO);
 }

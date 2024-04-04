@@ -6,9 +6,7 @@
 <!-- namespace 형식 올바르게 수정 후 사용하세요. -->
 <mapper namespace="com.pentoryall.post.mapper.PostMapper">
     <insert id="insertPost">
-        <selectKey keyProperty="code" order="AFTER" resultType="int">
-            SELECT max(code) from post
-        </selectKey>
+
         INSERT INTO
             post(series_code,user_code,title,content,thumbnail_image,price,is_paid,is_adult,is_public)
         VALUES
@@ -147,5 +145,32 @@
             post
         WHERE
             user_code=#{userCode}
+    </select>
+    <insert id="addComment">
+        INSERT INTO comment(post_code,content,user_code)
+        VALUES (#{postCode},#{content},#{user.code})
+    </insert>
+    <select id="getLatestPost">
+        SELECT
+            code,
+            series_code,
+            user_code,
+            title,
+            content,
+            confirm_content,
+            thumbnail_image,
+            views,
+            price,
+            is_paid,
+            is_adult,
+            is_public,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            post
+        ORDER BY
+            code DESC
+        LIMIT 1
     </select>
 </mapper>

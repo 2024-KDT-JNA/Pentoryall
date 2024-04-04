@@ -16,4 +16,5 @@ public interface UserManageMapper {
 
     List<UserManageDTO> selectAllUserList(SelectCriteria selectCriteria);
 
+    void resumeUser(String userCode);
 }

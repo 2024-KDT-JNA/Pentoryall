@@ -23,5 +23,4 @@ public class MembershipDTO {
     private LocalDateTime deleteDate;
 
 
-
 }
