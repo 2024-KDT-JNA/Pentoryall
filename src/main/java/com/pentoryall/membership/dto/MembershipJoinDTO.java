@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -19,6 +18,8 @@ public class MembershipJoinDTO {
     private LocalDate endDate;
     private String name;
     private int price;
+    private String nickname;
+
 
 }
 

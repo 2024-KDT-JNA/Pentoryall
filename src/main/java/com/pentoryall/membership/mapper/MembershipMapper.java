@@ -21,6 +21,8 @@ public interface MembershipMapper {
 
     //-------------------------- membership Join Mapper --------------------------
     List<MembershipJoinDTO> selectMembershipJoinList(long code);
+
+    List<MembershipJoinDTO> selectJoinMemberList(long code);
 }
 
 

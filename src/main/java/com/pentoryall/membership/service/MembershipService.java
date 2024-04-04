@@ -16,6 +16,7 @@ public class MembershipService {
     public MembershipService(MembershipMapper membershipMapper) {
         this.membershipMapper = membershipMapper;
     }
+
     public MembershipDTO createMembership(MembershipDTO membershipDTO) {
         membershipMapper.createMembership(membershipDTO);
         return membershipDTO;
@@ -40,12 +41,15 @@ public class MembershipService {
     }
 
 
-//-------------------------------- membershipJoin Service -----------------------------------
+    //-------------------------------- membershipJoin Service -----------------------------------
     public List<MembershipJoinDTO> selectAllMembershipJoinList(long code) {
         return membershipMapper.selectMembershipJoinList(code);
     }
 
 
+    public List<MembershipJoinDTO> selectAllJoinMemberList(long code) {
+        return membershipMapper.selectJoinMemberList(code);
+    }
 }
 
 

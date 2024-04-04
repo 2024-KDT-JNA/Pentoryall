@@ -20,11 +20,9 @@ import java.util.List;
 public class MembershipController {
     private final MembershipService membershipService;
 
-
     @Autowired
     public MembershipController(MembershipService membershipService) {
         this.membershipService = membershipService;
-
     }
 
     @PostMapping("/create")
@@ -61,7 +59,6 @@ public class MembershipController {
             return "views/membership/errorPage";
         }
     }
-
 
     @PostMapping("/modify")
     public String modifyMembership(Model model, @ModelAttribute("membership") MembershipDTO membershipDTO, @AuthenticationPrincipal UserDTO user) {
@@ -105,38 +102,26 @@ public class MembershipController {
         return "/views/membership/deleteMembership";
     }
 
-
     @GetMapping("/membershipJoinList")
     public String getMembershipJoinList(Model model, @AuthenticationPrincipal UserDTO user) {
         List<MembershipJoinDTO> membershipJoinList = membershipService.selectAllMembershipJoinList(user.getCode());
-        System.out.println(membershipJoinList);
-
-
         model.addAttribute("membershipJoinList", membershipJoinList);
         if (membershipJoinList.isEmpty()) {
             return "/views/membership/noMembershipJoinList";
         } else {
             return "/views/membership/membershipJoinList";
         }
+    }
 
-
-//
-//
-//
-//
-//
-//        List<MembershipDTO> membershipCode = new ArrayList<>();
-//
-//        for(int i = 0 ; i<SubscribedList.size();i++) {
-//            MembershipDTO membership = membershipService.selectMembershipByMembershipCode(SubscribedList.get(i).getMembershipCode());
-//            membershipCode.add(membership);
-//        }
-//
-
-//
-//        System.out.println("membershipCode = " + membershipCode);
-//
-//        return "/views/membership/membershipJoinList";
+    @GetMapping("joinMemberList")
+    public String getJoinMemberList(Model model, @AuthenticationPrincipal UserDTO user) {
+        List<MembershipJoinDTO> joinMemberList = membershipService.selectAllJoinMemberList(user.getCode());
+        model.addAttribute("joinMemberList", joinMemberList);
+        if ((joinMemberList.isEmpty())) {
+            return "/views/membership/noJoinMemberList";
+        } else {
+            return "/views/membership/joinMemberList";
+        }
     }
 
     @GetMapping("/noList")
