@@ -79,9 +79,9 @@
                     <div class="profile-point">
                         <dl class="point-info">
                             <dt>포인트</dt>
-                            <dd th:text="|${#numbers.formatInteger(#authentication.principal.point, 3, 'COMMA')}P|">0P</dd>
+                            <dd th:text="|${#authentication.principal.point > 0 ? #numbers.formatInteger(#authentication.principal.point, 3, 'COMMA') : 0}P|">0P</dd>
                         </dl>
-                        <a th:href="@{/order}" class="button"> 충전</a>
+                        <a th:href="@{/point/order}" class="button"> 충전</a>
 
                     </div>
                 </div>
