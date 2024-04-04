@@ -2,17 +2,19 @@ package com.pentoryall.settlement.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
 @Setter
+@ToString
 public class UserSettlementDTO {
 
     Long code;
     Long userCode;
-    int bankCode;
+    String bankCode;
     String accountNumber;
     String accountHolder;
     char isDeleted;
@@ -23,7 +25,7 @@ public class UserSettlementDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserSettlementDTO that = (UserSettlementDTO) o;
-        return bankCode == that.bankCode && Objects.equals(userCode, that.userCode) && Objects.equals(accountNumber, that.accountNumber) && Objects.equals(accountHolder, that.accountHolder);
+        return Objects.equals(bankCode, that.bankCode) && Objects.equals(userCode, that.userCode) && Objects.equals(accountNumber, that.accountNumber) && Objects.equals(accountHolder, that.accountHolder);
     }
 
     @Override
