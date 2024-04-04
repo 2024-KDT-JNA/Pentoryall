@@ -30,4 +30,8 @@ public class CommentService {
     public void addComment(CommentDetailDTO commentAdd) {
         commentMapper.addComment(commentAdd);
     }
+
+    public void updateComment(CommentDetailDTO commentDetailDTO) {
+        commentMapper.updateComment(commentDetailDTO);
+    }
 }
