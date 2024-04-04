@@ -16,4 +16,6 @@ public interface CommentMapper {
     void removeReply(CommentDetailDTO commentDetailDTO);
 
     void addComment(CommentDetailDTO commentAdd);
+
+    void updateComment(CommentDetailDTO commentDetailDTO);
 }

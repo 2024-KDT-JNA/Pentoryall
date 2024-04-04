@@ -18,5 +18,4 @@ public class CommentDetailDTO {
     private char isDeleted;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-
 }
