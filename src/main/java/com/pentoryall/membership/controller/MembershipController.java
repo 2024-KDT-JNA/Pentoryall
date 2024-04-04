@@ -12,9 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -114,14 +111,13 @@ public class MembershipController {
         List<MembershipJoinDTO> membershipJoinList = membershipService.selectAllMembershipJoinList(user.getCode());
         System.out.println(membershipJoinList);
 
-        model.addAttribute("membershipJoinList", membershipJoinList);
 
+        model.addAttribute("membershipJoinList", membershipJoinList);
         if (membershipJoinList.isEmpty()) {
             return "/views/membership/noMembershipJoinList";
         } else {
             return "/views/membership/membershipJoinList";
         }
-
 
 
 //
