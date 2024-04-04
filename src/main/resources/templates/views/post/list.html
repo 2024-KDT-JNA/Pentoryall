@@ -108,10 +108,8 @@
                     </div>
 
                     <div class="comment-add">
-                        <form>
-                            <textarea onchange="test()" id="comment-writing-area" class="comment-writing-area" placeholder="댓글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
-                            <button id="comment-add-btn" class="comment-add-btn">작성하기</button>
-                        </form>
+                        <textarea onchange="test()" id="comment-writing-area" class="comment-writing-area" placeholder="댓글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
+                        <button id="comment-add-btn" class="comment-add-btn">작성하기</button>
                     </div>
                 </div>
 
@@ -167,7 +165,7 @@
                 body : JSON.stringify({ postCode, content })
             })
                 .then(res => {
-                    console.log("rress:"+res);
+                    console.log("rress:",res);
                     $writeComment.value = '';
                     loadComment();
                 })
