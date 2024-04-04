@@ -111,17 +111,22 @@
                     </div>
                 </div>
 
-                <!--                 댓글 출력-->
+                <div class="comment-wrapper">
+                    <h2 class="p-post-comment">전체 댓글</h2>
+                </div>
+                <!--댓글 출력-->
                 <div class="comment-area">
-                    <div class="comment-content-area"   th:each="comment : ${commentList}" >
-                        <p th:text="${comment.content}"></p>
+                    <div class="comment-content-area"   th:each="comment : ${commentList}" th:value="${comment.code}">
                         <p class="comment-writer-area" th:text="${comment.user.nickname}">작성자</p>
+                        <p class="comment-content" th:text="${comment.content}"></p>
                         <p class="comment-date-area" th:text="${comment.createDate}">작성 날짜</p>
-
-
-                        <div th:if="${comment.user.code == userCode}">
-                            <button th:onclick="removeComment([[${comment.code}]])">댓글 삭제</button>
-                            <button th:onclick="makeWritingTable([[${comment.code}]],[[${comment.content}]])">댓글 수정</button>
+                        <div class="btn-wrapper" th:if="${comment.user.code == userCode}">
+                            <button class="button" th:onclick="removeComment([[${comment.code}]])">댓글 삭제</button>
+                            <button class="button" th:onclick="makeWritingTable([[${comment.code}]],[[${comment.content}]])">댓글 수정</button>
+                        </div>
+                        <div class="second-button">
+                            <button class="button reply">답글</button>
+                            <button class="button report-btn">댓글 신고</button>
                         </div>
                     </div>
                 </div>
@@ -190,21 +195,36 @@
             commentArea.innerHTML='';
             commentList.forEach(comment => {
                 const $comment = document.createElement("div");
+                $comment.className = 'comment-content-area';
                 const $content = document.createElement("p");
+                $content.className = 'comment-content';
                 const $nickname = document.createElement("p");
+                $nickname.className = 'comment-writer-area';
                 const $createdDate = document.createElement("p");
+                $createdDate.className = 'comment-date-area';
                 const $button = document.createElement("div");
+                $button.className = 'btn-wrapper';
 
                 $content.textContent = comment.content;
                 $nickname.textContent = comment.user.nickname;
                 $createdDate.textContent = comment.createDate;
 
+                // <div className="second-button">
+                //     <button className="button reply">답글</button>
+                //     <button className="button report-btn">댓글 신고</button>
+                // </div>
+
+                const $secondButtons = document.createElement("div");
+                $secondButtons.className = 'second-button';
+                $secondButtons.innerHTML = ` <button class="button reply">답글</button>
+                                    <button class="button report-btn">댓글 신고</button>`;
+
                 if(`[[${userCode}]]`==comment.user.code){
-                    $button.innerHTML = `<button onclick='removeComment(${comment.code})'>댓글 삭제</button>
-                                      <button onclick='makeWritingTable(${comment.code},"${comment.content}")'>댓글 수정</button>`;
+                    $button.innerHTML = `<button class="button" onclick='removeComment(${comment.code})'>댓글 삭제</button>
+                                      <button class="button update-btn" onclick='makeWritingTable(${comment.code},"${comment.content}")'>댓글 수정</button>`;
                 }
 
-                $comment.append($content,$nickname,$createdDate,$button);
+                $comment.append($nickname,$content,$createdDate,$button,$secondButtons);
                 commentArea.append($comment);
             })
         }
@@ -224,6 +244,7 @@
 
 
         /*댓글 수정*/
+
         function updateComment(code){
             console.log(code);
             const $writingArea = document.querySelector(".comment-area >textarea");
@@ -240,19 +261,37 @@
         }
 
         /*수정 페이지 출력*/
-        function makeWritingTable(code,content){
+        // <div>
+        //     <div>
+        //         <h2 className="p-post-comment">댓글 작성</h2>
+        //     </div>
+        //     <div className="comment-add">
+        //         <textarea onChange="test()" id="comment-writing-area" className="comment-writing-area"
+        //                   placeholder="댓글을 입력해주세요. 최대 500자" maxLength="500"></textarea>
+        //         <button id="comment-add-btn" className="comment-add-btn">작성하기</button>
+        //     </div>
+        // </div>
+        function makeWritingTable(code, content) {
             const commentArea = document.querySelector(".comment-area");
             commentArea.innerHTML='';
+            const $h2 = document.createElement("h2");
             const $writingArea = document.createElement("textarea");
             const $button = document.createElement("div");
 
+            $writingArea.className = 'comment-writing-area';
             $writingArea.textContent = content;
+            $h2.textContent = "댓글 수정하기";
+            $h2.className = 'p-post-comment';
 
+            $button.innerHTML = `<button class="button" onclick='updateComment(${code})'>댓글 수정</button>`;
 
-            $button.innerHTML = `<button onclick='updateComment(${code})'>댓글 수정</button>`;
+            commentArea.append($h2,$writingArea,$button);
 
-            commentArea.append($writingArea,$button);
         }
+    </script>
+    <script>
+        /*답글 로직*/
+
     </script>
 
 
