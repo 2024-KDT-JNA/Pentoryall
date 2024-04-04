@@ -1,4 +1,4 @@
-function saveUserSettlementForm() {
+function saveUserSettlementForm(event) {
     event.preventDefault();
 
     const $saveForm = document.userSettlementForm;
@@ -11,30 +11,19 @@ function saveUserSettlementForm() {
         return;
     }
 
-    // TODO 검증
-    // fetch("/api/portone/token", { method: "POST" })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (!data || !data.response || !data.response.token) {
-    //             alert("오류가 발생하였습니다.");
-    //             throw new Error("토큰을 가져올 수 없습니다.");
-    //         }
-    //         fetch('https://api.iamport.kr/vbanks/holder', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 // 'Access-Control-Allow-Origin': 'http://localhost:8080',
-    //                 'Cache-Control': 'none',
-    //                 'Authorization': `Bearer ${ data.response.token }`
-    //             }, body: JSON.stringify({
-    //                 bank_code: bankCode,
-    //                 bank_num: accountNumber
-    //             })
-    //         }).then(response => { console.log(response);})
-    //           .then(data => {console.log(data);});
-    //     });
-
-    document.userSettlementForm.submit();
+    fetch('/api/portone/vbank', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }, body: JSON.stringify({ bankCode, accountNumber })
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success && data.response['bank_holder'] === accountHolder) {
+              $saveForm.submit();
+          } else {
+              alert("올바른 계좌 정보를 입력해주세요.");
+          }
+      });
 }
 
 function restrictInputToNumeric(event) {
