@@ -167,7 +167,8 @@ public class PostController {
     @GetMapping("/information")
     public String getPostInformation(
             long code,
-            Model model) {
+            Model model,
+            @AuthenticationPrincipal UserDTO user) {
         PostDTO postDTO = postService.getPostInformationByPostCode(code);
         System.out.println(postDTO);
         System.out.println("code>>>>> = " + code);
@@ -181,15 +182,22 @@ public class PostController {
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
 
         List<CommentDetailDTO> commentList = commentService.selectCommentByPostCode(code);
-        System.out.println("유저 정보 : "+commentList.get(0).getUser());
-        System.out.println("commentList =>>> " + commentList);
-        System.out.println("postDTO = " + postDTO);
-        System.out.println("userDTO = " + userDTO);
-        System.out.println("seriesDTO = " + seriesDTO);
-        model.addAttribute("post", postDTO);
-        model.addAttribute("user", userDTO);
-        model.addAttribute("series", seriesDTO);
-        model.addAttribute("commentList",commentList);
+        System.out.println("commentList =!! " + commentList);
+        if(!commentList.isEmpty() || commentList!=null) {
+//            System.out.println("유저 정보 : " + commentList.get(0).getUser());
+            System.out.println("commentList =>>> " + commentList);
+            System.out.println("postDTO = " + postDTO);
+            System.out.println("userDTO = " + userDTO);
+        }
+            System.out.println("seriesDTO = " + seriesDTO);
+            model.addAttribute("post", postDTO);
+            model.addAttribute("user", userDTO);
+            model.addAttribute("series", seriesDTO);
+            model.addAttribute("commentList", commentList);
+            if(user != null){
+                model.addAttribute("userCode",user.getCode());
+            }
+        System.out.println("여기까지왓니");
         return "views/post/list";
     }
 
@@ -333,7 +341,7 @@ public class PostController {
 
     @GetMapping("/loadComment")
     public ResponseEntity<List<CommentDetailDTO>> loadComment(CommentDetailDTO commentDTO){
-        System.out.println("commentDTO.getPostCode() = " + commentDTO.getPostCode());
+        System.out.println("commentDTO = " + commentDTO);
         List<CommentDetailDTO> commentList = commentService.loadComment(commentDTO);
         System.out.println("commentList^^ = " + commentList);
         return ResponseEntity.ok(commentList);
@@ -344,6 +352,15 @@ public class PostController {
         commentService.removeReply(commentDetailDTO);
         System.out.println("잘 삭제되어씀");
         return ResponseEntity.ok("댓글 삭제 완료");
+    }
+
+    @PostMapping("/updateComment")
+    public ResponseEntity<String> updateComment(@RequestBody CommentDetailDTO commentDetailDTO){
+        System.out.println("commentDetailDTO = " + commentDetailDTO);
+        System.out.println("hi");
+        commentService.updateComment(commentDetailDTO);
+        System.out.println("잘 수정되어씀");
+        return ResponseEntity.ok("댓글 수정 완료");
     }
 
     @PostMapping("/genre")
