@@ -64,26 +64,11 @@
             #{createDate},
             #{endDate})
     </insert>
-
-
-    <!--    <select id="getAllMemberships" resultType="com.pentoryall.membership.dto.MembershipDTO">-->
-<!--        SELECT name,-->
-<!--               introduction,-->
-<!--               price,-->
-<!--               color-->
-<!--        FROM membership-->
-<!--        WHERE user_code = #{userCode}-->
-<!--    </select>-->
-
-
-<!--    <update id="updateIsDeleted">-->
-<!--    UPDATE membership-->
-<!--    SET is_deleted = 'Y'-->
-<!--    WHERE code = #{code}-->
-<!--    </update>-->
-
-<!--    <select id="getMembershipByCode" parameterType="long" resultType="com.pentoryall.membership.dto.MembershipDTO">-->
-<!--        SELECT * FROM membership WHERE code = #{code}-->
-<!--    </select>-->
+    <select id="selectMembershipJoinList" resultType="com.pentoryall.membership.dto.MembershipJoinDTO">
+        SELECT m.name , mj.create_date , m.price
+        FROM membership m
+                 INNER JOIN membership_join mj ON m.code = mj.membership_code
+        WHERE mj.user_code = #{userCode}
+    </select>
 
 </mapper>

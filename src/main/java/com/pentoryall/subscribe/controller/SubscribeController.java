@@ -12,23 +12,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 @RequestMapping("/subscribe")
 public class SubscribeController {
-
     private final SubscribeService subscribeService;
-
     public SubscribeController(SubscribeService subscribeService) {
         this.subscribeService = subscribeService;
     }
 
-
     @PostMapping("/add")
     public ResponseEntity<Void> addSubscribe(@ModelAttribute SubscribeDTO subscribeDTO) {
+        subscribeDTO.setSubscribedDate(LocalDate.now());
         subscribeService.addSubscriber(subscribeDTO);
-        System.out.println(subscribeDTO);
         return ResponseEntity.ok().build();
     }
 
@@ -77,8 +75,8 @@ public class SubscribeController {
         String userName = user.getName();
         model.addAttribute("userName", userName);
 
-//        String introduction = user.getIntroduction();
-//        model.addAttribute("introduction", introduction);
+        String introduction = user.getIntroduction();
+        model.addAttribute("introduction", introduction);
         model.addAttribute("subscribers", subscribersList);
 
         if (subscribersList.isEmpty()) {

@@ -1,6 +1,7 @@
 package com.pentoryall.membership.controller;
 
 import com.pentoryall.membership.dto.MembershipDTO;
+import com.pentoryall.membership.dto.MembershipJoinDTO;
 import com.pentoryall.membership.service.MembershipService;
 import com.pentoryall.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -19,9 +23,11 @@ import java.util.List;
 public class MembershipController {
     private final MembershipService membershipService;
 
+
     @Autowired
     public MembershipController(MembershipService membershipService) {
         this.membershipService = membershipService;
+
     }
 
     @PostMapping("/create")
@@ -102,10 +108,44 @@ public class MembershipController {
         return "/views/membership/deleteMembership";
     }
 
-    /* 페이지 메핑 */
-    @GetMapping("/list")
-    public String getMembershipList() {
-        return "/views/membership/membershipList";
+
+    @GetMapping("/membershipJoinList")
+    public String getMembershipJoinList(Model model, @AuthenticationPrincipal UserDTO user) {
+        List<MembershipJoinDTO> membershipJoinList = membershipService.selectAllMembershipJoinList(user.getCode());
+        System.out.println(membershipJoinList);
+
+        model.addAttribute("membershipJoinList", membershipJoinList);
+
+        if (membershipJoinList.isEmpty()) {
+            return "/views/membership/noMembershipJoinList";
+        } else {
+            return "/views/membership/membershipJoinList";
+        }
+
+
+
+//
+//
+//
+//
+//
+//        List<MembershipDTO> membershipCode = new ArrayList<>();
+//
+//        for(int i = 0 ; i<SubscribedList.size();i++) {
+//            MembershipDTO membership = membershipService.selectMembershipByMembershipCode(SubscribedList.get(i).getMembershipCode());
+//            membershipCode.add(membership);
+//        }
+//
+
+//
+//        System.out.println("membershipCode = " + membershipCode);
+//
+//        return "/views/membership/membershipJoinList";
+    }
+
+    @GetMapping("/noList")
+    public String getNoMembershipJoinList() {
+        return "/views/membership/noMembershipJoinList";
     }
 
     @GetMapping("/info")
@@ -124,15 +164,4 @@ public class MembershipController {
 
     }
 }
-
-
-
-
-//    @PostMapping("/create")
-//    public ResponseEntity<String> createMembership(@RequestBody MembershipDTO membershipDTO){
-//        MembershipDTO createMembership = membershipService.createMembership(membershipDTO);
-//
-//
-//        return new ResponseEntity<>("멤버십이 성공적으로 개설되었습니다!" + createMembership.getName(), HttpStatus.CREATED);
-//    }
 

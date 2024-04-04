@@ -45,10 +45,4 @@ public class SubscribeService {
     public void cancelSubscribe(SubscribeDTO subscribeDTO) {
         subscribeMapper.cancelSubscriber(subscribeDTO);
     }
-
-
-
-
-
-
 }
