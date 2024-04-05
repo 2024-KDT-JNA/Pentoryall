@@ -1,4 +1,4 @@
-package com.pentoryall.admin.DTO;
+package com.pentoryall.admin.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,8 +36,6 @@ public class CommentReportDTO {
     private long commentCode;
 
     private String name;
-
-
 
 
 }

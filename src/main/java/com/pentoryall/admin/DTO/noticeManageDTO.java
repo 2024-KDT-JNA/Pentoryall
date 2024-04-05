@@ -1,4 +1,4 @@
-package com.pentoryall.admin.DTO;
+package com.pentoryall.admin.dto;
 
 public class noticeManageDTO {
 
