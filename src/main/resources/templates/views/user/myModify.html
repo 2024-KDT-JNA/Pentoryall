@@ -58,7 +58,7 @@
                                 <label class="labelTitle" for="user_nickname">닉네임</label>
                                 <div class="input_box">
                                     <!--                                    <input type="text" id="user_nickname" name="nickname"/>-->
-                                    <input th:value="${ #authentication.principal.nickname }" required/>
+                                    <input name="nickname" th:value="${ #authentication.principal.nickname }" required/>
                                     <!--                                           th:value="${ #authentication.principal.nickname }" required/>-->
                                 </div>
                             </div>
@@ -82,11 +82,14 @@
                                 <label class="labelTitle">구독공개 여부</label>
                                 <div class="input_box">
                                     <label class="toggle_switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="isSubscriberVisible" value="Y"
+                                               th:checked="${#strings.equals(#authentication.principal.isSubscriberVisible, 'Y')}">
+                                        <!--                                             위 토글의 타입 및 아이디설정 --(구독 공개여부 / 승재) -->
                                         <span class="slider"></span>
                                     </label>
                                 </div>
                             </div>
+                            <span id="subscriptionStatus"></span>
                             <div class="inputWrap">
                                 <label class="labelTitle" for="user_email">계정</label>
                                 <div class="input_box">
@@ -140,6 +143,25 @@
         }
 
         console.log(document.forms)
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleSwitch = document.querySelector('.toggle_switch input[type="checkbox"]');
+            const subscriptionStatus = document.querySelector('#subscriptionStatus'); // 공개 여부를 표시할 곳
+
+            // 페이지가 로드될 때 초기 설정 가져오기
+            const initialSubscriptionStatus = toggleSwitch.checked;
+
+            // 토글 상태 변경 시 이벤트 처리
+            toggleSwitch.addEventListener('change', function () {
+                if (this.checked) {
+                    subscriptionStatus.textContent = '공개';
+                } else {
+                    subscriptionStatus.textContent = '비공개';
+                }
+            });
+        });
+
     </script>
 
 </th:block>

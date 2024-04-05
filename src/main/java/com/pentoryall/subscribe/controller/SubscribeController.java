@@ -4,31 +4,29 @@ import com.pentoryall.membership.dto.MembershipJoinDTO;
 import com.pentoryall.subscribe.dto.SubscribeDTO;
 import com.pentoryall.subscribe.service.SubscribeService;
 import com.pentoryall.user.dto.UserDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 @RequestMapping("/subscribe")
 public class SubscribeController {
-
     private final SubscribeService subscribeService;
 
     public SubscribeController(SubscribeService subscribeService) {
         this.subscribeService = subscribeService;
     }
 
-
     @PostMapping("/add")
     public ResponseEntity<Void> addSubscribe(@ModelAttribute SubscribeDTO subscribeDTO) {
+        subscribeDTO.setSubscribedDate(LocalDate.now());
         subscribeService.addSubscriber(subscribeDTO);
-        System.out.println(subscribeDTO);
         return ResponseEntity.ok().build();
     }
 
@@ -77,8 +75,8 @@ public class SubscribeController {
         String userName = user.getName();
         model.addAttribute("userName", userName);
 
-//        String introduction = user.getIntroduction();
-//        model.addAttribute("introduction", introduction);
+        String introduction = user.getIntroduction();
+        model.addAttribute("introduction", introduction);
         model.addAttribute("subscribers", subscribersList);
 
         if (subscribersList.isEmpty()) {
@@ -87,6 +85,18 @@ public class SubscribeController {
             return "/views/subscribe/storyList";
         }
     }
+
+    @PostMapping("updateSubscriberVisible")
+    public ResponseEntity<Void> updateSubscriberVisible(@RequestParam("userCode") long userCode,
+                                                        @RequestParam("isSubscriberVisible") char isSubscriberVisible) {
+        try {
+            subscribeService.updateSubscriberVisible(userCode, isSubscriberVisible);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @GetMapping("/noStoryList")
     public String getNoStoryList() {
         return "/views/subscribe/noStoryList";
