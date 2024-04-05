@@ -157,6 +157,83 @@
 
         });
 
+        document.addEventListener('DOMContentLoaded', function () {
+            // 상위 장르 목록을 가져옵니다.
+            const firstGenreList = document.querySelectorAll('.first-genre-list');
+
+            // 각 상위 장르 요소에 더블클릭 이벤트를 추가합니다.
+            firstGenreList.forEach(item => {
+                item.addEventListener('dblclick', function (event) {
+                    // 기본 동작 방지
+                    event.preventDefault();
+
+                    // 현재 요소의 텍스트 내용을 가져옵니다.
+                    const currentText = item.textContent;
+
+                    // 수정을 위한 입력 상자를 생성합니다.
+                    const inputElement = document.createElement('input');
+                    inputElement.setAttribute('type', 'text');
+                    inputElement.setAttribute('value', currentText);
+
+                    // 이벤트 핸들러를 추가하여 포커스가 벗어날 때 수정된 내용을 저장합니다.
+                    inputElement.addEventListener('blur', function () {
+                        saveModifiedContent(item, inputElement);
+                    });
+
+                    // 입력 상자에서 엔터 키를 눌렀을 때도 수정된 내용을 저장합니다.
+                    inputElement.addEventListener('keypress', function (event) {
+                        if (event.key === 'Enter') {
+                            saveModifiedContent(item, inputElement);
+                        }
+                    });
+
+                    // 기존 텍스트를 숨기고 수정을 위한 입력 상자를 표시합니다.
+                    item.innerHTML = '';
+                    item.appendChild(inputElement);
+
+                    // 수정을 위한 입력 상자에 포커스를 설정합니다.
+                    inputElement.focus();
+                });
+            });
+
+            // 수정된 내용을 저장하는 함수
+            function saveModifiedContent(item, inputElement) {
+                // 수정된 내용을 가져옵니다.
+                const newText = inputElement.value.trim();
+
+                // 내용이 비어있지 않으면 텍스트 내용을 수정된 내용으로 업데이트합니다.
+                if (newText !== '') {
+                    item.textContent = newText;
+
+                    // AJAX를 사용하여 서버에 수정된 내용을 전송합니다.
+                    fetch('/admin/genre/modifyFirstGenre', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `genreCode=${code}`
+                            `genreName=${newText}`
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // 서버로부터 응답을 받았을 때의 처리
+                                console.log('수정이 완료되었습니다.');
+                            } else {
+                                // 서버로부터 오류 응답을 받았을 때의 처리
+                                console.error('수정 중 오류가 발생했습니다.');
+                            }
+                        })
+                        .catch(error => {
+                            // 네트워크 오류 등으로 인한 처리
+                            console.error('네트워크 오류:', error);
+                        });
+                } else {
+                    // 입력이 비어있는 경우에는 이전 내용을 유지합니다.
+                    item.textContent = currentText;
+                }
+            }
+        });
+
 
     </script>
 </th:block>

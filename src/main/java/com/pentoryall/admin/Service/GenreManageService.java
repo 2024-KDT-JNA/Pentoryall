@@ -44,4 +44,9 @@ public class GenreManageService {
         genreManageMapper.deleteSecondGenre(name);
         System.out.println(name);
     }
+
+
+    public void modifyFirstGenre(GenreManageDTO genreDTO) {
+        genreManageMapper.updateGenre(genreDTO);
+    }
 }

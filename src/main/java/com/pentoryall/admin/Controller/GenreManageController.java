@@ -62,6 +62,18 @@ public class GenreManageController {
         genreManageService.deleteSecondGenre(name);
         return "redirect:/admin/genre/list";
     }
+
+    @PostMapping("/modifyFirstGenre")
+    public String modifyGenre(
+            @RequestParam("genreName") String name) {
+        GenreManageDTO genreDTO = new GenreManageDTO();
+        genreDTO.setName(name);
+//        genreDTO.setCode(code);
+        genreManageService.modifyFirstGenre(genreDTO);
+
+        return "redirect:/admin/genre/list";
+
+    }
 }
 
 
