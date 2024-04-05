@@ -1,6 +1,6 @@
-package com.pentoryall.admin.Service;
+package com.pentoryall.admin.service;
 
-import com.pentoryall.admin.DTO.GenreManageDTO;
+import com.pentoryall.admin.dto.GenreManageDTO;
 import com.pentoryall.admin.mapper.GenreManageMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,14 @@ public class GenreManageService {
         genreManageMapper.addSecondGenre(name);
     }
 
+
     public void deleteSecondGenre(String name) {
         genreManageMapper.deleteSecondGenre(name);
+        System.out.println(name);
+    }
+
+
+    public void modifyFirstGenre(GenreManageDTO genreDTO) {
+        genreManageMapper.updateGenre(genreDTO);
     }
 }

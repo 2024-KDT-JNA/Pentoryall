@@ -4,10 +4,9 @@
       layout:decorate="~{/layout/settings}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
-<link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css"/>
 </th:block>
 
 <th:block layout:fragment="content">
@@ -31,7 +30,7 @@
                         <thead>
                         <tr>
                             <th>
-                                <input type="checkbox" id="checkAll-pay-1" name="check" />
+                                <input type="checkbox" id="checkAll-pay-1" name="check"/>
                             </th>
                             <th class="tg-0lax">번호</th>
                             <th class="tg-0lax">아이디</th>
@@ -43,7 +42,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th><input type="checkbox" id="checkAll-pay-2" name="check" /></th>
+                            <th><input type="checkbox" id="checkAll-pay-2" name="check"/></th>
                             <td class="tg-0lax">1</td>
                             <td class="tg-0lax"></td>
                             <td class="tg-0lax"></td>
@@ -52,7 +51,7 @@
                             <td class="tg-0lax"></td>
                         </tr>
                         <tr>
-                            <th><input type="checkbox" id="checkAll-pay-3" name="check" /></th>
+                            <th><input type="checkbox" id="checkAll-pay-3" name="check"/></th>
                             <td class="tg-0lax">2</td>
                             <td class="tg-0lax"></td>
                             <td class="tg-0lax"></td>
@@ -61,7 +60,7 @@
                             <td class="tg-0lax"></td>
                         </tr>
                         <tr>
-                            <th><input type="checkbox" id="checkAll-pay-4" name="check" /></th>
+                            <th><input type="checkbox" id="checkAll-pay-4" name="check"/></th>
                             <td class="tg-0lax">3</td>
                             <td class="tg-0lax"></td>
                             <td class="tg-0lax"></td>
@@ -70,7 +69,7 @@
                             <td class="tg-0lax"></td>
                         </tr>
                         <tr>
-                            <th><input type="checkbox" id="checkAll-pay-5" name="check" /></th>
+                            <th><input type="checkbox" id="checkAll-pay-5" name="check"/></th>
                             <td class="tg-0lax">4</td>
                             <td class="tg-0lax"></td>
                             <td class="tg-0lax"></td>
@@ -128,11 +127,11 @@
                         </div>
                         <div class="YesOrNo">
 						<span class="form-item">
-							<input type="radio" id="yes" name="YN" value="YES" />
+							<input type="radio" id="yes" name="YN" value="YES"/>
 							<label for="yes">승인</label>
 						</span>
                             <span class="form-item">
-							<input type="radio" id="no" name="YN" value="NO" />
+							<input type="radio" id="no" name="YN" value="NO"/>
 							<label for="no">반려</label>
 						</span>
                             <div class="reason">

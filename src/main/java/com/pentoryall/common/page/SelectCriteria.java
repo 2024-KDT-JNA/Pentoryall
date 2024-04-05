@@ -1,4 +1,4 @@
-package com.pentoryall.admin.page;
+package com.pentoryall.common.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class SelectCriteria {
+
     private int page;
     private int totalCount;
     private int limit;
