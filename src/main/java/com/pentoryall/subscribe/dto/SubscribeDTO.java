@@ -16,5 +16,6 @@ public class SubscribeDTO {
     private LocalDate subscribedDate;
     private String nickname;
     private String introduction;
+    private char isSubscriberVisible;
 
 }
