@@ -147,10 +147,14 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const toggleSwitch = document.querySelector('.toggle_switch input[type="checkbox"]');
-            const subscriptionStatus = document.querySelector('#subscriptionStatus'); // 공개 여부를 표시할 곳
+            const subscriptionStatus = document.querySelector('#subscriptionStatus');
 
-            // 페이지가 로드될 때 초기 설정 가져오기
-            const initialSubscriptionStatus = toggleSwitch.checked;
+            // 페이지가 로드될 때 토글 스위치의 상태에 따라 표시할 텍스트 설정
+            if (toggleSwitch.checked) {
+                subscriptionStatus.textContent = '공개';
+            } else {
+                subscriptionStatus.textContent = '비공개';
+            }
 
             // 토글 상태 변경 시 이벤트 처리
             toggleSwitch.addEventListener('change', function () {
@@ -161,7 +165,6 @@
                 }
             });
         });
-
     </script>
 
 </th:block>
