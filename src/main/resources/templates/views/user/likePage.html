@@ -165,6 +165,7 @@
             var userCode = 1;
 
             $('.likeBtn').click(function () {
+                var $btn = $(this);
                 if (isLiked) {
                     $.ajax({
                         type: 'post',
@@ -176,7 +177,7 @@
                         }),
                         success: function (data) {
                             isLiked = false;
-                            $(this).html('<i class="far fa-heart"></i>');
+                            $btn.html('<i class="far fa-heart"></i>');
                             console.log("좋아요 취소 성공");
                         }
                     });
@@ -191,7 +192,7 @@
                         }),
                         success: function (data) {
                             isLiked = true;
-                            $(this).html('<i class="fas fa-heart"></i>');
+                            $btn.html('<i class="fas fa-heart"></i>');
                             console.log("좋아요 성공");
                         }
                     });
