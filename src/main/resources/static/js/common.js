@@ -14,13 +14,17 @@ document.addEventListener('DOMContentLoaded', function () {
             },
         };
 
-        $sideMenuBtn.addEventListener('click', layoutEvents.sideMenuClickHandler);
-        $overlay.addEventListener('click', layoutEvents.overlayClickHandler);
+        if ($sideMenuBtn) {
+            $sideMenuBtn.addEventListener('click', layoutEvents.sideMenuClickHandler);
+        }
+        if ($overlay) {
+            $overlay.addEventListener('click', layoutEvents.overlayClickHandler);
+        }
     }
 });
 
 function isAllChecked(targetName) {
-    const $checkInputs = document.querySelectorAll(`input[name='${targetName}']`);
+    const $checkInputs = document.querySelectorAll(`input[name='${ targetName }']`);
     let checked = 0;
     $checkInputs.forEach(checkInput => checkInput.checked && checked++);
 

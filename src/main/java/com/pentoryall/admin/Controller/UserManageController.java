@@ -1,6 +1,6 @@
-package com.pentoryall.admin.Controller;
+package com.pentoryall.admin.controller;
 
-import com.pentoryall.admin.Service.UserManageService;
+import com.pentoryall.admin.service.UserManageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

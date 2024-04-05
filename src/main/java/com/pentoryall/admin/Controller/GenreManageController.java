@@ -1,7 +1,7 @@
-package com.pentoryall.admin.Controller;
+package com.pentoryall.admin.controller;
 
-import com.pentoryall.admin.DTO.GenreManageDTO;
-import com.pentoryall.admin.Service.GenreManageService;
+import com.pentoryall.admin.dto.GenreManageDTO;
+import com.pentoryall.admin.service.GenreManageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +68,7 @@ public class GenreManageController {
             @RequestParam("genreName") String name) {
         GenreManageDTO genreDTO = new GenreManageDTO();
         genreDTO.setName(name);
-//        genreDTO.setCode(code);
+        //        genreDTO.setCode(code);
         genreManageService.modifyFirstGenre(genreDTO);
 
         return "redirect:/admin/genre/list";

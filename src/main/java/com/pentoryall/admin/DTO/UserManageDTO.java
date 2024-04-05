@@ -1,6 +1,8 @@
-package com.pentoryall.admin.DTO;
+package com.pentoryall.admin.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout/default}">
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </th:block>
 
@@ -10,85 +10,29 @@
     <div class="main-content">
         <section class="section section-weekly-series">
             <h2 class="h2">이번 주 인기 시리즈</h2>
+
             <button onclick="location.href='/post/writer'">포스트 추가하기</button>
             <br>
             <button onclick="location.href='/series/add'">시리즈 추가하기</button>
+
             <div class="inner">
                 <div class="main-series-swiper series-list">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" th:each="series:${seriesList}">
-                            <a th:onclick="'location.href = \'' + @{/series/page(code=${series.code})} + '\''">
+                            <a th:href="@{/series/page(code=${series.code})}">
                                 <div class="thumbnail-image">
-                                    <img class="best-series-img" th:src="${series.thumbnailImage}" alt=""
-                                         onerror="this.src='./images/temp/thumbnail.png'"/>
+                                    <img class="best-series-img" th:src="${series.thumbnailImage}"
+                                         onerror="this.src='/images/temp/thumbnail.png'" alt="시리즈 썸네일" />
                                 </div>
                                 <p class="description" th:text="${series.title}"></p>
                             </a>
                         </div>
-                        <!--                    <div class="swiper-slide">-->
-                        <!--                        <a href="#">-->
-                        <!--                            <div class="thumbnail-image">-->
-                        <!--                                <img src="./images/temp/thumbnail.png" alt=""/>-->
-                        <!--                            </div>-->
-                        <!--                            <p class="description">시리즈명</p>-->
-                        <!--                        </a>-->
-                        <!--                    </div>-->
-                        <!--                        <div class="swiper-slide">-->
-                        <!--                            <a href="#">-->
-                        <!--                                <div class="thumbnail-image">-->
-                        <!--                                    <img src="./images/temp/thumbnail.png" alt=""/>-->
-                        <!--                                </div>-->
-                        <!--                                <p class="description">시리즈명</p>-->
-                        <!--                            </a>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="swiper-slide">-->
-                        <!--                            <a href="#">-->
-                        <!--                                <div class="thumbnail-image">-->
-                        <!--                                    <img src="./images/temp/thumbnail.png" alt=""/>-->
-                        <!--                                </div>-->
-                        <!--                                <p class="description">시리즈명</p>-->
-                        <!--                            </a>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="swiper-slide">-->
-                        <!--                            <a href="#">-->
-                        <!--                                <div class="thumbnail-image">-->
-                        <!--                                    <img src="./images/temp/thumbnail.png" alt=""/>-->
-                        <!--                                </div>-->
-                        <!--                                <p class="description">시리즈명</p>-->
-                        <!--                            </a>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="swiper-slide">-->
-                        <!--                            <a href="#">-->
-                        <!--                                <div class="thumbnail-image">-->
-                        <!--                                    <img src="./images/temp/thumbnail.png" alt=""/>-->
-                        <!--                                </div>-->
-                        <!--                                <p class="description">시리즈명</p>-->
-                        <!--                            </a>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="swiper-slide">-->
-                        <!--                            <a href="#">-->
-                        <!--                                <div class="thumbnail-image">-->
-                        <!--                                    <img src="./images/temp/thumbnail.png" alt=""/>-->
-                        <!--                                </div>-->
-                        <!--                                <p class="description">시리즈명</p>-->
-                        <!--                            </a>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="swiper-slide">-->
-                        <!--                            <a href="#">-->
-                        <!--                                <div class="thumbnail-image">-->
-                        <!--                                    <img src="./images/temp/thumbnail.png" alt=""/>-->
-                        <!--                                </div>-->
-                        <!--                                <p class="description">시리즈명</p>-->
-                        <!--                            </a>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="swiper-slide">-->
-                        <!--                            <a href="#">-->
-                        <!--                                <div class="thumbnail-image">-->
-                        <!--                                    <img src="./images/temp/thumbnail.png" alt=""/>-->
-                        <!--                                </div>-->
-                        <!--                                <p class="description">시리즈명</p>-->
-                        <!--                            </a>-->
-                        <!--                        </div>-->
+                        <!--                         <button class="swiper-button-prev"> -->
+                        <!--                             <i class="bi bi-chevron-left"></i> -->
+                        <!--                         </button> -->
+                        <!--                         <button class="swiper-button-next"> -->
+                        <!--                             <i class="bi bi-chevron-right"></i> -->
+                        <!--                         </button> -->
                     </div>
                 </div>
             </div>
@@ -99,15 +43,15 @@
 
             <div class="inner">
                 <div class="post-list">
-                    <div class="post-item" th:each="post:${postList}">
+                    <div class="post-item" th:each="post : ${postList}">
                         <div class="thumbnail-image">
-                            <img th:src="${post.thumbnailImage}" alt="미리보기"
-                                 onerror="this.src='./images/temp/thumbnail.png'"/>
+                            <img th:src="${post.thumbnailImage}" alt="포스트 썸네일"
+                                 onerror="this.src='/images/temp/thumbnail.png'" />
                         </div>
                         <div class="post-content">
                             <div class="post-text">
                                 <h3 class="post-name" th:text="${post.title}"></h3>
-                                <!--                                <p class="post-description" th:utext="${post.content}"></p>-->
+                                <p class="post-description" th:utext="${post.content}"></p>
                             </div>
                             <br>
                             <div class="post-meta">
@@ -145,98 +89,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--                    <div class="post-item">-->
-                    <!--                        <div class="thumbnail-image">-->
-                    <!--                            <img src="./images/temp/thumbnail.png" alt="미리보기"/>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="post-content">-->
-                    <!--                            <div class="post-text">-->
-                    <!--                                <a href="#" class="series-name">시리즈명</a>-->
-                    <!--                                <h3 class="post-name">게시글 제목</h3>-->
-                    <!--                                <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit.-->
-                    <!--                                    Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio,-->
-                    <!--                                    cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi-->
-                    <!--                                    porro.</p>-->
-                    <!--                            </div>-->
-                    <!--                            <div class="post-meta">-->
-                    <!--                                <dl class="date">-->
-                    <!--                                    <dt>-->
-                    <!--                                        <i class="bi bi-calendar"></i>-->
-                    <!--                                        <span class="blind">작성일</span>-->
-                    <!--                                    </dt>-->
-                    <!--                                    <dd>2024.03.20</dd>-->
-                    <!--                                </dl>-->
-                    <!--                                <dl class="views">-->
-                    <!--                                    <dt>-->
-                    <!--                                        <i class="bi bi-eye"></i>-->
-                    <!--                                        <span class="blind">조회수</span>-->
-                    <!--                                    </dt>-->
-                    <!--                                    <dd>1324</dd>-->
-                    <!--                                </dl>-->
-                    <!--                                <dl class="like">-->
-                    <!--                                    <dt>-->
-                    <!--                                        <i class="bi bi-heart"></i>-->
-                    <!--                                        <span class="blind">좋아요</span>-->
-                    <!--                                    </dt>-->
-                    <!--                                    <dd>100</dd>-->
-                    <!--                                </dl>-->
-                    <!--                                <dl class="comment">-->
-                    <!--                                    <dt>-->
-                    <!--                                        <i class="bi bi-reply"></i>-->
-                    <!--                                        <span class="blind">댓글</span>-->
-                    <!--                                    </dt>-->
-                    <!--                                    <dd>14</dd>-->
-                    <!--                                </dl>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="post-item">-->
-                    <!--                        <div class="thumbnail-image">-->
-                    <!--                            <img src="./images/temp/thumbnail.png" alt="미리보기"/>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="post-content">-->
-                    <!--                            <div class="post-text">-->
-                    <!--                                <a href="#" class="series-name">시리즈명</a>-->
-                    <!--                                <a href="#">-->
-                    <!--                                    <h3 class="post-name">게시글 제목</h3>-->
-                    <!--                                    <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing-->
-                    <!--                                        elit. Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos,-->
-                    <!--                                        commodi optio, cumque ullam similique impedit voluptatibus nisi enim. Quae-->
-                    <!--                                        deleniti deserunt modi porro.</p>-->
-                    <!--                                </a>-->
-                    <!--                            </div>-->
-                    <!--                            <div class="post-meta">-->
-                    <!--                                <dl class="date">-->
-                    <!--                                    <dt>-->
-                    <!--                                        <i class="bi bi-calendar"></i>-->
-                    <!--                                        <span class="blind">작성일</span>-->
-                    <!--                                    </dt>-->
-                    <!--                                    <dd>2024.03.20</dd>-->
-                    <!--                                </dl>-->
-                    <!--                                <dl class="views">-->
-                    <!--                                    <dt>-->
-                    <!--                                        <i class="bi bi-eye"></i>-->
-                    <!--                                        <span class="blind">조회수</span>-->
-                    <!--                                    </dt>-->
-                    <!--                                    <dd>1324</dd>-->
-                    <!--                                </dl>-->
-                    <!--                                <dl class="like">-->
-                    <!--                                    <dt>-->
-                    <!--                                        <i class="bi bi-heart"></i>-->
-                    <!--                                        <span class="blind">좋아요</span>-->
-                    <!--                                    </dt>-->
-                    <!--                                    <dd>100</dd>-->
-                    <!--                                </dl>-->
-                    <!--                                <dl class="comment">-->
-                    <!--                                    <dt>-->
-                    <!--                                        <i class="bi bi-reply"></i>-->
-                    <!--                                        <span class="blind">댓글</span>-->
-                    <!--                                    </dt>-->
-                    <!--                                    <dd>14</dd>-->
-                    <!--                                </dl>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
                 </div>
             </div>
         </section>
@@ -246,131 +98,45 @@
 
             <div class="inner">
                 <form action="/post/genre" method="post">
-                <!-- 1차 장르 목록 -->
-                <nav class="genre-tab">
-                    <select name="genre" class="genre-tab-list"  oninput="receiveFetchLowerGenre()">
-                        <li class="active"  th:each="genre : ${genreList}">
-                            <option class="genre-btn" th:text="|${genre.name}|" th:value="${genre.code}"></option>
-                        </li>
-                    </select>
-                </nav>
-                <!-- 2차 장르 목록 -->
-                <nav class="genre-tab lower-tab">
-                    <div class="box box-order-amount">
-                        <label class="label">하위 장르</label>
-                        <ul class="list-group">
-<!--                        <li class="active" id="lower-genre" >-->
-<!--                            <option class="genre-btn" th:text="|${genre.name}|" th:value="${genre.code}"></option>-->
-<!--                        </li>-->
-                        </ul>
-                    </div>
-                </nav>
+                    <!-- 1차 장르 목록 -->
+                    <nav class="genre-tab">
+                        <select name="genre" class="genre-tab-list" oninput="receiveFetchLowerGenre()">
+                            <li class="active" th:each="genre : ${genreList}">
+                                <option class="genre-btn" th:text="|${genre.name}|" th:value="${genre.code}"></option>
+                            </li>
+                        </select>
+                    </nav>
+                    <!-- 2차 장르 목록 -->
+                    <nav class="genre-tab lower-tab">
+                        <div class="box box-order-amount">
+                            <label class="label">하위 장르</label>
+                            <ul class="list-group">
+                            </ul>
+                        </div>
+                    </nav>
                     <button class="button">검색</button>
                 </form>
-                <div class="post-list">
-                    <div class="post-item">
+
+                <ul class="post-list" th:each="iteration : ${#numbers.sequence(0, 4)}">
+                    <li class="post-item">
                         <div class="thumbnail-image">
-                            <img src="./images/temp/thumbnail.png" alt="미리보기"/>
+                            <!-- 포스트 경로 -->
+                            <a href="#">
+                                <img src="./images/temp/thumbnail.png" alt="미리보기" />
+                            </a>
                         </div>
                         <div class="post-content">
                             <div class="post-text">
+                                <!-- 시리즈 경로 -->
                                 <a href="#" class="series-name">시리즈명</a>
-                                <h3 class="post-name">게시글 제목</h3>
-                                <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                                    Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio,
-                                    cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi
-                                    porro.</p>
-                            </div>
-                            <div class="post-meta">
-                                <dl class="date">
-                                    <dt>
-                                        <i class="bi bi-calendar"></i>
-                                        <span class="blind">작성일</span>
-                                    </dt>
-                                    <dd>2024.03.20</dd>
-                                </dl>
-                                <dl class="views">
-                                    <dt>
-                                        <i class="bi bi-eye"></i>
-                                        <span class="blind">조회수</span>
-                                    </dt>
-                                    <dd>1324</dd>
-                                </dl>
-                                <dl class="like">
-                                    <dt>
-                                        <i class="bi bi-heart"></i>
-                                        <span class="blind">좋아요</span>
-                                    </dt>
-                                    <dd>100</dd>
-                                </dl>
-                                <dl class="comment">
-                                    <dt>
-                                        <i class="bi bi-reply"></i>
-                                        <span class="blind">댓글</span>
-                                    </dt>
-                                    <dd>14</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="post-item">
-                        <div class="thumbnail-image">
-                            <img src="./images/temp/thumbnail.png" alt="미리보기"/>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-text">
-                                <a href="#" class="series-name">시리즈명</a>
-                                <h3 class="post-name">게시글 제목</h3>
-                                <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                                    Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio,
-                                    cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi
-                                    porro.</p>
-                            </div>
-                            <div class="post-meta">
-                                <dl class="date">
-                                    <dt>
-                                        <i class="bi bi-calendar"></i>
-                                        <span class="blind">작성일</span>
-                                    </dt>
-                                    <dd>2024.03.20</dd>
-                                </dl>
-                                <dl class="views">
-                                    <dt>
-                                        <i class="bi bi-eye"></i>
-                                        <span class="blind">조회수</span>
-                                    </dt>
-                                    <dd>1324</dd>
-                                </dl>
-                                <dl class="like">
-                                    <dt>
-                                        <i class="bi bi-heart"></i>
-                                        <span class="blind">좋아요</span>
-                                    </dt>
-                                    <dd>100</dd>
-                                </dl>
-                                <dl class="comment">
-                                    <dt>
-                                        <i class="bi bi-reply"></i>
-                                        <span class="blind">댓글</span>
-                                    </dt>
-                                    <dd>14</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="post-item">
-                        <div class="thumbnail-image">
-                            <img src="./images/temp/thumbnail.png" alt="미리보기"/>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-text">
-                                <a href="#" class="series-name">시리즈명</a>
+                                <!-- 포스트 경로 -->
                                 <a href="#">
-                                    <h3 class="post-name">게시글 제목</h3>
-                                    <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing
-                                        elit. Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos,
-                                        commodi optio, cumque ullam similique impedit voluptatibus nisi enim. Quae
-                                        deleniti deserunt modi porro.</p>
+                                    <h3 class="post-name">포스트 제목</h3>
+                                    <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                        Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio,
+                                        cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi
+                                        porro.
+                                    </p>
                                 </a>
                             </div>
                             <div class="post-meta">
@@ -404,8 +170,8 @@
                                 </dl>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
         </section>
     </div>
@@ -415,49 +181,43 @@
     <script th:src="@{/js/main.js}" src="/js/main.js"></script>
 
     <script>
-        function createLowerGenreList(genre){
+        function createLowerGenreList(genre) {
             console.log(genre);
-            return `
-           <li class="list-group-item">
-                                                <input class="form-check-input blind" type="checkbox" name="genre" id="${genre.name}"
-                                                      value="${genre.code}" />
-                                                <label class="form-check-label" for="${genre.name}">
-                                <span class="inner-text">
-                                    <span class="lowerGenre">${genre.name}</span>
-                                </span>
-                                                </label>
-                                            </li>
-            `
+            return `<li class="list-group-item">
+                        <input class="form-check-input blind" type="checkbox" name="genre" id="${ genre.name }" value="${ genre.code }" />
+                        <label class="form-check-label" for="${ genre.name }">
+                        <span class="inner-text">
+                            <span class="lowerGenre">${ genre.name }</span>
+                        </span>
+                        </label>
+                    </li>`;
         }
-        async function receiveFetchLowerGenre(){
+        async function receiveFetchLowerGenre() {
             const upperGenre = document.querySelector(".genre-tab-list");
             const code = upperGenre.value;
             console.log(code);
-            const response = await fetch('/genre/lowerGenreList?code='+code);
+            const response = await fetch('/genre/lowerGenreList?code=' + code);
             const responseJson = await response.json();
             const $optionNone = document.querySelector(".list-group");
-            $optionNone.innerHTML = responseJson.map(item=>createLowerGenreList(item)).join('');
+            $optionNone.innerHTML = responseJson.map(item => createLowerGenreList(item)).join('');
         }
-        window.onload=function(){
+        window.onload = function () {
             receiveFetchLowerGenre();
-        }
-    function view(){
-            console.log("이거 작동하나욤")
+        };
+        function view() {
+            console.log("이거 작동하나욤");
             const genre = document.getElementById("lower-genre");
-            console.log("ㅎㅇ장르 코드 : "+genre.value);
-    }
-        function hiddenLowerGenre(){
+            console.log("ㅎㅇ장르 코드 : " + genre.value);
+        }
+        function hiddenLowerGenre() {
             const genre = document.querySelector(".genre-tab-list");
             const lowerGenre = document.getElementById("lower-genre");
-            if(genre.value==1||genre.value==2||genre.value==3){
+            if (genre.value == 1 || genre.value == 2 || genre.value == 3) {
                 lowerGenre.hidden = false;
-            }else{
+            } else {
                 lowerGenre.hidden = true;
             }
         }
-
-
-
     </script>
 </th:block>
 </html>
