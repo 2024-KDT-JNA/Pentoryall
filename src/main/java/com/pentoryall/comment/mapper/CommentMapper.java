@@ -18,4 +18,6 @@ public interface CommentMapper {
     void addComment(CommentDetailDTO commentAdd);
 
     void updateComment(CommentDetailDTO commentDetailDTO);
+
+    List<CommentDetailDTO> selectRefCommentByPostCode(long code);
 }

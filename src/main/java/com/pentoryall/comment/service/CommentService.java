@@ -34,4 +34,8 @@ public class CommentService {
     public void updateComment(CommentDetailDTO commentDetailDTO) {
         commentMapper.updateComment(commentDetailDTO);
     }
+
+    public List<CommentDetailDTO> selectRefCommentByPostCode(long code) {
+        return commentMapper.selectRefCommentByPostCode(code);
+    }
 }

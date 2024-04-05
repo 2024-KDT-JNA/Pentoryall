@@ -182,7 +182,9 @@ public class PostController {
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
 
         List<CommentDetailDTO> commentList = commentService.selectCommentByPostCode(code);
+        List<CommentDetailDTO> replyList = commentService.selectRefCommentByPostCode(code);
         System.out.println("commentList =!! " + commentList);
+        System.out.println("답글 리스트 = "+replyList);
         if(!commentList.isEmpty() || commentList!=null) {
 //            System.out.println("유저 정보 : " + commentList.get(0).getUser());
             System.out.println("commentList =>>> " + commentList);
@@ -197,6 +199,7 @@ public class PostController {
             if(user != null){
                 model.addAttribute("userCode",user.getCode());
             }
+            model.addAttribute("replyList",replyList);
         System.out.println("여기까지왓니");
         return "views/post/list";
     }
@@ -436,5 +439,21 @@ public class PostController {
         return "/views/series/select";
 
     }
+//
+//    @PostMapping("/addReply")
+//    public ResponseEntity<String> addReply(@RequestBody CommentDetailDTO commentAdd,
+//                                             @AuthenticationPrincipal UserDTO user){
+//        commentAdd.setCode(1L);
+//        System.out.println("commentAdd1 :"+commentAdd.getCode());
+//        System.out.println("commentAdd1.5 :"+commentAdd.getPostCode());
+//        System.out.println("commentAdd2 :"+commentAdd.getContent());
+//        System.out.println("도달하고 있는가");
+//        commentAdd.setUser(user);
+//        System.out.println("commentAdd = " + commentAdd);
+//        commentService.addComment(commentAdd);
+//        System.out.println("db에 잘 등록 됬어요~");
+//        return ResponseEntity.ok("댓글 등록 완료");
+//    }
+
 
 }

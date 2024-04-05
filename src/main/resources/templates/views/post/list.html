@@ -107,14 +107,13 @@
                     </div>
                     <div class="comment-add">
                             <textarea onchange="test()" id="comment-writing-area" class="comment-writing-area" placeholder="댓글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
-                            <button id="comment-add-btn" class="comment-add-btn">작성하기</button>
+                            <button id="comment-add-btn" class="comment-add-btn" onmouseover="test2()">작성하기</button>
                     </div>
                 </div>
                 <div class="comment-wrapper">
                     <h2 class="p-post-comment">전체 댓글</h2>
                 </div>
 
-                <!--                 댓글 출력-->
                 <!--댓글 출력-->
                 <div class="comment-area">
                     <div class="comment-content-area"   th:each="comment : ${commentList}" th:value="${comment.code}">
@@ -126,11 +125,44 @@
                             <button class="button" th:onclick="makeWritingTable([[${comment.code}]],[[${comment.content}]])">댓글 수정</button>
                         </div>
                         <div class="second-button">
-                            <button class="button reply">답글</button>
+                            <button class="button reply" th:value="${comment.code}" th:onclick="hiddenReply()">답글</button>
                             <button class="button report-btn">댓글 신고</button>
+                        </div>
+                        <!--답글 출력-->
+                        <div class="hidden-wrapper" hidden >
+                            <div class="comment-area" id="comment-area-wrapper" >
+                                <div class="comment-content-area reply-repeat" th:each="reply : ${replyList}" th:value="${reply.code}"  th:if="${reply.refCommentCode==comment.code}" >
+                                    <input class="tem-input" th:value="${reply.refCommentCode}" hidden/>
+                                    <p class="comment-writer-area" th:text="${reply.user.nickname}">작성자</p>
+                                    <p class="comment-content" th:text="${reply.content}"></p>
+                                    <p class="comment-date-area" id="writing-date" th:text="${reply.createDate}">작성 날짜</p>
+                                    <div class="btn-wrapper" th:if="${reply.user.code == userCode}">
+                                        <button class="button" th:onclick="removeComment([[${reply.code}]])">답글 삭제</button>
+                                        <button class="button" th:onclick="makeWritingTable([[${reply.code}]],[[${reply.content}]])">답글 수정</button>
+                                    </div>
+                                    <div class="second-button" id="reply-report" hidden>
+                                        <button class="button report-btn">답글 신고</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--답글 작성-->
+                            <div class="writing-reply" >
+                                <div>
+                                    <h2 class="p-post-comment">답글 작성</h2>
+                                </div>
+                                <div class="comment-add">
+                                    <textarea onchange="test()" class="comment-writing-area comment-area" placeholder="답글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
+                                    <button  class="comment-add-btn comment-btn">작성하기</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
+
             </section>
         </div>
     </div>
@@ -138,6 +170,8 @@
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
+
+
         function test(){
             const text = document.querySelector(".comment-writing-area");
             console.log(text.value);
@@ -149,8 +183,8 @@
 
         /*댓글 작성*/
         if(document.getElementById("comment-add-btn")){
-            const $addComment = document.getElementById("comment-add-btn");
-            const $writeComment = document.getElementById("comment-writing-area");
+            const $addComment = document.querySelector(".comment-add-btn");
+            const $writeComment = document.querySelector(".comment-writing-area");
 
             $addComment.onclick=function() {
                 if (!$writeComment.value.trim()) {
@@ -212,8 +246,8 @@
 
                 const $secondButtons = document.createElement("div");
                 $secondButtons.className = 'second-button';
-                $secondButtons.innerHTML = ` <button class="button reply">답글</button>
-                                    <button class="button report-btn">댓글 신고</button>`;
+                $secondButtons.innerHTML = `  <button class="button reply" th:value="${comment.code}" th:onclick="hiddenReply()">답글</button>
+                            <button class="button report-btn">댓글 신고</button>`;
 
                 if(`[[${userCode}]]`==comment.user.code){
                     $button.innerHTML = `<button class="button" onclick='removeComment(${comment.code})'>댓글 삭제</button>
@@ -288,9 +322,56 @@
     </script>
     <script>
         /*답글 로직*/
+        function test2(){
+            const input = document.querySelectorAll(".tem-input");
+            input.forEach(el =>{
+                console.log("답글 참조 코드",el.value);
+            })
+        }
+
+        // 모든 '.button.reply' 클래스를 가진 버튼에 대해 이벤트 리스너 추가
+        document.querySelectorAll('.reply').forEach(button => {
+            // button.addEventListener('click', function(event) {
+            //     const clickedButton = event.target;
+            //
+            //     const commentArea = clickedButton.closest('.comment-area');
+            //     const hiddenWrapper = commentArea.querySelector('.comment-area');
+            //     const  writingReply = commentArea.querySelector('.writing-reply');
+            //     if(hiddenWrapper.hidden==true){
+            //         hiddenWrapper.hidden=false;
+            //         writingReply.hidden = false;
+            //     }else{
+            //         hiddenWrapper.hidden=true;
+            //         writingReply.hidden = true;
+            //     }
+            //     // 'commentCode'를 사용하여 특정 동작 수행, 예를 들어 AJAX 요청 보내기 또는 특정 요소 찾기
+            //     console.log("버튼 코드",hiddenWrapper); // 확인용
+            //
+            //     // 예: 'commentCode'에 해당하는 '.hidden-wrapper' 찾기
+            //     // 이 부분은 프로젝트의 구조에 따라 다를 수 있으므로, 'commentCode'를 사용하여 원하는 요소를 찾는 로직 구현 필요
+            // });
+
+            button.addEventListener('click', function(event) {
+                const clickedButton = event.target;
+
+                // 가장 가까운 '.comment-area'를 찾은 후, 그 안에서 '.hidden-wrapper'를 선택합니다.
+                const hiddenWrapper = clickedButton.closest('.comment-area').querySelector('.hidden-wrapper');
+
+                // '.hidden-wrapper'와 '.writing-reply'의 보이기/숨기기 상태를 토글합니다.
+                // if(hiddenWrapper.hidden==true){
+                //             hiddenWrapper.hidden=false;
+                //         }else{
+                //             hiddenWrapper.hidden=true;
+                //         }
+                hiddenWrapper.hidden = !hiddenWrapper.hidden;
+
+                console.log("버튼 코드", hiddenWrapper); // 확인용
+            });
+        });
+
+
+
 
     </script>
-
-
 </th:block>
 </html>
