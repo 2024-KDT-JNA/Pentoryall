@@ -86,13 +86,22 @@
         WHERE state = 'ACTIVE'
         AND user_id = #{userId}
     </update>
+    <update id="updatePointByUserCode">
+        UPDATE user
+           SET point = #{ point }
+         WHERE code = #{ code }
+    </update>
+    <update id="updateRevenueByUserCode">
+        UPDATE user
+           SET revenue = #{revenue}
+         WHERE code = #{ code }
+    </update>
 
     <update id="deleteUser">
-        UPDATE
-            user
-        SET state = 'WITHDRAWN'
-        WHERE state = 'ACTIVE'
-          AND user_id = #{userId}
+        UPDATE user
+           SET state = 'WITHDRAWN'
+         WHERE state = 'ACTIVE'
+           AND user_id = #{userId}
     </update>
     <select id="getPwd" resultType="String">
         SELECT password

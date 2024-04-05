@@ -19,11 +19,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
+
 @RequestMapping("/settings/user/settlement")
 @RequiredArgsConstructor
 public class UserSettlementController {
 
     private final UserSettlementService userSettlementService;
+
 
     private final MessageSourceAccessor messageSourceAccessor;
 
@@ -40,6 +42,7 @@ public class UserSettlementController {
     }
 
     @PostMapping
+
     public String saveUserSettlement(@ModelAttribute("userSettlement") UserSettlementDTO modifyUserSettlement,
                                      @AuthenticationPrincipal UserDTO sessionUser, RedirectAttributes rttr) {
         if (modifyUserSettlement.getUserCode() == null) {
@@ -50,5 +53,6 @@ public class UserSettlementController {
         rttr.addFlashAttribute("alertMessage", messageSourceAccessor.getMessage("save.success"));
 
         return "redirect:/settings/user/settlement";
+
     }
 }

@@ -24,10 +24,10 @@
             <div class="user-intro">
                 <div class="intro-text">
                     <strong class="title">자기소개</strong>
-                    <p class="intro" sec:authentication="principal.introduction"></p>
+                    <p class="intro" th:text="${#authentication.principal.introduction}"></p>
                 </div>
                 <div class="setting-btn">
-                    <button class="button">구독</button>
+                    <button class="button" id="subscribeButton">구독</button>
                     <button class="button">멤버십 가입</button>
                 </div>
             </div>
@@ -39,9 +39,65 @@
                 <li><a href="#">포스트</a></li>
                 <li><a href="#">시리즈</a></li>
                 <li><a href="/membership/planInfo">멤버십</a></li>
-                <li><a href="/subscribe/story/subscriber/list">구독</a></li>
+                <li><a href="/subscribe/list">구독</a></li>
             </ul>
         </nav>
     </header>
 </th:block>
+<script>
+    $(document).ready(function() {
+        $('#subscribeButton').click(function() {
+            var button = $('#subscribeButton');
+            var isSubscribed = button.text() === '구독중'; // 현재 구독 상태 여부
+
+            // AJAX 요청을 보냄
+            $.ajax({
+                type: 'POST',
+                url: '/subscribe/' + (isSubscribed ? 'cancel' : 'add'), // 구독 추가 또는 취소 엔드포인트 선택
+                success: function(response) { // 요청 성공 시 처리할 함수
+                    // 버튼의 텍스트를 토글하여 상태 변경
+                    if (isSubscribed) {
+                        button.text('구독');
+                    } else {
+                        button.text('구독중');
+                    }
+                },
+                error: function(xhr, status, error) { // 요청 실패 시 처리할 함수
+                    alert('구독 상태 변경에 실패했습니다. 다시 시도해주세요.');
+                }
+            });
+        });
+    });
+</script>
 </html>
+
+
+
+
+
+
+
+
+
+<!--
+// $(document).ready(function() {
+//     $('#subscribeButton').click(function() {
+//         // AJAX 요청을 보냄
+//         $.ajax({
+//             type: 'POST',
+//             url: '/subscribe/add', // 서버의 구독 추가 엔드포인트
+//             success: function(response) { // 요청 성공 시 처리할 함수
+//                 var button = $('#subscribeButton');
+//                 if (button.text() === '구독') {
+//                     button.text('구독중');
+//                 } else {
+//                     button.text('구독');
+//                 }
+//                 alert('구독이 추가되었습니다.');
+//             },
+//             error: function(xhr, status, error) { // 요청 실패 시 처리할 함수
+//                 alert('구독 추가에 실패했습니다. 다시 시도해주세요.');
+//             }
+//         });
+//     });
+// });-->

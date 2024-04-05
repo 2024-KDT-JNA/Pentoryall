@@ -1,23 +1,26 @@
 package com.pentoryall.point.controller;
 
+import com.pentoryall.common.dto.CommonResponse;
 import com.pentoryall.common.exception.CustomException;
-import com.pentoryall.common.exception.order.InvalidOrderInfoException;
-import com.pentoryall.common.exception.order.OrderFailedException;
 import com.pentoryall.point.dto.OrderDTO;
 import com.pentoryall.point.dto.OrderRequestDTO;
 import com.pentoryall.point.dto.OrderUserDTO;
 import com.pentoryall.point.dto.PaymentDTO;
 import com.pentoryall.point.service.OrderService;
 import com.pentoryall.user.dto.UserDTO;
+import com.pentoryall.user.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -28,8 +31,11 @@ public class PointOrderController {
 
     private final OrderService orderService;
 
+    private final AuthService authService;
+
     @GetMapping
     public String orderPage(@AuthenticationPrincipal UserDTO sessionUser, Model model) {
+
         OrderUserDTO user = new OrderUserDTO();
 
         if (sessionUser != null) {
@@ -47,14 +53,15 @@ public class PointOrderController {
 
     @PostMapping("/payment")
     @ResponseBody
-    public Map<String, String> payment(@RequestBody OrderRequestDTO orderRequest,
-                                       @AuthenticationPrincipal UserDTO sessionUser) throws CustomException {
+    public ResponseEntity<CommonResponse> payment(@RequestBody OrderRequestDTO orderRequest,
+                                                  @AuthenticationPrincipal UserDTO sessionUser) {
+        CommonResponse response = null;
 
         if (isValidUserInfo(orderRequest.getUserCode(), sessionUser.getCode())) {
-            throw new InvalidOrderInfoException("올바르지 않은 주문자 정보 입니다.");
+            response = new CommonResponse(false, "올바르지 않은 주문자 정보 입니다.", null);
         }
         if (orderRequest.getImpUid() == null) {
-            throw new InvalidOrderInfoException("주문 정보가 올바르지 않습니다.");
+            response = new CommonResponse(false, "주문 정보가 올바르지 않습니다.", null);
         }
 
         OrderDTO order = new OrderDTO();
@@ -67,23 +74,21 @@ public class PointOrderController {
 
         orderService.savePointChargeInformation(order, payment);
 
-        // TODO 결제 후 포인트가 안바뀜..ㅠㅠ 이 부분 필요할 듯
-        // SecurityContextHolder.getContext().setAuthentication();
+        // 세션 정보 재설정
+        SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(sessionUser.getUserId()));
 
-        Map<String, String> responseData = new HashMap<>();
-        responseData.put("orderCode", order.getCode().toString());
-
-        return responseData;
+        response = new CommonResponse(true, null, order.getCode());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/complete")
-    public String pointChargeResultPage(@RequestParam(value = "orderCode") Long code,
-                                        @AuthenticationPrincipal UserDTO sessionUser, Model model) {
+    public String orderResultPage(@RequestParam(value = "orderCode") Long code,
+                                  @AuthenticationPrincipal UserDTO sessionUser, Model model) {
 
         OrderDTO order = orderService.selectOrderByCode(code);
 
         if (isValidUserInfo(order.getUserCode(), sessionUser.getCode())) {
-            throw new OrderFailedException("올바르지 않은 주문자 정보 입니다.");
+            throw new CustomException("올바르지 않은 주문자 정보 입니다.");
         }
 
         model.addAttribute("orderCode", order.getCode());
@@ -99,9 +104,14 @@ public class PointOrderController {
         return "views/point/orderList";
     }
 
-
     /* 주문 정보의 회원 코드와 로그인 회원 정보가 일치하는지 검증 */
     private boolean isValidUserInfo(Long userCode, Long sessionUserCode) {
         return userCode == null || !Objects.equals(userCode, sessionUserCode);
+    }
+
+    // TODO 중복코드 차후에 합치기
+    protected Authentication createNewAuthentication(String userId) {
+        UserDetails newPrincipal = authService.loadUserByUsername(userId);
+        return new UsernamePasswordAuthenticationToken(newPrincipal, newPrincipal.getPassword(), newPrincipal.getAuthorities());
     }
 }
