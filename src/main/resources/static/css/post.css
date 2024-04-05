@@ -946,3 +946,55 @@ form input::file-selector-button {
     width: 100px;
     margin-left:20px;
 }
+.comment-wrapper{
+    margin-top:60px;
+    margin-bottom:30px;
+}
+.comment-content-area{
+    width: 600px;
+    /*min-height:150px;*/
+    height: auto;
+    text-align: left;
+}
+.comment-writer-area{
+    margin-top: 10px;
+    font-weight: bolder;
+    font-size: 20px;
+    line-height: 30px;
+}
+.comment-content{
+    margin-top: 10px;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 30px;
+    width: 600px;
+    word-wrap:break-word;
+}
+
+.comment-date-area{
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: normal;
+    color: #d1d1d2;
+    line-height: 60px;
+}
+.comment-content-area{
+    margin: 10px;
+    border-top:solid 1px ;
+    border-color:#fda9ad;
+}
+.btn-wrapper{
+    display: flex;
+    margin-bottom:10px;
+}
+.second-button{
+    display: flex;
+}
+/*.button{*/
+
+/*}*/
+
+.reply{
+    width: 107px;
+    height: 40px;
+}
