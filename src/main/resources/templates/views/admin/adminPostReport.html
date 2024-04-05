@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/default}">
+      layout:decorate="~{/layout/settings}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
-    <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css"/>
 </th:block>
 
 <th:block layout:fragment="content">
@@ -36,7 +35,7 @@
                         <thead>
                         <tr>
                             <th>
-                                <input type="checkbox" id="checkAll-post-1" name="comment_report" />
+                                <input type="checkbox" id="checkAll-post-1" name="comment_report"/>
                                 <label for="checkAll-post-1">전체 선택</label>
                             </th>
                             <th>번호</th>
@@ -49,15 +48,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <th:block th:each="postReportList : ${postReportList}">
-                            <th><input type="checkbox" id="checkAll-post-2" name="" class="form-check-input" /></th>
+                        <th:block th:each="postReportList : ${postReportList}">
+                            <th><input type="checkbox" id="checkAll-post-2" name="" class="form-check-input"/></th>
                             <td data-unlock="listCode" th:text="${postReportList.code}"></td>
                             <td data-unlock="listUserCode" th:text="${postReportList.userId}"></td>
                             <td data-unlock="listUserId" th:text="${postReportList.nickName}"></td>
                             <td data-unlock="listNickName" th:text="${postReportList.type}"></td>
                             <td data-unlock="listReportDate" th:text="${postReportList.reportDate}"></td>
                             <td data-unlock="listTitle" th:text="${postReportList.title}"></td>
-                                <td><button type="button" class="button btn-delete"  th:attr="data-user=${postReportList.postCode}" >삭제</button></td>
+                            <td>
+                                <button type="button" class="button btn-delete"
+                                        th:attr="data-user=${postReportList.postCode}">삭제
+                                </button>
+                            </td>
                         </th:block>
                         </tbody>
                     </table>
@@ -91,8 +94,8 @@
                             <div class="pop-btn">
                                 <form action="/admin/report/posts/delete" method="post" id="reportForm">
                                     <input type="hidden" name="postCode" id="postCode">
-                                    <button type="submit" class="button" >확인</button>
-                                    <button type="button" class="button" >취소</button>
+                                    <button type="submit" class="button">확인</button>
+                                    <button type="button" class="button">취소</button>
                                 </form>
                             </div>
                         </div>
@@ -107,7 +110,7 @@
                 const $postCodeInput = document.getElementById('postCode');
 
                 $deleteBtns.forEach(btn => {
-                    btn.addEventListener('click', function() {
+                    btn.addEventListener('click', function () {
                         const postCode = btn.getAttribute('data-user');
                         $postCodeInput.value = postCode;
                         showPopup();
@@ -119,7 +122,7 @@
                     popup.classList.remove('blind');
                 }
 
-                document.querySelector('.close-btn').addEventListener('click', function() {
+                document.querySelector('.close-btn').addEventListener('click', function () {
                     const popup = document.querySelector('.layer-popup-small');
                     popup.classList.add('blind');
                 });
@@ -127,7 +130,7 @@
         </div>
     </div>
 
-        </th:block>
+</th:block>
 
 <th:block layout:fragment="script">
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->

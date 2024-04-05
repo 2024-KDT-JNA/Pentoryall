@@ -45,7 +45,7 @@
 
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <div class="link">
-                    <a th:href="@{/user/login}" class="button btn-admin">관리자 페이지</a>
+                    <a th:href="@{/admin/list}" class="button btn-admin">관리자 페이지</a>
                 </div>
                 <div class="link">
                     <a th:href="@{/user/logout}" class="button">로그아웃</a>
@@ -80,7 +80,9 @@
                     <div class="profile-point">
                         <dl class="point-info">
                             <dt>포인트</dt>
-                            <dd th:text="|${#authentication.principal.point > 0 ? #numbers.formatInteger(#authentication.principal.point, 3, 'COMMA') : 0}P|">0P</dd>
+                            <dd th:text="|${#authentication.principal.point > 0 ? #numbers.formatInteger(#authentication.principal.point, 3, 'COMMA') : 0}P|">
+                                0P
+                            </dd>
                         </dl>
                         <a th:href="@{/point/order}" class="button"> 충전</a>
 

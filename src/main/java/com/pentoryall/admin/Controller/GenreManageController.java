@@ -41,15 +41,40 @@ public class GenreManageController {
     }
 
     @PostMapping("/add")
-    public String addGenre(@RequestParam("name") String name) {
+    public String addGenre(@RequestParam("genreName") String name) {
+
         genreManageService.addFirstGenre(name);
-        genreManageService.addSecondGenre(name);
+
         return "redirect:/admin/genre/list";
     }
+
+    @PostMapping("/addSecond")
+    public String addSecondGenre(@RequestParam("genreName") String name) {
+
+        genreManageService.addSecondGenre(name);
+
+        return "redirect:/admin/genre/list";
+    }
+
 
     @PostMapping("/delete")
     public String deleteGenre(@RequestParam("name") String name) {
         genreManageService.deleteSecondGenre(name);
         return "redirect:/admin/genre/list";
     }
+
+    @PostMapping("/modifyFirstGenre")
+    public String modifyGenre(
+            @RequestParam("genreName") String name) {
+        GenreManageDTO genreDTO = new GenreManageDTO();
+        genreDTO.setName(name);
+//        genreDTO.setCode(code);
+        genreManageService.modifyFirstGenre(genreDTO);
+
+        return "redirect:/admin/genre/list";
+
+    }
 }
+
+
+

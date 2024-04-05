@@ -4,26 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pentoryall.admin.mapper.UserManageMapper">
     <select id="selectAllUserList" resultType="com.pentoryall.admin.DTO.UserManageDTO">
-    SELECT
-            code,
-            email,
-            user_id,
-            nickname,
-            name,
-            birth,
-            state
+        SELECT
+        code,
+        email,
+        user_id,
+        nickname,
+        name,
+        birth,
+        state
 
-    FROM    user
+        FROM user
 
         <where>
+            <!-- 단어 포함 검색 -->
             <if test="searchCondition == 'name'">
-                name LIKE CONCAT('%', #{ searchValue }, '%')
+                name LIKE CONCAT('%', #{searchValue}, '%')
             </if>
             <if test="searchCondition == 'id'">
-                user_id LIKE CONCAT('%', #{ searchValue }, '%')
+                user_id LIKE CONCAT('%', #{searchValue}, '%')
             </if>
             <if test="searchCondition == 'nickname'">
-                nick LIKE CONCAT('%', #{ searchValue }, '%')
+                nickname LIKE CONCAT('%', #{searchValue}, '%')
             </if>
         </where>
 
@@ -31,10 +32,8 @@
 
     </select>
     <select id="selectTotalCount" resultType="_int">
-        SELECT
-            COUNT(*)
-        FROM
-            user
+        SELECT COUNT(*)
+        FROM user
     </select>
 
 

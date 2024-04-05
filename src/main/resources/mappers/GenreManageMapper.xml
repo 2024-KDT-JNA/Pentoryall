@@ -38,6 +38,10 @@
         WHERE name = #{name};
     </delete>
 
-
+    <update id="updateGenre" parameterType="com.pentoryall.admin.DTO.GenreManageDTO">
+        UPDATE genre
+        SET name = #{name}
+        WHERE code = #{code}
+    </update>
 </mapper>
 
