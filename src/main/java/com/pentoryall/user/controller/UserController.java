@@ -48,31 +48,13 @@ public class UserController {
 
     private final MessageSourceAccessor messageSourceAccessor;
 
-//    @PostMapping("/emails/verification-requests")
-//    public ResponseEntity sendMessage(@RequestParam("email") @Valid @CustomEmail String email) {
-//        userService.sendCodeToEmail(email);
-//
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/emails/verifications")
-//    public ResponseEntity verificationEmail(@RequestParam("email") @Valid @CustomEmail String email,
-//                                            @RequestParam("code") String authCode) {
-//        EmailVerificationResult response = userService.verifiedCode(email, authCode);
-//
-//        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
-//    }
-
     /* 로그인 페이지 이동 */
     @GetMapping("/login")
     public String loginPage(Model model) {
-//        if (error != null) {
-//            model.addAttribute("errorMessage", "존재하지 않는 회원입니다.");
-//        }
         return "views/user/login";
     }
 
-
+    
     /* 로그인 실패 시 */
     @PostMapping("/loginfail")
     public String loginFailed(RedirectAttributes rttr) {
@@ -230,21 +212,12 @@ public class UserController {
 //
 //        /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
 //        rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
-//
-//        /* 로그아웃 처리 (세션만료) */
-//        return "redirect:/user/logout";
 
         // 사용자가 입력한 비밀번호를 인코딩하여 저장된 비밀번호와 비교
         if (passwordEncoder.matches(password, user.getPassword())) {
             /* 회원을 DB에서 삭제 */
             System.out.println("들어가긴하나");
             userService.removeUser(user);
-
-//            // 세션 무효화 (로그아웃 처리)
-//            request.getSession().invalidate();
-
-            /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
-            //rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
 
             /* 로그아웃 처리 (세션 만료) */
             return "redirect:/user/logout";

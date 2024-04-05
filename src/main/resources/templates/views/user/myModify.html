@@ -58,7 +58,7 @@
                                 <label class="labelTitle" for="user_nickname">닉네임</label>
                                 <div class="input_box">
                                     <!--                                    <input type="text" id="user_nickname" name="nickname"/>-->
-                                    <input th:value="${ #authentication.principal.nickname }" required/>
+                                    <input name="nickname" th:value="${ #authentication.principal.nickname }" required/>
                                     <!--                                           th:value="${ #authentication.principal.nickname }" required/>-->
                                 </div>
                             </div>

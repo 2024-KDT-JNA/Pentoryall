@@ -158,6 +158,14 @@ input[type="button"] {
     padding: 20px;
 }
 
+.loginWrap input::placeholder {
+    font-size: 13px;
+}
+
+#remember-me {
+    display: inline-block;
+}
+
 /* 회원가입 */
 .titleWrap {
     width: 100%;
