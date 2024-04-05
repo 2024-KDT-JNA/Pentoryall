@@ -150,15 +150,6 @@
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
     <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
     <script>
-        const toggleBtn = document.querySelector('.toggleBtn');
-        const relationList = document.querySelector('.case_filter_content');
-
-        toggleBtn.addEventListener('click', (event) => {
-            relationList.classList.toggle('active');
-            event.currentTarget.classList.toggle('close');
-        });
-    </script>
-    <script>
         $(document).ready(function () {
             const toggleBtn = document.querySelector('.toggleBtn');
             const relationList = document.querySelector('.case_filter_content');
@@ -172,13 +163,6 @@
 
             var postCode = 1;
             var userCode = 1;
-            // let likedPostsLength = $('#post').data('liked-posts-length');
-
-            // if (likedPostsLength === 0) {
-            //     $('.not_post').show();
-            // } else {
-            //     $('.not_post').hide();
-            // }       //
 
             $('.likeBtn').click(function () {
                 if (isLiked) {
@@ -192,7 +176,7 @@
                         }),
                         success: function (data) {
                             isLiked = false;
-                            $('.likeBtn').html('<i class="far fa-heart"></i>');
+                            $(this).html('<i class="far fa-heart"></i>');
                             console.log("좋아요 취소 성공");
                         }
                     });
@@ -207,25 +191,13 @@
                         }),
                         success: function (data) {
                             isLiked = true;
-                            $('.likeBtn').html('<i class="fas fa-heart"></i>');
+                            $(this).html('<i class="fas fa-heart"></i>');
                             console.log("좋아요 성공");
                         }
                     });
                 }
             });
         });
-
-        // $.ajax({
-        //     type: 'GET',
-        //     url: '/user/likedPostCount', // 좋아요된 포스트 개수를 가져오는 엔드포인트
-        //     success: function (data) {
-        //         // 성공적으로 데이터를 받으면 HTML에 업데이트
-        //         $('.likedPostCount').text(data.count); // 예를 들어, likedPostCount 클래스를 가진 요소에 개수를 업데이트
-        //     },
-        //     error: function (error) {
-        //         console.error('Error fetching liked post count:', error);
-        //     }
-        // });
     </script>
 </th:block>
 </html>
