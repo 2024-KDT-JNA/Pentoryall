@@ -163,9 +163,17 @@ public class UserController {
                              @AuthenticationPrincipal UserDTO loginUser, RedirectAttributes rttr,
                              Model model,
                              @RequestParam(required = false) boolean profileDelete,
-                             @RequestParam(required = false) MultipartFile profile) throws MemberModifyException {
+                             @RequestParam(required = false) MultipartFile profile,
+                             @RequestParam(required = false) String isSubscriberVisible) //  <----- 파라미터로 구독공개여부 받아옴 -- 승재
+            throws MemberModifyException {
 
         modifyUser.setUserId(loginUser.getUserId());
+
+        char subscriberVisible = 'N'; // 구독 목록 공개여부 default 값
+        if (isSubscriberVisible != null && isSubscriberVisible.equalsIgnoreCase("y")) { //  조건문
+            subscriberVisible = 'Y'; //
+        }
+        modifyUser.setIsSubscriberVisible(subscriberVisible); // 승재 - 구독 공개여부 코드 작성
 
         log.info("modifyUser request User : {}", modifyUser);
 
