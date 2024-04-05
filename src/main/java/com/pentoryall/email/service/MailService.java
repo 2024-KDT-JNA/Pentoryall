@@ -1,9 +1,6 @@
 package com.pentoryall.email.service;
 
 import com.pentoryall.email.EmailProperties;
-import com.pentoryall.util.RedisUtil;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +25,7 @@ import java.util.Random;
 /* 이메 발송을 담당하는 클래스 */
 public class MailService {
     private final JavaMailSender mailSender;
-    private final RedisUtil redisUtil;
+    //    private final RedisUtil redisUtil;
     private final EmailProperties emailProperties;
 
 
@@ -67,22 +64,22 @@ public class MailService {
     }
 
 
-    // 메일 반환
-
-    private MimeMessage createEmailForm(String email) throws MessagingException {
-
-        String authCode = createdCode();
-
-        MimeMessage message = mailSender.createMimeMessage();
-        message.addRecipients(MimeMessage.RecipientType.TO, email);
-        message.setSubject("안녕하세요 인증번호입니다.");
-        message.setFrom(configEmail);
-        message.setText(setContext(authCode), "utf-8", "html");
-
-        redisUtil.setDataExpire(email, authCode, 60 * 30L);
-
-        return message;
-    }
+//    // 메일 반환
+//
+//    private MimeMessage createEmailForm(String email) throws MessagingException {
+//
+//        String authCode = createdCode();
+//
+//        MimeMessage message = mailSender.createMimeMessage();
+//        message.addRecipients(MimeMessage.RecipientType.TO, email);
+//        message.setSubject("안녕하세요 인증번호입니다.");
+//        message.setFrom(configEmail);
+//        message.setText(setContext(authCode), "utf-8", "html");
+//
+//        redisUtil.setDataExpire(email, authCode, 60 * 30L);
+//
+//        return message;
+//    }
 
 
     // 메일 보내기
@@ -107,15 +104,15 @@ public class MailService {
 //        return user.getId();
 //    }
 
-    // 코드 검증
-    public Boolean verifyEmailCode(String email, String code) {
-        String codeFoundByEmail = redisUtil.getData(email);
-        System.out.println(codeFoundByEmail);
-        if (codeFoundByEmail == null) {
-            return false;
-        }
-        return codeFoundByEmail.equals(code);
-    }
+//    // 코드 검증
+//    public Boolean verifyEmailCode(String email, String code) {
+//        String codeFoundByEmail = redisUtil.getData(email);
+//        System.out.println(codeFoundByEmail);
+//        if (codeFoundByEmail == null) {
+//            return false;
+//        }
+//        return codeFoundByEmail.equals(code);
+//    }
 
     public String makeMemberId(String email) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");

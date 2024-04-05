@@ -1,10 +1,11 @@
 package com.pentoryall.email.service;
 
 import com.pentoryall.email.MailServiceInter;
+import com.pentoryall.email.RedisUtil;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 public class RegisterMail implements MailServiceInter {
-    @Autowired
-    JavaMailSender emailsender; // Bean 등록해둔 MailConfig 를 emailsender 라는 이름으로 autowired
+
+    private final JavaMailSender emailsender; // Bean 등록해둔 MailConfig 를 emailsender 라는 이름으로 autowired
+    private final RedisUtil redisUtil;
 
     private String ePw; // 인증번호
 
@@ -85,12 +88,14 @@ public class RegisterMail implements MailServiceInter {
     // MimeMessage 객체 안에 내가 전송할 메일의 내용을 담는다.
     // 그리고 bean 으로 등록해둔 javaMail 객체를 사용해서 이메일 send!!
     @Override
-    public String sendSimpleMessage(String to) throws Exception {
+    public String sendSimpleMessage(String email) throws Exception {
 
         ePw = createKey(); // 랜덤 인증번호 생성
 
+        redisUtil.setDataExpire(ePw, email, 600);
+
         // TODO Auto-generated method stub
-        MimeMessage message = createMessage(to); // 메일 발송
+        MimeMessage message = createMessage(email); // 메일 발송
         try {// 예외처리
             emailsender.send(message);
         } catch (MailException es) {

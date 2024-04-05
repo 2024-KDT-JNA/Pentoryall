@@ -1,14 +1,14 @@
-package com.pentoryall.util;
+package com.pentoryall.email;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 
+@Component
 @RequiredArgsConstructor
-@Service
 public class RedisUtil {
     private final StringRedisTemplate redisTemplate;
 
@@ -20,7 +20,7 @@ public class RedisUtil {
     public void setDataExpire(String key, String value, long duration) {
         //  duration 동안 (key, value)를 저장한다.
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-        Duration expireDuration = Duration.ofMillis(duration);
+        Duration expireDuration = Duration.ofSeconds(duration);
         valueOperations.set(key, value, expireDuration);
     }
 
@@ -28,4 +28,5 @@ public class RedisUtil {
         // 데이터 삭제
         redisTemplate.delete(key);
     }
+
 }
