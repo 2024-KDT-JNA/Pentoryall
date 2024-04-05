@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/default}">
+      layout:decorate="~{/layout/settings}">
 
 <th:block layout:fragment="link">
     <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css" />
@@ -11,11 +11,15 @@
     <div class="sub-content">
         <div class="inner">
             <section class="section section-order">
-                <h2 class="h2">포인트 충전 내역</h2>
+                <h2 class="h2">수익 적립 내역</h2>
 
                 <div class="summary-wrap">
                     <dl class="summary-list">
-                        <dt class="title">현재 잔액</dt>
+                        <dt class="title">총 적립 금액</dt>
+                        <dd class="desc">100,000</dd>
+                        <dt class="title">출금 금액</dt>
+                        <dd class="desc">100,000</dd>
+                        <dt class="title">보유 금액</dt>
                         <dd class="desc">100,000</dd>
                     </dl>
                 </div>
@@ -24,8 +28,8 @@
                     <div class="form-item">
                         <select class="select">
                             <option value="">전체</option>
-                            <option value="">2024.03</option>
-                            <option value="">2024.02</option>
+                            <option value="">멤버십</option>
+                            <option value="">포스트</option>
                         </select>
                     </div>
                 </div>
@@ -33,23 +37,28 @@
                 <div class="table-box">
                     <table class="table">
                         <thead>
-                            <th>날짜</th>
-                            <th>충전 포인트</th>
-                            <th>충전 금액</th>
-                            <th>결제 방법</th>
-                            <!-- <th>영수증 조회</th> -->
+                            <th>구분</th>
+                            <th>적립금</th>
+                            <th>내용</th>
+                            <th>적립일</th>
                         </thead>
                         <tbody>
-                            <tr th:if="${orderList == null}">
-                                <td colspan="4">포인트 충전 내역이 없습니다.</td>
+                            <!-- NULL -->
+                            <tr>
+                                <td colspan="4">수익 적립 내역이 없습니다.</td>
                             </tr>
-
-                            <tr th:each="order : ${orderList}">
-                                <td th:text="${order.createDate}"></td>
-                                <td th:text="${order.point}"></td>
-                                <td th:text="${order.amount}"></td>
-                                <td th:text="${order.point}">카드 결제</td>
-                                <!-- <th>버튼</th> -->
+                            <!-- NOT NULL -->
+                            <tr>
+                                <td>멤버십</td>
+                                <td>5,000원</td>
+                                <td>멤버십 가입 적립</td>
+                                <td>2024.04.02</td>
+                            </tr>
+                            <tr>
+                                <td>포스트</td>
+                                <td>2,000원</td>
+                                <td>007 - 1화</td>
+                                <td>2024.04.02</td>
                             </tr>
                         </tbody>
                     </table>

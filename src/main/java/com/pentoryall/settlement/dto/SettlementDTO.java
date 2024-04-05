@@ -1,6 +1,6 @@
 package com.pentoryall.settlement.dto;
 
-import com.pentoryall.settlement.status.SettlementState;
+import com.pentoryall.settlement.enums.SettlementState;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
