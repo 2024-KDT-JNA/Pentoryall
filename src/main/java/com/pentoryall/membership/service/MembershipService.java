@@ -1,7 +1,6 @@
 package com.pentoryall.membership.service;
 
 import com.pentoryall.membership.dto.MembershipDTO;
-import com.pentoryall.membership.dto.MembershipJoinDTO;
 import com.pentoryall.membership.mapper.MembershipMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,47 +11,19 @@ import java.util.List;
 public class MembershipService {
     private final MembershipMapper membershipMapper;
 
-
     public MembershipService(MembershipMapper membershipMapper) {
         this.membershipMapper = membershipMapper;
     }
 
-    public MembershipDTO createMembership(MembershipDTO membershipDTO) {
-        membershipMapper.createMembership(membershipDTO);
-        return membershipDTO;
-    }
-
-    public MembershipDTO selectMembershipByUserCode(long userCode) {
-        return membershipMapper.selectMembershipByUserCode(userCode);
-    }
-
     @Transactional
-    public void modifyMembership(MembershipDTO membershipDTO) {
-        membershipMapper.modifyMembership(membershipDTO);
+    public void createMembership(MembershipDTO membershipDTO) {
+        membershipMapper.createMembership(membershipDTO);
+    }
+    public List<MembershipDTO> getAllMemberships() {
+        return membershipMapper.getAllMemberships();
     }
 
-    public void updateIsDeleted(long code, char Y) {
-        membershipMapper.updateIsDeleted(code, Y);
-    }
-
-
-    public MembershipDTO selectMembershipByCode(long code) {
-        return membershipMapper.selectMembershipByUserCode(code);
-    }
-
-
-    //-------------------------------- membershipJoin Service -----------------------------------
-    public List<MembershipJoinDTO> selectAllMembershipJoinList(long code) {
-        return membershipMapper.selectMembershipJoinList(code);
-    }
-
-
-    public List<MembershipJoinDTO> selectAllJoinMemberList(long code) {
-        return membershipMapper.selectJoinMemberList(code);
-    }
 }
-
-
 
 
 
