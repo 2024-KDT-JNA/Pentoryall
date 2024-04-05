@@ -3,6 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pentoryall.user.mapper.UserMapper">
+
+    <select id="getUserListByWord" resultType="com.pentoryall.user.dto.UserDTO">
+        SELECT code,
+               email,
+               user_id,
+               password,
+               nickname,
+               name,
+               birth,
+               profile_image,
+               introduction,
+               revenue,
+               point,
+               role,
+               state,
+               is_certificated,
+               is_subscriber_visible,
+               create_date,
+               update_date,
+               delete_date,
+               suspension_end_date
+          FROM user
+         WHERE nickname LIKE CONCAT('%', #{word}, '%')
+    </select>
     <select id="getUserInformationByUserCode" resultType="com.pentoryall.user.dto.UserDTO">
         SELECT code,
                email,
@@ -23,8 +47,13 @@
                update_date,
                delete_date,
                suspension_end_date
-        FROM user
-        WHERE code = #{userCode}
+          FROM user
+         WHERE code = #{userCode}
+    </select>
+    <select id="getPwd" resultType="String">
+        SELECT password
+          FROM user
+         WHERE code = #{ code }
     </select>
     <select id="findByUserId" resultType="com.pentoryall.user.dto.UserDTO">
         SELECT code,
@@ -46,22 +75,22 @@
                update_date,
                delete_date,
                suspension_end_date
-        FROM user
-        WHERE state = 'ACTIVE'
-          AND user_id = #{ userId }
+          FROM user
+         WHERE state = 'ACTIVE'
+           AND user_id = #{ userId }
     </select>
-
     <select id="selectUserById" resultType="string">
         SELECT user_id
-        FROM user
-        WHERE state = 'ACTIVE'
-          AND user_id = #{ userId }
+          FROM user
+         WHERE state = 'ACTIVE'
+           AND user_id = #{ userId }
     </select>
 
     <insert id="insertUser">
         INSERT INTO user (user_id, password, name, nickname, email, birth)
         VALUES (#{ userId }, #{ password }, #{ name }, #{ nickname }, #{ email }, #{ birth })
     </insert>
+
     <update id="updateUser">
         UPDATE
         user
@@ -81,44 +110,21 @@
         WHERE state = 'ACTIVE'
         AND user_id = #{userId}
     </update>
+    <update id="updatePointByUserCode">
+        UPDATE user
+           SET point = #{ point }
+         WHERE code = #{ code }
+    </update>
+    <update id="updateRevenueByUserCode">
+        UPDATE user
+           SET revenue = #{revenue}
+         WHERE code = #{ code }
+    </update>
 
     <update id="deleteUser">
-        UPDATE
-            user
-        SET state = 'WITHDRAWN'
-        WHERE state = 'ACTIVE'
-          AND user_id = #{userId}
+        UPDATE user
+           SET state = 'WITHDRAWN'
+         WHERE state = 'ACTIVE'
+           AND user_id = #{userId}
     </update>
-    <select id="getPwd" resultType="String">
-        SELECT password
-        FROM user
-        WHERE code = #{ code }
-    </select>
-
-<select id="getUserListByWord">
-    SELECT
-        code,
-        email,
-        user_id,
-        password,
-        nickname,
-        name,
-        birth,
-        profile_image,
-        introduction,
-        revenue,
-        point,
-        role,
-        state,
-        is_certificated,
-        is_subscriber_visible,
-        create_date,
-        update_date,
-        delete_date,
-        suspension_end_date
-    FROM
-        user
-    WHERE
-        nickname LIKE CONCAT('%', #{word}, '%')
-</select>
 </mapper>

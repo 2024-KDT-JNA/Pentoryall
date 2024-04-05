@@ -110,10 +110,11 @@
                             <button id="comment-add-btn" class="comment-add-btn">작성하기</button>
                     </div>
                 </div>
-
                 <div class="comment-wrapper">
                     <h2 class="p-post-comment">전체 댓글</h2>
                 </div>
+
+                <!--                 댓글 출력-->
                 <!--댓글 출력-->
                 <div class="comment-area">
                     <div class="comment-content-area"   th:each="comment : ${commentList}" th:value="${comment.code}">
@@ -180,7 +181,7 @@
         // /*댓글 삽입 삭제 발생 시 최신 댓글을 다시 로드하는 기능*/
         function loadComment() {
 
-            const postNo = `[[${post.code}]]`;
+        const postNo = `[[${post.code}]]`;
 
             fetch('/post/loadComment?postCode=' + postNo)
                 .then(result => result.json())
@@ -209,11 +210,6 @@
                 $nickname.textContent = comment.user.nickname;
                 $createdDate.textContent = comment.createDate;
 
-                // <div className="second-button">
-                //     <button className="button reply">답글</button>
-                //     <button className="button report-btn">댓글 신고</button>
-                // </div>
-
                 const $secondButtons = document.createElement("div");
                 $secondButtons.className = 'second-button';
                 $secondButtons.innerHTML = ` <button class="button reply">답글</button>
@@ -226,6 +222,7 @@
 
                 $comment.append($nickname,$content,$createdDate,$button,$secondButtons);
                 commentArea.append($comment);
+
             })
         }
 

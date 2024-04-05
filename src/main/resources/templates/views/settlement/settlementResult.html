@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/settings}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css" />
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+            <section class="section section-order">
+                <h2 class="h2 h2-complete">
+                    <i class="bi bi-check2-square is-active"></i>
+                    <span>정산 요청이<br> 완료되었습니다.</span>
+                </h2>
+
+                <div class="box box-complete">
+                    <dl class="desc-list">
+                        <dt class="desc-list-dt">신청 금액</dt>
+                        <dd class="desc-list-dd"></dd>
+
+                        <dt class="desc-list-dt">지급 예정액</dt>
+                        <dd class="desc-list-dd"></dd>
+
+                        <dt class="desc-list-dt border-top">잔여 금액</dt>
+                        <dd class="desc-list-dd border-top"></dd>
+                    </dl>
+                </div>
+                <div class="box-bottom">
+                    <a th:href="@{/}" class="button dark">확인</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script"></th:block>
+</html>

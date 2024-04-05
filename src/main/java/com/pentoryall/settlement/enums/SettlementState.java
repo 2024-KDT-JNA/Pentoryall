@@ -1,4 +1,4 @@
-package com.pentoryall.settlement.status;
+package com.pentoryall.settlement.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

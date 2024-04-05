@@ -8,9 +8,20 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
+    List<UserDTO> getUserListByWord(String word);
+
     UserDTO findByUserId(String userId);
 
     String selectUserById(String userId);
+
+
+    UserDTO getUserInformationByUserCode(long userCode);
+
+    String getPwd(long code);
+
+    String selectUserByNickname(String nickname);
+
+    String getLikedPostCount();
 
     int insertUser(UserDTO user);
 
@@ -18,15 +29,8 @@ public interface UserMapper {
 
     int deleteUser(UserDTO user);
 
-    UserDTO getUserInformationByUserCode(long userCode);
-
-    String getPwd(long code);
 
     void updatePointByUserCode(UserDTO user);
 
-    String selectUserByNickname(String nickname);
-
-    String getLikedPostCount();
-
-    List<UserDTO> getUserListByWord(String word);
+    void updateRevenueByUserCode(UserDTO sellerUser);
 }
