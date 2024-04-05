@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="pagination(requestUri)">
+    <!-- 검색 O -->
+    <nav class="pagination" th:if="${ paging.searchCondition != null and paging.searchValue != null }">
+        <!-- first, prev -->
+        <a class="page-btn page-first-btn" th:href="@{__${requestUri}__(page=1)}">
+            <i class="bi bi-chevron-double-left"></i>
+            <span class="blind">첫 페이지</span>
+        </a>
+        <a class="page-btn page-prev-btn" th:if="${ paging.page > 1 }"
+           th:href="@{__${requestUri}__(page=1, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}"
+           th:disabled="${ paging.page <= 1 }">
+            <i class="bi bi-chevron-left"></i>
+            <span class="blind">이전 페이지</span>
+        </a>
+        <!-- number -->
+        <ul class="page-items" th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}">
+            <li class="page-item">
+                <a class="page-btn" th:text="${page}" th:classappend="${paging.page eq page}"
+                   th:href="@{__${requestUri}__(page=${page}, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}"></a>
+            </li>
+        </ul>
+        <!-- next, last -->
+        <a class="page-btn page-next-btn" th:if="${ paging.page < paging.maxPage }"
+           th:href="@{__${requestUri}__(page=${paging.page+1},searchCondition=${paging.searchCondition},searchValue=${paging.searchValue})}">
+            <i class="bi bi-chevron-right"></i>
+            <span class="blind">다음 페이지</span>
+        </a>
+        <a class="page-btn page-last-btn"
+           th:href="@{__${requestUri}__(page=${paging.maxPage},searchCondition=${paging.searchCondition},searchValue=${paging.searchValue})}">
+            <i class="bi bi-chevron-double-right"></i>
+            <span class="blind">마지막 페이지</span>
+        </a>
+    </nav>
+
+    <!-- 검색 X -->
+    <!-- first, prev -->
+    <nav class="pagination" th:if="${ paging.searchCondition == null || paging.searchValue == null }">
+        <a class="page-btn page-first-btn"
+           th:href="@{__${requestUri}__(page=1)}">
+            <i class="bi bi-chevron-double-left"></i>
+            <span class="blind">첫 페이지</span>
+        </a>
+        <a class="page-btn page-prev-btn" th:if="${ paging.page > 1 }"
+           th:href="@{__${requestUri}__(page=${paging.page -1})}"
+           th:disabled="${ paging.page <= 1 }">
+            <i class="bi bi-chevron-left"></i>
+            <span class="blind">이전 페이지</span>
+        </a>
+        <!-- number -->
+        <ul class="page-items">
+            <th:block th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}">
+                <li class="page-item" th:classappend="${paging.page eq page ? 'active': '' }">
+                    <a class="page-btn" th:text="${page}"
+                       th:href="@{__${requestUri}__(page=${page})}"></a>
+                </li>
+            </th:block>
+        </ul>
+        <!-- next, last -->
+        <a class="page-btn page-next-btn" th:if="${ paging.page < paging.maxPage }"
+           th:href="@{__${requestUri}__(page=${paging.page+1})}">
+            <i class="bi bi-chevron-right"></i>
+            <span class="blind">다음 페이지</span>
+        </a>
+        <a class="page-btn page-last-btn"
+           th:href="@{__${requestUri}__(page=${paging.maxPage})}">
+            <i class="bi bi-chevron-double-right"></i>
+            <span class="blind">마지막 페이지</span>
+        </a>
+    </nav>
+</th:block>
+</html>

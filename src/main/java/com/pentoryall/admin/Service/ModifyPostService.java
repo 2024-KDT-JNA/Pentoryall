@@ -1,8 +1,8 @@
-package com.pentoryall.admin.Service;
+package com.pentoryall.admin.service;
 
 import com.pentoryall.admin.mapper.ModifyPostMapper;
-import com.pentoryall.admin.page.Pagenation;
-import com.pentoryall.admin.page.SelectCriteria;
+import com.pentoryall.common.page.Pagination;
+import com.pentoryall.common.page.SelectCriteria;
 import com.pentoryall.post.dto.PostDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class ModifyPostService {
 
         int limit = 10;
         int buttonAmount = 5;
-        SelectCriteria selectCriteria = Pagenation.getSelectCriteria(page, totalCount, limit, buttonAmount, searchMap);
+        SelectCriteria selectCriteria = Pagination.getSelectCriteria(page, totalCount, limit, buttonAmount, searchMap);
         log.info("modifyPostList selectCriteria : {}", selectCriteria);
 
         /* 요청 페이지와 검색 기준에 맞는 게시글을 조회해온다. */

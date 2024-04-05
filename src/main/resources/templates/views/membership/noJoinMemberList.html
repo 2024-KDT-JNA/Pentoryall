@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layout/story}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/story.css}" href="/css/story.css"/>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="story-content">
+        <div class="inner">
+            <section class="section">
+                <div id="membership-created">
+                    <section class="section" sec:authorize="isAuthenticated()">
+                        <div>
+                            <h3 class="h3">멤버십 가입자</h3>
+                            <p>총 00명</p>
+                        </div>
+                        <div>
+                            <p>
+                                구독자 닉네임<br/>
+                                매력적인 포스트로 사람들의 마음을 사로잡으세요!
+                            </p>
+                        </div>
+                    </section>
+                    <!-- ------------------------------------ -->
+                </div>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
+    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+</th:block>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

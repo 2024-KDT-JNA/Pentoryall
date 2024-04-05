@@ -3,9 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{/layout/story}">
 
-<th:block layout:fragment="style">
+<th:block layout:fragment="link">
     <link rel="stylesheet" th:href="@{/css/story.css}" href="/css/story.css"/>
 </th:block>
+
 <th:block layout:fragment="content">
     <div class="story-content">
         <div class="inner">
@@ -19,9 +20,9 @@
                         <p>멤버십 플랜을 활성화 시켜 작가님 만의 팬들을 만들어 소통해보세요!.</p>
                         <p>팬들이 멤버십 가입이 작가님의 수익으로 전환될 수 있어요! </p>
 
-                        <div th:if="${plan != null}">
+                        <div th:if="${membership != null}">
                             <ul>
-                                <li th:each="membership : ${plan}">
+                                <li th:each="membership : ${membership}">
                                     <p th:text="${membership.name}"></p>
                                     <p th:text="${membership.price}"></p>
                                     <p>/월</p>
@@ -30,7 +31,9 @@
                                 </li>
                             </ul>
                             <div>
-                                <button class="button">멤버십 관리</button>
+                                <button type="button" onclick="location.href='/membership/joinMemberList'">멤버십 정보
+                                </button>
+                                <button type="button" onclick="location.href='/membership/modify'">멤버십 수정 / 탈퇴</button>
                             </div>
                         </div>
                     </section>

@@ -208,8 +208,10 @@ input[type="button"] {
     width: 508px;
 }
 
-.regist_form .inputWrap:nth-of-type(2) {
-    margin-left: 135px;
+.regist_form #memailconfirmTxt {
+    width: 100%;
+    text-indent: 136px;
+    margin-top: 5px;
 }
 
 .regist_form .input_box button {
@@ -405,6 +407,7 @@ input[type="checkbox"]:checked + label span {
     top: 50px;
     left: 0;
     width: 100%;
+    z-index: 500;
 }
 
 .case_filter_data {
@@ -636,4 +639,9 @@ textarea {
 
 .toggle_switch input[type="checkbox"]:checked + .slider::before {
     transform: translateX(36px);
+}
+
+/* 좋아요 페이지 */
+.like_post {
+    margin-top: 10px;
 }
