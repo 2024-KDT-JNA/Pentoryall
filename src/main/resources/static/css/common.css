@@ -673,8 +673,8 @@ a.button {
     color: #333;
 }
 
-.pagination .page-prev-btn,
-.pagination .page-next-btn {
+.pagination .page-first-btn,
+.pagination .page-last-btn {
     width: 48px;
 }
 
