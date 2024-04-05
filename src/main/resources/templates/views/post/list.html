@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout/default}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css"/>
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
- <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css" />
+    <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css"/>
 </th:block>
 
 <th:block layout:fragment="content">
@@ -36,7 +37,6 @@
                           </button>
                         <div class="post-information-log">
                               <p class="post-information-log-content">조회: 34회</p>
-                            </p>
                           </div>
                     </div>
                   </span>
@@ -56,20 +56,20 @@
                 <!--좋아요,작가구독,신고하기 버튼-->
                 <div class="post-buttons">
                     <button class="post-like-button post-button">
-                        ♥️<br />
+                        ♥️<br/>
                         좋아요
                     </button>
                     <button class="post-subscribe-button post-button">
-                        +<br />
+                        +<br/>
                         작가 구독
                     </button>
                     <button class="post-report post-button">
-                        ⚠️<br />
+                        ⚠️<br/>
                         신고하기
                     </button>
                 </div>
 
-                <hr />
+                <hr/>
 
                 <!--페이징 처리해서 모든 회차 볼 수 있도록-->
 
@@ -81,37 +81,49 @@
                         <!--회차들의 썸네일들-->
                         <div class="posts-wrapper">
                             <div>
-                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails" />
+                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails"/>
                                 <p class="posts-number">56화</p>
                             </div>
                             <div>
-                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails" />
+                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails"/>
                                 <p class="posts-number">57화</p>
                             </div>
                             <div>
-                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails" />
+                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails"/>
                                 <p class="posts-number">58화</p>
                             </div>
                             <div>
-                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails" />
+                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails"/>
                                 <p class="posts-number">59화</p>
                             </div>
                         </div>
                         <div><p class="go-navigator">></p></div>
                     </div>
                 </div>
-
                 <!--댓글-->
                 <div>
-                    <h2 class="p-post-comment">댓글 쓰기</h2>
+                    <div>
+                        <h2 class="p-post-comment">댓글 작성</h2>
+                    </div>
+                    <div class="comment-add">
+                            <textarea onchange="test()" id="comment-writing-area" class="comment-writing-area" placeholder="댓글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
+                            <button id="comment-add-btn" class="comment-add-btn">작성하기</button>
+                    </div>
                 </div>
 
-                <div class="comment-add">
-                    <form>
-                        <textarea class="comment-writing-area"> </textarea>
-                        <br />
-                        <button class="comment-add-btn">등록</button>
-                    </form>
+                <!--                 댓글 출력-->
+                <div class="comment-area">
+                    <div class="comment-content-area"   th:each="comment : ${commentList}" >
+                        <p th:text="${comment.content}"></p>
+                        <p class="comment-writer-area" th:text="${comment.user.nickname}">작성자</p>
+                        <p class="comment-date-area" th:text="${comment.createDate}">작성 날짜</p>
+
+
+                        <div th:if="${comment.user.code == userCode}">
+                            <button th:onclick="removeComment([[${comment.code}]])">댓글 삭제</button>
+                            <button th:onclick="makeWritingTable([[${comment.code}]],[[${comment.content}]])">댓글 수정</button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -119,6 +131,130 @@
 </th:block>
 
 <th:block layout:fragment="script">
+    <script th:inline="javascript">
+        function test(){
+            const text = document.querySelector(".comment-writing-area");
+            console.log(text.value);
+            const postCode = '[[${post.code}]]'
+            console.log("뽀스트넘버ㅣ"+postCode);
+            const test1 = document.querySelector(".test1");
+            console.log(test1);
+        }
+
+        /*댓글 작성*/
+        if(document.getElementById("comment-add-btn")){
+            const $addComment = document.getElementById("comment-add-btn");
+            const $writeComment = document.getElementById("comment-writing-area");
+
+            $addComment.onclick=function() {
+                if (!$writeComment.value.trim()) {
+                    alert('내용을 작성해주세요');
+                    return;
+                }
+
+                const postCode = '[[${post.code}]]'
+                console.log("뽀스트넘버ㅣ"+postCode);
+                const content = $writeComment.value;
+
+                fetch('/post/addComment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json; charset=UTF-8'
+                    },
+                    body : JSON.stringify({ postCode, content })
+                })
+                    .then(res => {
+                        console.log("rress:"+res);
+                        $writeComment.value = '';
+                        loadComment();
+                    })
+                    .catch(error => console.log(error));
+            }
+        }
+
+        // /*댓글 삽입 삭제 발생 시 최신 댓글을 다시 로드하는 기능*/
+        function loadComment() {
+
+            const postNo = `[[${post.code}]]`;
+
+            fetch('/post/loadComment?postCode=' + postNo)
+                .then(result => result.json())
+                .then(data => {makeCommentTable(data)
+                    console.log("데이터",data)})
+                .catch(error => console.log(error));
+        }
+
+        /*댓글 목록 데이터를 테이블화 하는 함수*/
+        function makeCommentTable(commentList){
+            const commentArea = document.querySelector(".comment-area");
+            commentArea.innerHTML='';
+            commentList.forEach(comment => {
+                const $comment = document.createElement("div");
+                const $content = document.createElement("p");
+                const $nickname = document.createElement("p");
+                const $createdDate = document.createElement("p");
+                const $button = document.createElement("div");
+
+                $content.textContent = comment.content;
+                $nickname.textContent = comment.user.nickname;
+                $createdDate.textContent = comment.createDate;
+
+                if(`[[${userCode}]]`==comment.user.code){
+                    $button.innerHTML = `<button onclick='removeComment(${comment.code})'>댓글 삭제</button>
+                                      <button onclick='makeWritingTable(${comment.code},"${comment.content}")'>댓글 수정</button>`;
+                }
+
+                $comment.append($content,$nickname,$createdDate,$button);
+                commentArea.append($comment);
+            })
+        }
+
+
+        /*댓글 삭제*/
+        function removeComment(code){
+            fetch('/post/removeComment',{
+                method:'POST',
+                headers : {
+                    'Content-Type' : 'application/json; charset=UTF-8'
+                },
+                body : JSON.stringify({code})
+            }).then(() => loadComment())
+                .catch(error => console.log(error));
+        }
+
+
+        /*댓글 수정*/
+        function updateComment(code){
+            console.log(code);
+            const $writingArea = document.querySelector(".comment-area >textarea");
+            const content = $writingArea.value;
+            console.log("콘텐츠",content);
+            fetch('/post/updateComment',{
+                method:'POST',
+                headers : {
+                    'Content-Type' : 'application/json; charset=UTF-8'
+                },
+                body : JSON.stringify({code,content})
+            }).then(() =>  loadComment())
+                .catch(error => console.log(error));
+        }
+
+        /*수정 페이지 출력*/
+        function makeWritingTable(code,content){
+            const commentArea = document.querySelector(".comment-area");
+            commentArea.innerHTML='';
+            const $writingArea = document.createElement("textarea");
+            const $button = document.createElement("div");
+
+            $writingArea.textContent = content;
+
+
+            $button.innerHTML = `<button onclick='updateComment(${code})'>댓글 수정</button>`;
+
+            commentArea.append($writingArea,$button);
+        }
+    </script>
+
 
 </th:block>
 </html>

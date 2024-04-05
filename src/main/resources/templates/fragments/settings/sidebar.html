@@ -18,10 +18,10 @@
                         </button>
                         <ul class="nav-depth2">
                             <li class="depth2-li">
-                                <button class="depth2-text">회원 정보</button>
+                                <a th:href="@{/user/update}" href="/user/update" class="depth2-text">회원 정보</a>
                             </li>
                             <li class="depth2-li">
-                                <button class="depth2-text">계좌 정보</button>
+                                <a th:href="@{/settings/user/settlement}" href="/settings/user/settlement" class="depth2-text">계좌 정보</a>
                             </li>
                         </ul>
                     </li>
@@ -30,6 +30,11 @@
                             <i class="bi bi-pencil"></i>
                             <span class="depth1-text">포스트</span>
                         </button>
+                        <ul class="nav-depth2">
+                            <li class="depth2-li">
+                                <a th:href="@{#}" href="#" class="depth2-text">유료 포스트 수정</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="depth1-li">
                         <button class="depth1-btn">
@@ -38,13 +43,13 @@
                         </button>
                         <ul class="nav-depth2">
                             <li class="depth2-li">
-                                <button class="depth2-text">수익 내역</button>
+                                <a th:href="@{/settings/settlement}" href="/settings/settlement" class="depth2-text">정산 요청</a>
                             </li>
                             <li class="depth2-li">
-                                <button class="depth2-text">정산 요청</button>
+                                <a th:href="@{/settings/settlement/list}" href="/settings/settlement/list" class="depth2-text">정산 요청 내역</a>
                             </li>
                             <li class="depth2-li">
-                                <button class="depth2-text">정산 내역</button>
+                                <a th:href="@{/settings/revenue/list}" href="/settings/revenue/list" class="depth2-text">수익 적립 내역</a>
                             </li>
                         </ul>
                     </li>
@@ -53,6 +58,11 @@
                             <i class="bi bi-emoji-smile"></i>
                             <span class="depth1-text">멤버십</span>
                         </button>
+                        <ul class="nav-depth2">
+                            <li class="depth2-li">
+                                <a th:href="@{#}" href="#" class="depth2-text">멤버십 관리</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -82,10 +92,10 @@
                         </button>
                         <ul class="nav-depth2">
                             <li class="depth2-li">
-                                <button class="depth2-text">댓글 신고</button>
+                                <a th:href="@{#}" href="#" class="depth2-text">댓글 신고</a>
                             </li>
                             <li class="depth2-li">
-                                <button class="depth2-text">포스트 신고</button>
+                                <a th:href="@{#}" href="#" class="depth2-text">포스트 신고</a>
                             </li>
                         </ul>
                     </li>
@@ -96,7 +106,7 @@
                         </button>
                         <ul class="nav-depth2">
                             <li class="depth2-li">
-                                <button class="depth2-text">포스트 관리</button>
+                                <a th:href="@{#}" href="#" class="depth2-text">포스트 관리</a>
                             </li>
                         </ul>
                     </li>
@@ -107,7 +117,7 @@
                         </button>
                         <ul class="nav-depth2">
                             <li class="depth2-li">
-                                <button class="depth2-text">정산 요청 조회</button>
+                                <a th:href="@{#}" href="#" class="depth2-text">정산 요청 조회</a>
                             </li>
                         </ul>
                     </li>

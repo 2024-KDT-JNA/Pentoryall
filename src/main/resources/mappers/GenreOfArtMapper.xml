@@ -119,4 +119,76 @@
         VALUES
             (#{genreCode},#{seriesCode},#{postCode},"POST")
     </insert>
+    <select id="selectSeriesByGenre">
+        SELECT
+            code,
+            genre_code,
+            series_code,
+            post_code,
+            kind
+        FROM
+            genre_of_art
+        WHERE
+            genre_code = #{genreCode} AND kind="SERIES";
+    </select>
+    <select id="selectSeriesByGenreNull">
+        SELECT
+            code,
+            genre_code,
+            series_code,
+            post_code,
+            kind
+        FROM
+            genre_of_art
+        WHERE
+            (genre_code = #{upperGenre} OR genre_code=#{lowerGenre}) AND kind="SERIES";
+    </select>
+    <select id="selectPostByGenreNull">
+        SELECT
+            code,
+            genre_code,
+            series_code,
+            post_code,
+            kind
+        FROM
+            genre_of_art
+        WHERE
+            genre_code = #{upperGenre} AND kind="POST";
+    </select>
+    <select id="selectPostByGenre">
+        SELECT
+            code,
+            genre_code,
+            series_code,
+            post_code,
+            kind
+        FROM
+            genre_of_art
+        WHERE
+            genre_code = #{upperGenre} AND genre_code=#{lowerGenre} AND kind="SERIES";
+    </select>
+    <select id="selectSeriesGenre">
+        SELECT
+            code,
+            genre_code,
+            series_code,
+            post_code,
+            kind
+        FROM
+            genre_of_art
+        WHERE
+            genre_code = #{genreCode} AND series_code=#{seriesCode} AND kind="SERIES";
+    </select>
+    <select id="selectPostNotInSeries">
+        SELECT
+            code,
+            genre_code,
+            series_code,
+            post_code,
+            kind
+        FROM
+            genre_of_art
+        WHERE
+            genre_code = #{genreCode} AND series_code=1 AND kind="POST";
+    </select>
 </mapper>

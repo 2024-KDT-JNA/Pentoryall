@@ -7,7 +7,6 @@
     <insert id="createMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
         INSERT INTO membership
         (
-         code,
          user_code,
          name,
          introduction,
@@ -15,28 +14,18 @@
          color
 )
         VALUES (
-                #{code},
                 #{userCode},
-                #{name},
-                #{introduction},
-                #{price},
-                #{color})
+                #{ name },
+                #{ introduction },
+                #{ price },
+                #{ color })
     </insert>
-    <select id="selectMembershipByUserCode" resultType="com.pentoryall.membership.dto.MembershipDTO">
-        SELECT code,
-               user_code,
-               name,
+    <select id="getAllMemberships" resultType="com.pentoryall.membership.dto.MembershipDTO">
+        SELECT name,
                introduction,
                price,
-               color,
-               is_active,
-               is_deleted,
-               create_date,
-               update_date,
-               delete_date
+               color
         FROM membership
-        WHERE membership.user_code = #{userCode}
-          AND is_deleted = 'N'
     </select>
 
     <update id="modifyMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
@@ -49,11 +38,21 @@
 
     <update id="updateIsDeleted" parameterType="java.lang.Long">
         UPDATE membership
-        SET is_deleted = 'Y'
+        SET is_deleted = 'Y',
+            delete_date = NOW()
         WHERE code = #{code}
     </update>
 
+    <insert id="joinMembership" parameterType="com.pentoryall.membership.dto.MembershipJoinDTO">
+    INSERT INTO membership_join
+            (membership_code, user_code, create_date, end_date)
 
+    VALUES (
+            #{membershipCode},
+            #{userCode},
+            #{createDate},
+            #{endDate})
+    </insert>
 
 
     <!--    <select id="getAllMemberships" resultType="com.pentoryall.membership.dto.MembershipDTO">-->

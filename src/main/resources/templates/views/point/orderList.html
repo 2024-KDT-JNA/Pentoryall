@@ -4,7 +4,6 @@
       layout:decorate="~{/layout/default}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css" />
 </th:block>
 
@@ -56,7 +55,7 @@
                     </table>
                 </div>
 
-                <nav class="pagination" th:if="${orderList != null}">
+                <nav class="pagination">
                     <button class="page-btn page-prev-btn">
                         <i class="bi bi-chevron-left"></i>
                         <span class="blind">Prev</span>
@@ -80,6 +79,5 @@
     </div>
 </th:block>
 
-<th:block layout:fragment="script">
-</th:block>
+<th:block layout:fragment="script"></th:block>
 </html>

@@ -26,19 +26,20 @@
                 </form>
 
             <th:block sec:authorize="hasRole('ROLE_USER')">
-                <button type="button" class="alert-btn">
-                    <span class="blind">알림</span>
-                    <i class="bi bi-bell"></i>
-                    <span class="alert-dot">
+            <button type="button" class="alert-btn">
+                <span class="blind">알림</span>
+                <i class="bi bi-bell"></i>
+                <span class="alert-dot">
                     <span class="blind">새로운 알림</span>
                 </span>
-                </button>
+            </button>
 
-                <button type="button" class="profile-btn" sec:authorize="isAuthenticated()">
-                    <div class="profile-image" sec:authorize="hasRole('ROLE_USER')">
-                        <img th:src="${#authentication.principal.profileImage != null
+            <button type="button" class="profile-btn" sec:authorize="isAuthenticated()">
+                <div class="profile-image" sec:authorize="hasRole('ROLE_USER')">
+                    <img th:src="${#authentication.principal.profileImage != null
                         ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
-                    </div>
+                </div>
+            </button>
             </th:block>
 
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
@@ -47,8 +48,8 @@
                 </div>
                 <div class="link">
                     <a th:href="@{/user/logout}" class="button">로그아웃</a>
-                </div>
-            </th:block>
+                    </div>
+                </th:block>
 
             <th:block sec:authorize="isAnonymous()">
                 <div class="link login-link">
@@ -78,9 +79,9 @@
                     <div class="profile-point">
                         <dl class="point-info">
                             <dt>포인트</dt>
-                            <dd th:text="|${#numbers.formatInteger(#authentication.principal.point, 3, 'COMMA')}P|">0P</dd>
+                            <dd th:text="|${#authentication.principal.point > 0 ? #numbers.formatInteger(#authentication.principal.point, 3, 'COMMA') : 0}P|">0P</dd>
                         </dl>
-                        <a th:href="@{/order}" class="button"> 충전</a>
+                        <a th:href="@{/point/order}" class="button"> 충전</a>
 
                     </div>
                 </div>

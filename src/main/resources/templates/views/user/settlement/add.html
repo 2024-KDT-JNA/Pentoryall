@@ -2,8 +2,8 @@
 <html layout:decorate="~{/layout/settings}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org" lang="ko">
+
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <link rel="stylesheet" th:href="@{/css/user.css}" href="/css/user.css" />
 </th:block>
 
@@ -11,78 +11,69 @@
     <div class="content">
         <div class="inner">
             <section class="section section-settlement">
-                <h2 class="h2">정산 계좌 정보</h2>
 
-                <form action="/user/settlement" method="post" th:object="${userSettlement}">
+                <h2 class="h2" th:text="#{page.settings.user.settlement}">정산 계좌 정보</h2>
+
+                <form th:action="@{/settings/user/settlement}" th:method="post" th:object="${userSettlement}" onsubmit="saveUserSettlementForm(event)" name="userSettlementForm">
+                    <input type="hidden" th:field="*{userCode}">
                     <div class="my_profile_bottom">
                         <div class="inputWrap">
                             <label for="bankCode" class="labelTitle">은행</label>
                             <div class="input_box">
-                                <!--                                 <select id="bankCode" name="bankCode" th:field="*{bankCode}"> -->
-                                <!--                                     <option value="2">산업은행</option> -->
-                                <!--                                     <option value="3">기업은행</option> -->
-                                <!--                                     <option value="4">KB국민은행</option> -->
-                                <!--                                     <option value="5">외환은행</option> -->
-                                <!--                                     <option value="7">수협</option> -->
-                                <!--                                     <option value="11">농협</option> -->
-                                <!--                                     <option value="12">축협</option> -->
-                                <!--                                     <option value="20">우리은행</option> -->
-                                <!--                                     <option value="23">SC제일은행</option> -->
-                                <!--                                     <option value="27">한국씨티은행</option> -->
-                                <!--                                     <option value="31">대구은행</option> -->
-                                <!--                                     <option value="32">부산은행</option> -->
-                                <!--                                     <option value="34">광주은행</option> -->
-                                <!--                                     <option value="35">제주은행</option> -->
-                                <!--                                     <option value="37">전북은행</option> -->
-                                <!--                                     <option value="39">경남은행</option> -->
-                                <!--                                     <option value="48">신협</option> -->
-                                <!--                                     <option value="71">우체국</option> -->
-                                <!--                                     <option value="81">하나은행</option> -->
-                                <!--                                     <option value="88">신한은행</option> -->
-                                <!--                                     <option value="89">K뱅크</option> -->
-                                <!--                                     <option value="90">카카오뱅크</option> -->
-                                <!--                                     <option value="209">유안타증권</option> -->
-                                <!--                                     <option value="218">현대증권</option> -->
-                                <!--                                     <option value="230">미래에셋증권</option> -->
-                                <!--                                     <option value="238">대우증권</option> -->
-                                <!--                                     <option value="240">삼성증권</option> -->
-                                <!--                                     <option value="243">한국투자증권</option> -->
-                                <!--                                     <option value="247">우리투자증권</option> -->
-                                <!--                                     <option value="261">교보증권</option> -->
-                                <!--                                     <option value="262">하이투자증권</option> -->
-                                <!--                                     <option value="263">에이치엠씨투자증권</option> -->
-                                <!--                                     <option value="264">키움증권</option> -->
-                                <!--                                     <option value="265">이트레이드증권</option> -->
-                                <!--                                     <option value="266">에스케이증권</option> -->
-                                <!--                                     <option value="267">대신증권</option> -->
-                                <!--                                     <option value="268">솔로몬투자증권</option> -->
-                                <!--                                     <option value="269">한화증권</option> -->
-                                <!--                                     <option value="270">하나대투증권</option> -->
-                                <!--                                     <option value="278">굿모닝신한증권</option> -->
-                                <!--                                     <option value="279">동부증권</option> -->
-                                <!--                                     <option value="280">유진투자증권</option> -->
-                                <!--                                     <option value="287">메리츠증권</option> -->
-                                <!--                                     <option value="289">엔에이치투자증권</option> -->
-                                <!--                                     <option value="290">부국증권</option> -->
-                                <!--                                 </select> -->
+
+                                <select id="bankCode" name="bankCode" th:field="*{bankCode}">
+                                    <option th:value="0" th:selected="${bankCode} == null">== 선택 ==</option>
+                                    <option th:value="2" th:selected="${bankCode} == value">산업</option>
+                                    <option th:value="3" th:selected="${bankCode} == value">기업</option>
+                                    <option th:value="4" th:selected="${bankCode} == value">국민</option>
+                                    <option th:value="7" th:selected="${bankCode} == value">수협</option>
+                                    <option th:value="11" th:selected="${bankCode} == value">농협</option>
+                                    <option th:value="12" th:selected="${bankCode} == value">단위농협</option>
+                                    <option th:value="20" th:selected="${bankCode} == value">우리</option>
+                                    <option th:value="23" th:selected="${bankCode} == value">SC제일</option>
+                                    <option th:value="27" th:selected="${bankCode} == value">씨티</option>
+                                    <option th:value="31" th:selected="${bankCode} == value">대구</option>
+                                    <option th:value="32" th:selected="${bankCode} == value">부산</option>
+                                    <option th:value="34" th:selected="${bankCode} == value">광주</option>
+                                    <option th:value="35" th:selected="${bankCode} == value">제주</option>
+                                    <option th:value="37" th:selected="${bankCode} == value">전북</option>
+                                    <option th:value="39" th:selected="${bankCode} == value">경남</option>
+                                    <option th:value="45" th:selected="${bankCode} == value">새마을</option>
+                                    <option th:value="48" th:selected="${bankCode} == value">신협</option>
+                                    <option th:value="50" th:selected="${bankCode} == value">저축</option>
+                                    <option th:value="64" th:selected="${bankCode} == value">산림</option>
+                                    <option th:value="71" th:selected="${bankCode} == value">우체국</option>
+                                    <option th:value="81" th:selected="${bankCode} == value">하나</option>
+                                    <option th:value="88" th:selected="${bankCode} == value">신한</option>
+                                    <option th:value="89" th:selected="${bankCode} == value">케이</option>
+                                    <option th:value="90" th:selected="${bankCode} == value">카카오</option>
+                                    <option th:value="92" th:selected="${bankCode} == value">토스</option>
+                                </select>
+
                             </div>
                         </div>
                         <div class="inputWrap">
                             <label for="accountNumber" class="labelTitle">계좌번호</label>
                             <div class="input_box">
-                                <input type="text" id="accountNumber" name="accountNumber" th:field="*{accountNumber}">
+
+                                <input type="text" id="accountNumber" name="accountNumber" th:field="*{accountNumber}" maxlength="14" placeholder="숫자만 입력" oninput="restrictInputToNumeric(this)"
+                                       pattern="[0-9]+" required>
+
                             </div>
                         </div>
                         <div class="inputWrap">
                             <label for="accountHolder" class="labelTitle">예금주</label>
                             <div class="input_box">
-                                <input type="text" id="accountHolder" name="accountHolder" th:field="*{accountHolder}">
+
+                                <input type="text" id="accountHolder" name="accountHolder" th:field="*{accountHolder}" required>
                             </div>
                         </div>
                     </div>
+
                     <div class="modify_btn">
                         <input type="submit" class="black_btn" value="확인">
                     </div>
+                    <p class="form-message is-danger" id="errorMessage"></p>
                 </form>
             </section>
         </div>
@@ -90,5 +81,8 @@
 </th:block>
 
 <th:block layout:fragment="script">
+
+    <script th:src="@{/js/settlement.js}" src="/js/settlement.js"></script>
 </th:block>
 </html>
+

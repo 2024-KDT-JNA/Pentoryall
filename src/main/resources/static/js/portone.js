@@ -29,10 +29,11 @@ function onClickRequestPay() {
                 })
             }).then(response => response.json())
               .then((data) => {
-                  if (data == null) {
-                      window.location.href = "/order";
+                  if (data.success) {
+                      window.location.href = "/point/order/complete?orderCode=" + data.response;
                   } else {
-                      window.location.href = "/order/complete?orderCode=" + data.orderCode;
+                      alert('결제 실패');
+                      window.location.href = "/point/order";
                   }
               });
         } else {

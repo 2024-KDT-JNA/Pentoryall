@@ -1,5 +1,6 @@
 package com.pentoryall.post.mapper;
 
+import com.pentoryall.comment.dto.CommentDetailDTO;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.post.dto.PostDTO;
 
@@ -29,4 +30,8 @@ public interface PostMapper {
     List<PostDTO> getSeriesListByWord(String word);
 
     List<PostDTO> selectPostByUserCode(Long userCode);
+
+    void addComment(CommentDetailDTO commentAdd);
+
+    PostDTO getLatestPost();
 }

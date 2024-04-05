@@ -1,0 +1,32 @@
+function saveUserSettlementForm(event) {
+    event.preventDefault();
+
+    const $saveForm = document.userSettlementForm;
+    const bankCode = $saveForm.bankCode.value;
+    const accountNumber = $saveForm.accountNumber.value;
+    const accountHolder = $saveForm.accountHolder.value;
+
+    if (bankCode <= 0) {
+        alert("은행을 선택해주세요.");
+        return;
+    }
+
+    fetch('/api/portone/vbank', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }, body: JSON.stringify({ bankCode, accountNumber })
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success && data.response['bank_holder'] === accountHolder) {
+              $saveForm.submit();
+          } else {
+              alert("올바른 계좌 정보를 입력해주세요.");
+          }
+      });
+}
+
+function restrictInputToNumeric(event) {
+    const self = event;
+    self.value = self.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+}

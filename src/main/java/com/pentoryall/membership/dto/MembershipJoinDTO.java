@@ -16,4 +16,6 @@ public class MembershipJoinDTO {
     private long userCode;
     private Date createDate;
     private Date endDate;
+
 }
+

@@ -54,9 +54,11 @@ public class UserService {
 
     public void modifyUser(UserDTO modifyUser) throws MemberModifyException {
         System.out.println(modifyUser);
-        // 비밀번호 인코딩(암호화)
-        String encodedPassword = passwordEncoder.encode(modifyUser.getPassword());
-        modifyUser.setPassword(encodedPassword);
+        if (!modifyUser.getPassword().equals("")) {
+            // 비밀번호 인코딩(암호화)
+            String encodedPassword = passwordEncoder.encode(modifyUser.getPassword());
+            modifyUser.setPassword(encodedPassword);
+        }
         int result = userMapper.updateUser(modifyUser);
 
         if (!(result > 0)) throw new MemberModifyException("회원 정보 수정에 실패하였습니다.");
@@ -68,6 +70,16 @@ public class UserService {
 
         return pwd;
     }
+
+    public boolean selectUserByNickname(String nickname) {
+        String result = userMapper.selectUserByNickname(nickname);
+
+        return result != null;
+    }
+
+//    public String getLikedPostCount() {
+//        return userMapper.getLikedPostCount();
+//    }
 
     public List<UserDTO> getUserListByWord(String word) {
         return userMapper.getUserListByWord(word);
