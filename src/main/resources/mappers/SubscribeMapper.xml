@@ -34,6 +34,7 @@
                  JOIN user u
                       ON u.code = s.subscribe_user_code
         WHERE s.user_code = #{userCode}
+          AND u.is_subscriber_visible = 'Y';
     </select>
 
     <select id="getSubscribeStoryCount" resultType="java.lang.Integer">
