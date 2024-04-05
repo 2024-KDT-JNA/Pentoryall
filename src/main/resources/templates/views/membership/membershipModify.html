@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/settings}">
+      layout:decorate="~{/layout/default}" lang="ko">
 
 <th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css"/>
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
     <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
 </th:block>
+
 <th:block layout:fragment="content">
     <div class="sub-content">
         <div class="inner">
             <!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
             <section class="section">
-                <h2 class="h2">새 멤버십 플랜 만들기</h2>
-                <form action="/membership/create" method="post">
+                <h2 class="h2">멤버십 플랜 수정</h2>
+                <form id="modifyForm" action="/membership/modify" method="post">
                     <p>*표시는 필수 입력 항목입니다.</p>
                     <h3 class="h3">플랜 정보</h3>
                     <div>
@@ -34,11 +36,8 @@
                     </div>
                     <div>
                         <h3 class="h3">후원 플랜 설정</h3>
-                        <label for="donationAmount" class="h4">후원 금액(원)*</label><br>
-                        <input type="number" id="donationAmount" name="price" class="Multi-input"
-                               placeholder="원하시는 후원 금액을 적어주세요." required min="1000" max="100000"
-                               onchange="adjustDonationAmount(this)">
-                        <br>
+                        <h4 class="h4">후원 금액(원)</h4>
+                        <input type="number" placeholder="원하시는 후원 금액을 적어주세요." min="1000" max="100000" readonly/><br/>
                         <p>최소 1000원, 최대 1,000,000원의 범위 내에서 100원 단위로 입력할 수 있습니다.</p>
                         <p><b>주의사항</b> 후원금 액수는 한 번 정하면 변경할 수 없으니 신중하게 결정하세요.</p>
                     </div>
@@ -48,8 +47,9 @@
                         <input type="color" id="planColor" name="color" class="ColorPicker">
                     </div>
                     <div>
-                        <button onclick="location.href='/membership/info'">뒤로</button>
-                        <button> 멤버십 만들기</button>
+                        <button onclick="location.href='/membership/planInfo'">뒤로</button>
+                        <button onclick="submitForm()">멤버십 수정 완료</button>
+                        <button onclick="location.href='/membership/delete'">멤버십 탈퇴</button>
                     </div>
                 </form>
             </section>
@@ -60,11 +60,8 @@
 
 <th:block layout:fragment="script">
     <script>
-        function adjustDonationAmount(input) {
-            // 입력된 값에서 100으로 나눈 나머지를 계산하여 100원 단위로 맞춤
-            let value = parseInt(input.value);
-            value = Math.ceil(value / 100) * 100;
-            input.value = value;
+        function submitForm() {
+            document.getElementById("modifyForm").submit();
         }
     </script>
 
