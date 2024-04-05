@@ -1,8 +1,6 @@
 package com.pentoryall.admin.Service;
 
 import com.pentoryall.admin.DTO.CommentReportDTO;
-import com.pentoryall.admin.DTO.UserManageDTO;
-import com.pentoryall.admin.Exception.MemberStopException;
 import com.pentoryall.admin.mapper.CommentReportMapper;
 import com.pentoryall.admin.mapper.UserManageMapper;
 import com.pentoryall.admin.page.Pagenation;
@@ -63,9 +61,12 @@ public class CommentReportService {
 
     public int updateStateByUserCode(long userCode, String state) {
 
-        return commentReportMapper.restoreUserState( userCode, state);
+        return commentReportMapper.restoreUserState(userCode, state);
     }
 
 
-
+    public int deleteByUserCode(Long userCode) {
+        System.out.println("서비스 userCode : " + userCode);
+        return commentReportMapper.deleteByUserCode(userCode);
+    }
 }

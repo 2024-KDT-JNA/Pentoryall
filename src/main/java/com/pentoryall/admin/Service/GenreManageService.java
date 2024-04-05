@@ -49,4 +49,5 @@ public class GenreManageService {
     public void modifyFirstGenre(GenreManageDTO genreDTO) {
         genreManageMapper.updateGenre(genreDTO);
     }
+
 }

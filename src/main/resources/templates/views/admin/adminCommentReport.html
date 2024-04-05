@@ -30,6 +30,7 @@
                                 <option>20개씩</option>
                             </select>
                         </label>
+                        <button type="button" class="button btn-unlock">내역삭제</button>
                     </div>
                 </div>
 
@@ -37,7 +38,14 @@
                     <table class="table" id="noStop">
                         <thead>
                         <tr>
-                            <th>신고번호</th>
+                            <th>
+                                <input type="checkbox" id="checkAll-comment-1" name="comment_report"/>
+                                <label for="checkAll-comment-1">전체 선택</label>
+                            </th>
+                            <th>
+                                <button onclick="filterAndSortByName()">정렬</button>
+                            </th>
+                            <th>번호</th>
                             <th>아이디</th>
                             <th>닉네임</th>
                             <th>신고 일자</th>
@@ -49,6 +57,9 @@
                         <tbody>
                         <th:block th:each="commentReportList : ${commentReportList}">
                             <tr th:attr="data-lock=${commentReportList.userCode}">
+                                <td><input type="checkbox" id="checkAll-comment-2" name="" class="form-check-input"/>
+                                </td>
+                                <td data-unlock="reportCode" th:text="${commentReportList.code}" class="tg-0lax"></td>
                                 <td data-unlock="listCode" th:text="${commentReportList.userCode}" class="tg-0lax"></td>
                                 <td data-unlock="listId" th:text="${commentReportList.userId}" class="tg-0lax"></td>
                                 <td data-unlock="listNickName" th:text="${commentReportList.nickName}"
@@ -69,17 +80,62 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="page">
-                    <ul class="pagination-commentReport">
-                        <li><a href="#" class="first">처음페이지</a></li>
-                        <li><a href="#" class="arrow left"><<</a></li>
-                        <li><a href="#" class="active num">1</a></li>
-                        <li><a href="#" class="num">2</a></li>
-                        <li><a href="#" class="num">3</a></li>
-                        <li><a href="#" class="num">4</a></li>
-                        <li><a href="#" class="num">5</a></li>
-                        <li><a href="#" class="arrow right">>></a></li>
-                        <li><a href="#" class="last">끝페이지</a></li>
+                <div class="page" id="paging" align="center" style="margin-top: 20px;">
+                    <ul class="pagination-user">
+                        <th:block
+                                th:if="${ paging.searchCondition != null and paging.searchValue != null }">
+                            <!-- 맨 앞으로 이동 -->
+                            <li><a th:href="'/admin/report/comments?page=1'">처음페이지</a></li>
+                            <li>
+                                <a th:href="@{/admin/report/comments(page=1, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}"
+                                   class="arrow left"
+                                   th:disabled="${ paging.page <= 1 }"><<</a></li>
+                            <!-- 이전 페이지로 이동 -->
+
+                            <!-- 숫자 버튼 -->
+                            <th:block
+                                    th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}">
+                                <li><a class="num" th:text="${page}" th:disabled="${paging.page eq page}"
+                                       th:href="@{/admin/report/comments(page=${page}, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}"></a>
+                                </li>
+                            </th:block>
+
+                            <!-- 다음 페이지로 이동 -->
+                            <li>
+                                <a th:href="@{/admin/report/comments(page=${paging.page+1},searchCondition=${paging.searchCondition},searchValue=${paging.searchValue})}"
+                                   class="arrow right"
+                                   th:disabled="${ paging.page >= paging.maxPage }">>></a></li>
+
+                            <!-- 맨 끝으로 이동 -->
+                            <li>
+                                <a th:href="@{'/admin/report/comments?page=' + ${paging.maxPage} + '&searchCondition=' + ${paging.searchCondition} + '&searchValue=' + ${paging.searchValue}}"
+                                   class="last">끝페이지</a></li>
+                        </th:block>
+                    </ul>
+
+                    <ul class="pagination-user">
+                        <th:block
+                                th:if="${ paging.searchCondition == null || paging.searchValue == null }">
+                            <!-- 맨 앞으로 이동 -->
+                            <li><a th:href="'/admin/report/comments?page=1'">처음페이지</a></li>
+                            <!-- 이전 페이지로 이동 -->
+                            <li><a th:href="@{'/admin/report/comments?page=' + ${paging.page -1}}"
+                                   th:disabled="${paging.page <= 1}"><<</a></li>
+                            <!-- 숫자 버튼 -->
+                            <th:block
+                                    th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+
+                                <li><a class="num" th:text="${ page }" th:disabled="${ paging.page eq page }"
+                                       th:href="@{/admin/report/comments(page=${page})}"></a></li>
+                            </th:block>
+
+                            <!-- 다음 페이지로 이동 -->
+                            <li><a th:href="@{'/admin/report/comments?page=' + ${paging.page + 1}}"
+                                   th:disabled="${paging.page >= paging.maxPage}">>></a></li>
+
+                            <!-- 맨 끝으로 이동 -->
+                            <li><a th:href="@{'/admin/report/comments?page=' + ${paging.maxPage}}">끝페이지</a></li>
+                        </th:block>
                     </ul>
                 </div>
             </section>
@@ -142,35 +198,81 @@
                     popup.classList.remove('blind');
                 }
 
-                // const cells = event.target.parentNode.querySelectorAll('td');
-                // const table = document.getElementById('noStop');
-                // const inputCode = document.getElementById('code');
-                // const inputType = document.getElementById('type');
-                // // const inputState = document.getElementById('state');
-                // table.addEventListener('click', function(event) {
-                //     if (event.target.tagName === 'TD') {
-                //         const cells = event.target.parentNode.querySelectorAll('td');
-                //
-                //         cells.forEach(cell => {
-                //             const dataUnlock = cell.getAttribute('data-unlock');
-                //             const cellContent = cell.textContent.trim();
-                //
-                //             // 각각의 데이터에 맞는 input 태그에 값을 설정
-                //             if (dataUnlock === 'code') {
-                //                 document.getElementById('code').value = cellContent;
-                //             }
-                //             if (dataUnlock === 'type') {
-                //                 document.getElementById('type').value = cellContent;
-                //             }
-                //             if (dataUnlock === 'state') {
-                //                 document.getElementById('state').value = cellContent;
-                //             }
-                //         });
-                //     }
-                // });
+                function filterAndSortByName() {
+                    // 테이블과 테이블의 tbody를 가져옵니다.
+                    var table = document.getElementById('noStop');
+                    var tbody = table.getElementsByTagName('tbody')[0];
+
+                    // tbody 내부의 모든 tr 요소들을 가져옵니다.
+                    var rows = tbody.getElementsByTagName('tr');
+
+                    // 이름을 저장할 객체를 생성합니다.
+                    var nameGroups = {};
+
+                    // 모든 행을 반복하여 이름별로 그룹화합니다.
+                    for (var i = 0; i < rows.length; i++) {
+                        var nameCell = rows[i].querySelector('[data-unlock="listNickName"]');
+                        var name = nameCell.textContent.trim();
+
+                        // 이름별로 그룹화된 배열이 존재하지 않으면 생성합니다.
+                        if (!nameGroups[name]) {
+                            nameGroups[name] = [];
+                        }
+
+                        // 해당 이름의 그룹에 현재 행을 추가합니다.
+                        nameGroups[name].push(rows[i]);
+                    }
+
+                    // 이름 그룹을 정렬합니다.
+                    var sortedNames = Object.keys(nameGroups).sort();
+
+                    // 정렬된 순서대로 tbody에 행을 추가합니다.
+                    tbody.innerHTML = ''; // tbody 내용을 비웁니다.
+                    for (var j = 0; j < sortedNames.length; j++) {
+                        var nameGroup = nameGroups[sortedNames[j]];
+                        for (var k = 0; k < nameGroup.length; k++) {
+                            tbody.appendChild(nameGroup[k]);
+                        }
+                    }
+                }
+
+                const checkAll = document.getElementById("checkAll-comment-1");
+                const checkInputs = document.querySelectorAll(".form-check-input");
+
+                checkAll.addEventListener("click", function () {
+                    checkInputs.forEach(checkbox => {
+                        checkbox.checked = this.checked;
+                    });
+                });
+
+                checkInputs.forEach(checkbox => {
+                    checkbox.addEventListener("click", function () {
+                        const checkedInputs = document.querySelectorAll(".form-check-input:checked");
+                        const totalCheckInputs = document.querySelectorAll(".form-check-input").length;
+
+                        checkAll.checked = (checkedInputs.length === totalCheckInputs);
+                    });
+                });
+
+                const closeButton = document.querySelector('.close-btn');
+                const cancelButton = document.querySelector('.layer-popup .button[type="button"]');
+
+                closeButton.addEventListener("click", function () {
+                    closePopup();
+                });
+
+                cancelButton.addEventListener("click", function () {
+                    closePopup();
+                });
+
+                function closePopup() {
+                    const popup = document.querySelector('.layer-popup-small');
+                    popup.classList.add('blind');
+                }
 
 
             </script>
+
 
             <!-- ------------------------------------ -->
         </div>

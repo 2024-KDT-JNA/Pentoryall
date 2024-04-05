@@ -137,6 +137,17 @@
     border-radius: 10px;
 }
 
+.second-genre-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #2d2121;
+    border-radius: 10px;
+
+}
+
 /* popUp */
 
 .popUp_info-genre {

@@ -20,13 +20,14 @@
         WHERE r.type = 'post'
           AND p.is_deleted = 'N'
         ORDER BY r.report_date,
-                 u.code;
+                 u.code
     </select>
 
 
     <select id="selectTotalCount" resultType="_int">
         SELECT COUNT(*)
         FROM report
+
     </select>
 
     <update id="deleteByPostCode" parameterType="com.pentoryall.post.dto.PostDTO">
@@ -35,6 +36,7 @@
         SET is_deleted = 'Y'
         WHERE is_deleted = 'N'
           AND code = #{postCode}
+
     </update>
 
 

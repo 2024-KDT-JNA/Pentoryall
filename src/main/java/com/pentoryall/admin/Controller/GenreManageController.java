@@ -65,14 +65,15 @@ public class GenreManageController {
 
     @PostMapping("/modifyFirstGenre")
     public String modifyGenre(
-            @RequestParam("genreName") String name) {
+            @RequestParam("genreName") String name,
+            @RequestParam("genreCode") Long code) {
         GenreManageDTO genreDTO = new GenreManageDTO();
         genreDTO.setName(name);
-//        genreDTO.setCode(code);
+        genreDTO.setCode(code);
+
         genreManageService.modifyFirstGenre(genreDTO);
 
         return "redirect:/admin/genre/list";
-
     }
 }
 

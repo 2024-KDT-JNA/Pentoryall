@@ -4,27 +4,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pentoryall.admin.mapper.CommentReportMapper">
 
-<select id="selectAllCommentReportList" resultType="com.pentoryall.admin.DTO.CommentReportDTO">
-    SELECt
-        r.code,
-        u.code as user_code,
-        u.user_id,
-        u.nickname,
-        u.state,
-        r.report_date,
-        c.content
-    FROM
-        report r JOIN user u ON r.user_code = u.code
-        JOIN comment c ON r.comment_code = c.code
-    WHERE r.type = 'comment'
-    ORDER BY report_date, user_code
-</select>
+    <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.DTO.CommentReportDTO">
+        SELECt r.code,
+               u.code as user_code,
+               u.user_id,
+               u.nickname,
+               u.state,
+               r.report_date,
+               c.content
+        FROM report r
+                 JOIN user u ON r.user_code = u.code
+                 JOIN comment c ON r.comment_code = c.code
+        WHERE r.type = 'comment'
+        ORDER BY report_date, user_code
+
+        LIMIT #{offset}, #{limit}
+    </select>
 
     <select id="selectTotalCount" resultType="_int">
-        SELECT
-            COUNT(*)
-        FROM
-            report
+        SELECT COUNT(*)
+        FROM report
     </select>
 
     <update id="restoreUserState">
@@ -43,25 +42,33 @@
           AND code = #{userCode}
     </update>
 
-<!--    <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.DTO.CommentReportDTO">-->
-<!--        SELECT-->
-<!--            c.user_code,-->
-<!--            u.name,-->
-<!--            c.create_date,-->
-<!--            c.content,-->
-<!--            p.user_code,-->
-<!--            u2.name ,-->
-<!--            p.title-->
-<!--        FROM-->
-<!--            comment c-->
-<!--                JOIN-->
-<!--            post p ON c.post_code = p.code-->
-<!--                JOIN-->
-<!--            user u ON c.user_code = u.code-->
-<!--                JOIN-->
-<!--            user u2 ON p.user_code = u2.code;-->
+    <update id="deleteByUserCode" parameterType="com.pentoryall.admin.DTO.CommentReportDTO">
+        UPDATE
+            post
+        SET is_deleted = 'Y'
+        WHERE is_deleted = 'N'
+          AND code = #{postCode}
+    </update>
 
-<!--    </select>-->
+    <!--    <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.DTO.CommentReportDTO">-->
+    <!--        SELECT-->
+    <!--            c.user_code,-->
+    <!--            u.name,-->
+    <!--            c.create_date,-->
+    <!--            c.content,-->
+    <!--            p.user_code,-->
+    <!--            u2.name ,-->
+    <!--            p.title-->
+    <!--        FROM-->
+    <!--            comment c-->
+    <!--                JOIN-->
+    <!--            post p ON c.post_code = p.code-->
+    <!--                JOIN-->
+    <!--            user u ON c.user_code = u.code-->
+    <!--                JOIN-->
+    <!--            user u2 ON p.user_code = u2.code;-->
+
+    <!--    </select>-->
 
 </mapper>
 
