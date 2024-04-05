@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,12 +14,8 @@ public class MembershipJoinDTO {
     private long code;
     private long membershipCode;
     private long userCode;
-    private LocalDate createDate;
-    private LocalDate endDate;
-    private String name;
-    private int price;
-    private String nickname;
-
+    private Date createDate;
+    private Date endDate;
 
 }
 

@@ -16,10 +16,6 @@ public interface SubscribeMapper {
     void cancelSubscriber(SubscribeDTO subscribeDTO);
 
     List<SubscribeDTO> getAllSubscribeStory(long code);
-
-    List<SubscribeDTO> selectSubscribersByUserCode(long userCode);
-
-    void updateSubscriberStatus(SubscribeDTO subscribeDTO);
 }
 
 
