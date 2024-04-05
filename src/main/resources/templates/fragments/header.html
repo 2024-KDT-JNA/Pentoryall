@@ -11,35 +11,36 @@
             </a>
         </h1>
         <div class="header-right">
-
-                <form action="/series/select" method="post">
-                    <label>검색 옵션</label>
-                    <select name="option" class="select-option">
-                        <option>제목</option>
-                        <option>작가</option>
-                        <option>제목+작가</option>
-                    </select>
-                    <div class="search-input">
-                    <input name="word" type="text" class="input" placeholder="검색어 입력"/>
+            <form action="/series/select" method="post">
+                <div class="searchWrap">
+                    <div class="search">
+                        <select name="sca">
+                            <option value="wr_subject_name">제목+작성자</option>
+                            <option value="wr_subject">제목</option>
+                            <option value="wr_name">작성자</option>
+                        </select>
+                        <label id="inpSearch">
+                            <input type="text" id="inpSearch" name="stx">
+                            <img src="https://www.exsoft.co.kr/theme/exsoft/img/search.svg" alt="">
+                        </label>
                     </div>
-                    <button class="select-btn" type="submit">검색</button>
-                </form>
-
+                </div>
+            </form>
             <th:block sec:authorize="hasRole('ROLE_USER')">
-            <button type="button" class="alert-btn">
-                <span class="blind">알림</span>
-                <i class="bi bi-bell"></i>
-                <span class="alert-dot">
+                <button type="button" class="alert-btn">
+                    <span class="blind">알림</span>
+                    <i class="bi bi-bell"></i>
+                    <span class="alert-dot">
                     <span class="blind">새로운 알림</span>
                 </span>
-            </button>
+                </button>
 
-            <button type="button" class="profile-btn" sec:authorize="isAuthenticated()">
-                <div class="profile-image" sec:authorize="hasRole('ROLE_USER')">
-                    <img th:src="${#authentication.principal.profileImage != null
+                <button type="button" class="profile-btn" sec:authorize="isAuthenticated()">
+                    <div class="profile-image" sec:authorize="hasRole('ROLE_USER')">
+                        <img th:src="${#authentication.principal.profileImage != null
                         ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
-                </div>
-            </button>
+                    </div>
+                </button>
             </th:block>
 
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
@@ -48,8 +49,8 @@
                 </div>
                 <div class="link">
                     <a th:href="@{/user/logout}" class="button">로그아웃</a>
-                    </div>
-                </th:block>
+                </div>
+            </th:block>
 
             <th:block sec:authorize="isAnonymous()">
                 <div class="link login-link">
