@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/default}">
+      layout:decorate="~{/layout/settings}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
-     <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css"/>
 </th:block>
 
 <th:block layout:fragment="content">
@@ -35,7 +34,7 @@
                                 <option value="nickname">닉네임</option>
                             </select>
                             <div class="form-item">
-                                <input type="text" class="input" name="searchValue" placeholder="검색할 내용" />
+                                <input type="text" class="input" name="searchValue" placeholder="검색할 내용"/>
                             </div>
                             <div class="form-item">
                                 <input class="button" type="submit" value="검색하기">
@@ -52,7 +51,7 @@
                         <thead>
                         <tr>
                             <th>
-                                <input type="checkbox" id="checkAll-user-1" name="all" class="form-check-input" />
+                                <input type="checkbox" id="checkAll-user-1" name="all" class="form-check-input"/>
                             </th>
                             <th class="tg-0lax">회원번호</th>
                             <th class="tg-0lax">이메일</th>
@@ -65,7 +64,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="userList : ${userList}">
-                            <th><input type="checkbox" id="checkAll-user-2" name="all1" class="form-check-input" /></th>
+                            <th><input type="checkbox" id="checkAll-user-2" name="all1" class="form-check-input"/></th>
                             <td th:text="${ userList.code }" class="tg-0lax"></td>
                             <td th:text="${ userList.email }" class="tg-0lax"></td>
                             <td th:text="${ userList.userId }" class="tg-0lax"></td>
@@ -83,8 +82,10 @@
                         <th:block
                                 th:if="${ paging.searchCondition != null and paging.searchValue != null }">
                             <!-- 맨 앞으로 이동 -->
-                            <li><a th:href="'/admin/list?page=1'">처음페이지</a></li>
-                            <li><a th:href="@{/admin/list(page=1, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}" class="arrow left"
+                            <li><a th:href="'/admin/user/list?page=1'">처음페이지</a></li>
+                            <li>
+                                <a th:href="@{/admin/user/list(page=1, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}"
+                                   class="arrow left"
                                    th:disabled="${ paging.page <= 1 }"><<</a></li>
                             <!-- 이전 페이지로 이동 -->
 
@@ -92,15 +93,20 @@
                             <th:block
                                     th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}">
                                 <li><a class="num" th:text="${page}" th:disabled="${paging.page eq page}"
-                                       th:href="@{/admin/list(page=${page}, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}" ></a></li>
+                                       th:href="@{/admin/user/list(page=${page}, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}"></a>
+                                </li>
                             </th:block>
 
                             <!-- 다음 페이지로 이동 -->
-                            <li><a th:href="@{/admin/list(page=${paging.page+1},searchCondition=${paging.searchCondition},searchValue=${paging.searchValue})}" class="arrow right"
+                            <li>
+                                <a th:href="@{/admin/user/list(page=${paging.page+1},searchCondition=${paging.searchCondition},searchValue=${paging.searchValue})}"
+                                   class="arrow right"
                                    th:disabled="${ paging.page >= paging.maxPage }">>></a></li>
 
                             <!-- 맨 끝으로 이동 -->
-                            <li><a th:href="@{'/admin/list?page=' + ${paging.maxPage} + '&searchCondition=' + ${paging.searchCondition} + '&searchValue=' + ${paging.searchValue}}" class="last">끝페이지</a></li>
+                            <li>
+                                <a th:href="@{'/admin/user/list?page=' + ${paging.maxPage} + '&searchCondition=' + ${paging.searchCondition} + '&searchValue=' + ${paging.searchValue}}"
+                                   class="last">끝페이지</a></li>
                         </th:block>
                     </ul>
 
@@ -108,24 +114,24 @@
                         <th:block
                                 th:if="${ paging.searchCondition == null || paging.searchValue == null }">
                             <!-- 맨 앞으로 이동 -->
-                            <li><a th:href="'/admin/list?page=1'">처음페이지</a></li>
+                            <li><a th:href="'/admin/user/list?page=1'">처음페이지</a></li>
                             <!-- 이전 페이지로 이동 -->
-                            <li><a th:href="@{'/admin/list?page=' + ${paging.page -1}}"
+                            <li><a th:href="@{'/admin/user/list?page=' + ${paging.page -1}}"
                                    th:disabled="${paging.page <= 1}"><<</a></li>
                             <!-- 숫자 버튼 -->
                             <th:block
                                     th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
 
                                 <li><a class="num" th:text="${ page }" th:disabled="${ paging.page eq page }"
-                                       th:href="@{/admin/list(page=${page})}" ></a></li>
+                                       th:href="@{/admin/user/list(page=${page})}"></a></li>
                             </th:block>
 
                             <!-- 다음 페이지로 이동 -->
-                            <li><a th:href="@{'/admin/list?page=' + ${paging.page + 1}}"
+                            <li><a th:href="@{'/admin/user/list?page=' + ${paging.page + 1}}"
                                    th:disabled="${paging.page >= paging.maxPage}">>></a></li>
 
                             <!-- 맨 끝으로 이동 -->
-                            <li><a th:href="@{'/admin/list?page=' + ${paging.maxPage}}">끝페이지</a></li>
+                            <li><a th:href="@{'/admin/user/list?page=' + ${paging.maxPage}}">끝페이지</a></li>
                         </th:block>
                     </ul>
                 </div>
@@ -149,14 +155,14 @@
         const checkAll = document.getElementById("checkAll-user-1");
         const checkInputs = document.querySelectorAll(".form-check-input");
 
-        checkAll.addEventListener("click", function() {
+        checkAll.addEventListener("click", function () {
             checkInputs.forEach(checkbox => {
                 checkbox.checked = this.checked;
             });
         });
 
         checkInputs.forEach(checkbox => {
-            checkbox.addEventListener("click", function() {
+            checkbox.addEventListener("click", function () {
                 const checkedInputs = document.querySelectorAll(".form-check-input:checked");
                 const totalCheckInputs = document.querySelectorAll(".form-check-input").length;
 
