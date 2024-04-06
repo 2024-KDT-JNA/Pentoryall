@@ -2,6 +2,7 @@ package com.pentoryall.email.controller;
 
 import com.pentoryall.email.RedisUtil;
 import com.pentoryall.email.service.FindPwMail;
+import com.pentoryall.email.service.MailService;
 import com.pentoryall.email.service.RegisterMail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class AccountController {
 
     private final RedisUtil redisUtil;
 
-//    private final MailService mailService;
+    private final MailService mailService;
 
     // 임시 패스워드 발송 서비스
     private final FindPwMail findPwMail;
@@ -51,37 +52,4 @@ public class AccountController {
         }
         return ResponseEntity.ok("");
     }
-
-//    @GetMapping("/{email_addr}/authcode")
-//    public ResponseEntity<String> sendEmailPath(@PathVariable String email_addr) throws MessagingException {
-//       mailService.sendEmailMessage(email_addr);
-//        return ResponseEntity.ok("이메일을 확인하세요");
-//    }
-//
-//    @PostMapping("/{email_addr}/authcode")
-//    public ResponseEntity<String> sendEmailAndCode(@PathVariable String email_addr, @RequestBody UserDTO user) throws NoSuchAlgorithmException {
-//        if (mailService.verifyEmailCode(email_addr, String.valueOf(user.getCode()))) {
-//            return ResponseEntity.ok(mailService.makeMemberId(email_addr));
-//       }
-//       return ResponseEntity.notFound().build();
-//    }
-
-    // 일반 회원 비밀번호 찾기 및 임시 패스워드로 변경
-//    @PostMapping("/findMemberPwd") @ResponseBody
-//    String findMemberPwd(@RequestParam("mid") String mid, @RequestParam("mname") String mname,
-//                         @RequestParam("mphone") String mphone) throws Exception {
-//         System.out.println(mid + " : " + mname + " : " + mphone);
-//        UsereDTO mdto = ms.findMemberPwd(mid, mname, mphone);
-//
-//        if (mdto != null) {
-//            // 임시 패스워드 메일 발송 및 변수 저장
-//            String tempPw = passwdEncoder.encode(findPwMail.sendSimpleMessage(mdto.getMemail()));
-//            // System.out.println("tempPw : " + tempPw);
-//            // 임시 패스워드 db 에 저장
-//            ms.changeTempPw(tempPw, mdto.getMno());
-//
-//            return "변경완료";
-//        }
-//        return null;
-//    }
 }

@@ -40,8 +40,10 @@
                         </div>
                         <div class="login_bottom">
                             <div class="keep_check">
-                                <input type="checkbox" id="keep" name="nvlong" class="input_keep" value="off">
-                                <label for="keep" class="keep_text">로그인 상태 유지</label>
+                                <input type="checkbox" id="remember-me"
+                                       name="remember-me"/>
+                                <label for="remember-me" style>로그인 유지</label>
+
                             </div>
                             <ul class="find_texts">
                                 <li onclick="location.href='/user/findPwd'">비밀번호 찾기</li>
@@ -64,10 +66,8 @@
 <th:block layout:fragment="script">
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
-    <script th:src="@{/js/common.js}" src="/js/common.js"></script>
     <script th:src="@{/js/event.js}" src="/js/event.js"></script>
     <script th:src="@{/js/user.js}" src="/js/user.js"></script>
-    -->
 </th:block>
 
 </html>

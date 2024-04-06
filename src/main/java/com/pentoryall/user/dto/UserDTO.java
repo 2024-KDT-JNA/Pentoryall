@@ -50,9 +50,11 @@ public class UserDTO implements UserDetails {
         return Arrays.asList(new SimpleGrantedAuthority(roleName));
     }
 
+    /* 스프링시큐리티에서 user를 구분하는 이름 = (id의 개념)
+     * 승재씨 바 꾸 지 마 세 요 건 들 지 마 !!!!!!!!!! */
     @Override
     public String getUsername() {
-        return name;
+        return userId;
     }
 
     @Override
