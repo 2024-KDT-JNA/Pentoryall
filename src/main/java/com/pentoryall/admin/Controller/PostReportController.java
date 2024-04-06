@@ -1,5 +1,6 @@
-package com.pentoryall.admin.Controller;
-import com.pentoryall.admin.Service.PostReportService;
+package com.pentoryall.admin.controller;
+
+import com.pentoryall.admin.service.PostReportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +27,9 @@ public class PostReportController {
 
     @GetMapping("/posts")
     public String postReportAllList(Model model,
-                                       @RequestParam(defaultValue = "1") int page,
-                                       @RequestParam(required = false) String searchCondition,
-                                       @RequestParam(required = false) String searchValue
+                                    @RequestParam(defaultValue = "1") int page,
+                                    @RequestParam(required = false) String searchCondition,
+                                    @RequestParam(required = false) String searchValue
     ) {
         log.info("postReportList page : {}", page);
         log.info("postReportList searchCondition : {}", searchCondition);

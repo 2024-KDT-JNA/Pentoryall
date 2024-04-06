@@ -5,7 +5,6 @@ import com.pentoryall.common.exception.user.MemberModifyException;
 import com.pentoryall.common.exception.user.MemberRegistException;
 import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.user.dto.UserDTO;
-import lombok.RequiredArgsConstructor;
 import com.pentoryall.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,8 +20,6 @@ public class UserService {
     private final UserMapper userMapper;
 
     private final PasswordEncoder passwordEncoder;
-
-//    private final UserRepository userRepository;
 
     public boolean selectUserById(String userId) {
 
@@ -59,6 +56,8 @@ public class UserService {
             String encodedPassword = passwordEncoder.encode(modifyUser.getPassword());
             modifyUser.setPassword(encodedPassword);
         }
+        char isSubscriberVisible = modifyUser.getIsSubscriberVisible();  // <--- 구독 개여부 가져오기
+        modifyUser.setIsSubscriberVisible(isSubscriberVisible);  //<------------ 구독 공개여부 다시 설정하여 반영 추가 (승재)
         int result = userMapper.updateUser(modifyUser);
 
         if (!(result > 0)) throw new MemberModifyException("회원 정보 수정에 실패하였습니다.");
@@ -83,6 +82,12 @@ public class UserService {
 
     public List<UserDTO> getUserListByWord(String word) {
         return userMapper.getUserListByWord(word);
+    }
+
+    public boolean checkEmailExists(String email) {
+        String result = userMapper.checkEmailExists(email);
+
+        return result != null;
     }
 
 //    public boolean isPasswordCorrect(String userId, String enteredPassword) {

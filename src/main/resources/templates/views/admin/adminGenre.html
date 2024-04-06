@@ -39,11 +39,12 @@
                             <th:block th:each="genreSecondList : ${genreSecondList}">
                                 <li class="first-genre-list" th:text="${genreSecondList.name}"></li>
                                 <li>
-                                    <button type="submit" class="button" id="addSecondGenreDelete">X</button>
+                                    <button type="submit" class="button delete-button" id="addSecondGenreDelete">X
+                                    </button>
                                 </li>
                             </th:block>
                         </ul>
-                        <form action="/admin/genre/add" method="post" name="addSecondGenreForm">
+                        <form action="/admin/genre/addSecond" method="post" name="addSecondGenreForm">
                             <input type="text" class="first-genre-list" name="genreName" placeholder="추가할 장르명을 입력하세요.">
                             <button type="submit" class="button" id="addSecondGenreButton">추가</button>
                         </form>
@@ -91,7 +92,7 @@
 
             document.addFirstGenreForm.addEventListener('submit', function (event) {
                 event.preventDefault();
-                const genreNameInput = document.querySelector('input[name="genreName"]');
+                const genreNameInput = document.querySelector('form[name="addFirstGenreForm"] input[name="genreName"]');
                 const genreName = genreNameInput.value.trim(); // 입력값 공백 제거
 
                 if (!genreName) {
@@ -99,7 +100,10 @@
                     return; // 장르명이 비어 있으면 추가하지 않고 함수 종료
                 }
 
-                confirmAddGenre(genreName);
+                if (confirm('"' + genreName + '" 장르를 추가하시겠습니까?')) {
+                    genreNameInput.value = genreName
+                    this.submit(); // 폼 서버에 제출
+                }
             });
 
             document.addSecondGenreForm.addEventListener('submit', function (event) {
@@ -112,27 +116,120 @@
                     return; // 장르명이 비어 있으면 추가하지 않고 함수 종료
                 }
 
-                confirmAddGenre(genreName);
+                if (confirm('"' + genreName + '" 장르를 추가하시겠습니까?')) {
+                    genreNameInput.value = genreName
+                    this.submit(); // 폼 서버에 제출
+                }
             });
 
+            document.querySelectorAll('.delete-button').forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault(); // 기본 동작 방지
 
-            const $deleteBtns = document.querySelectorAll('.btn-first-add');
-            const $genreNameInput = document.getElementById('name');
+                    const listItem = button.parentElement.previousElementSibling;
+                    const genreName = listItem.textContent.trim(); // 장르명 텍스트 추출
 
-            $deleteBtns.forEach(btn => {
-                btn.addEventListener('click', function () {
-                    const name = btn.getAttribute('data-genre');
-                    $genreNameInput.value = name;
-                    confirmAddGenre(name);
+                    if (confirm('"' + genreName + '" 장르를 삭제하시겠습니까?')) {
+                        // 삭제할 장르명을 서버로 전송하여 삭제 처리
+                        const formData = new FormData();
+                        formData.append('name', genreName);
+
+                        fetch('/admin/genre/delete', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    // 성공적으로 삭제되면 해당 장르 항목을 제거
+                                    listItem.remove();
+                                    button.remove();
+                                    alert('"' + genreName + '" 장르가 삭제되었습니다.');
+                                } else {
+                                    alert('장르 삭제에 실패했습니다.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('장르 삭제 중 오류가 발생했습니다.', error);
+                            });
+                    }
                 });
             });
 
-            function confirmAddGenre(name) {
-                if (confirm('"' + name + '" 장르를 추가하시겠습니까?')) {
-                    const genreForm = document.getElementById('genreForm');
-                    const genreNameInput = document.getElementById('name');
-                    genreNameInput.value = name; // 선택한 장르명을 input에 할당
-                    genreForm.submit(); // 폼 서버에 제출
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // 상위 장르 목록을 가져옵니다.
+            const firstGenreList = document.querySelectorAll('.first-genre-list');
+
+            // 각 상위 장르 요소에 더블클릭 이벤트를 추가합니다.
+            firstGenreList.forEach(item => {
+                item.addEventListener('dblclick', function (event) {
+                    // 기본 동작 방지
+                    event.preventDefault();
+
+                    // 현재 요소의 텍스트 내용을 가져옵니다.
+                    const currentText = item.textContent;
+
+                    // 수정을 위한 입력 상자를 생성합니다.
+                    const inputElement = document.createElement('input');
+                    inputElement.setAttribute('type', 'text');
+                    inputElement.setAttribute('value', currentText);
+
+                    // 이벤트 핸들러를 추가하여 포커스가 벗어날 때 수정된 내용을 저장합니다.
+                    inputElement.addEventListener('blur', function () {
+                        saveModifiedContent(item, inputElement);
+                    });
+
+                    // 입력 상자에서 엔터 키를 눌렀을 때도 수정된 내용을 저장합니다.
+                    inputElement.addEventListener('keypress', function (event) {
+                        if (event.key === 'Enter') {
+                            saveModifiedContent(item, inputElement);
+                        }
+                    });
+
+                    // 기존 텍스트를 숨기고 수정을 위한 입력 상자를 표시합니다.
+                    item.innerHTML = '';
+                    item.appendChild(inputElement);
+
+                    // 수정을 위한 입력 상자에 포커스를 설정합니다.
+                    inputElement.focus();
+                });
+            });
+
+            // 수정된 내용을 저장하는 함수
+            function saveModifiedContent(item, inputElement) {
+                // 수정된 내용을 가져옵니다.
+                const newText = inputElement.value.trim();
+
+                // 내용이 비어있지 않으면 텍스트 내용을 수정된 내용으로 업데이트합니다.
+                if (newText !== '') {
+                    item.textContent = newText;
+
+                    // AJAX를 사용하여 서버에 수정된 내용을 전송합니다.
+                    fetch('/admin/genre/modifyFirstGenre', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `genreCode=${code}`
+                            `genreName=${newText}`
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // 서버로부터 응답을 받았을 때의 처리
+                                console.log('수정이 완료되었습니다.');
+                            } else {
+                                // 서버로부터 오류 응답을 받았을 때의 처리
+                                console.error('수정 중 오류가 발생했습니다.');
+                            }
+                        })
+                        .catch(error => {
+                            // 네트워크 오류 등으로 인한 처리
+                            console.error('네트워크 오류:', error);
+                        });
+                } else {
+                    // 입력이 비어있는 경우에는 이전 내용을 유지합니다.
+                    item.textContent = currentText;
                 }
             }
         });
