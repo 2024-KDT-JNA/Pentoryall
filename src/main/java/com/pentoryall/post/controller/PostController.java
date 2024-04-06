@@ -349,6 +349,11 @@ public class PostController {
         System.out.println("commentList^^ = " + commentList);
         return ResponseEntity.ok(commentList);
     }
+//    @GetMapping("/loadReply")
+//    public ResponseEntity<List<CommentDetailDTO>> loadReply(CommentDetailDTO commentDTO){
+//        List<CommentDetailDTO> commentList = commentService.loadReply(commentDTO);
+//        return ResponseEntity.ok(commentList);
+//    }
     @PostMapping("/removeComment")
     public ResponseEntity<String> removeReply(@RequestBody CommentDetailDTO commentDetailDTO) {
         System.out.println("commentDetailDTO =~~~~~~ " + commentDetailDTO.getCode());
@@ -440,20 +445,34 @@ public class PostController {
 
     }
 //
-//    @PostMapping("/addReply")
-//    public ResponseEntity<String> addReply(@RequestBody CommentDetailDTO commentAdd,
-//                                             @AuthenticationPrincipal UserDTO user){
-//        commentAdd.setCode(1L);
-//        System.out.println("commentAdd1 :"+commentAdd.getCode());
-//        System.out.println("commentAdd1.5 :"+commentAdd.getPostCode());
-//        System.out.println("commentAdd2 :"+commentAdd.getContent());
-//        System.out.println("도달하고 있는가");
-//        commentAdd.setUser(user);
-//        System.out.println("commentAdd = " + commentAdd);
-//        commentService.addComment(commentAdd);
-//        System.out.println("db에 잘 등록 됬어요~");
-//        return ResponseEntity.ok("댓글 등록 완료");
-//    }
+    @PostMapping("/addReply")
+    public ResponseEntity<String> addReply(@RequestBody CommentDetailDTO commentAdd,
+                                             @AuthenticationPrincipal UserDTO user){
+        commentAdd.setCode(1L);
+        System.out.println("commentAdd1 :"+commentAdd.getCode());
+        System.out.println("commentAdd1.5 :"+commentAdd.getPostCode());
+        System.out.println("commentAdd2 :"+commentAdd.getContent());
+        System.out.println("도달하고 있는가");
+        commentAdd.setUser(user);
+        System.out.println("commentAdd = " + commentAdd);
+        commentService.addRefComment(commentAdd);
+        System.out.println("마라탕 먹고싶어요~");
+        return ResponseEntity.ok("댓글 등록 완료");
+    }
 
+    @GetMapping("/loadReply")
+    public ResponseEntity<List<CommentDetailDTO>> loadReply(CommentDetailDTO commentDTO){
+        System.out.println("commentDTO = " + commentDTO);
+        List<CommentDetailDTO> commentList = commentService.loadReply(commentDTO);
+        System.out.println("가져와진 답글들 ^^ = " + commentList);
+        return ResponseEntity.ok(commentList);
+    }
 
+    @GetMapping("/additionalData")
+    public ResponseEntity<List<CommentDetailDTO>> loadAdditionalData(CommentDetailDTO commentDTO){
+        System.out.println("commentDTO = " + commentDTO);
+        List<CommentDetailDTO> commentList = commentService.loadAdditionalData(commentDTO);
+        System.out.println("가져와진 답글들 ^^ = " + commentList);
+        return ResponseEntity.ok(commentList);
+    }
 }

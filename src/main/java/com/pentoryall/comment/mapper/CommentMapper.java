@@ -20,4 +20,10 @@ public interface CommentMapper {
     void updateComment(CommentDetailDTO commentDetailDTO);
 
     List<CommentDetailDTO> selectRefCommentByPostCode(long code);
+
+    void addRefComment(CommentDetailDTO commentAdd);
+
+    List<CommentDetailDTO> loadReply(CommentDetailDTO commentDTO);
+
+    List<CommentDetailDTO> loadAdditionalData(CommentDetailDTO commentDTO);
 }

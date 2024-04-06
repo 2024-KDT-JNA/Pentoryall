@@ -38,4 +38,16 @@ public class CommentService {
     public List<CommentDetailDTO> selectRefCommentByPostCode(long code) {
         return commentMapper.selectRefCommentByPostCode(code);
     }
+
+    public void addRefComment(CommentDetailDTO commentAdd) {
+        commentMapper.addRefComment(commentAdd);
+    }
+
+    public List<CommentDetailDTO> loadReply(CommentDetailDTO commentDTO) {
+       return commentMapper.loadReply(commentDTO);
+    }
+
+    public List<CommentDetailDTO> loadAdditionalData(CommentDetailDTO commentDTO) {
+        return commentMapper.loadAdditionalData(commentDTO);
+    }
 }

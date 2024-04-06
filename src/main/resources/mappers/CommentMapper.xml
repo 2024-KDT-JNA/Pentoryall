@@ -90,6 +90,44 @@
         ORDER BY
             a.code DESC;
     </select>
+    <select id="loadReply" resultMap="commentResultMap">
+        SELECT
+            a.code,
+            a.post_code,
+            a.content,
+            a.user_code,
+            a.create_date,
+            b.nickname
+        FROM
+            comment a
+                JOIN
+            user b ON (a.user_code = b.code)
+        WHERE
+            a.post_code=#{postCode} AND a.ref_comment_code=#{code}
+          AND
+            a.is_deleted = 'N'
+        ORDER BY
+            a.code DESC;
+    </select>
+    <select id="loadAdditionalData" resultMap="commentResultMap">
+        SELECT
+            a.code,
+            a.post_code,
+            a.content,
+            a.user_code,
+            a.create_date,
+            b.nickname
+        FROM
+            comment a
+                JOIN
+            user b ON (a.user_code = b.code)
+        WHERE
+            a.post_code=#{postCode} AND a.ref_comment_code IS NULL
+          AND
+            a.is_deleted = 'N'
+        ORDER BY
+            a.code DESC;
+    </select>
     <update id="removeReply">
         UPDATE
             comment
@@ -101,6 +139,10 @@
     <insert id="addComment">
         INSERT INTO comment(post_code,content,user_code)
         VALUES (#{postCode},#{content},#{user.code})
+    </insert>
+    <insert id="addRefComment">
+        INSERT INTO comment(post_code,content,user_code,ref_comment_code)
+        VALUES (#{postCode},#{content},#{user.code},#{refCommentCode})
     </insert>
     <update id="updateComment">
         UPDATE
