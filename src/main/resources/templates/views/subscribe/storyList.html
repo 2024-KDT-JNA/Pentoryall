@@ -32,8 +32,8 @@
                         <p th:text="${subscribe.introduction}"></p>
                         <p th:text="${subscribe.subscribedDate}"></p>
                         <button class="button"
-                                th:attr="data-user-code=${subscribe.userCode}"
-                                onclick="toggleSubscribe(event)">구독
+                                th:attr="data-user-code=${subscribe.subscribeUserCode}"
+                                onclick="toggleSubscribe(event)">구독중
                         </button>
                     </div>
                 </div>
@@ -60,11 +60,11 @@
             }
         }
 
-        function addSubscribe(userCode, button) {
+        function addSubscribe(subscribeUserCode, button) {
             $.ajax({
                 type: "POST",
                 url: "/subscribe/add",
-                data: {userCode: userCode},
+                data: {subscribeUserCode},
                 success: function (response) {
                     // alert("구독이 성공적으로 추가되었습니다.");
                     button.textContent = "구독중";
@@ -75,11 +75,11 @@
             });
         }
 
-        function cancelSubscribe(userCode, button) {
+        function cancelSubscribe(subscribeUserCode, button) {
             $.ajax({
                 type: "POST",
                 url: "/subscribe/cancel",
-                data: {userCode: userCode},
+                data: {subscribeUserCode},
                 success: function (response) {
                     // alert("구독이 성공적으로 취소되었습니다.");
                     button.textContent = "구독";
