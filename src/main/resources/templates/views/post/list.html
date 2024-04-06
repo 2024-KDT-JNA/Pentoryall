@@ -124,6 +124,7 @@
                             <button class="button" th:onclick="removeComment([[${comment.code}]])">댓글 삭제</button>
                             <button class="button" th:onclick="makeWritingTable([[${comment.code}]],[[${comment.content}]])">댓글 수정</button>
                             <input class="tem-cc" th:value="${comment.code}" hidden/>
+                            <input class="tem-cp" th:value="${comment.postCode}" hidden/>
                         </div>
                         <div class="second-button">
                             <button class="button reply">답글</button>
@@ -133,8 +134,7 @@
                         <div class="hidden-wrapper" hidden >
                             <div class="comment-area" id="comment-area-wrapper" >
                                 <div class="comment-content-area reply-repeat" th:each="reply : ${replyList}" th:value="${reply.code}"  th:if="${reply.refCommentCode==comment.code}">
-                                    <input class="tem-code-input" th:value="${reply.postCode}" hidden/>
-                                    <input class="tem-input" th:value="${reply.refCommentCode}" hidden/>
+
                                     <p class="comment-writer-area" th:text="|ㄴ${reply.user.nickname}|">작성자</p>
                                     <p class="comment-content" th:text="${reply.content}"></p>
                                     <p class="comment-date-area" id="writing-date" th:text="${reply.createDate}">작성 날짜</p>
@@ -374,8 +374,7 @@
                     }
 
                     const refCommentCode = $addComment.closest('.comment-content-area').querySelector(".tem-cc").value;
-                    const postCode = $addComment.closest('.comment-content-area').querySelector(".tem-code-input").value;
-                    console.log("포스트넘버ㅣ", postCode);
+                    const postCode = $addComment.closest('.comment-content-area').querySelector(".tem-cp").value;
                     const content = $writeComment.value;
                     console.log(content);
                     console.log(refCommentCode);
@@ -384,7 +383,7 @@
                         headers: {
                             'Content-Type': 'application/json; charset=UTF-8'
                         },
-                        body: JSON.stringify({ postCode, content, refCommentCode })
+                        body: JSON.stringify({ content, postCode ,refCommentCode })
                     })
                         .then(res => {
                             console.log("rress:" + res);

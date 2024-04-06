@@ -449,9 +449,6 @@ public class PostController {
     public ResponseEntity<String> addReply(@RequestBody CommentDetailDTO commentAdd,
                                              @AuthenticationPrincipal UserDTO user){
         commentAdd.setCode(1L);
-        System.out.println("commentAdd1 :"+commentAdd.getCode());
-        System.out.println("commentAdd1.5 :"+commentAdd.getPostCode());
-        System.out.println("commentAdd2 :"+commentAdd.getContent());
         System.out.println("도달하고 있는가");
         commentAdd.setUser(user);
         System.out.println("commentAdd = " + commentAdd);
