@@ -82,6 +82,12 @@ public class UserService {
         return userMapper.getUserListByWord(word);
     }
 
+    public boolean checkEmailExists(String email) {
+        String result = userMapper.checkEmailExists(email);
+
+        return result != null;
+    }
+
 //    public boolean isPasswordCorrect(String userId, String enteredPassword) {
 //        // 사용자 정보를 DB에서 가져옵니다.
 //        User user = userRepository.findByUserId(userId);

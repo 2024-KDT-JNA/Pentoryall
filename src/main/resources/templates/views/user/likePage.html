@@ -148,7 +148,9 @@
 <th:block layout:fragment="script">
     <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
-    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+    <script th:src="@{/js/event.js}" src="/js/event.js"></script>
+    <script th:src="@{/js/user.js}" src="/js/user.js"></script>
+    <script th:src="@{/js/like.js}" src="/js/like.js."></script>
     <script>
         $(document).ready(function () {
             const toggleBtn = document.querySelector('.toggleBtn');
@@ -157,46 +159,6 @@
             toggleBtn.addEventListener('click', (event) => {
                 relationList.classList.toggle('active');
                 event.currentTarget.classList.toggle('close');
-            });
-
-            var isLiked = false;
-
-            var postCode = 1;
-            var userCode = 1;
-
-            $('.likeBtn').click(function () {
-                var $btn = $(this);
-                if (isLiked) {
-                    $.ajax({
-                        type: 'post',
-                        url: '/user/likeDown',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            postCode,
-                            userCode
-                        }),
-                        success: function (data) {
-                            isLiked = false;
-                            $btn.html('<i class="far fa-heart"></i>');
-                            console.log("좋아요 취소 성공");
-                        }
-                    });
-                } else {
-                    $.ajax({
-                        type: 'post',
-                        url: '/user/likeUp',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            postCode,
-                            userCode
-                        }),
-                        success: function (data) {
-                            isLiked = true;
-                            $btn.html('<i class="fas fa-heart"></i>');
-                            console.log("좋아요 성공");
-                        }
-                    });
-                }
             });
         });
     </script>

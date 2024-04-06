@@ -15,7 +15,7 @@ input[type="button"] {
 }
 
 .login_info {
-    max-width: 480px;
+    max-width: 516px;
     width: 100%;
     margin: auto;
 }
@@ -159,7 +159,7 @@ input[type="button"] {
 }
 
 .loginWrap input::placeholder {
-    font-size: 13px;
+    font-size: 14px;
 }
 
 #remember-me {
