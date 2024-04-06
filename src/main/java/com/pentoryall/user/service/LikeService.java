@@ -1,6 +1,7 @@
 package com.pentoryall.user.service;
 
 import com.pentoryall.user.dto.LikeDTO;
+import com.pentoryall.user.dto.LikePostDTO;
 import com.pentoryall.user.mapper.LikeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,9 @@ public class LikeService {
 
     public void likeDown(LikeDTO likeDTO) {
         likeMapper.likeDown(likeDTO);
+    }
+
+    public LikeDTO selectLikeByUserAndPost(long userCode, long code) {
+        return likeMapper.selectLikeByUserAndPost(userCode,code);
     }
 }

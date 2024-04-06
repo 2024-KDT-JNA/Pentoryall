@@ -1,6 +1,5 @@
 package com.pentoryall.post.controller;
 
-import com.pentoryall.comment.dto.CommentDTO;
 import com.pentoryall.comment.dto.CommentDetailDTO;
 import com.pentoryall.comment.service.CommentService;
 import com.pentoryall.genre.dto.GenreDTO;
@@ -11,7 +10,9 @@ import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
+import com.pentoryall.user.dto.LikeDTO;
 import com.pentoryall.user.dto.UserDTO;
+import com.pentoryall.user.service.LikeService;
 import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,8 +43,9 @@ public class PostController {
     private final GenreOfArtService genreOfArtService;
     private final GenreService genreService;
     private final MessageSourceAccessor messageSourceAccessor;
+    private final LikeService likeService;
 
-    public PostController(SeriesService seriesService, PostService postService, UserService userService, CommentService commentService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor) {
+    public PostController(SeriesService seriesService, PostService postService, UserService userService, CommentService commentService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor, LikeService likeService) {
         this.seriesService = seriesService;
         this.postService = postService;
         this.userService = userService;
@@ -51,6 +53,7 @@ public class PostController {
         this.genreOfArtService = genreOfArtService;
         this.genreService = genreService;
         this.messageSourceAccessor = messageSourceAccessor;
+        this.likeService = likeService;
     }
 
 
@@ -185,6 +188,17 @@ public class PostController {
         List<CommentDetailDTO> replyList = commentService.selectRefCommentByPostCode(code);
         System.out.println("commentList =!! " + commentList);
         System.out.println("답글 리스트 = "+replyList);
+
+            LikeDTO likeDTO = likeService.selectLikeByUserAndPost(user.getCode(), code);
+        System.out.println("user.getCode() = " + user.getCode());
+        model.addAttribute("loginUser",user.getCode());
+            model.addAttribute("like", likeDTO);
+            if (likeDTO != null) {
+                model.addAttribute("isLiked", true);
+            } else {
+                model.addAttribute("isLiked", false);
+            }
+
         if(!commentList.isEmpty() || commentList!=null) {
 //            System.out.println("유저 정보 : " + commentList.get(0).getUser());
             System.out.println("commentList =>>> " + commentList);

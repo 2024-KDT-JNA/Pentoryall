@@ -76,6 +76,12 @@ hr {
     margin-top: 50px;
     margin-bottom: 50px;
 }
+.likeBtn {
+    color: red;
+}
+.likeBtn.liked {
+    color: white;
+}
 
 .post-button {
     width: 200px;

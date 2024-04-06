@@ -29,7 +29,9 @@
                       <div class="series-author-information-detail-name">
                         <h2 th:text="${user.nickname}">232</h2>
                       </div>
-
+                        <input id="login-user" th:value="${loginUser}" hidden/>
+                        <input id="post-code" th:value="${post.code}" hidden/>
+                        <input id="isLiked" th:value="${isLiked}" hidden/>
                         <button class="post-information-like">
                             <p class="post-information-like-content">
                            ♡ 222
@@ -55,8 +57,10 @@
 
                 <!--좋아요,작가구독,신고하기 버튼-->
                 <div class="post-buttons">
-                    <button class="post-like-button post-button">
+                    <button class="likeBtn post-like-button post-button">
+                        <th:block th:if="${like} != null">
                         ♥️<br/>
+                        </th:block>
                         좋아요
                     </button>
                     <button class="post-subscribe-button post-button">
@@ -421,7 +425,53 @@
             console.log("성공!");
         }
 
+        let isLiked =  document.getElementById("isLiked").value;
+        console.log("좋아요?",isLiked);
+        const userCode = document.getElementById("login-user").value;
+        console.log("유코",userCode);
+        const postCode = document.getElementById("post-code").value;
+        console.log("포코",postCode);
 
+        $('.likeBtn').click(function () {
+            // console.log("유코",userCode);
+            // console.log("포코",postCode);
+
+            console.log("누르기 전 좋아요 상태",isLiked);
+            var $btn = $(this);
+            if (isLiked) {
+                $.ajax({
+                    type: 'post',
+                    url: '/user/likeDown',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        postCode,
+                        userCode
+                    }),
+                    success: function (data) {
+                        isLiked = false;
+                            $btn.removeClass('liked');
+                        $btn.html('<br/>좋아요');
+                        console.log("좋아요 취소 성공");
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: 'post',
+                    url: '/user/likeUp',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        postCode,
+                        userCode
+                    }),
+                    success: function (data) {
+                        isLiked = true;
+                        $btn.addClass('liked');
+                        $btn.html('♥️<br/>좋아요');
+                        console.log("좋아요 성공");
+                    }
+                });
+            }
+        });
 
     </script>
 </th:block>

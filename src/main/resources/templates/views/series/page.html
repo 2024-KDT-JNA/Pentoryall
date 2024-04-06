@@ -84,7 +84,7 @@
                     <!--중간 네비게이터-->
                     <div class="container-button">
                         <button class="container-button-like">
-                            + ♡ 222
+<!--                             <p class="" th:text="|${likeCount}|"></p>-->
                         </button>
                         <a>
                             <button class="container-button-first-post">
@@ -119,31 +119,30 @@
                     <th:block th:if="${post.isAdult == 'Y'}">
                     <img class="post-information-adult" th:src="@{/images/temp/adult.png}"/>
                     </th:block>
-                    <div class="series-post-content-information">
-                        <div class="post-information-title">
-                            <p class="post-information-title-content" th:text="|${postStat.index}화. ${post.title}|">
-                            </p>
-                        </div>
-                        <div class="b">
-                            <button class="post-information-like" th:onclick="'event.stopPropagation();'">
-                                ♡ 222
-                            </button>
-                            <div class="post-information-log">
-                                <p class="post-information-log-title">
-                                <p class="post-information-log-content">조회 : 34회</p>
+                        <div class="series-post-content-information">
+                            <div class="post-information-title">
+                                <p class="post-information-title-content" th:text="|${postStat.index}화. ${post.title}|">
                                 </p>
                             </div>
+                            <div class="b">
+                                <button class="post-information-like" th:onclick="'event.stopPropagation();'">
+                                    ♡ 222
+                                </button>
+                                <div class="post-information-log">
+                                    <p class="post-information-log-title">
+                                    <p class="post-information-log-content">조회 : 34회</p>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="series-post-update-delete">
+                            <button class="series-update-button btn" th:onclick="'event.stopPropagation(); location.href = \'' + @{/post/updatewriter(code=${post.code})} + '\''">수정</button>
+                            <button class="series-delete-button btn" th:onclick="'event.stopPropagation(); location.href = \'' + @{/post/delete(code=${post.code})} + '\''">삭제</button>
                         </div>
                     </div>
-
-
-                    <div class="series-post-update-delete">
-                        <button class="series-update-button btn" th:onclick="'event.stopPropagation(); location.href = \'' + @{/post/updatewriter(code=${post.code})} + '\''">수정</button>
-                        <button class="series-delete-button btn" th:onclick="'event.stopPropagation(); location.href = \'' + @{/post/delete(code=${post.code})} + '\''">삭제</button>
-                    </div>
-
                 </div>
-
 <!--                <div class="post-information-thumbnail">-->
 <!--                    <img class="post-information-thumbnail-content" src="/images/temp/series-thumbnail.png">-->
 <!--                    &lt;!&ndash;자물쇠 모양 이미지&ndash;&gt;-->
@@ -282,7 +281,6 @@
 <!--                    </div>-->
 <!--                </div>-->
 
-            </div>
 
             </section>
         </div>

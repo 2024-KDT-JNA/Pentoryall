@@ -11,4 +11,6 @@ public interface LikePostMapper {
     List<LikePostDTO> getLikedPostsByUserCode(long userCode);
 
     int getLikeCount(long userCode);
+
+    List<LikePostDTO> selectLikeByPostCode(Long seriesCode, Long code);
 }
