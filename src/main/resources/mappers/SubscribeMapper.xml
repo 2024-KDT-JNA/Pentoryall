@@ -5,20 +5,21 @@
 <mapper namespace="com.pentoryall.subscribe.mapper.SubscribeMapper">
 
     <select id="getAllSubscribers" resultType="com.pentoryall.subscribe.dto.SubscribeDTO">
-        SELECT
-            s.code,
-            s.user_code,
-            s.subscribe_user_code,
-            s.subscribed_date,
-            u.nickname
+        SELECT s.code,
+               s.user_code,
+               s.subscribe_user_code,
+               s.subscribed_date,
+               u.nickname
         FROM subscribe s
-        JOIN user u
-        ON u.code = s.user_code
+                 JOIN user u
+                      ON u.code = s.user_code
         WHERE subscribe_user_code = #{subscribeUserCode}
     </select>
 
     <select id="getSubscriberCount" resultType="java.lang.Integer">
-        SELECT COUNT(*) AS subscriberCount FROM subscribe WHERE subscribe_user_code = #{subscribeUserCode}
+        SELECT COUNT(*) AS subscriberCount
+        FROM subscribe
+        WHERE subscribe_user_code = #{subscribeUserCode}
     </select>
 
 
@@ -33,28 +34,43 @@
                  JOIN user u
                       ON u.code = s.subscribe_user_code
         WHERE s.user_code = #{userCode}
+          AND u.is_subscriber_visible = 'Y';
     </select>
 
     <select id="getSubscribeStoryCount" resultType="java.lang.Integer">
-        SELECT COUNT(*) AS subscriberStoryCount FROM subscribe WHERE user_code = #{userCode}
+        SELECT COUNT(*) AS subscriberStoryCount
+        FROM subscribe
+        WHERE user_code = #{userCode}
     </select>
 
 
-
-
-<insert id="addSubscriber" parameterType="com.pentoryall.subscribe.dto.SubscribeDTO">
-INSERT INTO subscribe
-    (user_code,
-     subscribe_user_code,
-     subscribed_date)
-VALUES
-    (#{userCode},
-     #{subscribeUserCode},
-     #{subscribedDate})
-</insert>
+    <insert id="addSubscriber" parameterType="com.pentoryall.subscribe.dto.SubscribeDTO">
+        INSERT INTO subscribe
+        (user_code,
+         subscribe_user_code,
+         subscribed_date)
+        VALUES (#{userCode},
+                #{subscribeUserCode},
+                #{subscribedDate})
+    </insert>
     <delete id="cancelSubscriber" parameterType="com.pentoryall.subscribe.dto.SubscribeDTO">
-        DELETE FROM subscribe
+        DELETE
+        FROM subscribe
         WHERE user_code = #{userCode}
           AND subscribe_user_code = #{subscribeUserCode}
     </delete>
+    <select id="selectSubscribersByUserCode" parameterType="long"
+            resultType="com.pentoryall.subscribe.dto.SubscribeDTO">
+        SELECT s.*, u.nickname AS user_nickname
+        FROM subscribe s
+                 Join user u ON s.subscribe_user_code = u.code
+        WHERE subscribe_user_code = #{subscribeUserCode}
+    </select>
+
+    <update id="updateSubscriberStatus" parameterType="com.pentoryall.subscribe.dto.SubscribeDTO">
+        UPDATE user
+        SET is_subscriber_visible = 'Y'
+        WHERE code = #{code}
+    </update>
+
 </mapper>

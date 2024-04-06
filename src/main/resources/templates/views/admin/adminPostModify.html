@@ -4,10 +4,9 @@
       layout:decorate="~{/layout/settings}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css" />
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
-   <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css"/>
 </th:block>
 
 <th:block layout:fragment="content">
@@ -34,7 +33,7 @@
                     <thead>
                     <tr>
                         <th>
-                            <input type="checkbox" id="checkAll-modify-1" name="" class="form-check-input" />
+                            <input type="checkbox" id="checkAll-modify-1" name="" class="form-check-input"/>
                         </th>
                         <th class="tg-0lax">번호</th>
                         <th class="tg-0lax">아이디</th>
@@ -45,19 +44,23 @@
                         <th class="tg-0lax">수정관리</th>
                     </tr>
                     </thead>
-                        <tbody>
-                        <th:block th:each="modifyPostAllList : ${modifyPostAllList}">
-                            <th><input type="checkbox" id="checkAll-modify-2" name="" class="form-check-input" /></th>
-                            <td data-modify="listCode" th:text="${modifyPostAllList.code}" class="tg-0lax">1</td>
-                            <td data-modify="listCode" th:text="${modifyPostAllList.userCode}" class="tg-0lax"></td>
-                            <td data-modify="listCode" th:text="${modifyPostAllList.title}" class="tg-0lax"></td>
-                            <td data-modify="listCode" th:text="${modifyPostAllList.confirmContent}" class="tg-0lax"></td>
-                            <td data-modify="listCode" th:text="${modifyPostAllList.price}" class="tg-0lax"></td>
-                            <td data-modify="listCode" th:text="${modifyPostAllList.createDate}" class="tg-0lax"></td>
-                            <td><button type="button" class="button btn-modify" th:attr="data-user=${modifyPostAllList.postCode}">수락</button></td>
-                        </th:block>
-                        </tbody>
-                    </table>
+                    <tbody>
+                    <th:block th:each="modifyPostAllList : ${modifyPostAllList}">
+                        <th><input type="checkbox" id="checkAll-modify-2" name="" class="form-check-input"/></th>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.code}" class="tg-0lax">1</td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.userCode}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.title}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.confirmContent}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.price}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.createDate}" class="tg-0lax"></td>
+                        <td>
+                            <button type="button" class="button btn-modify"
+                                    th:attr="data-user=${modifyPostAllList.postCode}">수락
+                            </button>
+                        </td>
+                    </th:block>
+                    </tbody>
+                </table>
                 <div class="page">
                     <ul class="pagination-modifyPost">
                         <li><a href="#" class="first">처음페이지</a></li>
@@ -89,8 +92,8 @@
                             <div class="pop-btn">
                                 <form action="/admin/modify/posts/confirm" method="post" id="reportForm">
                                     <input type="hidden" name="postCode" id="postCode">
-                                    <button type="submit" class="button" >확인</button>
-                                    <button type="button" class="button" >취소</button>
+                                    <button type="submit" class="button">확인</button>
+                                    <button type="button" class="button">취소</button>
                                 </form>
                             </div>
                         </div>
@@ -104,7 +107,7 @@
                 const $postCodeInput = document.getElementById('postCode');
 
                 $deleteBtns.forEach(btn => {
-                    btn.addEventListener('click', function() {
+                    btn.addEventListener('click', function () {
                         const postCode = btn.getAttribute('data-user');
                         $postCodeInput.value = postCode;
                         showPopup();
@@ -116,7 +119,7 @@
                     popup.classList.remove('blind');
                 }
 
-                document.querySelector('.close-btn').addEventListener('click', function() {
+                document.querySelector('.close-btn').addEventListener('click', function () {
                     const popup = document.querySelector('.layer-popup-small');
                     popup.classList.add('blind');
                 });

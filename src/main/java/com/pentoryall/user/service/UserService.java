@@ -56,6 +56,8 @@ public class UserService {
             String encodedPassword = passwordEncoder.encode(modifyUser.getPassword());
             modifyUser.setPassword(encodedPassword);
         }
+        char isSubscriberVisible = modifyUser.getIsSubscriberVisible();  // <--- 구독 개여부 가져오기
+        modifyUser.setIsSubscriberVisible(isSubscriberVisible);  //<------------ 구독 공개여부 다시 설정하여 반영 추가 (승재)
         int result = userMapper.updateUser(modifyUser);
 
         if (!(result > 0)) throw new MemberModifyException("회원 정보 수정에 실패하였습니다.");

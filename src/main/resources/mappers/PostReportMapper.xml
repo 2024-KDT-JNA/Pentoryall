@@ -5,43 +5,35 @@
 
 <mapper namespace="com.pentoryall.admin.mapper.PostReportMapper">
 
-    <select id="selectAllPostReportList" resultType="com.pentoryall.admin.DTO.PostReportDTO">
-        SELECT
-            r.code,
-            r.post_code,
-            u.user_id,
-            u.nickname,
-            r.type,
-            r.report_date,
-            p.code,
-            p.title
-        FROM
-            report r
-                JOIN user u ON r.user_code = u.code
-                JOIN post p ON r.post_code = p.code
-        WHERE
-            r.type = 'post'
-        ORDER BY
-            r.report_date,
-            u.code;
+    <select id="selectAllPostReportList" resultType="com.pentoryall.admin.dto.PostReportDTO">
+        SELECT r.code,
+               r.post_code,
+               u.user_id,
+               u.nickname,
+               r.type,
+               r.report_date,
+               p.code,
+               p.title
+          FROM report r
+                   JOIN user u ON r.user_code = u.code
+                   JOIN post p ON r.post_code = p.code
+         WHERE r.type = 'post'
+           AND p.is_deleted = 'N'
+         ORDER BY r.report_date, u.code;
     </select>
 
 
     <select id="selectTotalCount" resultType="_int">
-        SELECT
-            COUNT(*)
-        FROM
-            report
+        SELECT COUNT(*)
+          FROM report
     </select>
 
     <update id="deleteByPostCode" parameterType="com.pentoryall.post.dto.PostDTO">
-        UPDATE
-            post
-        SET is_deleted = 'Y'
-        WHERE is_deleted = 'N'
-          AND code = #{postCode}
+        UPDATE post
+           SET is_deleted = 'Y'
+         WHERE is_deleted = 'N'
+           AND code = #{postCode}
     </update>
-
 
 
 </mapper>
