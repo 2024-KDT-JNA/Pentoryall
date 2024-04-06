@@ -21,6 +21,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -49,6 +51,24 @@ public class PointOrderController {
         model.addAttribute("user", user);
 
         return "views/point/order";
+    }
+
+    @GetMapping("/list")
+    public String orderListPage(Model model,
+                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(required = false) String searchCondition,
+                                @RequestParam(required = false) String searchValue,
+                                @AuthenticationPrincipal UserDTO sessionUser) {
+
+        Map<String, String> searchMap = new HashMap<>();
+        searchMap.put("searchCondition", searchCondition);
+        searchMap.put("searchValue", searchValue);
+
+        Map<String, Object> orderListAndPaging = orderService.selectAllWithPagingByUserCode(searchMap, page, sessionUser.getCode());
+        model.addAttribute("paging", orderListAndPaging.get("paging"));
+        model.addAttribute("orderList", orderListAndPaging.get("orderList"));
+
+        return "views/point/orderList";
     }
 
     @PostMapping("/payment")
@@ -99,10 +119,6 @@ public class PointOrderController {
         return "views/point/orderResult";
     }
 
-    @GetMapping("/list")
-    public String orderListPage() {
-        return "views/point/orderList";
-    }
 
     /* 주문 정보의 회원 코드와 로그인 회원 정보가 일치하는지 검증 */
     private boolean isValidUserInfo(Long userCode, Long sessionUserCode) {
