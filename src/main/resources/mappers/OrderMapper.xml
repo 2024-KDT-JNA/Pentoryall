@@ -4,15 +4,40 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pentoryall.point.mapper.OrderMapper">
-    <insert id="insertOrder" parameterType="com.pentoryall.point.dto.OrderDTO" useGeneratedKeys="true"
-            keyProperty="code">
+    <!-- SELECT -->
+    <select id="selectTotalCountByUserCode" resultType="java.lang.Integer">
+        SELECT COUNT(code)
+          FROM `order`
+         WHERE user_code = #{ userCode }
+    </select>
+    <select id="selectByOrderCode" resultType="com.pentoryall.point.dto.OrderDTO">
+        SELECT code, user_code, amount, point, create_date
+          FROM `order`
+         WHERE code = #{ orderCode }
+    </select>
+    <select id="selectAllByUserCode" resultType="com.pentoryall.point.dto.OrderDTO">
+        SELECT code, user_code, amount, point, create_date
+        FROM `order`
+        WHERE user_code = #{ userCode }
+        <!-- <where> -->
+        <!--     &lt;!&ndash; 단어 포함 검색 &ndash;&gt; -->
+        <!--     <if test="searchCondition == 'name'"> -->
+        <!--         name LIKE CONCAT('%', #{searchValue}, '%') -->
+        <!--     </if> -->
+        <!--     <if test="searchCondition == 'id'"> -->
+        <!--         user_id LIKE CONCAT('%', #{searchValue}, '%') -->
+        <!--     </if> -->
+        <!--     <if test="searchCondition == 'nickname'"> -->
+        <!--         nickname LIKE CONCAT('%', #{searchValue}, '%') -->
+        <!--     </if> -->
+        <!-- </where> -->
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- INSERT -->
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="code" parameterType="com.pentoryall.point.dto.OrderDTO">
         INSERT INTO `order`(user_code, amount, point)
         VALUES (#{userCode}, #{amount}, #{point});
     </insert>
-    <select id="selectByOrderCode" resultType="com.pentoryall.point.dto.OrderDTO">
-        SELECT code, user_code, amount, point, create_date
-        FROM `order`
-        WHERE code = #{ orderCode }
-    </select>
 </mapper>
 

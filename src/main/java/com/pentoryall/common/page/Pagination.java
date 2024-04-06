@@ -5,6 +5,10 @@ import java.util.Map;
 
 public class Pagination {
 
+    public static SelectCriteria getSelectCriteria(int page, int totalCount, Map<String, String> searchMap) {
+        return getSelectCriteria(page, totalCount, 10, 5, searchMap);
+    }
+
     public static SelectCriteria getSelectCriteria(int page, int totalCount, int limit, int buttonAmount, Map<String, String> searchMap) {
 
         /* 총 페이지 수 계산 */
