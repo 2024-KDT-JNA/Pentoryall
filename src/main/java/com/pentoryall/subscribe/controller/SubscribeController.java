@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,16 +27,19 @@ public class SubscribeController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> addSubscribe(@ModelAttribute SubscribeDTO subscribeDTO) {
+    public ResponseEntity<Void> addSubscribe(@RequestParam("userCode") long userCode) {
+        SubscribeDTO subscribeDTO = new SubscribeDTO();
+        subscribeDTO.setUserCode(userCode);
         subscribeDTO.setSubscribedDate(LocalDate.now());
         subscribeService.addSubscriber(subscribeDTO);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/cancel")
-    public ResponseEntity<Void> cancelSubscribe(@RequestBody SubscribeDTO subscribeDTO) {
+    public ResponseEntity<Void> cancelSubscribe(@RequestParam("userCode") long userCode) {
+        SubscribeDTO subscribeDTO = new SubscribeDTO();
+        subscribeDTO.setUserCode(userCode);
         subscribeService.cancelSubscribe(subscribeDTO);
-        System.out.println(subscribeDTO);
         return ResponseEntity.ok().build();
     }
 
@@ -45,8 +51,6 @@ public class SubscribeController {
         List<SubscribeDTO> subscribersList = subscribeService.selectAllSubscribers(user.getCode());
         System.out.println(subscribersList);
 
-        int subscriberCount = subscribeService.getSubscriberCount(user.getCode());
-        model.addAttribute("subscriberCount", subscriberCount);
         model.addAttribute("subscribers", subscribersList);
 
         if (subscribersList.isEmpty()) {
@@ -69,8 +73,6 @@ public class SubscribeController {
         List<SubscribeDTO> subscribersList = subscribeService.selectAllSubscribeStory(user.getCode());
         System.out.println(subscribersList);
 
-        int subscriberStoryCount = subscribeService.getSubscribeStoryCount(user.getCode());
-        model.addAttribute("subscriberStoryCount", subscriberStoryCount);
 
         String userName = user.getName();
         model.addAttribute("userName", userName);

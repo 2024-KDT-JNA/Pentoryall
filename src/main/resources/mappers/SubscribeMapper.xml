@@ -16,13 +16,6 @@
         WHERE subscribe_user_code = #{subscribeUserCode}
     </select>
 
-    <select id="getSubscriberCount" resultType="java.lang.Integer">
-        SELECT COUNT(*) AS subscriberCount
-        FROM subscribe
-        WHERE subscribe_user_code = #{subscribeUserCode}
-    </select>
-
-
     <select id="getAllSubscribeStory" resultType="com.pentoryall.subscribe.dto.SubscribeDTO">
         SELECT s.code,
                s.user_code,
@@ -37,12 +30,19 @@
           AND u.is_subscriber_visible = 'Y';
     </select>
 
-    <select id="getSubscribeStoryCount" resultType="java.lang.Integer">
-        SELECT COUNT(*) AS subscriberStoryCount
-        FROM subscribe
-        WHERE user_code = #{userCode}
+    <select id="selectSubscribersByUserCode" parameterType="long"
+            resultType="com.pentoryall.subscribe.dto.SubscribeDTO">
+        SELECT s.*, u.nickname AS user_nickname
+        FROM subscribe s
+                 Join user u ON s.subscribe_user_code = u.code
+        WHERE subscribe_user_code = #{subscribeUserCode}
     </select>
 
+    <update id="updateSubscriberStatus" parameterType="com.pentoryall.subscribe.dto.SubscribeDTO">
+        UPDATE user
+        SET is_subscriber_visible = 'Y'
+        WHERE code = #{code}
+    </update>
 
     <insert id="addSubscriber" parameterType="com.pentoryall.subscribe.dto.SubscribeDTO">
         INSERT INTO subscribe
@@ -59,18 +59,4 @@
         WHERE user_code = #{userCode}
           AND subscribe_user_code = #{subscribeUserCode}
     </delete>
-    <select id="selectSubscribersByUserCode" parameterType="long"
-            resultType="com.pentoryall.subscribe.dto.SubscribeDTO">
-        SELECT s.*, u.nickname AS user_nickname
-        FROM subscribe s
-                 Join user u ON s.subscribe_user_code = u.code
-        WHERE subscribe_user_code = #{subscribeUserCode}
-    </select>
-
-    <update id="updateSubscriberStatus" parameterType="com.pentoryall.subscribe.dto.SubscribeDTO">
-        UPDATE user
-        SET is_subscriber_visible = 'Y'
-        WHERE code = #{code}
-    </update>
-
 </mapper>

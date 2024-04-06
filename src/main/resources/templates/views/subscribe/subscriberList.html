@@ -15,7 +15,7 @@
                     <div>
                         <h3 class="h3">구독자</h3>
                         <p>총
-                            <span th:text="${subscriberCount}">00</span>명</p>
+                        <p>총 <span th:text="${subscribers.size()}">0</span>명</p>
                         <div>
                             <div th:if="${subscribers == null or subscribers.size() == 0}">
                                 <p>
