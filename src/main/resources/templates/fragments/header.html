@@ -71,7 +71,7 @@
                 <div class="user-profile">
                     <div class="profile-image">
                         <img th:src="${#authentication.principal.profileImage != null
-                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필" />
+                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
                     </div>
                     <div class="profile-info">
                         <span class="nickname" sec:authentication="principal.nickname">닉네임</span>
@@ -80,9 +80,7 @@
                     <div class="profile-point">
                         <dl class="point-info">
                             <dt>포인트</dt>
-                            <dd th:text="|${#authentication.principal.point > 0 ? #numbers.formatInteger(#authentication.principal.point, 3, 'COMMA') : 0}P|">
-                                0P
-                            </dd>
+                            <dd th:text="|${#authentication.principal.point > 0 ? #numbers.formatInteger(#authentication.principal.point, 3, 'COMMA') : 0}P|">0P</dd>
                         </dl>
                         <a th:href="@{/point/order}" class="button"> 충전</a>
 

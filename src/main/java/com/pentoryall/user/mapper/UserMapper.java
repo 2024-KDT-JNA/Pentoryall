@@ -33,4 +33,6 @@ public interface UserMapper {
     void updatePointByUserCode(UserDTO user);
 
     void updateRevenueByUserCode(UserDTO sellerUser);
+
+    String checkEmailExists(String email);
 }

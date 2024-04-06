@@ -50,7 +50,6 @@
         WHERE state = 'ACTIVE'
           AND user_id = #{ userId }
     </select>
-
     <select id="selectUserById" resultType="string">
         SELECT user_id
         FROM user
@@ -63,6 +62,12 @@
         WHERE state = 'ACTIVE'
           AND nickname = #{nickname}
     </select>
+    <select id="checkEmailExists" resultType="string">
+        SELECT user_id
+        FROM user
+        WHERE state = 'ACTIVE'
+          AND email = #{email}
+    </select>
     <insert id="insertUser">
         INSERT INTO user (user_id, password, name, nickname, email, birth)
         VALUES (#{ userId }, #{ password }, #{ name }, #{ nickname }, #{ email }, #{ birth })
@@ -70,17 +75,20 @@
     <update id="updateUser">
         UPDATE
         user
+        SET
+        nickname = #{ nickname },
+        introduction = #{ introduction }
         SET nickname = #{ nickname },
         introduction = #{ introduction },
         is_subscriber_visible = #{isSubscriberVisible} -- 구독 공개여부 쿼리문 추가 (승재)
         <if test="password !=''">
             ,password = #{ password }
         </if>
-        /* 프로필이미지가 'removed'와 같을때 NULL로 */
+        -- 프로필이미지가 'removed'와 같을때 NULL로
         <if test="profileImage == 'removed'">
             ,profile_image = NULL
         </if>
-        /* 프로필이미지가 NULL */
+        -- 프로필이미지가 NULL
         <if test="profileImage !=null and profileImage != 'removed'">
             ,profile_image = #{ profileImage }
         </if>

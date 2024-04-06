@@ -3,6 +3,7 @@ package com.pentoryall.user.controller;
 import com.pentoryall.common.exception.user.MemberModifyException;
 import com.pentoryall.common.exception.user.MemberRegistException;
 import com.pentoryall.common.exception.user.MemberRemoveException;
+import com.pentoryall.email.service.FindPwMail;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.service.AuthService;
 import com.pentoryall.user.service.UserService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -48,27 +50,11 @@ public class UserController {
 
     private final MessageSourceAccessor messageSourceAccessor;
 
-//    @PostMapping("/emails/verification-requests")
-//    public ResponseEntity sendMessage(@RequestParam("email") @Valid @CustomEmail String email) {
-//        userService.sendCodeToEmail(email);
-//
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/emails/verifications")
-//    public ResponseEntity verificationEmail(@RequestParam("email") @Valid @CustomEmail String email,
-//                                            @RequestParam("code") String authCode) {
-//        EmailVerificationResult response = userService.verifiedCode(email, authCode);
-//
-//        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
-//    }
+    private final FindPwMail findPwMail;
 
     /* 로그인 페이지 이동 */
     @GetMapping("/login")
     public String loginPage(Model model) {
-//        if (error != null) {
-//            model.addAttribute("errorMessage", "존재하지 않는 회원입니다.");
-//        }
         return "views/user/login";
     }
 
@@ -238,21 +224,12 @@ public class UserController {
 //
 //        /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
 //        rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
-//
-//        /* 로그아웃 처리 (세션만료) */
-//        return "redirect:/user/logout";
 
         // 사용자가 입력한 비밀번호를 인코딩하여 저장된 비밀번호와 비교
         if (passwordEncoder.matches(password, user.getPassword())) {
             /* 회원을 DB에서 삭제 */
             System.out.println("들어가긴하나");
             userService.removeUser(user);
-
-//            // 세션 무효화 (로그아웃 처리)
-//            request.getSession().invalidate();
-
-            /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
-            //rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
 
             /* 로그아웃 처리 (세션 만료) */
             return "redirect:/user/logout";
@@ -289,5 +266,29 @@ public class UserController {
     @GetMapping("/findPwd")
     public String findPwdPage() {
         return "views/user/findPwd";
+    }
+
+    @PostMapping("/findUserPwd")
+    public ResponseEntity<String> findPwd(@RequestParam("email") String email, UserDTO user) throws Exception {
+        System.out.println("email = " + email);
+
+        // 여기서 데이터베이스에서 이메일이 존재하는지 확인하는 로직을 구현해야 합니다.
+        // 이 예시에서는 userService를 사용하여 이메일 존재 여부를 확인하는 메서드를 호출합니다.
+        boolean emailExists = userService.checkEmailExists(email);
+
+        if (email != null) {
+            // 임시 패스워드 메일 발송 및 변수 저장
+            String tempPw = passwordEncoder.encode(findPwMail.sendSimpleMessage(user.getEmail()));
+
+            System.out.println("tempPw : " + tempPw);
+//            // 임시 패스워드 db 에 저장
+//            ms.changeTempPw(tempPw, user.getMno());
+
+            // 임시 패스워드 발급 완료 메시지를 클라이언트에게 반환합니다.
+            return ResponseEntity.ok("success");
+        } else {
+            // 이메일 주소가 존재하지 않는 경우에는 클라이언트에게 "이메일 주소가 없습니다."와 같은 메시지를 반환합니다.
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이메일 주소가 없습니다.");
+        }
     }
 }

@@ -21,8 +21,6 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-//    private final UserRepository userRepository;
-
     public boolean selectUserById(String userId) {
 
         String result = userMapper.selectUserById(userId);
@@ -84,6 +82,12 @@ public class UserService {
 
     public List<UserDTO> getUserListByWord(String word) {
         return userMapper.getUserListByWord(word);
+    }
+
+    public boolean checkEmailExists(String email) {
+        String result = userMapper.checkEmailExists(email);
+
+        return result != null;
     }
 
 //    public boolean isPasswordCorrect(String userId, String enteredPassword) {

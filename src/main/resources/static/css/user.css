@@ -15,7 +15,7 @@ input[type="button"] {
 }
 
 .login_info {
-    max-width: 480px;
+    max-width: 516px;
     width: 100%;
     margin: auto;
 }
@@ -156,6 +156,14 @@ input[type="button"] {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
+}
+
+.loginWrap input::placeholder {
+    font-size: 14px;
+}
+
+#remember-me {
+    display: inline-block;
 }
 
 /* 회원가입 */
