@@ -12,7 +12,7 @@ public interface SeriesMapper {
 
     SeriesDTO getSeriesInformationBySeriesCode(long seriesCode);
 
-    List<SeriesDTO> getSeriesList(int i);
+    List<SeriesDTO> getSeriesList(long code);
 
     long addSeriesOptions(SeriesDTO seriesDTO);
 

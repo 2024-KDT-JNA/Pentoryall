@@ -54,7 +54,7 @@
         FROM
             series
         WHERE
-            user_code=#{i};
+            user_code=#{code};
     </select>
 
     <insert id="addSeriesOptions">

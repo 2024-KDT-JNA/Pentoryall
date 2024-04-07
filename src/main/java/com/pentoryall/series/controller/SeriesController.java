@@ -151,7 +151,7 @@ public class SeriesController {
         }
 
         System.out.println("성공함");
-        long urlCode = seriesDTO.getCode() + 1;
+        long urlCode = seriesDTO.getCode()+1;
         return "redirect:/series/page?code=" + urlCode;
     }
 

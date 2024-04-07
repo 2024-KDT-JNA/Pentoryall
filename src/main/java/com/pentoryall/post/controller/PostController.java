@@ -198,6 +198,12 @@ public class PostController {
             } else {
                 model.addAttribute("isLiked", false);
             }
+        int likeCount = 0;
+            List<LikeDTO> likeList = likeService.selectLikeByPostCode(code);
+            if(likeList!=null && !likeList.isEmpty()) {
+                 likeCount = likeList.size();
+            }
+            model.addAttribute("likeCount",likeCount);
 
         if(!commentList.isEmpty() || commentList!=null) {
 //            System.out.println("유저 정보 : " + commentList.get(0).getUser());
@@ -219,8 +225,9 @@ public class PostController {
     }
 
     @GetMapping("/seriesList")
-    public @ResponseBody List<SeriesDTO> functionGetSeriesList() {
-        List<SeriesDTO> seriesList = seriesService.getSeriesList(1);
+    public @ResponseBody List<SeriesDTO> functionGetSeriesList(@AuthenticationPrincipal UserDTO user) {
+        System.out.println("user = " + user);
+        List<SeriesDTO> seriesList = seriesService.getSeriesList(user.getCode());
         System.out.println(seriesList);
         return seriesList;
     }
