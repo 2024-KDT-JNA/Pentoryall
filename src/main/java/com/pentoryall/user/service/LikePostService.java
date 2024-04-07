@@ -22,4 +22,8 @@ public class LikePostService {
         System.out.println("userCode = " + userCode);
         return likePostMapper.getLikeCount(userCode);
     }
+
+    public List<LikePostDTO> selectLikeByPostCode(Long seriesCode, Long code) {
+        return likePostMapper.selectLikeByPostCode(seriesCode,code);
+    }
 }
