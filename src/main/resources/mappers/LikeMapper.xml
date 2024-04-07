@@ -50,4 +50,10 @@
         WHERE
             post_code=#{code}
     </select>
+    <delete id="deleteLikeByPostCode">
+        DELETE
+        FROM `like`
+        WHERE
+            post_code=#{code}
+    </delete>
 </mapper>

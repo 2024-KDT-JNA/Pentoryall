@@ -335,6 +335,9 @@ public class PostController {
         genreOfArtService.deleteSeriesGenreByPostCode(code);
         System.out.println("장르에 포함된 포스트가 삭제 되었습니다.");
 
+        likeService.deleteLikeByPostCode(code);
+        System.out.println("좋아요가 삭제 되었습니다.");
+
         postService.deletePostByPostCode(code);
         System.out.println("포스트가 삭제 되었습니다.");
         String url = "redirect:/series/page?code=" + seriesCode;
