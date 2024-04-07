@@ -205,4 +205,10 @@
     FROM
         series
 </select>
+    <select id="selectLatestCode">
+        SELECT code
+        FROM series
+        ORDER BY create_date DESC
+            LIMIT 1;
+    </select>
 </mapper>

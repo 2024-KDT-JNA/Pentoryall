@@ -31,8 +31,7 @@
                     <div class="container-inner">
                         <div class="series-thumbnail">
                             <button type="button" class="series-thumbnail-button">
-                                <img class="series-thumbnail-button-img" th:src="${series.thumbnailImage != null
-                        ? series.thumbnailImage : '/images/temp/profile.png'}">
+                                <img class="series-thumbnail-button-img" th:src="${series.thumbnailImage != null ? series.thumbnailImage : '/images/temp/profile.png'}">
                             </button>
                         </div>
                         <div class="series-title">
@@ -43,8 +42,8 @@
                                     <!--								<a class="series-author-information-detail">-->
                                     <div class="author-image-name">
                                         <img class="series-author-information-detail-image"
-                                             th:src="${series.thumbnailImage}"/>
-                                        <div class="series-author-information-detail-name"><h5 class="series-author-name">232<span
+                                             th:src="${user.profileImage != null ? user.profileImage : '/images/temp/profile.png'}"/>
+                                        <div class="series-author-information-detail-name"><h5 class="series-author-name" th:text="${user.name}"><span
                                                 class="writer">· 글/그림
                                             <div class="membership-subscribe-btn">
                                                 <button class="membership-button btn">

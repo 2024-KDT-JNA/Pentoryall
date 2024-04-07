@@ -67,4 +67,7 @@ public class SeriesService {
         return seriesMapper.selectAllSeries();
     }
 
+    public SeriesDTO selectLatestCode() {
+       return  seriesMapper.selectLatestCode();
+    }
 }
