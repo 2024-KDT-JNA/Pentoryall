@@ -1008,3 +1008,6 @@ form input::file-selector-button {
 .b{
     padding-top:10px;
 }
+.likeCount{
+    font-size: 20px;
+}
