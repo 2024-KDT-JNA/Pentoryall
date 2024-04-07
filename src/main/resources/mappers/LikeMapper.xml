@@ -40,4 +40,14 @@
         WHERE
             user_code=#{userCode} AND post_code=#{code}
     </select>
+    <select id="selectLikeByPostCode">
+        SELECT
+            code,
+            user_code,
+            post_code
+        FROM
+            `like`
+        WHERE
+            post_code=#{code}
+    </select>
 </mapper>

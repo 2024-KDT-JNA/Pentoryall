@@ -83,7 +83,7 @@
 
                     <!--중간 네비게이터-->
                     <div class="container-button">
-                        <button class="container-button-like">
+                        <button class="container-button-like" onclick="likeCounts()" >
 <!--                             <p class="" th:text="|${likeCount}|"></p>-->
                         </button>
                         <a>
@@ -106,40 +106,42 @@
                 </div>
 
                 <!--포스트-->
-            <div th:each="post : ${postList}">
-
-                <div class="post-information-thumbnail" th:onclick="'location.href = \'' + @{/post/information(code=${post.code})} + '\''">
-                    <img class="post-information-thumbnail-content" th:src="${post.thumbnailImage != null
-                        ? post.thumbnailImage : '/images/temp/profile.png'}">
-                    <!--자물쇠 모양 이미지-->
-                    <th:block th:if="${post.isPaid =='Y'}">
-                    <img  class="bi bi-lock-fill" th:src="@{/images/temp/자물쇠.png}"/>
-                    <div  class="post-information-lock"><p th:text="|${post.price}P|"></p></div>
-                    </th:block>
-                    <th:block th:if="${post.isAdult == 'Y'}">
-                    <img class="post-information-adult" th:src="@{/images/temp/adult.png}"/>
-                    </th:block>
-                        <div class="series-post-content-information">
-                            <div class="post-information-title">
-                                <p class="post-information-title-content" th:text="|${postStat.index}화. ${post.title}|">
-                                </p>
-                            </div>
-                            <div class="b">
-                                <p class="post-information-like" th:onclick="'event.stopPropagation();'">
-                                    ♡ 222
-                                </p>
-                                <div class="post-information-log">
-                                    <p class="post-information-log-title">
-                                    <p class="post-information-log-content">조회 : 34회</p>
+                <div class="post-wrapper">
+                <div class="post-list" th:each="post : ${postList}" th:value="${post.code}">
+                    <input class="likeCount" th:value="${post.code}" hidden/>
+                    <div class="post-information-thumbnail" th:onclick="'location.href = \'' + @{/post/information(code=${post.code})} + '\''">
+                        <img class="post-information-thumbnail-content" th:src="${post.thumbnailImage != null
+                            ? post.thumbnailImage : '/images/temp/profile.png'}">
+                        <!--자물쇠 모양 이미지-->
+                        <th:block th:if="${post.isPaid =='Y'}">
+                        <img  class="bi bi-lock-fill" th:src="@{/images/temp/자물쇠.png}"/>
+                        <div  class="post-information-lock"><p th:text="|${post.price}P|"></p></div>
+                        </th:block>
+                        <th:block th:if="${post.isAdult == 'Y'}">
+                        <img class="post-information-adult" th:src="@{/images/temp/adult.png}"/>
+                        </th:block>
+                            <div class="series-post-content-information">
+                                <div class="post-information-title">
+                                    <p class="post-information-title-content" th:text="|${postStat.index}화. ${post.title}|">
                                     </p>
                                 </div>
+                                <div class="b">
+                                    <p class="post-information-like" th:onclick="'event.stopPropagation();'">
+                                        ♡ 222
+                                    </p>
+                                    <div class="post-information-log">
+                                        <p class="post-information-log-title">
+                                        <p class="post-information-log-content">조회 : 34회</p>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
 
-                        <div class="series-post-update-delete">
-                            <button class="series-update-button btn" th:onclick="'event.stopPropagation(); location.href = \'' + @{/post/updatewriter(code=${post.code})} + '\''">수정</button>
-                            <button class="series-delete-button btn" th:onclick="'event.stopPropagation(); location.href = \'' + @{/post/delete(code=${post.code})} + '\''">삭제</button>
+                            <div class="series-post-update-delete">
+                                <button class="series-update-button btn" th:onclick="'event.stopPropagation(); location.href = \'' + @{/post/updatewriter(code=${post.code})} + '\''">수정</button>
+                                <button class="series-delete-button btn" th:onclick="'event.stopPropagation(); location.href = \'' + @{/post/delete(code=${post.code})} + '\''">삭제</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -301,6 +303,53 @@
 <!--           }-->
 <!--        })-->
 <!--    </script>-->
+<script th:inline="javascript">
+    function likeCounts() {
+        const likeCounts = document.querySelectorAll(".likeCount");
+        likeCounts.forEach(el => {
+            console.log("el",el);
+            const code = el.value;
+            console.log("포넘버ㅣ" , el.value);
+            fetch('/post/likeCount',{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify({
+                    code
+                }),
+            })
+                .then(result => result.json())
+                .then(data => {
+                    console.log("data:" + data);
+                    console.log("성공임니다");
+                    makeLikeArea(data,code);
+                })
+                .catch(error => console.log(error));
+        });
+    }
+
+    function makeLikeArea(likeCount,code) {
+        // 좋아요 갯수를 업데이트할 요소 선택
+        const likeElement = document.querySelectorAll(".likeCount");
+        likeElement.forEach(el => {
+            if(el.value == code){
+                console.log("el",el)
+                console.log("el.value",el.value);
+                console.log("code",code);
+                console.log("el.closest(\".post-wrapper\")",el.closest(".post-wrapper"));
+                console.log("el.closest(\".post-wrapper\").querySelector(\".post-information-like\")",el.closest(".post-list").querySelector(".post-information-like"));
+
+                const like = el.closest(".post-list").querySelector(".post-information-like");
+                // 요소의 내용 업데이트
+                like.innerHTML = `♡ ${likeCount}`;
+            }
+        })
+
+    }
+window.onload(likeCounts());
+
+</script>
 
 </th:block>
 </html>

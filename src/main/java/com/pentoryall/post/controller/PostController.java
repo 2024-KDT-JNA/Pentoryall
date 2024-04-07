@@ -486,4 +486,17 @@ public class PostController {
         System.out.println("가져와진 답글들 ^^ = " + commentList);
         return ResponseEntity.ok(commentList);
     }
+
+    @PostMapping("/likeCount")
+    public ResponseEntity<Integer> selectLikeCount(@RequestBody PostDTO postDTO){
+        System.out.println("postDTO = " + postDTO);
+        Integer result;
+        List<LikeDTO> likeList = likeService.selectLikeByPostCode(postDTO.getCode());
+        if(likeList!=null && !likeList.isEmpty()){
+            result = likeList.size();
+        }else{
+            result = 0;
+        }
+        return ResponseEntity.ok(result);
+    }
 }

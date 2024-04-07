@@ -70,7 +70,6 @@ public class SeriesController {
         }
 
         List<PostDTO> postLists = postService.selectPostsBySeriesCode(code);
-
         System.out.println("포스트리스트~~~ = " + postLists);
         
 //        List<LikePostDTO> result = new ArrayList<>();

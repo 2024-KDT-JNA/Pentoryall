@@ -6,6 +6,8 @@ import com.pentoryall.user.mapper.LikeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LikeService {
@@ -21,5 +23,9 @@ public class LikeService {
 
     public LikeDTO selectLikeByUserAndPost(long userCode, long code) {
         return likeMapper.selectLikeByUserAndPost(userCode,code);
+    }
+
+    public List<LikeDTO> selectLikeByPostCode(Long code) {
+        return likeMapper.selectLikeByPostCode(code);
     }
 }
