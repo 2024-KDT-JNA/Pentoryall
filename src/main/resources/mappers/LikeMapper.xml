@@ -56,4 +56,14 @@
         WHERE
             post_code=#{code}
     </delete>
+    <select id="getLikeByUserCode">
+        SELECT
+            code,
+            user_code,
+            post_code
+                FROM
+                `like`
+            WHERE
+            user_code=#{code}
+    </select>
 </mapper>

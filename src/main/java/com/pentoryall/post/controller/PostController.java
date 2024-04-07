@@ -11,7 +11,9 @@ import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
 import com.pentoryall.user.dto.LikeDTO;
+import com.pentoryall.user.dto.LikePostDTO;
 import com.pentoryall.user.dto.UserDTO;
+import com.pentoryall.user.service.LikePostService;
 import com.pentoryall.user.service.LikeService;
 import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -44,8 +46,9 @@ public class PostController {
     private final GenreService genreService;
     private final MessageSourceAccessor messageSourceAccessor;
     private final LikeService likeService;
+    private final LikePostService likePostService;
 
-    public PostController(SeriesService seriesService, PostService postService, UserService userService, CommentService commentService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor, LikeService likeService) {
+    public PostController(SeriesService seriesService, PostService postService, UserService userService, CommentService commentService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor, LikeService likeService, LikePostService likePostService) {
         this.seriesService = seriesService;
         this.postService = postService;
         this.userService = userService;
@@ -54,6 +57,7 @@ public class PostController {
         this.genreService = genreService;
         this.messageSourceAccessor = messageSourceAccessor;
         this.likeService = likeService;
+        this.likePostService = likePostService;
     }
 
 
@@ -512,6 +516,18 @@ public class PostController {
             result = likeList.size();
         }else{
             result = 0;
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/likeTitle")
+    public ResponseEntity<Integer> selectLike(@RequestBody PostDTO postDTO){
+        System.out.println("postDTO = " + postDTO);
+        Integer result=0;
+        List<LikePostDTO> likeList = likePostService.selectLikeByPostTitle(postDTO.getTitle());
+        System.out.println("likeList = " + likeList);
+        if(likeList!=null && !likeList.isEmpty()){
+            result = likeList.size();
         }
         return ResponseEntity.ok(result);
     }

@@ -1,5 +1,6 @@
 package com.pentoryall.user.controller;
 
+import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.user.dto.LikeDTO;
 import com.pentoryall.user.dto.LikePostDTO;
 import com.pentoryall.user.dto.UserDTO;
@@ -36,6 +37,10 @@ public class LikeController {
 
         List<LikePostDTO> likedPosts = likePostService.getLikedPostsByUserCode(user.getCode());
         model.addAttribute("likedPosts", likedPosts);
+
+
+        List<LikeDTO> likes = likeService.getLikeByUserCode(user.getCode());
+        model.addAttribute("likes",likes);
 
         log.info("likedPosts:{}", likedPosts);
         return "views/user/likePage";
