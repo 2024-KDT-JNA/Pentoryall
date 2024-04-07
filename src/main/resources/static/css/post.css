@@ -51,7 +51,6 @@
 .post-information-log {
     width: 200px;
     margin-top: 2px;
-    margin-left: 30px;
 }
 
 hr {
@@ -904,9 +903,10 @@ form input::file-selector-button {
     color: #00d864;
 }
 .post-information-like {
-    margin-right: 30px;
-    margin-bottom: 20px;
+    margin-right: 10px;
+    /*margin-bottom: 20px;*/
     color: #00d864;
+    font-size:14px;
 }
 .post-information-title-content {
     margin-bottom: 0px;
@@ -1004,4 +1004,14 @@ form input::file-selector-button {
 .reply-repeat{
     background-color: #d1d1d2;
     padding-left:40px;
+}
+.b{
+    padding-top:10px;
+}
+.likeCount{
+    font-size: 20px;
+}
+.post-information-like-content{
+    margin-left:30px;
+    font-size: 20px;
 }

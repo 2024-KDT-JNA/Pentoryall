@@ -44,6 +44,7 @@
             <div class="inner">
                 <div class="post-list">
                     <div class="post-item" th:each="post : ${postList}">
+                        <input class="input-post" th:value="${post.code}" hidden/>
                         <div class="thumbnail-image">
                             <img th:src="${post.thumbnailImage}" alt="포스트 썸네일"
                                  onerror="this.src='/images/temp/thumbnail.png'" />
@@ -76,7 +77,7 @@
                                             <button class="likeBtn"><i class="far fa-heart"></i></button>
                                         </div>
                                     </dt>
-                                    <dd>100</dd>
+                                    <dd class="like-input"></dd>
                                 </dl>
                                 <dl class="comment">
                                     <dt>
@@ -217,6 +218,88 @@
                 lowerGenre.hidden = true;
             }
         }
+    </script>
+    <script>
+        /*현재 좋아요 갯수*/
+        async function likeCounts() {
+            console.log("성공전")
+            const input = document.querySelectorAll(".input-post");
+            input.forEach(el=>{
+                const code = el.value;
+                console.log("성공후",code)
+                fetch('/post/likeCount',{
+                    method:'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body:JSON.stringify({
+                        code
+                    }),
+                })
+                    .then(result => result.json())
+                    .then(data => {
+                        console.log("data:" + data);
+                        console.log("성공임니다");
+                        makeLikeArea(data,code);
+                    })
+                    .catch(error => console.log(error));
+            })
+
+        }
+
+
+        function makeLikeArea(likeCount,code) {
+            // 좋아요 갯수를 업데이트할 요소 선택
+            const likeElement = document.querySelectorAll(".input-post");
+            likeElement.forEach(el => {
+                if(el.value == code){
+                    const like = el.closest(".post-item").querySelector(".like-input");
+                    // 요소의 내용 업데이트
+                    like.innerHTML = ` ${likeCount}`;
+                }
+            })}
+        window.onload(likeCounts());
+    </script>
+    <script>
+        /*현재 좋아요 갯수*/
+        async function likeCounts1() {
+            console.log("성공전")
+            const input = document.querySelectorAll(".input-post");
+            input.forEach(el=>{
+                const code = el.value;
+                console.log("성공후",code)
+                fetch('/post/likeCount',{
+                    method:'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body:JSON.stringify({
+                        code
+                    }),
+                })
+                    .then(result => result.json())
+                    .then(data => {
+                        console.log("data:" + data);
+                        console.log("성공임니다");
+                        makeLikeArea1(data,code);
+                    })
+                    .catch(error => console.log(error));
+            })
+
+        }
+
+
+        function makeLikeArea1(likeCount,code) {
+            // 좋아요 갯수를 업데이트할 요소 선택
+            const likeElement = document.querySelectorAll(".input-post");
+            likeElement.forEach(el => {
+                if(el.value == code){
+                    const like = el.closest(".post-item").querySelector(".like-input");
+                    // 요소의 내용 업데이트
+                    like.innerHTML = ` ${likeCount}`;
+                }
+            })}
+        window.onload(likeCounts1());
     </script>
 </th:block>
 </html>

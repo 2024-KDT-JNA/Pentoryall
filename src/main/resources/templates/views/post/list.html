@@ -20,6 +20,7 @@
                         <h1 th:text="|${series.title}|"></h1>
                     </div>
                     <div class="post-title">
+                        <input id="input-post-code" th:value="${post.code}" hidden>
                         <p th:text="|${post.code}화 ${post.title}|"></p>
                     </div>
                     <div class="series-author">
@@ -34,7 +35,6 @@
                         <input id="isLiked" th:value="${isLiked}" hidden/>
                         <button class="post-information-like">
                             <p class="post-information-like-content">
-                           ♡ 222
                             </p>
                           </button>
                         <div class="post-information-log">
@@ -144,7 +144,6 @@
                                     <p class="comment-date-area" id="writing-date" th:text="${reply.createDate}">작성 날짜</p>
                                     <div class="btn-wrapper" th:if="${reply.user.code == userCode}">
                                         <button class="button" th:onclick="removeComment([[${reply.code}]])">답글 삭제</button>
-                                        <button class="button" th:onclick="makeWritingTable([[${reply.code}]],[[${reply.content}]])">답글 수정</button>
                                     </div>
                                     <div class="second-button" id="reply-report" hidden>
                                         <button class="button report-btn">답글 신고</button>
@@ -425,6 +424,60 @@
             console.log("성공!");
         }
 
+
+
+
+
+/*현재 좋아요 갯수*/
+        async function likeCounts() {
+            const code = document.getElementById("input-post-code").value;
+                fetch('/post/likeCount',{
+                    method:'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body:JSON.stringify({
+                        code
+                    }),
+                })
+                    .then(result => result.json())
+                    .then(data => {
+                        console.log("data:" + data);
+                        console.log("성공임니다");
+                        makeLikeArea(data);
+                    })
+                    .catch(error => console.log(error));
+        }
+
+        function makeLikeArea(likeCount) {
+            console.log("구분",likeCount)
+            // 좋아요 갯수를 업데이트할 요소 선택
+            const likeElement = document.querySelector(".post-information-like-content");
+            likeElement.innerHTML = `♡ ${likeCount}`;
+
+        }
+
+        // function createGenreList(genre){
+        //     console.log(genre);
+        //     return `
+        //     <option class="upperGenre" value="${genre.code}">
+        //     ${genre.name}
+        //     </option>
+        //     `
+        // }
+        // async function receiveFetchGenre(){
+        //     const response = await fetch('/post/likeCount');
+        //     const responseJson = await response.json();
+        //     const likeElement = document.querySelector(".post-information-like-content");
+        //     likeElement.innerHTML = responseJson.map(item=>createGenreList(item)).join('');
+        // }
+
+
+
+
+        window.onload(likeCounts());
+    </script>
+    <script>
         let isLiked =  document.getElementById("isLiked").value;
         console.log("좋아요?",isLiked);
         const userCode = document.getElementById("login-user").value;
@@ -435,6 +488,7 @@
         $('.likeBtn').click(function () {
             // console.log("유코",userCode);
             // console.log("포코",postCode);
+
 
             console.log("누르기 전 좋아요 상태",isLiked);
             var $btn = $(this);
@@ -449,7 +503,7 @@
                     }),
                     success: function (data) {
                         isLiked = false;
-                            $btn.removeClass('liked');
+                        $btn.removeClass('liked');
                         $btn.html('<br/>좋아요');
                         console.log("좋아요 취소 성공");
                     }
@@ -473,6 +527,32 @@
             }
         });
 
+
+        document.querySelector('.likeBtn').addEventListener('click', function() {
+            likeCounts();
+        });
+        function likeCounts() {
+            const code = document.getElementById("input-post-code").value;
+            fetch('/post/likeCount', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ code }),
+            })
+                .then(result => result.json())
+                .then(data => {
+                    console.log("data:" + data);
+                    console.log("성공임니다");
+                    makeLikeArea(data);
+                })
+                .catch(error => console.log(error));
+        }
+        function makeLikeArea(likeCount) {
+            console.log("구분", likeCount);
+            const likeElement = document.querySelector(".post-information-like-content");
+            likeElement.innerHTML = `♡ ${likeCount}`;
+        }
     </script>
 </th:block>
 </html>

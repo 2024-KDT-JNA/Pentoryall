@@ -8,7 +8,7 @@ import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
-import com.pentoryall.user.dto.LikePostDTO;
+import com.pentoryall.user.dto.LikeDTO;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.service.LikePostService;
 import com.pentoryall.user.service.LikeService;
@@ -39,16 +39,16 @@ public class SeriesController {
     private final PostService postService;
     private final MessageSourceAccessor messageSourceAccessor;
     private final UserService userService;
-    private final LikePostService likePostService;
+    private final LikeService likeService;
 
-    public SeriesController(SeriesService seriesService, GenreOfArtService genreOfArtService, GenreService genreService, PostService postService, MessageSourceAccessor messageSourceAccessor, UserService userService, LikePostService likePostService) {
+    public SeriesController(SeriesService seriesService, GenreOfArtService genreOfArtService, GenreService genreService, PostService postService, MessageSourceAccessor messageSourceAccessor, UserService userService, LikeService likeService) {
         this.seriesService = seriesService;
         this.genreOfArtService = genreOfArtService;
         this.genreService = genreService;
         this.postService = postService;
         this.messageSourceAccessor = messageSourceAccessor;
         this.userService = userService;
-        this.likePostService = likePostService;
+        this.likeService = likeService;
     }
 
     @GetMapping("/add")
@@ -58,7 +58,6 @@ public class SeriesController {
 
     @GetMapping("/page")
     public String seriesPage(long code,
-                             PostDTO postDTO,
                              Model model) {
         SeriesDTO seriesDTO = seriesService.findSeriesByCode(code);
         model.addAttribute("series", seriesDTO);
@@ -70,25 +69,18 @@ public class SeriesController {
         }
 
         List<PostDTO> postLists = postService.selectPostsBySeriesCode(code);
-
         System.out.println("포스트리스트~~~ = " + postLists);
-        
-//        List<LikePostDTO> result = new ArrayList<>();
-//        for(int i =0 ; i<postLists.size() ; i++) {
-//            System.out.println("postLists.get(i).getSeriesCode() = " + postLists.get(i).getSeriesCode());
-//            System.out.println("postLists.get(i).getCode() = " + postLists.get(i).getCode());
-//            List<LikePostDTO> like = likePostService.selectLikeByPostCode(postLists.get(i).getSeriesCode(),postLists.get(i).getCode());
-//            for(int k = 0 ; k<like.size();k++){
-//                result.add(like.get(i));
-//            }
-//        }
-//        int likeCount = result.size();
-//        System.out.println("likeCount = " + likeCount);
 
+        int likeCount = 0;
+        for(int i = 0 ; i<postLists.size() ; i++) {
+            List<LikeDTO> likeList = likeService.selectLikeByPostCode(postLists.get(i).getCode());
+            likeCount += likeList.size();
+        }
+        System.out.println("result = " + likeCount);
 
         System.out.println("genreNames = " + genreNames);
         model.addAttribute("postList", postLists);
-//        model.addAttribute("likeCount",likeCount);
+        model.addAttribute("likeCount",likeCount);
         System.out.println("postLists **********= " + postLists);
         model.addAttribute("genreNames", genreNames);
         return "/views/series/page";
@@ -158,7 +150,7 @@ public class SeriesController {
         }
 
         System.out.println("성공함");
-        long urlCode = seriesDTO.getCode() + 1;
+        long urlCode = seriesDTO.getCode()+1;
         return "redirect:/series/page?code=" + urlCode;
     }
 
