@@ -44,6 +44,7 @@ public class MainController {
 
         System.out.println("likeSeriesList !!= " + likeSeriesList);
 
+        
 
         List<SeriesDTO> seriesList = new ArrayList<>();
         for(int i = 0 ; i<likeSeriesList.size() ; i++){
@@ -53,7 +54,7 @@ public class MainController {
         System.out.println("seriesList = " + seriesList);
 
         model.addAttribute("seriesList",seriesList);
-
+        
         List<GenreDTO> genreList = genreService.getGenreList();
         
 

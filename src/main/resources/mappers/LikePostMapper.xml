@@ -90,6 +90,6 @@
         GROUP BY series.code
         ORDER BY total_likes DESC
             LIMIT 10;
-
     </select>
+
 </mapper>
