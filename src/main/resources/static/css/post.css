@@ -1011,3 +1011,7 @@ form input::file-selector-button {
 .likeCount{
     font-size: 20px;
 }
+.post-information-like-content{
+    margin-left:30px;
+    font-size: 20px;
+}
