@@ -26,4 +26,12 @@ public class LikePostService {
     public List<LikePostDTO> selectLikeByPostCode(Long seriesCode, Long code) {
         return likePostMapper.selectLikeByPostCode(seriesCode,code);
     }
+
+    public int selectLikeCountByPostCode(Long code) {
+        return likePostMapper.selectLikeCountByPostCode(code);
+    }
+
+    public List<Long> selectTop5Post() {
+        return likePostMapper.selectTop5Post();
+    }
 }

@@ -58,7 +58,6 @@ public class SeriesController {
 
     @GetMapping("/page")
     public String seriesPage(long code,
-                             PostDTO postDTO,
                              Model model) {
         SeriesDTO seriesDTO = seriesService.findSeriesByCode(code);
         model.addAttribute("series", seriesDTO);

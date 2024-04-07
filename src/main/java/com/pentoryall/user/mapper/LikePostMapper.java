@@ -13,4 +13,8 @@ public interface LikePostMapper {
     int getLikeCount(long userCode);
 
     List<LikePostDTO> selectLikeByPostCode(Long seriesCode, Long code);
+
+    int selectLikeCountByPostCode(Long code);
+
+    List<Long> selectTop5Post();
 }

@@ -62,4 +62,21 @@
             JOIN user ON post.user_code = user.code
             WHERE post.code = #{code} AND post.series_code = #{seriesCode};
     </select>
+    <select id="selectLikeCountByPostCode" resultType="com.pentoryall.user.dto.LikePostDTO">
+        SELECT COUNT(*)
+        FROM
+            `like`
+                JOIN
+            post ON post.code = `like`.post_code
+                LEFT JOIN series ON post.series_code = series.code
+                JOIN user ON post.user_code = user.code
+        WHERE post.code = #{code}
+    </select>
+    <select id="selectTop5Post">
+        SELECT post_code, COUNT(*) AS count
+        FROM `like`
+        GROUP BY post_code
+        ORDER BY COUNT(*) DESC
+            LIMIT 5;
+    </select>
 </mapper>
