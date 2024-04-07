@@ -76,6 +76,12 @@ hr {
     margin-top: 50px;
     margin-bottom: 50px;
 }
+.likeBtn {
+    color: red;
+}
+.likeBtn.liked {
+    color: white;
+}
 
 .post-button {
     width: 200px;
@@ -137,14 +143,11 @@ hr {
 }
 
 .comment-add-btn {
-    margin-right: 850px;
     padding: 10px;
-    float: right;
     border: solid 1px lightcoral;
     border-radius: 5pt;
     background-color: lightcoral;
     color: white;
-
 }
 
 .inner-main-content {
@@ -997,4 +1000,8 @@ form input::file-selector-button {
 .reply {
     width: 107px;
     height: 40px;
+}
+.reply-repeat{
+    background-color: #d1d1d2;
+    padding-left:40px;
 }

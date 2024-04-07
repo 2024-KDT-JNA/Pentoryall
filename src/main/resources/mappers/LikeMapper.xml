@@ -31,4 +31,13 @@
         WHERE post_code = #{postCode}
           AND user_code = #{userCode}
     </delete>
+    <select id="selectLikeByUserAndPost">
+        SELECT code,
+               user_code,
+               post_code
+        FROM
+            `like`
+        WHERE
+            user_code=#{userCode} AND post_code=#{code}
+    </select>
 </mapper>

@@ -29,7 +29,9 @@
                       <div class="series-author-information-detail-name">
                         <h2 th:text="${user.nickname}">232</h2>
                       </div>
-
+                        <input id="login-user" th:value="${loginUser}" hidden/>
+                        <input id="post-code" th:value="${post.code}" hidden/>
+                        <input id="isLiked" th:value="${isLiked}" hidden/>
                         <button class="post-information-like">
                             <p class="post-information-like-content">
                            ♡ 222
@@ -55,8 +57,10 @@
 
                 <!--좋아요,작가구독,신고하기 버튼-->
                 <div class="post-buttons">
-                    <button class="post-like-button post-button">
+                    <button class="likeBtn post-like-button post-button">
+                        <th:block th:if="${like} != null">
                         ♥️<br/>
+                        </th:block>
                         좋아요
                     </button>
                     <button class="post-subscribe-button post-button">
@@ -107,14 +111,13 @@
                     </div>
                     <div class="comment-add">
                             <textarea onchange="test()" id="comment-writing-area" class="comment-writing-area" placeholder="댓글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
-                            <button id="comment-add-btn" class="comment-add-btn">작성하기</button>
+                            <button id="comment-add-btn" class="comment-add-btn" onmouseover="test2()">작성하기</button>
                     </div>
                 </div>
                 <div class="comment-wrapper">
                     <h2 class="p-post-comment">전체 댓글</h2>
                 </div>
 
-                <!--                 댓글 출력-->
                 <!--댓글 출력-->
                 <div class="comment-area">
                     <div class="comment-content-area"   th:each="comment : ${commentList}" th:value="${comment.code}">
@@ -124,10 +127,41 @@
                         <div class="btn-wrapper" th:if="${comment.user.code == userCode}">
                             <button class="button" th:onclick="removeComment([[${comment.code}]])">댓글 삭제</button>
                             <button class="button" th:onclick="makeWritingTable([[${comment.code}]],[[${comment.content}]])">댓글 수정</button>
+                            <input class="tem-cc" th:value="${comment.code}" hidden/>
+                            <input class="tem-cp" th:value="${comment.postCode}" hidden/>
                         </div>
                         <div class="second-button">
                             <button class="button reply">답글</button>
                             <button class="button report-btn">댓글 신고</button>
+                        </div>
+                        <!--답글 출력-->
+                        <div class="hidden-wrapper" hidden >
+                            <div class="comment-area" id="comment-area-wrapper" >
+                                <div class="comment-content-area reply-repeat" th:each="reply : ${replyList}" th:value="${reply.code}"  th:if="${reply.refCommentCode==comment.code}">
+
+                                    <p class="comment-writer-area" th:text="|ㄴ${reply.user.nickname}|">작성자</p>
+                                    <p class="comment-content" th:text="${reply.content}"></p>
+                                    <p class="comment-date-area" id="writing-date" th:text="${reply.createDate}">작성 날짜</p>
+                                    <div class="btn-wrapper" th:if="${reply.user.code == userCode}">
+                                        <button class="button" th:onclick="removeComment([[${reply.code}]])">답글 삭제</button>
+                                        <button class="button" th:onclick="makeWritingTable([[${reply.code}]],[[${reply.content}]])">답글 수정</button>
+                                    </div>
+                                    <div class="second-button" id="reply-report" hidden>
+                                        <button class="button report-btn">답글 신고</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--답글 작성-->
+                            <div class="writing-reply" >
+                                <div>
+                                    <h2 class="p-post-comment">답글 작성</h2>
+                                </div>
+                                <div class="comment-add">
+                                    <textarea class="comment-area" placeholder="답글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
+                                    <button  class="comment-btn" >작성하기</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -138,19 +172,21 @@
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-        function test(){
-            const text = document.querySelector(".comment-writing-area");
-            console.log(text.value);
-            const postCode = '[[${post.code}]]'
-            console.log("뽀스트넘버ㅣ"+postCode);
-            const test1 = document.querySelector(".test1");
-            console.log(test1);
-        }
+
+
+        // function test(){
+        //     const text = document.querySelector(".comment-writing-area");
+        //     console.log(text.value);
+        //     const postCode = '[[${post.code}]]'
+        //     console.log("뽀스트넘버ㅣ"+postCode);
+        //     const test1 = document.querySelector(".test1");
+        //     console.log(test1);
+        // }
 
         /*댓글 작성*/
         if(document.getElementById("comment-add-btn")){
-            const $addComment = document.getElementById("comment-add-btn");
-            const $writeComment = document.getElementById("comment-writing-area");
+            const $addComment = document.querySelector(".comment-add-btn");
+            const $writeComment = document.querySelector(".comment-writing-area");
 
             $addComment.onclick=function() {
                 if (!$writeComment.value.trim()) {
@@ -212,8 +248,10 @@
 
                 const $secondButtons = document.createElement("div");
                 $secondButtons.className = 'second-button';
-                $secondButtons.innerHTML = ` <button class="button reply">답글</button>
-                                    <button class="button report-btn">댓글 신고</button>`;
+                $secondButtons.innerHTML = ` <div class="second-button">
+                            <button class="button reply">답글</button>
+                            <button class="button report-btn">댓글 신고</button>
+                        </div>`;
 
                 if(`[[${userCode}]]`==comment.user.code){
                     $button.innerHTML = `<button class="button" onclick='removeComment(${comment.code})'>댓글 삭제</button>
@@ -239,6 +277,28 @@
                 .catch(error => console.log(error));
         }
 
+        // function removeReply(code){
+        //     fetch('/post/removeReply',{
+        //         method:'POST',
+        //         headers:{
+        //             'Content-Type' : 'application/json; charset=UTF-8'
+        //         },
+        //         body:JSON.stringify({code})
+        //     }).then(() => loadReply())
+        //         .catch(error => console.log(error));
+        // }
+        //
+        // function loadReply(){
+        //     const replyCode = document.querySelector(".reply-repeat");
+        //
+        //     const postNo = replyCode.value;
+        //
+        //     fetch('/post/loadReply?postCode=' + postNo)
+        //         .then(result => result.json())
+        //         .then(data => {makeCommentTable(data)
+        //             console.log("데이터",data)})
+        //         .catch(error => console.log(error));
+        // }
 
         /*댓글 수정*/
 
@@ -288,9 +348,131 @@
     </script>
     <script>
         /*답글 로직*/
+        function test2(){
+            const input = document.querySelectorAll(".tem-input");
+            input.forEach(el =>{
+                console.log("답글 참조 코드",el.value);
+            })
+        }
+
+        document.querySelector(".comment-area").addEventListener("click",(e) =>{
+            console.log("ㅇ",e.target);
+            console.log(e.target.className);
+            if(e.target && e.target.classList.contains("reply")){
+                const clickedButton = e.target;
+                const hiddenWrapper = clickedButton.closest('.comment-content-area').querySelector('.hidden-wrapper');
+                hiddenWrapper.hidden = !hiddenWrapper.hidden;
+            }
+        });
+
+        document.querySelectorAll(".comment-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                console.log("눌린 버튼 ", e.target);
+                console.log("눌린 버튼의 클래스이름", e.target.className);
+                if (e.target && e.target.classList.contains("comment-btn")) {
+                    const $addComment = e.target;
+                    const $writeComment = $addComment.closest('.writing-reply').querySelector('.comment-area');
+                    if (!$writeComment.value.trim()) {
+                        alert('내용을 작성해주세요');
+                        return;
+                    }
+
+                    const refCommentCode = $addComment.closest('.comment-content-area').querySelector(".tem-cc").value;
+                    const postCode = $addComment.closest('.comment-content-area').querySelector(".tem-cp").value;
+                    const content = $writeComment.value;
+                    console.log(content);
+                    console.log(refCommentCode);
+                    fetch('/post/addReply', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json; charset=UTF-8'
+                        },
+                        body: JSON.stringify({ content, postCode ,refCommentCode })
+                    })
+                        .then(res => {
+                            console.log("rress:" + res);
+                            $writeComment.value = '';
+                            console.log("마라탕 먹고싶다. ");
+                            loadReply();
+                        })
+                        .catch(error => console.log(error));
+                }
+            });
+        });
+
+
+        function loadReply(){
+            const postNo = document.querySelector(".tem-code-input").value;
+            const commentCode = document.querySelector(".tem-cc").value;
+            console.log("댓글코오드",commentCode)
+            fetch('/post/loadReply?postCode=' + postNo+"&code="+commentCode)
+                .then(result => result.json())
+                .then(data => {
+                    console.log("데이터", data);
+                    // 추가 데이터 요청
+                    fetch('/post/additionalData?postCode=' + postNo)
+                        .then(response => response.json())
+                        .then(additionalData => {
+                            console.log("추가 데이터", additionalData);
+                            makeReplyTable(data,additionalData); // Pass both data and additionalData to makeReplyTable
+                        })
+                        .catch(error => console.error("추가 데이터를 가져오는 중 오류 발생", error));
+                })
+                .catch(error => console.error("데이터를 가져오는 중 오류 발생", error));
+        }
+
+        function makeReplyTable(){
+            console.log("성공!");
+        }
+
+        let isLiked =  document.getElementById("isLiked").value;
+        console.log("좋아요?",isLiked);
+        const userCode = document.getElementById("login-user").value;
+        console.log("유코",userCode);
+        const postCode = document.getElementById("post-code").value;
+        console.log("포코",postCode);
+
+        $('.likeBtn').click(function () {
+            // console.log("유코",userCode);
+            // console.log("포코",postCode);
+
+            console.log("누르기 전 좋아요 상태",isLiked);
+            var $btn = $(this);
+            if (isLiked) {
+                $.ajax({
+                    type: 'post',
+                    url: '/user/likeDown',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        postCode,
+                        userCode
+                    }),
+                    success: function (data) {
+                        isLiked = false;
+                            $btn.removeClass('liked');
+                        $btn.html('<br/>좋아요');
+                        console.log("좋아요 취소 성공");
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: 'post',
+                    url: '/user/likeUp',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        postCode,
+                        userCode
+                    }),
+                    success: function (data) {
+                        isLiked = true;
+                        $btn.addClass('liked');
+                        $btn.html('♥️<br/>좋아요');
+                        console.log("좋아요 성공");
+                    }
+                });
+            }
+        });
 
     </script>
-
-
 </th:block>
 </html>
