@@ -23,6 +23,9 @@ public interface MembershipMapper {
     List<MembershipJoinDTO> selectMembershipJoinList(long code);
 
     List<MembershipJoinDTO> selectJoinMemberList(long code);
+
+
+    MembershipDTO selectMembershipByUserProfile(long subscribeUserCode);
 }
 
 

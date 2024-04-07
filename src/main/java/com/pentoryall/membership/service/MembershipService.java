@@ -50,6 +50,12 @@ public class MembershipService {
     public List<MembershipJoinDTO> selectAllJoinMemberList(long code) {
         return membershipMapper.selectJoinMemberList(code);
     }
+
+
+    public MembershipDTO selectMembershipUserProfileBySubscribeUserCode(long subscribeUserCode) {
+        return membershipMapper.selectMembershipByUserProfile(subscribeUserCode);
+    }
+
 }
 
 

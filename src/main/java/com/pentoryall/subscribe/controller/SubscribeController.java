@@ -73,7 +73,6 @@ public class SubscribeController {
         List<SubscribeDTO> subscribersList = subscribeService.selectAllSubscribeStory(user.getCode());
         System.out.println(subscribersList);
 
-
         String userName = user.getName();
         model.addAttribute("userName", userName);
 
@@ -109,5 +108,7 @@ public class SubscribeController {
     public String getPostList() {
         return "/views/subscribe/postList";
     }
+
+
 }
 

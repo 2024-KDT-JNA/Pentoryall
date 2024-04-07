@@ -31,6 +31,10 @@
                         <p th:text="${subscribe.nickname}"></p>
                         <p th:text="${subscribe.introduction}"></p>
                         <p th:text="${subscribe.subscribedDate}"></p>
+
+                        <a th:href="@{'/membership/userProfile/' + ${subscribe.subscribeUserCode}}"
+                           class="button">프로필 보기</a>
+
                         <button class="button"
                                 th:attr="data-user-code=${subscribe.subscribeUserCode}"
                                 onclick="toggleSubscribe(event)">구독중
