@@ -10,7 +10,7 @@
         INSERT INTO
             post(series_code,user_code,title,content,thumbnail_image,price,is_paid,is_adult,is_public)
         VALUES
-            (#{seriesCode},1,#{title},#{content},#{thumbnailImage},#{price},#{isPaid},#{isAdult},#{isPublic})
+            (#{seriesCode},#{userCode},#{title},#{content},#{thumbnailImage},#{price},#{isPaid},#{isAdult},#{isPublic})
     </insert>
     <select id="getPostInformationByPostCode" resultType="com.pentoryall.post.dto.PostDTO">
         SELECT

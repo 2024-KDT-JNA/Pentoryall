@@ -77,6 +77,7 @@ public class PostController {
                                     @RequestParam(required = false) MultipartFile thumbnail,
                                     @RequestParam List<Long> genreCode,
                                     GenreOfArtDTO genreOfArtDTO,
+                                    @AuthenticationPrincipal UserDTO userDTO,
                                     PostDTO postDTO,
                                     Model model
     ) {
@@ -129,6 +130,7 @@ public class PostController {
 
         System.out.println(postDTO);
         System.out.println("title>>>>>>>>>>>> = " + title);
+        postDTO.setUserCode(userDTO.getCode());
         postService.insertPost(postDTO);
         System.out.println("삽입 성공!!");
 
@@ -210,11 +212,12 @@ public class PostController {
 //            System.out.println("유저 정보 : " + commentList.get(0).getUser());
             System.out.println("commentList =>>> " + commentList);
             System.out.println("postDTO = " + postDTO);
-            System.out.println("userDTO = " + userDTO);
+//            System.out.println("userDTO = " + userDTO);
         }
             System.out.println("seriesDTO = " + seriesDTO);
+        model.addAttribute("userDTO",userDTO);
             model.addAttribute("post", postDTO);
-            model.addAttribute("user", userDTO);
+//            model.addAttribute("user", userDTO);
             model.addAttribute("series", seriesDTO);
             model.addAttribute("commentList", commentList);
             if(user != null){
