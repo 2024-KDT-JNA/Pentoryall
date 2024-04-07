@@ -1,5 +1,6 @@
 package com.pentoryall.user.service;
 
+import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.user.dto.LikePostDTO;
 import com.pentoryall.user.mapper.LikePostMapper;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,9 @@ public class LikePostService {
 
     public List<Long> selectTop5Post() {
         return likePostMapper.selectTop5Post();
+    }
+
+    public  List<LikePostDTO> selectTop10Series() {
+        return likePostMapper.selectTop10Series();
     }
 }

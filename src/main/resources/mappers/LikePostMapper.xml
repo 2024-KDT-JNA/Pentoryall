@@ -79,4 +79,17 @@
         ORDER BY COUNT(*) DESC
             LIMIT 5;
     </select>
+    <select id="selectTop10Series">
+        SELECT
+            series.code AS series_code,
+            series.title AS series_title,
+            COALESCE(SUM(`like`.post_code), 0) AS total_likes
+        FROM series
+                 LEFT JOIN post ON post.series_code = series.code
+                 LEFT JOIN `like` ON post.code = `like`.post_code
+        GROUP BY series.code
+        ORDER BY total_likes DESC
+            LIMIT 10;
+
+    </select>
 </mapper>

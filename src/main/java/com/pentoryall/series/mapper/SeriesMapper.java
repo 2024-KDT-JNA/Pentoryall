@@ -31,4 +31,5 @@ public interface SeriesMapper {
     List<SeriesDTO> selectSeriesByUserCode(Long code);
 
     List<SeriesDTO> selectAllSeries();
+
 }

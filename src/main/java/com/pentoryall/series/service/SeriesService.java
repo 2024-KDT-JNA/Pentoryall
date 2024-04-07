@@ -66,4 +66,5 @@ public class SeriesService {
     public List<SeriesDTO> selectAllSeries() {
         return seriesMapper.selectAllSeries();
     }
+
 }

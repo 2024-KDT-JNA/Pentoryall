@@ -36,11 +36,23 @@ public class MainController {
     @RequestMapping({ "/", "/main", "/index" })
     public String defaultLocation(Model model,
                                   @AuthenticationPrincipal UserDTO userDTO) {
-        List<SeriesDTO> seriesDTO = seriesService.selectSeriesList();
-        model.addAttribute("seriesList",seriesDTO);
-        System.out.println("seriesDTO = " + seriesDTO);
+//        List<SeriesDTO> seriesDTO = seriesService.selectSeriesList();
+
+//        System.out.println("seriesDTO = " + seriesDTO);
+
+        List<LikePostDTO> likeSeriesList = likePostService.selectTop10Series();
+
+        System.out.println("likeSeriesList !!= " + likeSeriesList);
 
 
+        List<SeriesDTO> seriesList = new ArrayList<>();
+        for(int i = 0 ; i<likeSeriesList.size() ; i++){
+            SeriesDTO seriesDTO = seriesService.findSeriesByCode(likeSeriesList.get(i).getSeriesCode());
+            seriesList.add(seriesDTO);
+        }
+        System.out.println("seriesList = " + seriesList);
+
+        model.addAttribute("seriesList",seriesList);
 
         List<GenreDTO> genreList = genreService.getGenreList();
         
@@ -49,7 +61,7 @@ public class MainController {
         System.out.println("상위 5개 = " + postCodeList);
 
         List<PostDTO> postDTO = new ArrayList<>();
-        
+
         for(int i = 0 ; i<postCodeList.size();i++){
             PostDTO postDTO1 = postService.getPostInformationByPostCode(postCodeList.get(i));
             postDTO.add(postDTO1);
