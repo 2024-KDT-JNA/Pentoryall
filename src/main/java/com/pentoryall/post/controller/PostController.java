@@ -172,6 +172,7 @@ public class PostController {
             long code,
             Model model,
             @AuthenticationPrincipal UserDTO user) {
+        postService.updateViews(code);
         PostDTO postDTO = postService.getPostInformationByPostCode(code);
         System.out.println(postDTO);
         System.out.println("code>>>>> = " + code);
@@ -221,6 +222,8 @@ public class PostController {
             }
             model.addAttribute("replyList",replyList);
         System.out.println("여기까지왓니");
+
+
         return "views/post/list";
     }
 

@@ -259,7 +259,8 @@ public class SeriesController {
         System.out.println("성공2");
         seriesService.deleteSeries(code);
         System.out.println("성공3");
-        return "/views/index";
+        String url = "redirect:/";
+        return url;
     }
 
     @PostMapping("/select")

@@ -173,4 +173,12 @@
             code DESC
         LIMIT 1
     </select>
+    <update id="updateViews">
+        UPDATE
+            post
+        SET
+            views = views + 1
+        WHERE
+            code = #{code}
+    </update>
 </mapper>
