@@ -93,6 +93,7 @@
                     <div class="inner">
                         <div class="post-list">
                             <div class="post-item" th:each="post:${likedPosts}">
+                                <input class="input-post" th:value="${post.postTitle}" hidden/>
                                 <div class="thumbnail-image">
                                     <img th:src="${post.thumbnailImage != null
                         ? post.thumbnailImage : '/images/temp/thumbnail.png'}"/>
@@ -114,9 +115,9 @@
                                         <dl class="views">
                                             <dt>
                                                 <i class="bi bi-eye"></i>
-                                                <span class="blind">조회수</span>
+                                                <span class="blind" ></span>
                                             </dt>
-                                            <dd>1324</dd>
+                                            <dd th:text="|조회수 ${post.views}|"></dd>
                                         </dl>
                                         <dl class="like">
                                             <dt>
@@ -124,7 +125,7 @@
                                                     <button class="likeBtn"><i class="far fa-heart"></i></button>
                                                 </div>
                                             </dt>
-                                            <dd>100</dd>
+                                            <dd class="Like-input"></dd>
                                         </dl>
                                         <dl class="comment">
                                             <dt>
@@ -161,6 +162,47 @@
                 event.currentTarget.classList.toggle('close');
             });
         });
+    </script>
+    <script>
+        /*현재 좋아요 갯수*/
+        async function currentLike() {
+            console.log("성공전")
+            const input = document.querySelectorAll(".input-post");
+            input.forEach(el=>{
+                const title = el.value;
+                console.log("성공후",title)
+                fetch('/post/likeTitle',{
+                    method:'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body:JSON.stringify({
+                        title
+                    }),
+                })
+                    .then(result => result.json())
+                    .then(data => {
+                        console.log("data:" + data);
+                        console.log("성공임니다");
+                        LikeArea(data,title);
+                    })
+                    .catch(error => console.log(error));
+            })
+
+        }
+
+
+        function LikeArea(likeCount,postTitle) {
+            // 좋아요 갯수를 업데이트할 요소 선택
+            const likeElement = document.querySelectorAll(".input-post");
+            likeElement.forEach(el => {
+                if(el.value == postTitle){
+                    const like = el.closest(".post-item").querySelector(".Like-input");
+                    // 요소의 내용 업데이트
+                    like.innerHTML = ` ${likeCount}`;
+                }
+            })}
+        window.onload(currentLike());
     </script>
 </th:block>
 </html>

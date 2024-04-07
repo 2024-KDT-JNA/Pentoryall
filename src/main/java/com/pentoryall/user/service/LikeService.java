@@ -32,4 +32,8 @@ public class LikeService {
     public void deleteLikeByPostCode(long code) {
         likeMapper.deleteLikeByPostCode(code);
     }
+
+    public List<LikeDTO> getLikeByUserCode(long code) {
+        return likeMapper.getLikeByUserCode(code);
+    }
 }

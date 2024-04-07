@@ -60,6 +60,7 @@ public class SeriesController {
     public String seriesPage(long code,
                              Model model) {
         SeriesDTO seriesDTO = seriesService.findSeriesByCode(code);
+        System.out.println("seriesDTO = " + seriesDTO);
         model.addAttribute("series", seriesDTO);
         List<GenreOfArtDTO> genreOfArtDTO = genreOfArtService.findGenreBySeriesCode(code);
         List<String> genreNames = new ArrayList<>();
@@ -68,6 +69,9 @@ public class SeriesController {
             genreNames.add(genreDTO.getName());
         }
 
+        UserDTO user = userService.getUserInformationByUserCode(seriesDTO.getUserCode());
+        System.out.println("user = " + user);
+        
         List<PostDTO> postLists = postService.selectPostsBySeriesCode(code);
         System.out.println("포스트리스트~~~ = " + postLists);
 
@@ -79,6 +83,7 @@ public class SeriesController {
         System.out.println("result = " + likeCount);
 
         System.out.println("genreNames = " + genreNames);
+        model.addAttribute("user",user);
         model.addAttribute("postList", postLists);
         model.addAttribute("likeCount",likeCount);
         System.out.println("postLists **********= " + postLists);
@@ -150,7 +155,11 @@ public class SeriesController {
         }
 
         System.out.println("성공함");
-        long urlCode = seriesDTO.getCode()+1;
+
+        SeriesDTO recentSeries = seriesService.selectLatestCode();
+
+        long urlCode = recentSeries.getCode();
+        System.out.println("urlCode = " + urlCode);
         return "redirect:/series/page?code=" + urlCode;
     }
 
@@ -259,7 +268,8 @@ public class SeriesController {
         System.out.println("성공2");
         seriesService.deleteSeries(code);
         System.out.println("성공3");
-        return "/views/index";
+        String url = "redirect:/";
+        return url;
     }
 
     @PostMapping("/select")

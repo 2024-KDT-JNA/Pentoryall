@@ -28,7 +28,7 @@
                     <div class="series-author-information-detail-header">
                       <img class="series-author-information-detail-image" src="/images/temp/author.png"/>
                       <div class="series-author-information-detail-name">
-                        <h2 th:text="${user.nickname}">232</h2>
+                        <h2 th:text="${userDTO.nickname}">232</h2>
                       </div>
                         <input id="login-user" th:value="${loginUser}" hidden/>
                         <input id="post-code" th:value="${post.code}" hidden/>
@@ -38,7 +38,7 @@
                             </p>
                           </button>
                         <div class="post-information-log">
-                              <p class="post-information-log-content">조회: 34회</p>
+                              <p class="post-information-log-content" th:text="|조회: ${post.views}|"></p>
                           </div>
                     </div>
                   </span>
