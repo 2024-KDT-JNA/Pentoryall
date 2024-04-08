@@ -6,10 +6,12 @@ import com.pentoryall.point.mapper.TransactionMapper;
 import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.mapper.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 public class TransactionService {
 
@@ -37,6 +39,7 @@ public class TransactionService {
         transactionMapper.save(transaction);
     }
 
+    @Transactional
     public void membershipTransaction(MembershipDTO membership, UserDTO buyer) {
         int price = membership.getPrice();
         buyer.setPoint(buyer.getPoint() - price);
