@@ -4,9 +4,9 @@
 
 /* story ======================================== */
 .story-header { width: 100%; }
-.story-header .user-profile-wrap { display: flex; padding-bottom: 20px; }
+.story-header .user-profile-wrap { display: flex; padding-bottom: 20px; justify-content: space-around; align-items: flex-start;}
 .story-header .btn-settings { padding-top: 4px; padding-bottom: 4px; background-color: #333; color: #fff; font-size: 14px; }
-.story-header .user-intro { display: flex; flex-direction: row-reverse; flex-wrap: wrap; align-content: space-around; margin-top: 52px; }
+.story-header .user-intro { display: flex; flex-direction: row-reverse; flex-wrap: wrap; align-content: space-around; width:704px; margin-top: 52px; }
 .user-intro .title { font-weight: 600; font-size: 18px;; }
 .user-intro .intro { width: 704px; height: 100px; margin-top: 12px; color: #999; font-size: 16px; line-height: 150%;}
 
@@ -18,6 +18,7 @@
 .story-nav li a,
 .story-nav li button { display: block; padding: 16px 0 12px; color: #999; font-size: 20px}
 
+.story-content .inner{padding: 40px 16px 60px}
 /* settings ======================================== */
 .settings-wrap {display: flex;}
 .settings-wrap .inner {width: 900px}
@@ -37,4 +38,4 @@
 .settings-aside li a {display: flex; align-items: center;}
 
 /* user ======================================== */
-.input_box select { width: 100%; padding: 15px; border: 1px solid #CECECE; border-radius: 5px; } 
+.input_box select { width: 100%; padding: 15px; border: 1px solid #CECECE; border-radius: 5px; }

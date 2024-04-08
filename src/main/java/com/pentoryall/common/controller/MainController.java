@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -33,7 +32,7 @@ public class MainController {
         this.likePostService = likePostService;
     }
 
-    @RequestMapping({ "/", "/main", "/index" })
+    @RequestMapping({"/", "/main", "/index"})
     public String defaultLocation(Model model,
                                   @AuthenticationPrincipal UserDTO userDTO) {
 //        List<SeriesDTO> seriesDTO = seriesService.selectSeriesList();
@@ -44,43 +43,35 @@ public class MainController {
 
         System.out.println("likeSeriesList !!= " + likeSeriesList);
 
-        
 
         List<SeriesDTO> seriesList = new ArrayList<>();
-        for(int i = 0 ; i<likeSeriesList.size() ; i++){
+        for (int i = 0; i < likeSeriesList.size(); i++) {
             SeriesDTO seriesDTO = seriesService.findSeriesByCode(likeSeriesList.get(i).getSeriesCode());
             seriesList.add(seriesDTO);
         }
         System.out.println("seriesList = " + seriesList);
 
-        model.addAttribute("seriesList",seriesList);
-        
+        model.addAttribute("seriesList", seriesList);
+
         List<GenreDTO> genreList = genreService.getGenreList();
-        
+
 
         List<Long> postCodeList = likePostService.selectTop5Post();
         System.out.println("상위 5개 = " + postCodeList);
 
         List<PostDTO> postDTO = new ArrayList<>();
 
-        for(int i = 0 ; i<postCodeList.size();i++){
+        for (int i = 0; i < postCodeList.size(); i++) {
             PostDTO postDTO1 = postService.getPostInformationByPostCode(postCodeList.get(i));
             postDTO.add(postDTO1);
         }
         System.out.println("postDTO = " + postDTO);
-        
-        if(userDTO!=null){
+
+        if (userDTO != null) {
             System.out.println("userDTO = " + userDTO);
         }
-        model.addAttribute("postList",postDTO);
-        model.addAttribute("genreList",genreList);
+        model.addAttribute("postList", postDTO);
+        model.addAttribute("genreList", genreList);
         return "/views/index";
     }
-
-    @RequestMapping("/story")
-    public String storyPage() {
-
-        return "/views/story/home";
-    }
-
 }
