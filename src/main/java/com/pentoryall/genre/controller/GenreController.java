@@ -1,15 +1,15 @@
 package com.pentoryall.genre.controller;
 
+import com.pentoryall.comment.dto.CommentDetailDTO;
 import com.pentoryall.genre.dto.GenreDTO;
 import com.pentoryall.genre.service.GenreService;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.genreOfArt.service.GenreOfArtService;
+import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,4 +82,25 @@ public class GenreController {
         System.out.println("genreDTO .....= " + genreDTO);
         return genreDTO;
     }
+
+    @GetMapping("/series")
+    public ResponseEntity<List<SeriesDTO>> selectSeriesList(GenreDTO genreDTO){
+        System.out.println("genreDTO = " + genreDTO);
+        List<GenreOfArtDTO> seriesList = genreOfArtService.selectSeriesByGenre(genreDTO.getCode());
+
+        List<Long> seriesCodeList = new ArrayList<>();
+        for(int i = 0 ; i<seriesList.size();i++){
+            seriesCodeList.add(seriesList.get(i).getSeriesCode());
+        }
+
+        List<SeriesDTO> result = new ArrayList<>();
+        for(int i = 0 ; i<seriesCodeList.size() ; i++){
+            SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCodeList.get(i));
+            result.add(seriesDTO);
+        }
+
+        System.out.println("result = " + result);
+        return ResponseEntity.ok(result);
+    }
+
 }

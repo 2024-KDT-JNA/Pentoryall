@@ -22,4 +22,17 @@
 /* ============ */
 .best-series-img { width: 180px; height: 218px; } 
 .post-description { height: 50px; } 
-.select-btn, .select-option { border: solid 1px; } 
+.select-btn, .select-option { border: solid 1px; }
+.genre-list{margin:10px}
+.series-margin{
+    margin-right: 10px;
+}
+.series-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+.thumbnail{
+    width: 150px;
+    height: 112px;
+    border-radius: 5px;
+}
