@@ -34,4 +34,6 @@ public interface PostMapper {
     void addComment(CommentDetailDTO commentAdd);
 
     PostDTO getLatestPost();
+
+    void updateViews(long code);
 }

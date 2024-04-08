@@ -18,4 +18,6 @@ public interface LikeMapper {
     List<LikeDTO> selectLikeByPostCode(Long code);
 
     void deleteLikeByPostCode(long code);
+
+    List<LikeDTO> getLikeByUserCode(long code);
 }
