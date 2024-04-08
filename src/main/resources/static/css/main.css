@@ -31,3 +31,8 @@
     display: flex;
     flex-wrap: wrap;
 }
+.thumbnail{
+    width: 150px;
+    height: 112px;
+    border-radius: 5px;
+}
