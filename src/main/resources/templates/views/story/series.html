@@ -7,11 +7,15 @@
 </th:block>
 
 <th:block layout:fragment="content">
+    <div class="story-content">
+        <div class="inner">
+            <section class="section">
     <h2 class="h2 userPost" th:text="|${storyUser.nickname} 님의 시리즈|"></h2>
+    <button class="button" onclick="location.href='/series/add'">시리즈 추가하기</button>
 
     <div class="inner">
         <div class="main-series-swiper series-list">
-            <div class="swiper-wrapper">
+            <div class="swiper-wrapper series-wrapper">
                 <div class="series-margin" th:each="series:${seriesList}">
                     <a th:href="@{/series/page(code=${series.code})}">
                         <div class="thumbnail-image">
@@ -21,13 +25,10 @@
                         <p class="description" th:text="${series.title}"></p>
                     </a>
                 </div>
-                <!--                         <button class="swiper-button-prev"> -->
-                <!--                             <i class="bi bi-chevron-left"></i> -->
-                <!--                         </button> -->
-                <!--                         <button class="swiper-button-next"> -->
-                <!--                             <i class="bi bi-chevron-right"></i> -->
-                <!--                         </button> -->
             </div>
+        </div>
+    </div>
+            </section>
         </div>
     </div>
 </th:block>

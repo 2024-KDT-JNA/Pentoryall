@@ -10,11 +10,6 @@
     <div class="main-content">
         <section class="section section-weekly-series">
             <h2 class="h2">이번 주 인기 시리즈</h2>
-
-            <button onclick="location.href='/post/writer'">포스트 추가하기</button>
-            <br>
-            <button onclick="location.href='/series/add'">시리즈 추가하기</button>
-
             <div class="inner">
                 <div class="main-series-swiper series-list">
                     <div class="swiper-wrapper">
@@ -40,7 +35,6 @@
 
         <section class="section section-weekly-posts">
             <h2 class="h2">이번 주 인기 포스트</h2>
-
             <div class="inner">
                 <div class="post-list">
                     <div class="post-item" th:each="post : ${postList}">
@@ -67,7 +61,7 @@
                                         <i class="bi bi-eye"></i>
                                         <span class="blind">조회수</span>
                                     </dt>
-                                    <dd>1324</dd>
+                                    <dd th:text="${post.views}"></dd>
                                 </dl>
                                 <dl class="like">
                                     <dt>
@@ -78,13 +72,6 @@
                                         </div>
                                     </dt>
                                     <dd class="like-input"></dd>
-                                </dl>
-                                <dl class="comment">
-                                    <dt>
-                                        <i class="bi bi-reply"></i>
-                                        <span class="blind">댓글</span>
-                                    </dt>
-                                    <dd>14</dd>
                                 </dl>
                             </div>
                         </div>

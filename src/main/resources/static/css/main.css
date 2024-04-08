@@ -24,14 +24,10 @@
 .post-description { height: 50px; } 
 .select-btn, .select-option { border: solid 1px; }
 .genre-list{margin:10px}
-.userPost{
-    margin-left:300px;
-    margin-top:20px;
-}
 .series-margin{
     margin-right: 10px;
 }
-.swiper-wrapper {
+.series-wrapper {
     display: flex;
     flex-wrap: wrap;
 }
