@@ -1,7 +1,7 @@
 package com.pentoryall.point.service;
 
+import com.pentoryall.membership.dto.MembershipDTO;
 import com.pentoryall.point.dto.TransactionDTO;
-import com.pentoryall.point.enums.TransactionType;
 import com.pentoryall.point.mapper.TransactionMapper;
 import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.user.dto.UserDTO;
@@ -33,12 +33,20 @@ public class TransactionService {
         seller.setRevenue(seller.getRevenue() + price);
         userMapper.updateRevenueByUserCode(seller);
 
-        TransactionDTO transaction = new TransactionDTO();
-        transaction.setPostCode(post.getCode());
-        transaction.setUserCode(buyer.getCode());
-        transaction.setSellerUserCode(seller.getCode());
-        transaction.setType(TransactionType.POST);
-        transaction.setPoint(price);
+        TransactionDTO transaction = new TransactionDTO(post, buyer);
+        transactionMapper.save(transaction);
+    }
+
+    public void membershipTransaction(MembershipDTO membership, UserDTO buyer) {
+        int price = membership.getPrice();
+        buyer.setPoint(buyer.getPoint() - price);
+        userMapper.updatePointByUserCode(buyer);
+
+        UserDTO seller = userMapper.getUserInformationByUserCode(membership.getUserCode());
+        seller.setRevenue(seller.getRevenue() + price);
+        userMapper.updateRevenueByUserCode(seller);
+
+        TransactionDTO transaction = new TransactionDTO(membership, buyer);
         transactionMapper.save(transaction);
     }
 }
