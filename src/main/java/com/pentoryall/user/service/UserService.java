@@ -28,6 +28,10 @@ public class UserService {
         return result != null;
     }
 
+    public UserDTO selectByUserId(String userId) {
+        return userMapper.findByUserId(userId);
+    }
+
     @Transactional
     public void registUser(UserDTO user) throws MemberRegistException {
 
@@ -76,9 +80,9 @@ public class UserService {
         return result != null;
     }
 
-//    public String getLikedPostCount() {
-//        return userMapper.getLikedPostCount();
-//    }
+    //    public String getLikedPostCount() {
+    //        return userMapper.getLikedPostCount();
+    //    }
 
     public List<UserDTO> getUserListByWord(String word) {
         return userMapper.getUserListByWord(word);
@@ -90,18 +94,18 @@ public class UserService {
         return result != null;
     }
 
-//    public boolean isPasswordCorrect(String userId, String enteredPassword) {
-//        // 사용자 정보를 DB에서 가져옵니다.
-//        User user = userRepository.findByUserId(userId);
-//
-//        if (user == null) {
-//            return false; // 사용자가 존재하지 않으면 비밀번호 일치 여부를 false로 반환합니다.
-//        }
-//
-//        // DB에서 가져온 사용자의 비밀번호를 가져옵니다.
-//        String storedPassword = user.getPassword();
-//
-//        // 입력된 비밀번호와 DB에서 가져온 비밀번호를 비교하여 일치 여부를 확인합니다.
-//        return passwordEncoder.matches(enteredPassword, storedPassword);
-//    }
+    //    public boolean isPasswordCorrect(String userId, String enteredPassword) {
+    //        // 사용자 정보를 DB에서 가져옵니다.
+    //        User user = userRepository.findByUserId(userId);
+    //
+    //        if (user == null) {
+    //            return false; // 사용자가 존재하지 않으면 비밀번호 일치 여부를 false로 반환합니다.
+    //        }
+    //
+    //        // DB에서 가져온 사용자의 비밀번호를 가져옵니다.
+    //        String storedPassword = user.getPassword();
+    //
+    //        // 입력된 비밀번호와 DB에서 가져온 비밀번호를 비교하여 일치 여부를 확인합니다.
+    //        return passwordEncoder.matches(enteredPassword, storedPassword);
+    //    }
 }
