@@ -49,4 +49,5 @@ public interface GenreOfArtMapper {
     GenreOfArtDTO selectSeriesGenre(Long seriesCode, Long genreCode);
 
     List<GenreOfArtDTO> selectPostNotInSeries(Long genreCode);
+
 }

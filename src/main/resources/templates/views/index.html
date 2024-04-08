@@ -97,81 +97,22 @@
             <h2 class="h2">장르 별 베스트</h2>
 
             <div class="inner">
-                <form action="/post/genre" method="post">
                     <!-- 1차 장르 목록 -->
                     <nav class="genre-tab">
-                        <select name="genre" class="genre-tab-list" oninput="receiveFetchLowerGenre()">
-                            <li class="active" th:each="genre : ${genreList}">
-                                <option class="genre-btn" th:text="|${genre.name}|" th:value="${genre.code}"></option>
+                        <ul class="genre-tab-list">
+                            <li class="active genre-list" th:each="genre : ${genreList}">
+                                <button class="genre-btn" th:text="|${genre.name}|" th:value="${genre.code}"></button>
                             </li>
-                        </select>
+                        </ul>
                     </nav>
-                    <!-- 2차 장르 목록 -->
-                    <nav class="genre-tab lower-tab">
-                        <div class="box box-order-amount">
-                            <label class="label">하위 장르</label>
-                            <ul class="list-group">
-                            </ul>
-                        </div>
-                    </nav>
-                    <button class="button">검색</button>
-                </form>
+            </div>
 
-                <ul class="post-list" th:each="iteration : ${#numbers.sequence(0, 4)}">
-                    <li class="post-item">
-                        <div class="thumbnail-image">
-                            <!-- 포스트 경로 -->
-                            <a href="#">
-                                <img src="./images/temp/thumbnail.png" alt="미리보기" />
-                            </a>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-text">
-                                <!-- 시리즈 경로 -->
-                                <a href="#" class="series-name">시리즈명</a>
-                                <!-- 포스트 경로 -->
-                                <a href="#">
-                                    <h3 class="post-name">포스트 제목</h3>
-                                    <p class="post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                                        Iste, beatae! Asperiores soluta, amet deleniti excepturi dignissimos, commodi optio,
-                                        cumque ullam similique impedit voluptatibus nisi enim. Quae deleniti deserunt modi
-                                        porro.
-                                    </p>
-                                </a>
-                            </div>
-                            <div class="post-meta">
-                                <dl class="date">
-                                    <dt>
-                                        <i class="bi bi-calendar"></i>
-                                        <span class="blind">작성일</span>
-                                    </dt>
-                                    <dd>2024.03.20</dd>
-                                </dl>
-                                <dl class="views">
-                                    <dt>
-                                        <i class="bi bi-eye"></i>
-                                        <span class="blind">조회수</span>
-                                    </dt>
-                                    <dd>1324</dd>
-                                </dl>
-                                <dl class="like">
-                                    <dt>
-                                        <i class="bi bi-heart"></i>
-                                        <span class="blind">좋아요</span>
-                                    </dt>
-                                    <dd>100</dd>
-                                </dl>
-                                <dl class="comment">
-                                    <dt>
-                                        <i class="bi bi-reply"></i>
-                                        <span class="blind">댓글</span>
-                                    </dt>
-                                    <dd>14</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+            <div class="inner">
+                <div class="main-series-swiper series-list">
+                    <div class="swiper-wrapper  selected-series">
+
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -179,46 +120,57 @@
 
 <th:block layout:fragment="script">
     <script th:src="@{/js/main.js}" src="/js/main.js"></script>
-
     <script>
-        function createLowerGenreList(genre) {
-            console.log(genre);
-            return `<li class="list-group-item">
-                        <input class="form-check-input blind" type="checkbox" name="genre" id="${ genre.name }" value="${ genre.code }" />
-                        <label class="form-check-label" for="${ genre.name }">
-                        <span class="inner-text">
-                            <span class="lowerGenre">${ genre.name }</span>
-                        </span>
-                        </label>
-                    </li>`;
+        document.querySelectorAll(".genre-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                // 모든 버튼의 색상을 초기화합니다.
+                document.querySelectorAll(".genre-btn").forEach(innerBtn => {
+                    innerBtn.style.backgroundColor = ""; // 기본 색상으로 설정
+                });
+
+                // 클릭된 버튼의 색상을 변경합니다.
+                e.target.style.backgroundColor = "lightblue"; // 여기서 "blue"는 원하는 색상으로 변경하세요.
+
+                console.log(e.target.value);
+
+                fetch("/genre/series?code="+e.target.value)
+                    .then(response => response.json())
+                    .then(data=>{
+                        console.log("데이터",data)
+                        makeSeries(data);
+                    } )
+                    .catch(error => console.log("데이터를 가져오는 중 오류 발생",error)
+                )
+            })
+        })
+
+        function makeSeries(seriesList) {
+            // 시리즈 목록을 담을 swiper-wrapper를 찾습니다.
+            const swiperWrapper = document.querySelector(".selected-series");
+
+            // swiper-wrapper 내용을 초기화합니다.
+            swiperWrapper.innerHTML = "";
+
+            // 시리즈 목록을 동적으로 생성하여 swiper-wrapper에 추가합니다.
+            seriesList.forEach(series => {
+                const swiperSlide = document.createElement("div");
+                swiperSlide.className = "swiper-slide";
+                swiperSlide.innerHTML = `
+            <a href="/series/page?code=${series.code}">
+                <div class="thumbnail-image">
+                    <img class="best-series-img" src="${series.thumbnailImage}"
+                         onerror="this.src='/images/temp/thumbnail.png'" alt="시리즈 썸네일" />
+                </div>
+                <p class="description">${series.title}</p>
+            </a>
+        `;
+                swiperWrapper.appendChild(swiperSlide);
+            });
         }
-        async function receiveFetchLowerGenre() {
-            const upperGenre = document.querySelector(".genre-tab-list");
-            const code = upperGenre.value;
-            console.log(code);
-            const response = await fetch('/genre/lowerGenreList?code=' + code);
-            const responseJson = await response.json();
-            const $optionNone = document.querySelector(".list-group");
-            $optionNone.innerHTML = responseJson.map(item => createLowerGenreList(item)).join('');
-        }
-        window.onload = function () {
-            receiveFetchLowerGenre();
-        };
-        function view() {
-            console.log("이거 작동하나욤");
-            const genre = document.getElementById("lower-genre");
-            console.log("ㅎㅇ장르 코드 : " + genre.value);
-        }
-        function hiddenLowerGenre() {
-            const genre = document.querySelector(".genre-tab-list");
-            const lowerGenre = document.getElementById("lower-genre");
-            if (genre.value == 1 || genre.value == 2 || genre.value == 3) {
-                lowerGenre.hidden = false;
-            } else {
-                lowerGenre.hidden = true;
-            }
-        }
+
+
     </script>
+
     <script>
         /*현재 좋아요 갯수*/
         async function likeCounts() {

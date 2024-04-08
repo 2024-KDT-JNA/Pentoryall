@@ -110,14 +110,14 @@
                     <input class="likeCount" th:value="${post.code}" hidden/>
                     <div class="post-information-thumbnail" th:onclick="'location.href = \'' + @{/post/information(code=${post.code})} + '\''">
                         <img class="post-information-thumbnail-content" th:src="${post.thumbnailImage != null
-                            ? post.thumbnailImage : '/images/temp/profile.png'}">
+                            ? post.thumbnailImage : '/images/temp/profile.png'}"/>
                         <!--자물쇠 모양 이미지-->
-                        <th:block th:if="${post.isPaid =='Y'}">
-                        <img  class="bi bi-lock-fill" th:src="@{/images/temp/자물쇠.png}"/>
-                        <div  class="post-information-lock"><p th:text="|${post.price}P|"></p></div>
+                        <th:block th:if="${post.isPaid=='Y'}">
+                            <img  class="bi bi-lock-fill" th:src="@{/images/temp/자물쇠.png}"/>
+                            <div class="post-information-lock"><p th:text="|${post.price}P|"></p></div>
                         </th:block>
                         <th:block th:if="${post.isAdult == 'Y'}">
-                        <img class="post-information-adult" th:src="@{/images/temp/adult.png}"/>
+                            <img class="post-information-adult" th:src="@{/images/temp/adult.png}"/>
                         </th:block>
                             <div class="series-post-content-information">
                                 <div class="post-information-title">

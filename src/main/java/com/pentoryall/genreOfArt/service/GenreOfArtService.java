@@ -99,4 +99,5 @@ public class GenreOfArtService {
     public List<GenreOfArtDTO> selectPostNotInSeries(Long genreCode) {
         return genreOfArtMapper.selectPostNotInSeries(genreCode);
     }
+
 }
