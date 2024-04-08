@@ -5,6 +5,9 @@
 
 <mapper namespace="com.pentoryall.point.mapper.TransactionMapper">
 
-    <insert id="save"></insert>
+    <insert id="save">
+        INSERT INTO transaction(user_code, seller_user_code, post_code, membership_code, type, point)
+        VALUES (#{userCode}, #{sellerUserCode}, #{postCode}, #{membershipCode}, #{type}, #{point})
+    </insert>
 </mapper>
 
