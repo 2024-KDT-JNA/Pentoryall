@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/story}">
+
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
+</th:block>
+
+<th:block layout:fragment="content">
+    <h2 class="h2 userPost" th:text="|${storyUser.nickname} 님의 시리즈|"></h2>
+
+    <div class="inner">
+        <div class="main-series-swiper series-list">
+            <div class="swiper-wrapper">
+                <div class="series-margin" th:each="series:${seriesList}">
+                    <a th:href="@{/series/page(code=${series.code})}">
+                        <div class="thumbnail-image">
+                            <img class="best-series-img" th:src="${series.thumbnailImage}"
+                                 onerror="this.src='/images/temp/thumbnail.png'" alt="시리즈 썸네일" />
+                        </div>
+                        <p class="description" th:text="${series.title}"></p>
+                    </a>
+                </div>
+                <!--                         <button class="swiper-button-prev"> -->
+                <!--                             <i class="bi bi-chevron-left"></i> -->
+                <!--                         </button> -->
+                <!--                         <button class="swiper-button-next"> -->
+                <!--                             <i class="bi bi-chevron-right"></i> -->
+                <!--                         </button> -->
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script"></th:block>
+</html>

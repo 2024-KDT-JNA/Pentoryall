@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/story}">
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
+</th:block>
+
+<th:block layout:fragment="content">
+    <h2 class="h2 userPost" th:text="|${storyUser.nickname} 님의 포스트|"></h2>
+
+    <div class="inner">
+        <div class="post-list">
+            <div class="post-item" th:each="post : ${postList}">
+                <input class="input-post" th:value="${post.code}" hidden/>
+                <div class="thumbnail-image">
+                    <img th:src="${post.thumbnailImage}" alt="포스트 썸네일"
+                         onerror="this.src='/images/temp/thumbnail.png'" />
+                </div>
+                <div class="post-content">
+                    <div class="post-text">
+                        <h3 class="post-name" th:text="${post.title}"></h3>
+                    </div>
+                    <br>
+                    <div class="post-meta">
+                        <dl class="date">
+                            <dt>
+                                <i class="bi bi-calendar"></i>
+                                <span class="blind">작성일</span>
+                            </dt>
+                            <dd th:text="${post.createDate}"></dd>
+                        </dl>
+                        <dl class="views">
+                            <dt>
+                                <i class="bi bi-eye"></i>
+                                <span class="blind">조회수</span>
+                            </dt>
+                            <dd>1324</dd>
+                        </dl>
+                        <dl class="like">
+                            <dt>
+                                <!--                                        <i class="bi bi-heart"></i>-->
+                                <!--                                        <span class="blind">좋아요</span>-->
+                                <div class="like_post_info">
+                                    <button class="likeBtn"><i class="far fa-heart"></i></button>
+                                </div>
+                            </dt>
+                            <dd class="like-input"></dd>
+                        </dl>
+                        <dl class="comment">
+                            <dt>
+                                <i class="bi bi-reply"></i>
+                                <span class="blind">댓글</span>
+                            </dt>
+                            <dd>14</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+<th:block layout:fragment="script">
+    <script>
+        /*현재 좋아요 갯수*/
+        async function likeCounts() {
+            console.log("성공전")
+            const input = document.querySelectorAll(".input-post");
+            input.forEach(el=>{
+                const code = el.value;
+                console.log("성공후",code)
+                fetch('/post/likeCount',{
+                    method:'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body:JSON.stringify({
+                        code
+                    }),
+                })
+                    .then(result => result.json())
+                    .then(data => {
+                        console.log("data:" + data);
+                        console.log("성공임니다");
+                        makeLikeArea(data,code);
+                    })
+                    .catch(error => console.log(error));
+            })
+
+        }
+
+
+        function makeLikeArea(likeCount,code) {
+            // 좋아요 갯수를 업데이트할 요소 선택
+            const likeElement = document.querySelectorAll(".input-post");
+            likeElement.forEach(el => {
+                if(el.value == code){
+                    const like = el.closest(".post-item").querySelector(".like-input");
+                    // 요소의 내용 업데이트
+                    like.innerHTML = `♡ ${likeCount}`;
+                }
+            })}
+        window.onload(likeCounts());
+    </script>
+</th:block>
+</html>
