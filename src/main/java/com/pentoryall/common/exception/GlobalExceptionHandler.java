@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler({NoHandlerFoundException.class, NoResourceFoundException.class})
     public String handleNotFoundException() {
-        return "error/error";
+        return "error/404";
     }
 
     @ExceptionHandler(Exception.class)
