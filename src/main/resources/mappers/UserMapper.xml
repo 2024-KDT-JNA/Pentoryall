@@ -117,8 +117,7 @@
         FROM user
         WHERE code = #{ code }
     </select>
-
-    <select id="getUserListByWord">
+    <select id="getUserListByWord" resultType="com.pentoryall.user.dto.UserDTO">
         SELECT code,
                email,
                user_id,

@@ -1,7 +1,7 @@
 package com.pentoryall.point.controller;
 
 import com.pentoryall.common.dto.CommonResponse;
-import com.pentoryall.common.exception.CustomException;
+import com.pentoryall.common.exception.PageNotFoundException;
 import com.pentoryall.point.dto.OrderDTO;
 import com.pentoryall.point.dto.OrderRequestDTO;
 import com.pentoryall.point.dto.OrderUserDTO;
@@ -108,7 +108,7 @@ public class PointOrderController {
         OrderDTO order = orderService.selectOrderByCode(code);
 
         if (isValidUserInfo(order.getUserCode(), sessionUser.getCode())) {
-            throw new CustomException("올바르지 않은 주문자 정보 입니다.");
+            throw new PageNotFoundException();
         }
 
         model.addAttribute("orderCode", order.getCode());
