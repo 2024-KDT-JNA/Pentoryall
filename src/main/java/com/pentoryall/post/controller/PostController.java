@@ -90,7 +90,7 @@ public class PostController {
         char isPublic = params.get("isPublic") != null ? params.get("isPublic").charAt(0) : 'N';
         long seriesno = Long.parseLong(params.get("series"));
         char isFee = params.get("isFee") != null ? params.get("isFee").charAt(0) : 'N';
-        long neededPoint = Long.parseLong(params.get("neededPoint"));
+        int neededPoint = Integer.parseInt(params.get("neededPoint"));
         char isAdult = params.get("isAdult") != null ? params.get("isAdult").charAt(0) : 'N';
 
 
