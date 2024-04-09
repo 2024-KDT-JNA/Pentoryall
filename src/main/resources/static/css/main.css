@@ -9,7 +9,7 @@
 .post-content .series-name { display: block; color: #999; font-size: 14px; } 
 .post-content .post-name { margin: 7px 0 12px; font-weight: 600; font-size: 24px; } 
 .post-content .post-description { -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; overflow: hidden; color: #999; line-height: 1.5; text-overflow: ellipsis; } 
-.post-content .post-meta { display: flex; align-items: center; color: #ccc; font-size: 12px; } 
+.post-content .post-meta { display: flex; align-items: center; width: 100%; color: #ccc; font-size: 12px; } 
 .post-content .post-meta dl { display: flex; margin-right: 12px; } 
 .post-content .post-meta dt { margin-right: 4px; } 
 
@@ -17,15 +17,22 @@
 .genre-tab-list { display: flex; justify-content: space-between; width: 80%; margin: 0 auto; padding: 7px 20px; border-radius: 28px; box-shadow: 1px 1px 6px 0px #efefef; } 
 .genre-tab-list li { width: 120px; overflow: hidden; border-radius: 30px; text-align: center; } 
 .genre-tab-list li button { display: block; width: 100%; padding: 8px 0; } 
-.genre-tab-list li.active { background-color: #e4e4e4; }
+.genre-tab-list li.active { background-color: #e4e4e4; } 
 
-.best-series-img{
-    width:180px;
-    height:218px;
+/* ============ */
+.best-series-img { width: 180px; height: 218px; } 
+.post-description { height: 50px; } 
+.select-btn, .select-option { border: solid 1px; }
+.genre-list{margin:10px}
+.series-margin{
+    margin-right: 10px;
 }
-.post-description{
-    height:50px;
+.series-wrapper {
+    display: flex;
+    flex-wrap: wrap;
 }
-.select-btn,.select-option{
-    border: solid 1px;
+.thumbnail{
+    width: 150px;
+    height: 112px;
+    border-radius: 5px;
 }

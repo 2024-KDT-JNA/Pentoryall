@@ -33,7 +33,7 @@ public class FindPwMail implements MailServiceInter {
         String msgg = "";
         msgg += "<div style='margin:100px;'>";
         msgg += "<h1> 안녕하세요</h1>";
-        msgg += "<h1> 통합 취업 정보 포탈 Pentoryall 입니다!✍\uD83C\uDFFB</h1>";
+        msgg += "<h1> Pentoryall 입니다!✍\uD83C\uDFFB</h1>";
         msgg += "<br>";
         msgg += "<p>회원님의 임시 비밀번호 입니다<p>";
         msgg += "<p>해당 비밀번호로 로그인 후 패스워드 변경 부탁드립니다.<p>";

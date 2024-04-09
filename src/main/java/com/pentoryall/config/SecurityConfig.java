@@ -14,8 +14,10 @@ import org.springframework.stereotype.Component;
 /* 시큐리티 설정 활성화 및 bean 등록 */
 @Component
 @EnableWebSecurity
+
 public class SecurityConfig {
 
+//    private final UserDetailsService remembermeUserDetailsService;
 
     /* 비밀번호 암호화에 사용할 객체 BCryptPasswordEncoder bean 등록 */
     @Bean
@@ -37,7 +39,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 /* 요청에 대한 권한 체크 */
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/settings/**", "/user/update").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers("/settings/**", "/user/update", "/point/order/**", "/subscribe/**")
+                        .hasAnyRole("USER", "ADMIN");
                     auth.requestMatchers("/admin/**").hasAnyRole("ADMIN");
                     /* 위에 서술 된 패턴 외의 요청은 인증 되지 않은 사용자도 요청 허가 */
                     auth.anyRequest().permitAll();
@@ -65,24 +68,15 @@ public class SecurityConfig {
                     /* 로그아웃 후 랜딩 페이지 */
                     logout.logoutSuccessUrl("/");
                 })
+                // Remember Me Configuration
+                .rememberMe(rememberMe -> {
+//                    rememberMe.key("oingdaddy!");
+                    rememberMe.rememberMeParameter("remember-me");
+                    rememberMe.tokenValiditySeconds(1800);
+//                    rememberMe.userDetailsService(remembermeUserDetailsService);
+                    rememberMe.alwaysRemember(false);
+//                    rememberMe.authenticationSuccessHandler(loginSuccessHandler());
+                })
                 .build();
     }
-
-
-    //    @Bean
-    //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    //
-    //        /* 자동 로그인 설정 S */
-    //        http.rememberMe(c -> {
-    //            c.rememberMeParameter("autoLogin") // 자동 로그인으로 사용할 요청 파리미터 명, 기본값은 remember-me
-    //                    .tokenValiditySeconds(60 * 60 * 24 * 30) // 로그인을 유지할 기간(30일로 설정), 기본값은 14일
-    //                    .userDetailsService(memberInfoService) // 재로그인을 하기 위해서 인증을 위한 필요 UserDetailsService 구현 객체
-    //                    .authenticationSuccessHandler(new LoginSuccessHandler()); // 자동 로그인 성공시 처리 Handler
-    //
-    //        });
-    //        /* 자동 로그인 설정 E */
-    //
-    //        return http.build();
-    //    }
-
 }

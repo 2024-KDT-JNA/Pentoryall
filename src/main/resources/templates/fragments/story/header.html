@@ -7,37 +7,41 @@
         <div class="inner user-profile-wrap">
             <div class="user-profile">
                 <div class="profile-image">
-                    <img th:src="${#authentication.principal.profileImage != null
-                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
+                    <img th:src="${storyUser.profileImage != null
+                        ? storyUser.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
                 </div>
                 <div class="profile-info">
-                    <span class="nickname" sec:authentication="principal.nickname">닉네임</span>
-                    <span class="username" sec:authentication="principal.name">@username</span>
+                    <span class="nickname">[[ ${storyUser.nickname} ]]</span>
+                    <span class="username">[[ ${storyUser.userId} ]]</span>
                 </div>
-                <div class="profile-btn">
-                    <button class="button btn-settings">
-                        <a href="/user/update">설정</a>
-                    </button>
-                </div>
+                <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.userId == storyUser.userId}">
+                    <div class="profile-btn" sec:authorize="isAuthenticated()">
+                        <button class="button btn-settings">
+                            <a th:href="@{/user/update}">설정</a>
+                        </button>
+                    </div>
+                </th:block>
             </div>
 
             <div class="user-intro">
                 <div class="intro-text">
                     <strong class="title">자기소개</strong>
-                    <p class="intro" th:text="${#authentication.principal.introduction}"></p>
+                    <p class="intro"> [[ ${storyUser.introduction} ]] </p>
                 </div>
                 <div class="setting-btn">
-                    <button class="button" id="subscribeButton">구독</button>
-                    <button class="button">멤버십 가입</button>
+                    <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.userId != storyUser.userId}">
+                        <button class="button" id="subscribeButton">구독</button>
+                        <button class="button">멤버십 가입</button>
+                    </th:block>
                 </div>
             </div>
         </div>
 
         <nav class="inner story-nav">
             <ul class="tab-nav">
-                <li class="active"><a href="#">홈</a></li>
-                <li><a href="#">포스트</a></li>
-                <li><a href="#">시리즈</a></li>
+                <li class="active"><a th:href="|/${storyUser.userId}|">홈</a></li>
+                <li><a th:href="|/${storyUser.userId}/posts|">포스트</a></li>
+                <li><a th:href="|/${storyUser.userId}/series|">시리즈</a></li>
                 <li><a href="/membership/planInfo">멤버십</a></li>
                 <li><a href="/subscribe/list">구독</a></li>
             </ul>
@@ -45,8 +49,8 @@
     </header>
 </th:block>
 <script>
-    $(document).ready(function() {
-        $('#subscribeButton').click(function() {
+    $(document).ready(function () {
+        $('#subscribeButton').click(function () {
             var button = $('#subscribeButton');
             var isSubscribed = button.text() === '구독중'; // 현재 구독 상태 여부
 
@@ -54,7 +58,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/subscribe/' + (isSubscribed ? 'cancel' : 'add'), // 구독 추가 또는 취소 엔드포인트 선택
-                success: function(response) { // 요청 성공 시 처리할 함수
+                success: function (response) { // 요청 성공 시 처리할 함수
                     // 버튼의 텍스트를 토글하여 상태 변경
                     if (isSubscribed) {
                         button.text('구독');
@@ -62,7 +66,7 @@
                         button.text('구독중');
                     }
                 },
-                error: function(xhr, status, error) { // 요청 실패 시 처리할 함수
+                error: function (xhr, status, error) { // 요청 실패 시 처리할 함수
                     alert('구독 상태 변경에 실패했습니다. 다시 시도해주세요.');
                 }
             });
@@ -70,34 +74,3 @@
     });
 </script>
 </html>
-
-
-
-
-
-
-
-
-
-<!--
-// $(document).ready(function() {
-//     $('#subscribeButton').click(function() {
-//         // AJAX 요청을 보냄
-//         $.ajax({
-//             type: 'POST',
-//             url: '/subscribe/add', // 서버의 구독 추가 엔드포인트
-//             success: function(response) { // 요청 성공 시 처리할 함수
-//                 var button = $('#subscribeButton');
-//                 if (button.text() === '구독') {
-//                     button.text('구독중');
-//                 } else {
-//                     button.text('구독');
-//                 }
-//                 alert('구독이 추가되었습니다.');
-//             },
-//             error: function(xhr, status, error) { // 요청 실패 시 처리할 함수
-//                 alert('구독 추가에 실패했습니다. 다시 시도해주세요.');
-//             }
-//         });
-//     });
-// });-->

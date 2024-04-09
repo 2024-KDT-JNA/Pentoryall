@@ -22,8 +22,8 @@ public class PostDTO {
     private String content;
     private String confirmContent;
     private String thumbnailImage;
-    private Long views;
-    private Long price;
+    private int views;
+    private int price;
     private char isPaid;
     private char isAdult;
     private char isPublic;

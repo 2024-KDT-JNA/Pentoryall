@@ -35,4 +35,90 @@
         FROM `like`
         WHERE user_code = #{userCode}
     </select>
+    <select id="selectLikeByPostCode"  resultType="com.pentoryall.user.dto.LikePostDTO">
+        SELECT post.code,
+               post.series_code,
+               series.title AS series_title,
+               user.nickname,
+               user.profile_image,
+               post.user_code,
+               post.title   AS post_title,
+               post.content,
+               post.confirm_content,
+               post.thumbnail_image,
+               post.views,
+               post.price,
+               post.is_paid,
+               post.is_adult,
+               post.is_public,
+               post.is_deleted,
+               post.create_date,
+               post.update_date
+            FROM
+                `like`
+            JOIN
+                post ON post.code = `like`.post_code
+            LEFT JOIN series ON post.series_code = series.code
+            JOIN user ON post.user_code = user.code
+            WHERE post.code = #{code} AND post.series_code = #{seriesCode};
+    </select>
+    <select id="selectLikeCountByPostCode" resultType="com.pentoryall.user.dto.LikePostDTO">
+        SELECT COUNT(*)
+        FROM
+            `like`
+                JOIN
+            post ON post.code = `like`.post_code
+                LEFT JOIN series ON post.series_code = series.code
+                JOIN user ON post.user_code = user.code
+        WHERE post.code = #{code}
+    </select>
+    <select id="selectTop5Post">
+        SELECT post_code, COUNT(*) AS count
+        FROM `like`
+        GROUP BY post_code
+        ORDER BY COUNT(*) DESC
+            LIMIT 5;
+    </select>
+    <select id="selectTop10Series">
+        SELECT
+            series.code AS series_code,
+            series.title AS series_title,
+            COALESCE(SUM(`like`.post_code), 0) AS total_likes
+        FROM series
+                 LEFT JOIN post ON post.series_code = series.code
+                 LEFT JOIN `like` ON post.code = `like`.post_code
+        GROUP BY series.code
+        ORDER BY total_likes DESC
+            LIMIT 10;
+    </select>
+    <select id="selectLikeByPostTitle">
+        SELECT post.code,
+               post.series_code,
+               series.title AS series_title,
+               user.nickname,
+               user.profile_image,
+               post.user_code,
+               post.title   AS post_title,
+               post.content,
+               post.confirm_content,
+               post.thumbnail_image,
+               post.views,
+               post.price,
+               post.is_paid,
+               post.is_adult,
+               post.is_public,
+               post.is_deleted,
+               post.create_date,
+               post.update_date
+        FROM
+            `like`
+                JOIN
+            post ON post.code = `like`.post_code
+                LEFT JOIN series ON post.series_code = series.code
+                JOIN user ON post.user_code = user.code
+        WHERE
+            post.title = #{title}
+
+    </select>
+
 </mapper>

@@ -71,4 +71,8 @@ public class PostService {
     public PostDTO getLatestPost() {
        return postMapper.getLatestPost();
     }
+
+    public void updateViews(long code) {
+        postMapper.updateViews(code);
+    }
 }

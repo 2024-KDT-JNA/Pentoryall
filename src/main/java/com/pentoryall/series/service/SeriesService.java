@@ -25,8 +25,8 @@ public class SeriesService {
         return seriesMapper.getSeriesInformationBySeriesCode(seriesCode);
     }
 
-    public List<SeriesDTO> getSeriesList(int i) {
-        return seriesMapper.getSeriesList(i);
+    public List<SeriesDTO> getSeriesList(long code) {
+        return seriesMapper.getSeriesList(code);
     }
 
     public long addSeriesOptions(SeriesDTO seriesDTO) {
@@ -65,5 +65,9 @@ public class SeriesService {
 
     public List<SeriesDTO> selectAllSeries() {
         return seriesMapper.selectAllSeries();
+    }
+
+    public SeriesDTO selectLatestCode() {
+       return  seriesMapper.selectLatestCode();
     }
 }
