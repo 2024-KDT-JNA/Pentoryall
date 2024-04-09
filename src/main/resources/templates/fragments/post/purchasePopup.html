@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+>
+
+<th:block th:fragment="post-purchase-popup">
+    <div class="layer-popup-wrap">
+    <div class="layer-popup layer-popup-small blind">
+        <div class="pop-header">
+            <h2 class="h2">유료 포스트 구매</h2>
+            <button class="close-btn">
+                <i class="bi bi-x"></i>
+                <span class="blind">닫기</span>
+            </button>
+        </div>
+        <div class="pop-content">
+            <div class="pop-content-inner">
+                <h3 class="h3">해당 포스트는 유료 포스트로 결제가 필요합니다.</h3>
+
+                <section class="section section-point">
+                    <form action="">
+                    <div class="box box-desc-list">
+                        <dl class="desc-list">
+                            <dt class="desc-list-dt">주문번호</dt>
+                            <dd class="desc-list-dd" th:text="${orderCode}"></dd>
+
+                            <dt class="desc-list-dt">결제일시</dt>
+                            <dd class="desc-list-dd" th:text="${paidAt}"></dd>
+
+                            <dt class="desc-list-dt">충전 금액</dt>
+                            <dd class="desc-list-dd">
+                                <span th:text="|${#numbers.formatInteger(paidAmount, 3, 'COMMA')}원 |"></span>
+                                <span th:text="|(${ #numbers.formatInteger(paidPoint, 3, 'COMMA')}P)|"></span>
+                            </dd>
+                            <dt class="desc-list-dt border-top">보유 포인트</dt>
+                            <dd class="desc-list-dd border-top" th:text="|${#authentication.principal.point > 0 ? #numbers.formatInteger(#authentication.principal.point, 3, 'COMMA') : 0}P|"></dd>
+                        </dl>
+                    </div>
+                    <div class="box-bottom">
+                        <button type="submit" class="button dark">확인</button>
+                        <button type="button" class="button ">취소</button>
+                    </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

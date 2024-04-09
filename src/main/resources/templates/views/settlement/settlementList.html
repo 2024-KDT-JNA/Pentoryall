@@ -10,25 +10,25 @@
 <th:block layout:fragment="content">
     <div class="sub-content">
         <div class="inner">
-            <section class="section section-order">
+            <section class="section section-point">
                 <h2 class="h2">정산 요청 내역</h2>
 
                 <div class="summary-wrap">
-                    <dl class="summary-list">
-                        <dt class="title">현재 잔액</dt>
-                        <dd class="desc">100,000</dd>
+                    <dl class="desc-list">
+                        <dt class="desc-list-dt">현재 잔액</dt>
+                        <dd class="desc-list-dd" th:text="|${#authentication.principal.revenue > 0 ? #numbers.formatInteger(#authentication.principal.revenue, 3, 'COMMA') : 0}P|"></dd>
                     </dl>
                 </div>
 
-                <div class="search-option">
-                    <div class="form-item">
-                        <select class="select">
-                            <option value="">전체</option>
-                            <option value="">2024.03</option>
-                            <option value="">2024.02</option>
-                        </select>
-                    </div>
-                </div>
+                <!--                <div class="search-option">-->
+                <!--                    <div class="form-item">-->
+                <!--                        <select class="select">-->
+                <!--                            <option value="">전체</option>-->
+                <!--                            <option value="">2024.03</option>-->
+                <!--                            <option value="">2024.02</option>-->
+                <!--                        </select>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
                 <div class="table-box">
                     <table class="table">
@@ -40,48 +40,31 @@
                             <th>지급일</th>
                         </thead>
                         <tbody>
-                            <!-- NULL -->
-                            <tr>
-                                <td colspan="5">정산 요청 내역이 없습니다.</td>
-                            </tr>
-                            <!-- NOT NULL -->
-                            <tr>
-                                <td>2024.01</td>
-                                <td>100,000원</td>
-                                <td>90,000원</td>
-                                <td class="is-danger">반려</td>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td>2023.10</td>
-                                <td>300,000원</td>
-                                <td>270,000원</td>
-                                <td class="is-success">승인(지급 완료)</td>
-                                <th>2023.10.27</th>
-                            </tr>
+                            <th:block th:if="${settlementList == null || settlementList.size() == 0}">
+                                <tr>
+                                    <td colspan="5">정산 요청 내역이 없습니다.</td>
+                                </tr>
+                            </th:block>
+                            <th:block th:unless="${settlementList == null || settlementList.size() == 0}">
+                                <tr>
+                                    <td>2024.01</td>
+                                    <td>100,000원</td>
+                                    <td>90,000원</td>
+                                    <td class="is-danger">반려</td>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <td>2023.10</td>
+                                    <td>300,000원</td>
+                                    <td>270,000원</td>
+                                    <td class="is-success">승인(지급 완료)</td>
+                                    <th>2023.10.27</th>
+                                </tr>
+                            </th:block>
                         </tbody>
                     </table>
                 </div>
-
-                <nav class="pagination">
-                    <button class="page-btn page-prev-btn">
-                        <i class="bi bi-chevron-left"></i>
-                        <span class="blind">Prev</span>
-                    </button>
-                    <ul class="page-items">
-                        <li class="page-item"></li>
-                        <li class="page-item active"><a class="page-btn" href="#">1</a></li>
-                        <li class="page-item"><a class="page-btn" href="#">2</a></li>
-                        <li class="page-item"><a class="page-btn" href="#">3</a></li>
-                        <li class="page-item"><a class="page-btn" href="#">4</a></li>
-                        <li class="page-item"><a class="page-btn" href="#">5</a></li>
-                        <li class="page-item"></li>
-                    </ul>
-                    <button class="page-btn page-next-btn">
-                        <i class="bi bi-chevron-right"></i>
-                        <span class="blind">Next</span>
-                    </button>
-                </nav>
+                <th:block th:replace="~{/fragments/common/pagination :: pagination('/settings/settlement/list')}"></th:block>
             </section>
         </div>
     </div>
