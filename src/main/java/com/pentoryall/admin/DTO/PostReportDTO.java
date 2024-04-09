@@ -3,6 +3,7 @@ package com.pentoryall.admin.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.service.annotation.GetExchange;
 
 import java.util.Date;
 
@@ -24,6 +25,8 @@ public class PostReportDTO {
     private String title;
 
     private String type;
+
+    private long confirmContent;
 
     private Date reportDate;
 }

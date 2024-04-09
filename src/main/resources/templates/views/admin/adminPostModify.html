@@ -20,116 +20,58 @@
             <section class="section">
                 <h2 class="h2">수정 요청 조회</h2>
 
-                <div class="table-option ">
-                    <div class="form-item">
-                        <label>
-                            <select name="select">
-                                <option>5개씩</option>
-                                <option>10개씩</option>
-                                <option>15개씩</option>
-                                <option>20개씩</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="table-box">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" id="checkAll-modify-1" name="" class="form-check-input"/>
-                                </th>
-                                <th class="tg-0lax">번호</th>
-                                <th class="tg-0lax">아이디</th>
-                                <th class="tg-0lax">닉네임</th>
-                                <th class="tg-0lax">제목</th>
-                                <th class="tg-0lax">수정요청사유</th>
-                                <th class="tg-0lax">포스트 가격</th>
-                                <th class="tg-0lax">수정 완료 여부</th>
-                                <th class="tg-0lax">수정관리</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="modifyPostAllList : ${modifyPostAllList}">
-                                <td><input type="checkbox" id="checkAll-modify-2" name="" class="form-check-input"/>
-                                </td>
-                                <td data-modify="userCode" th:text="${modifyPostAllList.code}" class="tg-0lax"></td>
-                                <td data-modify="userCode" th:text="${modifyPostAllList.userId}" class="tg-0lax"></td>
-                                <td data-modify="userNickname" th:text="${modifyPostAllList.nickName}"
-                                    class="tg-0lax"></td>
-                                <td data-modify="title" th:text="${modifyPostAllList.title}" class="tg-0lax"></td>
-                                <td data-modify="confirmCode" th:text="${modifyPostAllList.confirmContent}"
-                                    class="tg-0lax"></td>
-                                <td data-modify="price" th:text="${modifyPostAllList.price}" class="tg-0lax"></td>
-                                <td data-modify="createDate" th:text="${modifyPostAllList.isConfirmed}"
-                                    class="tg-0lax"></td>
-                                <td>
-                                    <button type="button" class="button btn-modify"
-                                            th:attr="data-modify=${modifyPostAllList.code}">수락
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="show-post">
+                    <select name="show-post">
+                        <option>5개씩</option>
+                        <option>10개씩</option>
+                        <option>15개씩</option>
+                        <option>20개씩</option>
+                    </select>
                 </div>
 
-                <div class="page" id="paging" align="center" style="margin-top: 20px;">
-                    <ul class="pagination-user">
-                        <th:block
-                                th:if="${ paging.searchCondition != null and paging.searchValue != null }">
-                            <!-- 맨 앞으로 이동 -->
-                            <li><a th:href="'/admin/modify/posts?page=1'">처음페이지</a></li>
-                            <li>
-                                <a th:href="@{/admin/modify/posts(page=1, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}"
-                                   class="arrow left"
-                                   th:disabled="${ paging.page <= 1 }"><<</a></li>
-                            <!-- 이전 페이지로 이동 -->
-
-                            <!-- 숫자 버튼 -->
-                            <th:block
-                                    th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}">
-                                <li><a class="num" th:text="${page}" th:disabled="${paging.page eq page}"
-                                       th:href="@{/admin/modify/posts(page=${page}, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}"></a>
-                                </li>
-                            </th:block>
-
-                            <!-- 다음 페이지로 이동 -->
-                            <li>
-                                <a th:href="@{/admin/modify/posts(page=${paging.page+1},searchCondition=${paging.searchCondition},searchValue=${paging.searchValue})}"
-                                   class="arrow right"
-                                   th:disabled="${ paging.page >= paging.maxPage }">>></a></li>
-
-                            <!-- 맨 끝으로 이동 -->
-                            <li>
-                                <a th:href="@{'/admin/modify/posts?page=' + ${paging.maxPage} + '&searchCondition=' + ${paging.searchCondition} + '&searchValue=' + ${paging.searchValue}}"
-                                   class="last">끝페이지</a></li>
-                        </th:block>
-                    </ul>
-
-                    <ul class="pagination-user">
-                        <th:block
-                                th:if="${ paging.searchCondition == null || paging.searchValue == null }">
-                            <!-- 맨 앞으로 이동 -->
-                            <li><a th:href="'/admin/modify/postspage=1'">처음페이지</a></li>
-                            <!-- 이전 페이지로 이동 -->
-                            <li><a th:href="@{'/admin/modify/posts?page=' + ${paging.page -1}}"
-                                   th:disabled="${paging.page <= 1}"><<</a></li>
-                            <!-- 숫자 버튼 -->
-                            <th:block
-                                    th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
-
-                                <li><a class="num" th:text="${ page }" th:disabled="${ paging.page eq page }"
-                                       th:href="@{/admin/modify/posts(page=${page})}"></a></li>
-                            </th:block>
-
-                            <!-- 다음 페이지로 이동 -->
-                            <li><a th:href="@{'/admin/modify/posts?page=' + ${paging.page + 1}}"
-                                   th:disabled="${paging.page >= paging.maxPage}">>></a></li>
-
-                            <!-- 맨 끝으로 이동 -->
-                            <li><a th:href="@{'/admin/modify/posts?page=' + ${paging.maxPage}}">끝페이지</a></li>
-                        </th:block>
+                <table class="tg-modify">
+                    <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="checkAll-modify-1" name="" class="form-check-input"/>
+                        </th>
+                        <th class="tg-0lax">번호</th>
+                        <th class="tg-0lax">아이디</th>
+                        <th class="tg-0lax">닉네임</th>
+                        <th class="tg-0lax">수정요청사유</th>
+                        <th class="tg-0lax">포스트가격</th>
+                        <th class="tg-0lax">수정요청일자</th>
+                        <th class="tg-0lax">수정관리</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="modifyPostAllList : ${modifyPostAllList}">
+                        <th><input type="checkbox" id="checkAll-modify-2" name="" class="form-check-input"/></th>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.code}" class="tg-0lax">1</td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.userCode}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.title}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.confirmContent}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.price}" class="tg-0lax"></td>
+                        <td data-modify="listCode" th:text="${modifyPostAllList.createDate}" class="tg-0lax"></td>
+                        <td>
+                            <button type="button" class="button btn-modify"
+                                    th:attr="data-user=${modifyPostAllList.postCode}">수락
+                            </button>
+                        </td>
+                    </th:block>
+                    </tbody>
+                </table>
+                <div class="page">
+                    <ul class="pagination-modifyPost">
+                        <li><a href="#" class="first">처음페이지</a></li>
+                        <li><a href="#" class="arrow left"><<</a></li>
+                        <li><a href="#" class="active num">1</a></li>
+                        <li><a href="#" class="num">2</a></li>
+                        <li><a href="#" class="num">3</a></li>
+                        <li><a href="#" class="num">4</a></li>
+                        <li><a href="#" class="num">5</a></li>
+                        <li><a href="#" class="arrow right">>></a></li>
+                        <li><a href="#" class="last">끝페이지</a></li>
                     </ul>
                 </div>
             </section>
@@ -166,7 +108,7 @@
 
                 $deleteBtns.forEach(btn => {
                     btn.addEventListener('click', function () {
-                        const postCode = btn.getAttribute('data-modify');
+                        const postCode = btn.getAttribute('data-user');
                         $postCodeInput.value = postCode;
                         showPopup();
                     });

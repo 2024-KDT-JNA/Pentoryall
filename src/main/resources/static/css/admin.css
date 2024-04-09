@@ -41,39 +41,12 @@
     word-break: normal;
 }
 
-.tg-modify {
-    width: 100%;
-}
-
-.tg-modify td {
-    padding: 10px 5px;
-    overflow: hidden;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 15px;
-    border-color: black;
-    font-size: 14px;
-    word-break: normal
-}
-
-.tg-modify th {
-    padding: 10px 5px;
-    overflow: hidden;
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    font-weight: normal;
-    font-size: 14px;
-    word-break: normal;
-}
-
-.tg-user,
+.tg-user
 .tg-0lax {
     border-radius: 15px;
     text-align: left;
     vertical-align: top
 }
-
 
 /* userManager 페이지버튼 */
 .page {
@@ -675,15 +648,4 @@
 
 .genre-group {
     width: 50%;
-}
-
-.depth1-btn:hover {
-    background-color: #f0f0f0;
-    color: #333;
-}
-
-
-.nav-depth2 .depth2-li:hover {
-    background-color: #f0f0f0; /* 호버 시 배경색 변경 */
-    color: #333; /* 호버 시 글자색 변경 */
 }
