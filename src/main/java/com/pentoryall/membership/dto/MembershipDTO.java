@@ -21,6 +21,7 @@ public class MembershipDTO {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private LocalDateTime deleteDate;
+    private String nickname;
 
 
 }

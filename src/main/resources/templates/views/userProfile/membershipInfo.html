@@ -14,7 +14,7 @@
                 <div id="membership-created">
                     <section class="section" sec:authorize="isAuthenticated()">
 
-                        <h2 class="h2"><span class="username" sec:authentication="principal.name"></span>
+                        <h2 class="h2"><span class="username" th:text="${membershipDTO.nickname}"></span>
                             님의 창작 활동을 정기적으로 응원해 주세요</h2>
 
                         <p>멤버십 플랜에 가입하여 일정 금액을 크리에이터에게 후원할 수 있습니다.<br>
@@ -22,14 +22,14 @@
                             단, 멤버십 후원은 콘텐츠 구매와 다르며,<br>
                             멤버십 혜택 콘텐츠 제공이 보장되지 않는 점 참고해 주시기 바랍니다. </p>
 
-                        <div th:if="${userMembership != null}">
+                        <div th:if="${membershipDTO != null}">
                             <ul>
-                                <li th:each="userMembership : ${membership}">
-                                    <p th:text="${membership.name}"></p>
-                                    <p th:text="${membership.price}"></p>
+                                <li th:each="membershipDTO : ${membershipDTO}">
+                                    <p th:text="${membershipDTO.name}"></p>
+                                    <p th:text="${membershipDTO.price}"></p>
                                     <p>/월</p>
-                                    <p th:text="${membership.introduction}"></p>
-                                    <p th:text="${membership.color}"></p>
+                                    <p th:text="${membershipDTO.introduction}"></p>
+                                    <p th:text="${membershipDTO.color}"></p>
                                 </li>
                             </ul>
                             <div>

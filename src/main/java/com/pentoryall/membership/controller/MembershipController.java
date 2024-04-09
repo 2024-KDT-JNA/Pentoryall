@@ -124,13 +124,13 @@ public class MembershipController {
         }
     }
 
-    @GetMapping("/userProfile/{subscribeUserCode}")
-    public String getUserProfile(@PathVariable("subscribeUserCode") long subscribeUserCode, Model model) {
-        MembershipDTO membershipDTO = membershipService.selectMembershipUserProfileBySubscribeUserCode(subscribeUserCode); // membershipService에서 해당 유저의 멤버십 정보 가져오기
-        model.addAttribute("membershipDTO", membershipDTO); // 모델에 membershipDTO 추가
-        System.out.println("subscribeUserCode = " + subscribeUserCode);
-        return "views/membershipUser/planInfoByUser"; // 해당 뷰 반환
-    }
+//    @GetMapping("userProfile/membership/{subscribeUserCode}")
+//    public String getUserProfile(@PathVariable("subscribeUserCode") long subscribeUserCode, Model model) {
+//        MembershipDTO membershipDTO = membershipService.selectMembershipUserProfileBySubscribeUserCode(subscribeUserCode); // membershipService에서 해당 유저의 멤버십 정보 가져오기
+//        model.addAttribute("membershipDTO", membershipDTO); // 모델에 membershipDTO 추가
+//        System.out.println("subscribeUserCode = " + subscribeUserCode);
+//        return "views/userProfile/membershipInfo"; // 해당 뷰 반환
+//    }
 
 
     @GetMapping("/noList")

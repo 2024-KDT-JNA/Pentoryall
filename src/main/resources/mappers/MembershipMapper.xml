@@ -74,22 +74,23 @@
         WHERE mj.membership_code = #{membershipCode}
     </select>
 
-    <select id="selectMembershipByUserProfile" resultType="com.pentoryall.membership.dto.MembershipDTO">
-        SELECT m.code,
-               m.user_code,
-               m.name,
-               m.introduction,
-               m.price,
-               m.color,
-               m.is_active,
-               m.is_deleted,
-               m.create_date,
-               m.update_date,
-               m.delete_date
-        FROM membership m
-        WHERE m.user_code = #{subscribeUserCode} -- 현재 로그인한 사용자의 구독 정보와 관련된 멤버십 정보를 가져오기 위해 조건 변경
-          AND m.is_deleted = 'N';
-    </select>
+    <!--    <select id="selectMembershipByUserProfile" resultType="com.pentoryall.membership.dto.MembershipDTO">-->
+    <!--        SELECT m.code,-->
+    <!--               m.user_code,-->
+    <!--               m.name,-->
+    <!--               m.introduction,-->
+    <!--               m.price,-->
+    <!--               m.color,-->
+    <!--               m.is_active,-->
+    <!--               m.is_deleted,-->
+    <!--               m.create_date,-->
+    <!--               m.update_date,-->
+    <!--               m.delete_date,-->
+    <!--               (SELECT nickname FROM user WHERE code = #{subscribeUserCode}) as nickname-->
+    <!--        FROM membership m-->
+    <!--        WHERE m.user_code = #{subscribeUserCode} &#45;&#45; 현재 로그인한 사용자의 구독 정보와 관련된 멤버십 정보를 가져오기 위해 조건 변경-->
+    <!--          AND m.is_deleted = 'N';-->
+    <!--    </select>-->
 
 
 </mapper>

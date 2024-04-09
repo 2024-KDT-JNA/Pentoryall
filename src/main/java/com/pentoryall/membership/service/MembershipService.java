@@ -52,9 +52,9 @@ public class MembershipService {
     }
 
 
-    public MembershipDTO selectMembershipUserProfileBySubscribeUserCode(long subscribeUserCode) {
-        return membershipMapper.selectMembershipByUserProfile(subscribeUserCode);
-    }
+//    public MembershipDTO selectMembershipUserProfileBySubscribeUserCode(long subscribeUserCode) {
+//        return membershipMapper.selectMembershipByUserProfile(subscribeUserCode);
+//    }
 
 }
 

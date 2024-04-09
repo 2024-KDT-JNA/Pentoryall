@@ -32,7 +32,7 @@
                         <p th:text="${subscribe.introduction}"></p>
                         <p th:text="${subscribe.subscribedDate}"></p>
 
-                        <a th:href="@{'/membership/userProfile/' + ${subscribe.subscribeUserCode}}"
+                        <a th:href="@{'/userProfile/membership/' + ${subscribe.subscribeUserCode}}"
                            class="button">프로필 보기</a>
 
                         <button class="button"
