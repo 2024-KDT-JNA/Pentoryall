@@ -173,7 +173,7 @@
                         </div>
 
                         <div class="form-item">
-                            <button class="submit button" id="okbtn2" onclick="saveSeries()">확인</button>
+                            <button class="submit button" id="okbtn2">확인</button>
                             <button class="button" onclick="location.href='/index'">취소</button>
                         </div>
                     </div>
@@ -230,19 +230,19 @@
                 $recognizeTitleSize.style.display = "";
             }
         }
-        function saveSeries() {
+
+        const btn = document.getElementById("okbtn2");
+        btn.addEventListener("click",() =>{
             const $textarea = document.querySelector(".textareaInput");
             const $title = document.querySelector(".title-input");
             if(!$title.value){
                 alert("제목을 1자 이상 입력해주세요!");
             }
-
             if($textarea.value.length<11){
                 alert("내용 요약을 10자 이상 입력해주세요!");
                 return;
             }
-
-        }
+        })
 
         /*실시간으로 상위 장르 목록을 가져오는 기능*/
         function createGenreList(genre){

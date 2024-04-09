@@ -6,9 +6,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </th:block>
 
+
+
 <th:block layout:fragment="content">
     <div class="main-content">
         <section class="section section-weekly-series">
+
+            <button class="button" onclick="location.href='/post/writer'">포스트 추가하기</button>
+            <button class="button" onclick="location.href='/series/add'">시리즈 추가하기</button>
+
             <h2 class="h2">이번 주 인기 시리즈</h2>
             <div class="inner">
                 <div class="main-series-swiper series-list">
@@ -39,20 +45,7 @@
                 <div class="post-list">
                     <div class="post-item" th:each="post : ${postList}">
                         <input class="input-post" th:value="${post.code}" hidden/>
-                        <div class="thumbna
-
-
-
-
-
-
-
-
-
-
-
-
-                        il-image">
+                        <div class="thumbnail-image">
                             <img th:src="${post.thumbnailImage}" alt="포스트 썸네일"
                                  onerror="this.src='/images/temp/thumbnail.png'" />
                         </div>
