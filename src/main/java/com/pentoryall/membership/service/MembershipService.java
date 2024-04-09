@@ -41,7 +41,7 @@ public class MembershipService {
     }
 
 
-    //-------------------------------- membershipJoin Service -----------------------------------
+    //-------------------------------- membershipJoin service -----------------------------------
     public List<MembershipJoinDTO> selectAllMembershipJoinList(long code) {
         return membershipMapper.selectMembershipJoinList(code);
     }

@@ -1,4 +1,5 @@
-package com.pentoryall.admin.mapper;
+package com.pentoryall.admin.mappers;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -1,6 +1,7 @@
-package com.pentoryall.admin.mapper;
+package com.pentoryall.admin.mappers;
 
-import com.pentoryall.admin.dto.UserManageDTO;
+
+import com.pentoryall.admin.dtos.UserManageDTO;
 import com.pentoryall.common.page.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
 
