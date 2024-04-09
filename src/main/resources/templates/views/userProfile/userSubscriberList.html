@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="link">
+    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
+    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
+    <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="story-content">
+        <div class="inner">
+            <section>
+                <h2>구독/멤버십</h2>
+                <div>
+                    <button onclick="location.href='/subscribe/storyList'">구독</button>
+                    <button onclick="location.href='/membership/membershipJoinList'">멤버십</button>
+                </div>
+                <div>
+                    <button onclick="location.href='/subscribe/storyList'">스토리</button>
+                    <button onclick="location.href='/subscribe/postList'">포스트</button>
+                </div>
+                <div>
+                    <h3 class="h3">스토리</h3>
+                    <p>총 <span th:text="${subscribers.size()}">0</span>명</p>
+                </div>
+                <div th:if="${subscribers != null and subscribers.size() > 0}">
+                    <div th:each="subscribe : ${subscribers}">
+                        <p th:text="${subscribe.nickname}"></p>
+                        <p th:text="${subscribe.introduction}"></p>
+                        <p th:text="${subscribe.subscribedDate}"></p>
+
+                        <a th:href="@{'/userProfile/membership/' + ${subscribe.subscribeUserCode}}"
+                           class="button">프로필 보기</a>
+
+                        <button class="button"
+                                th:attr="data-user-code=${subscribe.subscribeUserCode}"
+                                onclick="toggleSubscribe(event)">구독중
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+        function toggleSubscribe(e) {
+            // console.log(e.target);
+            // console.log(e.target.dataset);
+            const button = e.target;
+            const buttonText = button.textContent.trim();
+            const userCode = e.target.dataset.userCode;
+
+            if (buttonText === "구독") {
+                addSubscribe(userCode, button);
+                console.log(userCode);
+            } else if (buttonText === "구독중") {
+                cancelSubscribe(userCode, button);
+                console.log(userCode);
+            }
+        }
+
+        function addSubscribe(subscribeUserCode, button) {
+            $.ajax({
+                type: "POST",
+                url: "/subscribe/add",
+                data: {subscribeUserCode},
+                success: function (response) {
+                    // alert("구독이 성공적으로 추가되었습니다.");
+                    button.textContent = "구독중";
+                },
+                error: function (xhr, status, error) {
+                    // alert("구독 추가에 실패했습니다. 다시 시도해주세요.");
+                }
+            });
+        }
+
+        function cancelSubscribe(subscribeUserCode, button) {
+            $.ajax({
+                type: "POST",
+                url: "/subscribe/cancel",
+                data: {subscribeUserCode},
+                success: function (response) {
+                    // alert("구독이 성공적으로 취소되었습니다.");
+                    button.textContent = "구독";
+                },
+                error: function (xhr, status, error) {
+                    // alert("구독 취소에 실패했습니다. 다시 시도해주세요.");
+                }
+            });
+        }
+    </script>
+</th:block>
+</html>

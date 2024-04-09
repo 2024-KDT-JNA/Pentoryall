@@ -1,0 +1,53 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">-->
+
+<!--<th:block th:userProfile="story-header">-->
+<!--    <header class="story-header">-->
+<!--        <div class="inner user-profile-wrap">-->
+<!--            <div class="user-profile">-->
+<!--                <div class="profile-image">-->
+<!--                    <img th:src="${#authentication.principal.profileImage != null-->
+<!--                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>-->
+<!--                </div>-->
+<!--                <div class="profile-info">-->
+<!--                    <span class="nickname" sec:authentication="membershipDTO.nickname">닉네임</span>-->
+<!--                    <span class="username" sec:authentication="membershipDTO.name">@username</span>-->
+<!--                </div>-->
+<!--&lt;!&ndash;                <div class="profile-btn">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button class="button btn-settings">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a href="/user/update">설정</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </button>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="user-intro">-->
+<!--                <div class="intro-text">-->
+<!--                    <strong class="title">자기소개</strong>-->
+<!--                    <p class="intro" th:text="${membershipDTO.introduction}"></p>-->
+<!--                </div>-->
+<!--                <div class="setting-btn">-->
+<!--                    <button class="button" id="subscribeButton">구독</button>-->
+<!--                    <button class="button">멤버십 가입</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <nav class="inner story-nav">-->
+<!--            <ul class="tab-nav">-->
+<!--                <li class="active"><a href="#">홈</a></li>-->
+<!--                <li><a href="#">포스트</a></li>-->
+<!--                <li><a href="#">시리즈</a></li>-->
+<!--                <li><a th:href="@{'/userProfile/stroyHeader/' + ${subscribe.subscribeUserCode}}"-->
+<!--                       class="button">멤버십</a></li>-->
+<!--                <li><a href="/subscribe/list">구독</a></li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+<!--    </header>-->
+<!--</th:block>-->
+<!--<script>-->
+
+<!--</script>-->
+<!--</html>-->
+
+
