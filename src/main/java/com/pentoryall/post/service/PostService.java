@@ -4,6 +4,7 @@ package com.pentoryall.post.service;
 import com.pentoryall.comment.dto.CommentDetailDTO;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.post.dto.PostDTO;
+import com.pentoryall.post.dto.ValidatePostDTO;
 import com.pentoryall.post.mapper.PostMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,16 +64,19 @@ public class PostService {
     public List<PostDTO> selectPostByUserCode(Long userCode) {
         return postMapper.selectPostByUserCode(userCode);
     }
-@Transactional
+
+    @Transactional
     public void addComment(CommentDetailDTO commentAdd) {
         postMapper.addComment(commentAdd);
     }
 
     public PostDTO getLatestPost() {
-       return postMapper.getLatestPost();
+        return postMapper.getLatestPost();
     }
 
     public void updateViews(long code) {
         postMapper.updateViews(code);
     }
+
+    public ValidatePostDTO selectPostAndSeriesByPostCode(long postCode) { return postMapper.selectPostAndSeriesByPostCode(postCode); }
 }
