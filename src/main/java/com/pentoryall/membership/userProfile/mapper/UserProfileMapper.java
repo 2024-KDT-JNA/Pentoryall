@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface UserProfileMapper {
-    MembershipDTO selectMembershipByUserProfile(long subscribeUserCode);
+    MembershipDTO selectMembershipByUserId(String userId);
 
-    List<SubscribeDTO> getUserSubscriberList(long code);
+    List<SubscribeDTO> getUserSubscriberListByUserId(String userId);
 }

@@ -17,11 +17,11 @@ public class UserProfileService {
         this.userProfileMapper = userProfileMapper;
     }
 
-    public MembershipDTO selectMembershipUserProfileBySubscribeUserCode(long subscribeUserCode) {
-        return userProfileMapper.selectMembershipByUserProfile(subscribeUserCode);
+    public MembershipDTO selectMembershipUserProfileBySubscribeUserId(String userId) {
+        return userProfileMapper.selectMembershipByUserId(userId);
     }
 
-    public List<SubscribeDTO> selectUserSubscriberList(long code) {
-        return userProfileMapper.getUserSubscriberList(code);
+    public List<SubscribeDTO> selectUserSubscriberListByUserId(String userId) {
+        return userProfileMapper.getUserSubscriberListByUserId(userId);
     }
 }

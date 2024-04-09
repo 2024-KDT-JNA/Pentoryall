@@ -30,10 +30,12 @@
                     <div th:each="subscribe : ${subscribers}">
                         <p th:text="${subscribe.nickname}"></p>
                         <p th:text="${subscribe.introduction}"></p>
-                        <p th:text="${subscribe.subscribedDate}"></p>
+                        <p th:text="${subscribe.subscribeDate}"></p>
 
-                        <a th:href="@{'/userProfile/membership/' + ${subscribe.subscribeUserCode}}"
+                        <a href=""
                            class="button">프로필 보기</a>
+                        <!--                        <a th:href="@{'/userProfile/membership/' + ${subscribe.subscribeUserCode}}"-->
+                        <!--                           class="button">프로필 보기</a>-->
 
                         <button class="button"
                                 th:attr="data-user-code=${subscribe.subscribeUserCode}"

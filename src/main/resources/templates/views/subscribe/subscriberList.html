@@ -26,7 +26,7 @@
                             <div th:if="${subscribers != null and subscribers.size() > 0}">
                                 <div th:each="subscribe : ${subscribers}">
                                     <p th:text="${subscribe.nickname}"></p>
-                                    <p th:text="${subscribe.subscribedDate}"></p>
+                                    <p th:text="${subscribe.subscribeDate}"></p>
                                     <button class="button">구독</button>
                                 </div>
                             </div>

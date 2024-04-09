@@ -75,6 +75,8 @@ public class SubscribeController {
 
         String userName = user.getName();
         model.addAttribute("userName", userName);
+        String userId = user.getUserId();
+        model.addAttribute("user", userId);
 
         String introduction = user.getIntroduction();
         model.addAttribute("introduction", introduction);
