@@ -41,7 +41,7 @@ public class ModifyPostController {
         System.out.println("modifyPostListAndPaging = " + modifyPostListAndPaging);
         model.addAttribute("paging", modifyPostListAndPaging.get("paging"));
         model.addAttribute("modifyPostAllList", modifyPostListAndPaging.get("modifyPostAllList"));
-        model.addAttribute("modifyPostContent", modifyPostListAndPaging.get("modifyPostContent"));
+//        model.addAttribute("modifyPostContent", modifyPostListAndPaging.get("modifyPostContent"));
 
         System.out.println(modifyPostListAndPaging.get("modifyPostAllList"));
 

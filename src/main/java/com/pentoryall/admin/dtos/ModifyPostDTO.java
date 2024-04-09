@@ -1,4 +1,4 @@
-package com.pentoryall.admin.dto;
+package com.pentoryall.admin.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,13 +9,9 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class PostReportDTO {
-
-    private long postCode;
+public class ModifyPostDTO {
 
     private long code;
-
-    private long userCode;
 
     private String userId;
 
@@ -23,9 +19,12 @@ public class PostReportDTO {
 
     private String title;
 
-    private String type;
+    private String confirmContent;
 
-    private long confirmContent;
+    private int price;
 
-    private Date reportDate;
+    private Date updateDate;
+
+    private String isConfirmed;
+
 }

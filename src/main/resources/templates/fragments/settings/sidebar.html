@@ -21,7 +21,8 @@
                                 <a th:href="@{/user/update}" href="/user/update" class="depth2-text">회원 정보</a>
                             </li>
                             <li class="depth2-li">
-                                <a th:href="@{/settings/user/settlement}" href="/settings/user/settlement" class="depth2-text">계좌 정보</a>
+                                <a th:href="@{/settings/user/settlement}" href="/settings/user/settlement"
+                                   class="depth2-text">계좌 정보</a>
                             </li>
                         </ul>
                     </li>
@@ -43,13 +44,16 @@
                         </button>
                         <ul class="nav-depth2">
                             <li class="depth2-li">
-                                <a th:href="@{/settings/settlement}" href="/settings/settlement" class="depth2-text">정산 요청</a>
+                                <a th:href="@{/settings/settlement}" href="/settings/settlement" class="depth2-text">정산
+                                    요청</a>
                             </li>
                             <li class="depth2-li">
-                                <a th:href="@{/settings/settlement/list}" href="/settings/settlement/list" class="depth2-text">정산 요청 내역</a>
+                                <a th:href="@{/settings/settlement/list}" href="/settings/settlement/list"
+                                   class="depth2-text">정산 요청 내역</a>
                             </li>
                             <li class="depth2-li">
-                                <a th:href="@{/settings/revenue/list}" href="/settings/revenue/list" class="depth2-text">수익 적립 내역</a>
+                                <a th:href="@{/settings/revenue/list}" href="/settings/revenue/list"
+                                   class="depth2-text">수익 적립 내역</a>
                             </li>
                         </ul>
                     </li>
@@ -76,13 +80,13 @@
                     <li class="depth1-li on">
                         <button class="depth1-btn">
                             <i class="bi bi-person-fill"></i>
-                            <span class="depth1-text">회원 관리</span>
+                            <span class="depth1-text" onclick="window.location.href='/admin/user/list'">회원 관리</span>
                         </button>
                     </li>
                     <li class="depth1-li">
                         <button class="depth1-btn">
                             <i class="bi bi-collection-fill"></i>
-                            <span class="depth1-text">장르 관리</span>
+                            <span class="depth1-text" onclick="window.location.href='/admin/genre/list'">장르 관리</span>
                         </button>
                     </li>
                     <li class="depth1-li">
@@ -92,21 +96,24 @@
                         </button>
                         <ul class="nav-depth2">
                             <li class="depth2-li">
-                                <a th:href="@{#}" href="#" class="depth2-text">댓글 신고</a>
+                                <a th:href="@{/admin/report/comments}" href="/admin/report/comments"
+                                   class="depth2-text">댓글 신고</a>
                             </li>
                             <li class="depth2-li">
-                                <a th:href="@{#}" href="#" class="depth2-text">포스트 신고</a>
+                                <a th:href="@{/admin/report/posts}" href="/admin/report/posts" class="depth2-text">포스트
+                                    신고</a>
                             </li>
                         </ul>
                     </li>
                     <li class="depth1-li">
                         <button class="depth1-btn">
                             <i class="bi bi-pencil-fill"></i>
-                            <span class="depth1-text">포스트 관리</span>
+                            <span class="depth1-text">수정 관리</span>
                         </button>
                         <ul class="nav-depth2">
                             <li class="depth2-li">
-                                <a th:href="@{#}" href="#" class="depth2-text">포스트 관리</a>
+                                <a th:href="@{/admin/modify/posts}" href="/admin/modify/posts" class="depth2-text">포스트
+                                    관리</a>
                             </li>
                         </ul>
                     </li>

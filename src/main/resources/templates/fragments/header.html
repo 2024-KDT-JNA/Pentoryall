@@ -14,14 +14,14 @@
             <form action="/series/select" method="post">
                 <div class="searchWrap">
                     <div class="search">
-                        <select name="option">
+                        <select name="sca">
                             <option value="wr_subject_name">제목+작성자</option>
                             <option value="wr_subject">제목</option>
                             <option value="wr_name">작성자</option>
                         </select>
-                        <label for="inpSearch">
-                            <input type="text" id="inpSearch" name="word">
-                            <button type="submit"><i class="bi bi-search" style="font-size: 18px"></i></button>
+                        <label id="inpSearch">
+                            <input type="text" id="inpSearch" name="stx">
+                            <img src="https://www.exsoft.co.kr/theme/exsoft/img/search.svg" alt="">
                         </label>
                     </div>
                 </div>
@@ -31,21 +31,21 @@
                     <span class="blind">알림</span>
                     <i class="bi bi-bell"></i>
                     <span class="alert-dot">
-                        <span class="blind">새로운 알림</span>
-                    </span>
+                    <span class="blind">새로운 알림</span>
+                </span>
                 </button>
 
                 <button type="button" class="profile-btn" sec:authorize="isAuthenticated()">
                     <div class="profile-image" sec:authorize="hasRole('ROLE_USER')">
                         <img th:src="${#authentication.principal.profileImage != null
-                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필" />
+                        ? #authentication.principal.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
                     </div>
                 </button>
             </th:block>
 
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <div class="link">
-                    <a th:href="@{/admin/user/list}" class="button btn-admin">관리자 페이지</a>
+                    <a th:href="@{/admin/list}" class="button btn-admin">관리자 페이지</a>
                 </div>
                 <div class="link">
                     <a th:href="@{/user/logout}" class="button">로그아웃</a>
@@ -80,7 +80,9 @@
                     <div class="profile-point">
                         <dl class="point-info">
                             <dt>포인트</dt>
-                            <dd th:text="|${#authentication.principal.point > 0 ? #numbers.formatInteger(#authentication.principal.point, 3, 'COMMA') : 0}P|">0P</dd>
+                            <dd th:text="|${#authentication.principal.point > 0 ? #numbers.formatInteger(#authentication.principal.point, 3, 'COMMA') : 0}P|">
+                                0P
+                            </dd>
                         </dl>
                         <a th:href="@{/point/order}" class="button"> 충전</a>
 
@@ -93,7 +95,7 @@
                         <li><a th:href="@{/story}">마이 스토리</a></li>
                         <li><a th:href="@{/user/like}">보관함</a></li>
                         <li><a th:href="@{/subscribe/storyList}">구독/멤버십</a></li>
-                        <li><a th:href="@{/point/order/list}">포인트</a></li>
+                        <li><a th:href="@{/point}">포인트</a></li>
                         <li><a th:href="@{/user/update}">계정 설정</a></li>
                         <li id="logout"><a th:href="@{/user/logout}">로그아웃</a></li>
                     </ul>

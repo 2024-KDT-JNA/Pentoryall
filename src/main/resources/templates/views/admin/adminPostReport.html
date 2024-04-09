@@ -35,8 +35,7 @@
                         <thead>
                         <tr>
                             <th>
-                                <input type="checkbox" id="checkAll-post-1" name="comment_report"/>
-                                <label for="checkAll-post-1">전체 선택</label>
+                                <button onclick="filterAndSortByName()">정렬</button>
                             </th>
                             <th>번호</th>
                             <th>아이디</th>
@@ -65,17 +64,62 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="page">
-                    <ul class="pagination-postReport">
-                        <li><a href="#" class="first">처음페이지</a></li>
-                        <li><a href="#" class="arrow left"><<</a></li>
-                        <li><a href="#" class="active num">1</a></li>
-                        <li><a href="#" class="num">2</a></li>
-                        <li><a href="#" class="num">3</a></li>
-                        <li><a href="#" class="num">4</a></li>
-                        <li><a href="#" class="num">5</a></li>
-                        <li><a href="#" class="arrow right">>></a></li>
-                        <li><a href="#" class="last">끝페이지</a></li>
+                <div class="page" id="paging" align="center" style="margin-top: 20px;">
+                    <ul class="pagination-user">
+                        <th:block
+                                th:if="${ paging.searchCondition != null and paging.searchValue != null }">
+                            <!-- 맨 앞으로 이동 -->
+                            <li><a th:href="'/admin/report/comments?page=1'">처음페이지</a></li>
+                            <li>
+                                <a th:href="@{/admin/report/comments(page=1, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}"
+                                   class="arrow left"
+                                   th:disabled="${ paging.page <= 1 }"><<</a></li>
+                            <!-- 이전 페이지로 이동 -->
+
+                            <!-- 숫자 버튼 -->
+                            <th:block
+                                    th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}">
+                                <li><a class="num" th:text="${page}" th:disabled="${paging.page eq page}"
+                                       th:href="@{/admin/report/posts(page=${page}, searchCondition=${paging.searchCondition}, searchValue=${paging.searchValue})}"></a>
+                                </li>
+                            </th:block>
+
+                            <!-- 다음 페이지로 이동 -->
+                            <li>
+                                <a th:href="@{/admin/report/posts(page=${paging.page+1},searchCondition=${paging.searchCondition},searchValue=${paging.searchValue})}"
+                                   class="arrow right"
+                                   th:disabled="${ paging.page >= paging.maxPage }">>></a></li>
+
+                            <!-- 맨 끝으로 이동 -->
+                            <li>
+                                <a th:href="@{'/admin/report/posts?page=' + ${paging.maxPage} + '&searchCondition=' + ${paging.searchCondition} + '&searchValue=' + ${paging.searchValue}}"
+                                   class="last">끝페이지</a></li>
+                        </th:block>
+                    </ul>
+
+                    <ul class="pagination-user">
+                        <th:block
+                                th:if="${ paging.searchCondition == null || paging.searchValue == null }">
+                            <!-- 맨 앞으로 이동 -->
+                            <li><a th:href="'/admin/report/posts?page=1'">처음페이지</a></li>
+                            <!-- 이전 페이지로 이동 -->
+                            <li><a th:href="@{'/admin/report/posts?page=' + ${paging.page -1}}"
+                                   th:disabled="${paging.page <= 1}"><<</a></li>
+                            <!-- 숫자 버튼 -->
+                            <th:block
+                                    th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+
+                                <li><a class="num" th:text="${ page }" th:disabled="${ paging.page eq page }"
+                                       th:href="@{/admin/report/posts(page=${page})}"></a></li>
+                            </th:block>
+
+                            <!-- 다음 페이지로 이동 -->
+                            <li><a th:href="@{'/admin/report/posts?page=' + ${paging.page + 1}}"
+                                   th:disabled="${paging.page >= paging.maxPage}">>></a></li>
+
+                            <!-- 맨 끝으로 이동 -->
+                            <li><a th:href="@{'/admin/report/posts?page=' + ${paging.maxPage}}">끝페이지</a></li>
+                        </th:block>
                     </ul>
                 </div>
             </section>
@@ -126,6 +170,44 @@
                     const popup = document.querySelector('.layer-popup-small');
                     popup.classList.add('blind');
                 });
+
+                function filterAndSortByName() {
+                    // 테이블과 테이블의 tbody를 가져옵니다.
+                    var table = document.getElementById('noStop');
+                    var tbody = table.getElementsByTagName('tbody')[0];
+
+                    // tbody 내부의 모든 tr 요소들을 가져옵니다.
+                    var rows = tbody.getElementsByTagName('tr');
+
+                    // 이름을 저장할 객체를 생성합니다.
+                    var nameGroups = {};
+
+                    // 모든 행을 반복하여 이름별로 그룹화합니다.
+                    for (var i = 0; i < rows.length; i++) {
+                        var nameCell = rows[i].querySelector('[data-unlock="listNickName"]');
+                        var name = nameCell.textContent.trim();
+
+                        // 이름별로 그룹화된 배열이 존재하지 않으면 생성합니다.
+                        if (!nameGroups[name]) {
+                            nameGroups[name] = [];
+                        }
+
+                        // 해당 이름의 그룹에 현재 행을 추가합니다.
+                        nameGroups[name].push(rows[i]);
+                    }
+
+                    // 이름 그룹을 정렬합니다.
+                    var sortedNames = Object.keys(nameGroups).sort();
+
+                    // 정렬된 순서대로 tbody에 행을 추가합니다.
+                    tbody.innerHTML = ''; // tbody 내용을 비웁니다.
+                    for (var j = 0; j < sortedNames.length; j++) {
+                        var nameGroup = nameGroups[sortedNames[j]];
+                        for (var k = 0; k < nameGroup.length; k++) {
+                            tbody.appendChild(nameGroup[k]);
+                        }
+                    }
+                }
             </script>
         </div>
     </div>
