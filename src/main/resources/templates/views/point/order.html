@@ -11,13 +11,13 @@
     <div class="sub-content">
         <div class="inner">
 
-            <section class="section section-order">
+            <section class="section section-point">
                 <h2 class="h2">포인트 충전</h2>
 
                 <div class="summary-wrap">
                     <dl class="desc-list">
                         <dt class="desc-list-dt">현재 잔액</dt>
-                        <dd class="desc-list-dd" th:text="${#numbers.formatInteger(user.point, 3, 'COMMA') + 'P'}"> 0P</dd>
+                        <dd class="desc-list-dd" th:text="|${user.point > 0 ? #numbers.formatInteger(user.point, 3, 'COMMA') : 0}P|"></dd>
                     </dl>
                 </div>
 
