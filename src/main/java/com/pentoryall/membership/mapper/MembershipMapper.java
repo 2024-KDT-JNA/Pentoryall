@@ -24,7 +24,7 @@ public interface MembershipMapper {
 
     List<MembershipJoinDTO> selectJoinMemberList(long code);
 
-    int existsByUserCodeAndMembershipCode(MembershipJoinDTO membershipJoin);
+    Long existsMembershipJoinCode(MembershipJoinDTO membershipJoin);
 }
 
 

@@ -71,11 +71,11 @@
                    JOIN membership m ON m.code = mj.membership_code
          WHERE mj.membership_code = #{membershipCode}
     </select>
-    <select id="existsByUserCodeAndMembershipCode" resultType="java.lang.Integer">
-        SELECT COUNT(*)
+    <select id="existsMembershipJoinCode" resultType="java.lang.Long">
+        SELECT code
           FROM membership_join
-         WHERE user_code = 7
-           AND membership_code = 3
+         WHERE user_code = #{ userCode }
+           AND membership_code = #{ membershipCode }
            AND (end_date > CURRENT_TIMESTAMP OR end_date IS NULL)
     </select>
 </mapper>

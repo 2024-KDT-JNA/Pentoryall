@@ -52,11 +52,11 @@ public class MembershipService {
         return membershipMapper.selectJoinMemberList(code);
     }
 
-    public boolean existsByUserCodeAndMembershipCode(Long membershipCode, Long userCode) {
+    public Long existsMembershipJoinCode(Long membershipCode, Long userCode) {
         MembershipJoinDTO membershipJoin = new MembershipJoinDTO();
         membershipJoin.setUserCode(userCode);
         membershipJoin.setMembershipCode(membershipCode);
-        return membershipMapper.existsByUserCodeAndMembershipCode(membershipJoin) > 0;
+        return membershipMapper.existsMembershipJoinCode(membershipJoin);
     }
 }
 
