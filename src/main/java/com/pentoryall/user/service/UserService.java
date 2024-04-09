@@ -94,6 +94,23 @@ public class UserService {
         return result != null;
     }
 
+
+    public void changeFindPw(String tempPw, String email) {
+        if (!tempPw.equals("")) {
+            // 비밀번호 인코딩(암호화)
+            String encodedPassword = passwordEncoder.encode(tempPw);
+            /* 데이터 보내기 */
+            userMapper.changeFindPw(encodedPassword, email);
+        }
+
+    }
+
+    public boolean selectUserByEmail(String email) {
+        String result = userMapper.selectUserByEmail(email);
+
+        return result != null;
+    }
+
     //    public boolean isPasswordCorrect(String userId, String enteredPassword) {
     //        // 사용자 정보를 DB에서 가져옵니다.
     //        User user = userRepository.findByUserId(userId);

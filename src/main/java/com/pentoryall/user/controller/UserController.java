@@ -110,6 +110,20 @@ public class UserController {
         return newAuth;
     }
 
+    /* 이메일 중복 체크 */
+    @PostMapping("/emailDupCheck")
+    public ResponseEntity<Boolean> checkEmailDuplication(@RequestBody UserDTO user) {
+
+        log.info("Request Check Email {}", user.getEmail());
+
+        boolean isDuplicate = userService.selectUserByEmail(user.getEmail());
+        Boolean result = isDuplicate ? true : false;
+
+        log.info(String.valueOf(result));
+
+        return ResponseEntity.ok(result);
+    }
+
     /* 회원 가입 페이지 이동 */
     @GetMapping("/regist")
     public String registPage() {

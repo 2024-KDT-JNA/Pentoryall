@@ -35,4 +35,8 @@ public interface UserMapper {
     void updateRevenueByUserCode(UserDTO sellerUser);
 
     String checkEmailExists(String email);
+
+    String selectUserByEmail(String email);
+
+    void changeFindPw(String encodedPassword, String email);
 }
