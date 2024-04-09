@@ -3,6 +3,7 @@ package com.pentoryall.point.service;
 import com.pentoryall.membership.dto.MembershipDTO;
 import com.pentoryall.membership.mapper.MembershipMapper;
 import com.pentoryall.point.dto.TransactionDTO;
+import com.pentoryall.point.enums.TransactionType;
 import com.pentoryall.point.mapper.TransactionMapper;
 import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.user.dto.UserDTO;
@@ -29,10 +30,17 @@ public class TransactionService {
         this.userMapper = userMapper;
     }
 
+
+    public Long existsTransactionCode(Long userCode, Long productCode, TransactionType type) {
+        TransactionDTO transaction = new TransactionDTO(userCode, productCode, type);
+        System.out.println(transaction);
+        return transactionMapper.existsTransactionCode(transaction);
+    }
+
     @Transactional
     public void postTransaction(PostDTO post, UserDTO buyer) {
         /* FIXME ::: post의 price가 Long으로 되어 있어서 수정이 필요합니다. */
-        int price = Math.toIntExact(post.getPrice());
+        int price = post.getPrice();
         buyer.setPoint(buyer.getPoint() - price);
         userMapper.updatePointByUserCode(buyer);
 
@@ -40,7 +48,7 @@ public class TransactionService {
         seller.setRevenue(seller.getRevenue() + price);
         userMapper.updateRevenueByUserCode(seller);
 
-        TransactionDTO transaction = new TransactionDTO(post, buyer);
+        TransactionDTO transaction = new TransactionDTO(buyer, post);
         transactionMapper.save(transaction);
     }
 
@@ -60,8 +68,9 @@ public class TransactionService {
         seller.setRevenue(seller.getRevenue() + price);
         userMapper.updateRevenueByUserCode(seller);
 
-        TransactionDTO transaction = new TransactionDTO(membership, buyer);
+        TransactionDTO transaction = new TransactionDTO(buyer, membership);
         transactionMapper.save(transaction);
     }
+
 }
 

@@ -7,11 +7,13 @@ import com.pentoryall.user.dto.UserDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class TransactionDTO {
 
@@ -24,17 +26,27 @@ public class TransactionDTO {
     int point;
     LocalDateTime createDate;
 
-    public TransactionDTO(PostDTO post, UserDTO buyer) {
+
+    public TransactionDTO(Long userCode, Long productCode, TransactionType type) {
+        this.userCode = userCode;
+        this.type = type;
+        if (type.equals(TransactionType.POST)) {
+            this.postCode = productCode;
+        }
+        if (type.equals(TransactionType.MEMBERSHIP)) {
+            this.membershipCode = productCode;
+        }
+    }
+
+    public TransactionDTO(UserDTO buyer, PostDTO post) {
         this.userCode = buyer.getCode();
         this.sellerUserCode = post.getUserCode();
         this.postCode = post.getCode();
         this.type = TransactionType.POST;
-        // FIXME
-        // this.point = post.getPrice();
-        this.point = Math.toIntExact(post.getPrice());
+        this.point = post.getPrice();
     }
 
-    public TransactionDTO(MembershipDTO membership, UserDTO buyer) {
+    public TransactionDTO(UserDTO buyer, MembershipDTO membership) {
         this.userCode = buyer.getCode();
         this.sellerUserCode = membership.getUserCode();
         this.membershipCode = membership.getCode();

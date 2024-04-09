@@ -6,5 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TransactionMapper {
 
+    Long existsTransactionCode(TransactionDTO transaction);
+
     void save(TransactionDTO transaction);
 }

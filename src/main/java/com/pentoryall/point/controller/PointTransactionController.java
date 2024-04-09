@@ -26,8 +26,8 @@ public class PointTransactionController {
     @GetMapping("/membership/register")
     public String getRegisterMembershipPage(Long membershipCode, @AuthenticationPrincipal UserDTO sessionUser, Model model) {
         MembershipDTO selectedMembership = membershipService.selectMembershipByCode(membershipCode);
-
-        if (membershipService.existsByUserCodeAndMembershipCode(membershipCode, sessionUser.getCode())) {
+        Long membershipJoinCode = membershipService.existsMembershipJoinCode(membershipCode, sessionUser.getCode());
+        if (membershipJoinCode != null) {
             return "redirect:/story";
         }
         return "views/membership/register";
