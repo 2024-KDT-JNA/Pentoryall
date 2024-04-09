@@ -39,15 +39,19 @@ public class StoryController {
     public String storyPage(@PathVariable("userId") String userId, Model model) {
 
         UserDTO selectedUser = getUserOrNotFoundException(userId);
-        List<PostDTO> postList = postService.selectPostByUserCode(selectedUser.getCode());
         model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
 
-        Collections.reverse(postList);
-        model.addAttribute("post", postList.get(0));
+        List<PostDTO> postList = postService.selectPostByUserCode(selectedUser.getCode());
+        if (!postList.isEmpty()) {
+            Collections.reverse(postList);
+            model.addAttribute("post", postList.get(0));
+        }
 
         List<SeriesDTO> seriesList = seriesService.getSeriesList(selectedUser.getCode());
-        Collections.reverse(seriesList);
-        model.addAttribute("series", seriesList.get(0));
+        if (!seriesList.isEmpty()) {
+            Collections.reverse(seriesList);
+            model.addAttribute("series", seriesList.get(0));
+        }
 
         return "/views/story/home";
     }
