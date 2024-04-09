@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +23,7 @@ import static com.fasterxml.jackson.databind.type.LogicalType.Collection;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/story")
 public class StoryController {
 
     private final UserService userService;
@@ -30,27 +32,26 @@ public class StoryController {
 
     @GetMapping("/story")
     public String storyPage(@AuthenticationPrincipal UserDTO sessionUser) {
-        if (sessionUser == null)
-            throw new PageNotFoundException();
+//        if (sessionUser == null)
+//            throw new PageNotFoundException();
+        System.out.println("sessionUser = " + sessionUser);
         return "redirect:/" + sessionUser.getUserId();
     }
 
     @GetMapping("/{userId}")
     public String storyPage(@PathVariable("userId") String userId, Model model) {
-        
         UserDTO selectedUser = userService.selectByUserId(userId);
+
         if (selectedUser == null) {
             throw new PageNotFoundException();
         }
-        List<PostDTO> postList = postService.selectPostByUserCode(selectedUser.getCode());
+        PostDTO post = postService.selectPostByUser(selectedUser.getCode());
+        SeriesDTO series = seriesService.selectSeriesByUser(selectedUser.getCode());
+
         model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
+        model.addAttribute("post",post);
 
-        Collections.reverse(postList);
-        model.addAttribute("post",postList.get(0));
-
-        List<SeriesDTO> seriesList = seriesService.getSeriesList(selectedUser.getCode());
-        Collections.reverse(seriesList);
-        model.addAttribute("series",seriesList.get(0));
+        model.addAttribute("series",series);
 
         return "/views/story/home";
     }
@@ -59,6 +60,7 @@ public class StoryController {
     public String storyPostsPage(@PathVariable("userId")String userId,
                                  Model model){
         UserDTO selectedUser = userService.selectByUserId(userId);
+        System.out.println("selectedUser = " + selectedUser);
         if (selectedUser == null) {
             throw new PageNotFoundException();
         }
@@ -73,6 +75,7 @@ public class StoryController {
     public String storySeriesPage(@PathVariable("userId")String userId,
                                  Model model){
         UserDTO selectedUser = userService.selectByUserId(userId);
+        System.out.println("selectedUser = " + selectedUser);
         if (selectedUser == null) {
             throw new PageNotFoundException();
         }

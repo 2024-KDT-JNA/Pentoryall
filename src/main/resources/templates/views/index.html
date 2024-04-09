@@ -39,7 +39,20 @@
                 <div class="post-list">
                     <div class="post-item" th:each="post : ${postList}">
                         <input class="input-post" th:value="${post.code}" hidden/>
-                        <div class="thumbnail-image">
+                        <div class="thumbna
+
+
+
+
+
+
+
+
+
+
+
+
+                        il-image">
                             <img th:src="${post.thumbnailImage}" alt="포스트 썸네일"
                                  onerror="this.src='/images/temp/thumbnail.png'" />
                         </div>

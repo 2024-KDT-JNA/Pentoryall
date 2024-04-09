@@ -211,4 +211,20 @@
         ORDER BY create_date DESC
             LIMIT 1;
     </select>
+    <select id="selectSeriesByUser">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
+        ORDER BY create_date DESC
+        LIMIT 1;
+    </select>
 </mapper>

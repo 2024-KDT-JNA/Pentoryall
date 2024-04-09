@@ -39,9 +39,9 @@
 
         <nav class="inner story-nav">
             <ul class="tab-nav">
-                <li class="active"><a th:href="|/${storyUser.userId}|">홈</a></li>
-                <li><a th:href="|/${storyUser.userId}/posts|">포스트</a></li>
-                <li><a th:href="|/${storyUser.userId}/series|">시리즈</a></li>
+                <li class="active"><a th:href="|/story/${storyUser.userId}|">홈</a></li>
+                <li><a th:href="|/story/${storyUser.userId}/posts|">포스트</a></li>
+                <li><a th:href="|/story/${storyUser.userId}/series|">시리즈</a></li>
                 <li><a href="/membership/planInfo">멤버십</a></li>
                 <li><a href="/subscribe/list">구독</a></li>
             </ul>

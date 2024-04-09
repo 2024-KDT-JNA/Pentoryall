@@ -75,4 +75,8 @@ public class PostService {
     public void updateViews(long code) {
         postMapper.updateViews(code);
     }
+
+    public PostDTO selectPostByUser(long code) {
+        return postMapper.selectPostByUser(code);
+    }
 }

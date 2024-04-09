@@ -137,7 +137,7 @@ public class SeriesController {
         System.out.println("seriesDTO = " + seriesDTO);
 
         seriesService.addSeriesOptions(seriesDTO);
-
+        System.out.println("seriesDTO = " + seriesDTO);
         SeriesDTO seriesDTO2 = seriesService.selectRecentSeriesCode();
 
         long seriesCode = seriesDTO2.getCode();

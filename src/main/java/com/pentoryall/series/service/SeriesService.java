@@ -70,4 +70,8 @@ public class SeriesService {
     public SeriesDTO selectLatestCode() {
        return  seriesMapper.selectLatestCode();
     }
+
+    public SeriesDTO selectSeriesByUser(long code) {
+        return seriesMapper.selectSeriesByUser(code);
+    }
 }

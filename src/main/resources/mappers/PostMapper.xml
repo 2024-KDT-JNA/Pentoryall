@@ -6,7 +6,6 @@
 <!-- namespace 형식 올바르게 수정 후 사용하세요. -->
 <mapper namespace="com.pentoryall.post.mapper.PostMapper">
     <insert id="insertPost">
-
         INSERT INTO
             post(series_code,user_code,title,content,thumbnail_image,price,is_paid,is_adult,is_public)
         VALUES
@@ -32,7 +31,7 @@
         FROM
             post
         WHERE
-            code=#{code}
+            code=#{code} AND is_deleted='Y';
     </select>
 
     <select id="selectPostsBySeriesCode">
@@ -55,7 +54,7 @@
         FROM
             post
         WHERE
-            series_code=#{code}
+            series_code=#{code} AND is_deleted='Y';
     </select>
     <update id="updatePostService">
         UPDATE
@@ -70,13 +69,16 @@
             is_adult=#{isAdult},
             is_public=#{isPublic}
         WHERE
-            code=#{code}
+            code=#{code} AND is_deleted='Y';
     </update>
-    <delete id="deletePostByPostCode">
-        DELETE
-        FROM post
+    <update id="deletePostByPostCode">
+        UPDATE
+            post
+        SET
+            is_deleted = 'N'
+        WHERE
         WHERE code = #{code}
-    </delete>
+    </update>
     <delete id="deleteSeriesBySeriesCode">
         DELETE
         FROM post
@@ -100,7 +102,7 @@
         create_date,
         update_date
     FROM
-        post
+        post AND is_deleted='Y';
 </select>
     <select id="getSeriesListByWord">
         SELECT
@@ -122,7 +124,7 @@
         FROM
             post
         WHERE
-            title LIKE CONCAT('%', #{word}, '%')
+            title LIKE CONCAT('%', #{word}, '%') AND is_deleted='Y';
     </select>
     <select id="selectPostByUserCode">
         SELECT
@@ -144,7 +146,7 @@
         FROM
             post
         WHERE
-            user_code=#{userCode}
+            user_code=#{userCode} AND is_deleted='Y';
     </select>
     <insert id="addComment">
         INSERT INTO comment(post_code,content,user_code)
@@ -169,6 +171,8 @@
             update_date
         FROM
             post
+        WHERE
+            is_deleted='Y';
         ORDER BY
             code DESC
         LIMIT 1
@@ -179,6 +183,32 @@
         SET
             views = views + 1
         WHERE
-            code = #{code}
+            code = #{code} AND is_deleted='Y';
     </update>
+    <select id="selectPostByUser">
+        SELECT
+            code,
+            series_code,
+            user_code,
+            title,
+            content,
+            confirm_content,
+            thumbnail_image,
+            views,
+            price,
+            is_paid,
+            is_adult,
+            is_public,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            post
+        WHERE
+            is_deleted='Y' AND user_code=#{code}
+        ORDER BY
+            create_date DESC
+        LIMIT
+        1;
+    </select>
 </mapper>

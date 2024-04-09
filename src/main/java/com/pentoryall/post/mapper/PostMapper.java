@@ -36,4 +36,6 @@ public interface PostMapper {
     PostDTO getLatestPost();
 
     void updateViews(long code);
+
+    PostDTO selectPostByUser(long code);
 }
