@@ -41,7 +41,7 @@ public class ModifyPostController {
         System.out.println("modifyPostListAndPaging = " + modifyPostListAndPaging);
         model.addAttribute("paging", modifyPostListAndPaging.get("paging"));
         model.addAttribute("modifyPostAllList", modifyPostListAndPaging.get("modifyPostAllList"));
-        model.addAttribute("modifyPostContent", modifyPostListAndPaging.get("modifyPostContent"));
+//        model.addAttribute("modifyPostContent", modifyPostListAndPaging.get("modifyPostContent"));
 
         System.out.println(modifyPostListAndPaging.get("modifyPostAllList"));
 
@@ -50,15 +50,15 @@ public class ModifyPostController {
     }
 
     @PostMapping("/posts/confirm")
-    public String confirmByPostCode(@RequestParam("postCode") Long postCode,
+    public String confirmByPostCode(@RequestParam("postCode") Long code,
                                     RedirectAttributes rttr) {
-        System.out.println("postCode = " + postCode);
-        int result = modifyPostService.modifyByPostCode((postCode),"confirmContent");
+        System.out.println("postCode = " + code);
+        int result = modifyPostService.modifyByPostCode((code), "confirmContent");
         if (result > 0) {
             rttr.addAttribute("message", "포스트를 성공적으로 수정했습니다.");
 
         }
-        System.out.println("컨트롤러 postCode : " + postCode);
+        System.out.println("컨트롤러 postCode : " + code);
 
         return "redirect:/admin/modify/posts";
     }
