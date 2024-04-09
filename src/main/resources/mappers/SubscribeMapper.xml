@@ -8,7 +8,7 @@
         SELECT s.code,
                s.user_code,
                s.subscribe_user_code,
-               s.subscribed_date,
+               s.subscribe_date,
                u.nickname
         FROM subscribe s
                  JOIN user u
@@ -20,7 +20,7 @@
         SELECT s.code,
                s.user_code,
                s.subscribe_user_code,
-               s.subscribed_date,
+               s.subscribe_date,
                u.nickname,
                u.introduction
         FROM subscribe s
@@ -48,10 +48,10 @@
         INSERT INTO subscribe
         (user_code,
          subscribe_user_code,
-         subscribed_date)
+         subscribe_date)
         VALUES (#{userCode},
                 #{subscribeUserCode},
-                #{subscribedDate})
+                #{subscribeDate})
     </insert>
     <delete id="cancelSubscriber" parameterType="com.pentoryall.subscribe.dto.SubscribeDTO">
         DELETE

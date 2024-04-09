@@ -4,16 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pentoryall.membership.mapper.MembershipMapper">
 
-    <insert id="createMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
+    <insert id="createMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO"
+            useGeneratedKeys="true" keyProperty="code">
         INSERT INTO membership
-        (code,
-         user_code,
+        (user_code,
          name,
          introduction,
          price,
          color)
-        VALUES (#{code},
-                #{userCode},
+        VALUES (#{userCode},
                 #{name},
                 #{introduction},
                 #{price},

@@ -5,7 +5,6 @@ import com.pentoryall.membership.dto.MembershipJoinDTO;
 import com.pentoryall.membership.service.MembershipService;
 import com.pentoryall.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -26,21 +25,20 @@ public class MembershipController {
     }
 
     @PostMapping("/create")
-    public String createMembership(Model model, @ModelAttribute("membership") MembershipDTO membershipDTO, @AuthenticationPrincipal UserDTO user) {
-        try {
-            membershipDTO.setUserCode(user.getCode());
-            MembershipDTO createdMembership = membershipService.createMembership(membershipDTO); // 생성된 멤버십을 반환 받습니다.
-            model.addAttribute("membership", createdMembership); // 생성된 멤버십을 모델에 추가합니다.
-            return "views/membership/successCreate";
-        } catch (DataIntegrityViolationException e) {
-            e.printStackTrace();
-            model.addAttribute("errorMessage", "제시된 양식에 따라 다시 작성해 주세요: " + e.getMessage());
-            return "views/membership/failCreate";
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("errorMessage", "멤버십을 생성하는 중에 오류가 발생했습니다: " + e.getMessage());
-            return "views/membership/failCreate";
+    public String createMembership(Model model, @ModelAttribute("membership") MembershipDTO membershipDTO,
+                                   @AuthenticationPrincipal UserDTO user) {
+        System.out.println(user.getCode());
+        membershipDTO.setUserCode(user.getCode());
+        membershipService.createMembership(membershipDTO); // 생성된 멤버십을 반환 받습니다.
+        System.out.println(membershipDTO);
+        if (membershipDTO.getCode() <= 0) {
+            model.addAttribute("errorMessage", "제시된 양식에 따라 다시 작성해 주세요: ");
+        } else {
+            model.addAttribute("membership", membershipDTO); // 생성된 멤버십을 모델에 추가합니다.
+
         }
+
+        return "views/membership/result";
     }
 
     @GetMapping("/planInfo")

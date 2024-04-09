@@ -29,7 +29,7 @@ public class SubscribeController {
 
 
         subscribe.setUserCode(user.getCode());
-        subscribe.setSubscribedDate(LocalDate.now());
+        subscribe.setSubscribeDate(LocalDate.now());
         subscribeService.addSubscriber(subscribe);
         return ResponseEntity.ok().build();
     }
