@@ -76,16 +76,28 @@ public class UserService {
         return result != null;
     }
 
-//    public String getLikedPostCount() {
-//        return userMapper.getLikedPostCount();
-//    }
-
     public List<UserDTO> getUserListByWord(String word) {
         return userMapper.getUserListByWord(word);
     }
 
     public boolean checkEmailExists(String email) {
         String result = userMapper.checkEmailExists(email);
+
+        return result != null;
+    }
+
+    public void changeFindPw(String tempPw, String email) {
+        if (!tempPw.equals("")) {
+            // 비밀번호 인코딩(암호화)
+            String encodedPassword = passwordEncoder.encode(tempPw);
+            /* 데이터 보내기 */
+            userMapper.changeFindPw(encodedPassword, email);
+        }
+
+    }
+
+    public boolean selectUserByEmail(String email) {
+        String result = userMapper.selectUserByEmail(email);
 
         return result != null;
     }

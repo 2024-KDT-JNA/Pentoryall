@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout/default}">
 
@@ -55,7 +54,7 @@
 
                 <!--좋아요,작가구독,신고하기 버튼-->
                 <div class="post-buttons">
-                    <button class="post-like-button post-button">
+                    <button class="likeBtn post-like-button post-button">
                         ♥️<br/>
                         좋아요
                     </button>
@@ -106,8 +105,9 @@
                         <h2 class="p-post-comment">댓글 작성</h2>
                     </div>
                     <div class="comment-add">
-                            <textarea onchange="test()" id="comment-writing-area" class="comment-writing-area" placeholder="댓글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
-                            <button id="comment-add-btn" class="comment-add-btn">작성하기</button>
+                        <textarea onchange="test()" id="comment-writing-area" class="comment-writing-area"
+                                  placeholder="댓글을 입력해주세요. 최대 500자" maxlength="500"></textarea>
+                        <button id="comment-add-btn" class="comment-add-btn">작성하기</button>
                     </div>
                 </div>
                 <div class="comment-wrapper">
@@ -117,13 +117,15 @@
                 <!--                 댓글 출력-->
                 <!--댓글 출력-->
                 <div class="comment-area">
-                    <div class="comment-content-area"   th:each="comment : ${commentList}" th:value="${comment.code}">
+                    <div class="comment-content-area" th:each="comment : ${commentList}" th:value="${comment.code}">
                         <p class="comment-writer-area" th:text="${comment.user.nickname}">작성자</p>
                         <p class="comment-content" th:text="${comment.content}"></p>
                         <p class="comment-date-area" th:text="${comment.createDate}">작성 날짜</p>
                         <div class="btn-wrapper" th:if="${comment.user.code == userCode}">
                             <button class="button" th:onclick="removeComment([[${comment.code}]])">댓글 삭제</button>
-                            <button class="button" th:onclick="makeWritingTable([[${comment.code}]],[[${comment.content}]])">댓글 수정</button>
+                            <button class="button"
+                                    th:onclick="makeWritingTable([[${comment.code}]],[[${comment.content}]])">댓글 수정
+                            </button>
                         </div>
                         <div class="second-button">
                             <button class="button reply">답글</button>
@@ -138,39 +140,39 @@
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-        function test(){
+        function test() {
             const text = document.querySelector(".comment-writing-area");
             console.log(text.value);
             const postCode = '[[${post.code}]]'
-            console.log("뽀스트넘버ㅣ"+postCode);
+            console.log("뽀스트넘버ㅣ" + postCode);
             const test1 = document.querySelector(".test1");
             console.log(test1);
         }
 
         /*댓글 작성*/
-        if(document.getElementById("comment-add-btn")){
+        if (document.getElementById("comment-add-btn")) {
             const $addComment = document.getElementById("comment-add-btn");
             const $writeComment = document.getElementById("comment-writing-area");
 
-            $addComment.onclick=function() {
+            $addComment.onclick = function () {
                 if (!$writeComment.value.trim()) {
                     alert('내용을 작성해주세요');
                     return;
                 }
 
                 const postCode = '[[${post.code}]]'
-                console.log("뽀스트넘버ㅣ"+postCode);
+                console.log("뽀스트넘버ㅣ" + postCode);
                 const content = $writeComment.value;
 
                 fetch('/post/addComment', {
                     method: 'POST',
                     headers: {
-                        'Content-Type' : 'application/json; charset=UTF-8'
+                        'Content-Type': 'application/json; charset=UTF-8'
                     },
-                    body : JSON.stringify({ postCode, content })
+                    body: JSON.stringify({postCode, content})
                 })
                     .then(res => {
-                        console.log("rress:"+res);
+                        console.log("rress:" + res);
                         $writeComment.value = '';
                         loadComment();
                     })
@@ -181,19 +183,21 @@
         // /*댓글 삽입 삭제 발생 시 최신 댓글을 다시 로드하는 기능*/
         function loadComment() {
 
-        const postNo = `[[${post.code}]]`;
+            const postNo = `[[${post.code}]]`;
 
             fetch('/post/loadComment?postCode=' + postNo)
                 .then(result => result.json())
-                .then(data => {makeCommentTable(data)
-                    console.log("데이터",data)})
+                .then(data => {
+                    makeCommentTable(data)
+                    console.log("데이터", data)
+                })
                 .catch(error => console.log(error));
         }
 
         /*댓글 목록 데이터를 테이블화 하는 함수*/
-        function makeCommentTable(commentList){
+        function makeCommentTable(commentList) {
             const commentArea = document.querySelector(".comment-area");
-            commentArea.innerHTML='';
+            commentArea.innerHTML = '';
             commentList.forEach(comment => {
                 const $comment = document.createElement("div");
                 $comment.className = 'comment-content-area';
@@ -215,12 +219,12 @@
                 $secondButtons.innerHTML = ` <button class="button reply">답글</button>
                                     <button class="button report-btn">댓글 신고</button>`;
 
-                if(`[[${userCode}]]`==comment.user.code){
+                if (`[[${userCode}]]` == comment.user.code) {
                     $button.innerHTML = `<button class="button" onclick='removeComment(${comment.code})'>댓글 삭제</button>
                                       <button class="button update-btn" onclick='makeWritingTable(${comment.code},"${comment.content}")'>댓글 수정</button>`;
                 }
 
-                $comment.append($nickname,$content,$createdDate,$button,$secondButtons);
+                $comment.append($nickname, $content, $createdDate, $button, $secondButtons);
                 commentArea.append($comment);
 
             })
@@ -228,13 +232,13 @@
 
 
         /*댓글 삭제*/
-        function removeComment(code){
-            fetch('/post/removeComment',{
-                method:'POST',
-                headers : {
-                    'Content-Type' : 'application/json; charset=UTF-8'
+        function removeComment(code) {
+            fetch('/post/removeComment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
                 },
-                body : JSON.stringify({code})
+                body: JSON.stringify({code})
             }).then(() => loadComment())
                 .catch(error => console.log(error));
         }
@@ -242,18 +246,18 @@
 
         /*댓글 수정*/
 
-        function updateComment(code){
+        function updateComment(code) {
             console.log(code);
             const $writingArea = document.querySelector(".comment-area >textarea");
             const content = $writingArea.value;
-            console.log("콘텐츠",content);
-            fetch('/post/updateComment',{
-                method:'POST',
-                headers : {
-                    'Content-Type' : 'application/json; charset=UTF-8'
+            console.log("콘텐츠", content);
+            fetch('/post/updateComment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
                 },
-                body : JSON.stringify({code,content})
-            }).then(() =>  loadComment())
+                body: JSON.stringify({code, content})
+            }).then(() => loadComment())
                 .catch(error => console.log(error));
         }
 
@@ -270,7 +274,7 @@
         // </div>
         function makeWritingTable(code, content) {
             const commentArea = document.querySelector(".comment-area");
-            commentArea.innerHTML='';
+            commentArea.innerHTML = '';
             const $h2 = document.createElement("h2");
             const $writingArea = document.createElement("textarea");
             const $button = document.createElement("div");
@@ -282,9 +286,54 @@
 
             $button.innerHTML = `<button class="button" onclick='updateComment(${code})'>댓글 수정</button>`;
 
-            commentArea.append($h2,$writingArea,$button);
+            commentArea.append($h2, $writingArea, $button);
 
         }
+    </script>
+    <script>
+        var isLiked = false;
+
+        var postCode = 1;
+        var userCode = 1;
+
+        $('.likeBtn').click(function () {
+            var $btn = $(this);
+            if (isLiked) {
+                $.ajax({
+                    type: 'post',
+                    url: '/user/likeDown',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        postCode,
+                        userCode
+                    }),
+                    success: function (data) {
+                        isLiked = false;
+                        // $btn.html('<i class="far fa-heart"></i>');
+                        $btn.removeClass('liked');
+                        $btn.html('♥️<br/>좋아요');
+                        console.log("좋아요 취소 성공");
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: 'post',
+                    url: '/user/likeUp',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        postCode,
+                        userCode
+                    }),
+                    success: function (data) {
+                        isLiked = true;
+                        // $btn.html('<i class="fas fa-heart"></i>');
+                        $btn.addClass('liked');
+                        $btn.html('❤️<br/>좋아요 취소');
+                        console.log("좋아요 성공");
+                    }
+                });
+            }
+        });
     </script>
     <script>
         /*답글 로직*/

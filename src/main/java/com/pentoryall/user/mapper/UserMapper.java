@@ -14,12 +14,13 @@ public interface UserMapper {
 
     String selectUserById(String userId);
 
-
     UserDTO getUserInformationByUserCode(long userCode);
 
     String getPwd(long code);
 
     String selectUserByNickname(String nickname);
+
+    String selectUserByEmail(String email);
 
     String getLikedPostCount();
 
@@ -35,4 +36,6 @@ public interface UserMapper {
     void updateRevenueByUserCode(UserDTO sellerUser);
 
     String checkEmailExists(String email);
+
+    void changeFindPw(String encodedPassword, String email);
 }

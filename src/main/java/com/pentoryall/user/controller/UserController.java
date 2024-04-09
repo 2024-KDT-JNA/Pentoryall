@@ -89,7 +89,7 @@ public class UserController {
     @PostMapping("/nicknameDupCheck")
     public ResponseEntity<Boolean> checkNicknameDuplication(@RequestBody UserDTO user) {
 
-        log.info("Request Check nickname : {}", user.getNickname());
+        log.info("Request Check email : {}", user.getNickname());
 
         boolean isDuplicate = userService.selectUserByNickname(user.getNickname());
         Boolean result = isDuplicate ? true : false;
@@ -100,6 +100,20 @@ public class UserController {
 
     }
     /* 닉네임 중복체크 end */
+
+    /* 이메일 중복 체크 */
+    @PostMapping("/emailDupCheck")
+    public ResponseEntity<Boolean> checkEmailDuplication(@RequestBody UserDTO user) {
+
+        log.info("Request Check Email {}", user.getEmail());
+
+        boolean isDuplicate = userService.selectUserByEmail(user.getEmail());
+        Boolean result = isDuplicate ? true : false;
+
+        log.info(String.valueOf(result));
+
+        return ResponseEntity.ok(result);
+    }
 
     protected Authentication createNewAuthentication(String userId) {
 
@@ -269,7 +283,7 @@ public class UserController {
     }
 
     @PostMapping("/findUserPwd")
-    public ResponseEntity<String> findPwd(@RequestParam("email") String email, UserDTO user) throws Exception {
+    public ResponseEntity<String> findPwd(@RequestParam("email") String email) throws Exception {
         System.out.println("email = " + email);
 
         // 여기서 데이터베이스에서 이메일이 존재하는지 확인하는 로직을 구현해야 합니다.
@@ -278,11 +292,11 @@ public class UserController {
 
         if (email != null) {
             // 임시 패스워드 메일 발송 및 변수 저장
-            String tempPw = passwordEncoder.encode(findPwMail.sendSimpleMessage(user.getEmail()));
+            String tempPw = passwordEncoder.encode(findPwMail.sendSimpleMessage(email));
 
             System.out.println("tempPw : " + tempPw);
 //            // 임시 패스워드 db 에 저장
-//            ms.changeTempPw(tempPw, user.getMno());
+            userService.changeFindPw(tempPw, email);
 
             // 임시 패스워드 발급 완료 메시지를 클라이언트에게 반환합니다.
             return ResponseEntity.ok("success");

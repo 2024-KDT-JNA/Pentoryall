@@ -62,6 +62,12 @@
         WHERE state = 'ACTIVE'
           AND nickname = #{nickname}
     </select>
+    <select id="selectUserByEmail">
+        SELECT email
+        FROM user
+        WHERE state = 'ACTIVE'
+          AND email = #{email}
+    </select>
     <select id="checkEmailExists" resultType="string">
         SELECT user_id
         FROM user
@@ -77,18 +83,14 @@
         user
         SET
         nickname = #{ nickname },
-        introduction = #{ introduction }
-        SET nickname = #{ nickname },
         introduction = #{ introduction },
-        is_subscriber_visible = #{isSubscriberVisible} -- 구독 공개여부 쿼리문 추가 (승재)
+        is_subscriber_visible = #{isSubscriberVisible}
         <if test="password !=''">
             ,password = #{ password }
         </if>
-        -- 프로필이미지가 'removed'와 같을때 NULL로
         <if test="profileImage == 'removed'">
             ,profile_image = NULL
         </if>
-        -- 프로필이미지가 NULL
         <if test="profileImage !=null and profileImage != 'removed'">
             ,profile_image = #{ profileImage }
         </if>
@@ -141,4 +143,10 @@
         FROM user
         WHERE nickname LIKE CONCAT('%', #{word}, '%')
     </select>
+    <update id="changeFindPw">
+        UPDATE
+            user
+        SET password = #{encodedPassword}
+        WHERE email = #{email}
+    </update>
 </mapper>
