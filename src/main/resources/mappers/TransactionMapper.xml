@@ -4,6 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pentoryall.point.mapper.TransactionMapper">
+    <select id="existsTransactionCode" resultType="java.lang.Long">
+        SELECT code
+        FROM transaction
+        WHERE user_code = #{ userCode }
+        <if test="postCode != null">
+            AND post_code = #{ postCode }
+        </if>
+        <if test="membershipCode != null">
+            AND membership_code = #{ membershipCode }
+        </if>
+    </select>
 
+    <insert id="save">
+        INSERT INTO transaction(user_code, seller_user_code, post_code, membership_code, type, point)
+        VALUES (#{userCode}, #{sellerUserCode}, #{postCode}, #{membershipCode}, #{type}, #{point})
+    </insert>
 </mapper>
-
