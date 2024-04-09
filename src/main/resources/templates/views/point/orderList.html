@@ -14,7 +14,7 @@
             <!--                 <li class="storage_box_list"><a href="">좋아요 한 작품</a></li> -->
             <!--                 <li class="storage_box_list"><a href="">유료 구매 작품</a></li> -->
             <!--             </ul> -->
-            <section class="section section-order">
+            <section class="section section-point">
                 <h2 class="h2">포인트 충전 내역</h2>
 
                 <div class="summary-wrap">
@@ -24,17 +24,17 @@
                     </dl>
                 </div>
 
-                <div class="search-option">
-                    <div class="form-item">
-                        <form action="">
-                            <select class="select">
-                                <option value="">전체</option>
-                                <option value="">2024.03</option>
-                                <option value="">2024.02</option>
-                            </select>
-                        </form>
-                    </div>
-                </div>
+                <!--                <div class="search-option">-->
+                <!--                    <div class="form-item">-->
+                <!--                        <form action="">-->
+                <!--                            <select class="select">-->
+                <!--                                <option value="">전체</option>-->
+                <!--                                <option value="">2024.03</option>-->
+                <!--                                <option value="">2024.02</option>-->
+                <!--                            </select>-->
+                <!--                        </form>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
                 <div class="table-box">
                     <form action="">
@@ -44,19 +44,16 @@
                                 <th>충전 포인트</th>
                                 <th>충전 금액</th>
                                 <th>결제 방법</th>
-                                <!-- <th>영수증 조회</th> -->
                             </thead>
                             <tbody>
-                                <tr th:if="${orderList == null}">
+                                <tr th:if="${orderList == null || orderList.size() == 0}">
                                     <td colspan="4">포인트 충전 내역이 없습니다.</td>
                                 </tr>
-
-                                <tr th:each="order : ${orderList}">
+                                <tr th:unless="${orderList == null || orderList.size() == 0}" th:each="order : ${orderList}">
                                     <td th:text="${#temporals.format(order.createDate, 'yyyy-MM-dd HH:mm:ss ')}"></td>
                                     <td th:text="|${order.point > 0 ? #numbers.formatInteger(order.point, 3, 'COMMA') : 0}P|"></td>
                                     <td th:text="|${order.amount > 0 ? #numbers.formatInteger(order.amount, 3, 'COMMA') : 0}원|"></td>
                                     <td>카드 결제</td>
-                                    <!-- <th>버튼</th> -->
                                 </tr>
                             </tbody>
                         </table>
