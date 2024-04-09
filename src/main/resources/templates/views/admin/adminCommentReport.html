@@ -71,7 +71,8 @@
                                 <td data-unlock="listState" th:text="${commentReportList.state}" class="tg-0lax"></td>
                                 <td>
                                     <button type="button" class="button btn-unlock"
-                                            th:attr="data-user=${commentReportList.userCode}">해제하기
+                                            th:attr="data-user=${commentReportList.userCode}, data-nickname=${commentReportList.nickName}">
+                                        해제하기
                                     </button>
                                 </td>
                             </tr>
@@ -173,7 +174,7 @@
                                 <form action="/admin/report/user/active" method="post" id="reportForm">
                                     <input type="hidden" name="userCode" id="userCode">
                                     <button type="submit" class="button">확인</button>
-                                    <button type="button" class="button">취소</button>
+                                    <button type="button" class="button close-popup-btn">취소</button>
                                 </form>
                             </div>
                         </div>
@@ -186,9 +187,12 @@
                 $unlockBtn.forEach(btn => {
                     btn.addEventListener("click", function () {
                         const dataUserCode = btn.getAttribute("data-user");
+                        const dataNickname = btn.getAttribute("data-nickname");
                         reportForm.userCode.value = dataUserCode;
+                        document.querySelector('.pop-content h3').textContent = dataNickname + ' 회원을 정지해제 하시겠습니까?';
 
                         showPopup();
+
                     })
                 })
 
@@ -196,7 +200,10 @@
                     // 팝업창 열기
                     var popup = document.querySelector('.layer-popup-small');
                     popup.classList.remove('blind');
+
+
                 }
+
 
                 function filterAndSortByName() {
                     // 테이블과 테이블의 tbody를 가져옵니다.
@@ -265,10 +272,12 @@
                     closePopup();
                 });
 
-                function closePopup() {
-                    const popup = document.querySelector('.layer-popup-small');
-                    popup.classList.add('blind');
-                }
+                const $closePopupBtn = document.querySelectorAll('.close-popup-btn');
+                $closePopupBtn.forEach($btn => {
+                    $btn.addEventListener("click", function (event) {
+                        event.target.closest('.layer-popup-small').classList.add('blind');
+                    });
+                });
 
 
             </script>

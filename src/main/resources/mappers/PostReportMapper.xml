@@ -3,24 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.pentoryall.admin.mapper.PostReportMapper">
+<mapper namespace="com.pentoryall.admin.mappers.PostReportMapper">
 
-    <select id="selectAllPostReportList" resultType="com.pentoryall.admin.DTO.PostReportDTO">
+    <select id="selectAllPostReportList" resultType="com.pentoryall.admin.dtos.PostReportDTO">
         SELECT r.code,
-               r.post_code,
-               u.user_id,
-               u.nickname,
-               r.type,
-               r.report_date,
-               p.code,
-               p.title
+        r.post_code,
+        u.user_id,
+        u.nickname,
+        r.type,
+        r.report_date,
+        p.code,
+        p.title
         FROM report r
-                 JOIN user u ON r.user_code = u.code
-                 JOIN post p ON r.post_code = p.code
+        JOIN user u ON r.user_code = u.code
+        JOIN post p ON r.post_code = p.code
         WHERE r.type = 'post'
-          AND p.is_deleted = 'N'
+        AND p.is_deleted = 'N'
         ORDER BY r.report_date,
-                 u.code
+        u.code
     </select>
 
 
@@ -32,10 +32,10 @@
 
     <update id="deleteByPostCode" parameterType="com.pentoryall.post.dto.PostDTO">
         UPDATE
-            post
+        post
         SET is_deleted = 'Y'
         WHERE is_deleted = 'N'
-          AND code = #{postCode}
+        AND code = #{postCode}
 
     </update>
 

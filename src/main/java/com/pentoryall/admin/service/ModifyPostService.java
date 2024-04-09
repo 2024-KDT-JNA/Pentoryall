@@ -1,6 +1,6 @@
 package com.pentoryall.admin.service;
 
-import com.pentoryall.admin.mapper.ModifyPostMapper;
+import com.pentoryall.admin.mappers.ModifyPostMapper;
 import com.pentoryall.common.page.Pagination;
 import com.pentoryall.common.page.SelectCriteria;
 import com.pentoryall.post.dto.PostDTO;

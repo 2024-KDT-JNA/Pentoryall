@@ -1,7 +1,7 @@
-package com.pentoryall.admin.Service;
+package com.pentoryall.admin.service;
 
-import com.pentoryall.admin.DTO.GenreManageDTO;
-import com.pentoryall.admin.mapper.GenreManageMapper;
+import com.pentoryall.admin.dtos.GenreManageDTO;
+import com.pentoryall.admin.mappers.GenreManageMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

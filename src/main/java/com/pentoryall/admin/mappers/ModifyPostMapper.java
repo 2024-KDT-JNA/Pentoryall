@@ -1,4 +1,4 @@
-package com.pentoryall.admin.mapper;
+package com.pentoryall.admin.mappers;
 
 import com.pentoryall.common.page.SelectCriteria;
 import com.pentoryall.post.dto.PostDTO;

@@ -1,6 +1,6 @@
-package com.pentoryall.admin.Controller;
+package com.pentoryall.admin.controller;
 
-import com.pentoryall.admin.Service.ModifyPostService;
+import com.pentoryall.admin.service.ModifyPostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +41,7 @@ public class ModifyPostController {
         System.out.println("modifyPostListAndPaging = " + modifyPostListAndPaging);
         model.addAttribute("paging", modifyPostListAndPaging.get("paging"));
         model.addAttribute("modifyPostAllList", modifyPostListAndPaging.get("modifyPostAllList"));
-        model.addAttribute("modifyPostContent", modifyPostListAndPaging.get("modifyPostContent"));
+//        model.addAttribute("modifyPostContent", modifyPostListAndPaging.get("modifyPostContent"));
 
         System.out.println(modifyPostListAndPaging.get("modifyPostAllList"));
 
@@ -53,7 +53,7 @@ public class ModifyPostController {
     public String confirmByPostCode(@RequestParam("postCode") Long postCode,
                                     RedirectAttributes rttr) {
         System.out.println("postCode = " + postCode);
-        int result = modifyPostService.modifyByPostCode((postCode),"confirmContent");
+        int result = modifyPostService.modifyByPostCode((postCode), "confirmContent");
         if (result > 0) {
             rttr.addAttribute("message", "포스트를 성공적으로 수정했습니다.");
 

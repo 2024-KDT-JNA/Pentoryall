@@ -1,4 +1,4 @@
-package com.pentoryall.admin.dto;
+package com.pentoryall.admin.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

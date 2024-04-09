@@ -1,7 +1,7 @@
-package com.pentoryall.admin.Controller;
+package com.pentoryall.admin.controller;
 
-import com.pentoryall.admin.DTO.GenreManageDTO;
-import com.pentoryall.admin.Service.GenreManageService;
+import com.pentoryall.admin.dtos.GenreManageDTO;
+import com.pentoryall.admin.service.GenreManageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

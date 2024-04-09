@@ -1,9 +1,8 @@
-package com.pentoryall.admin.dto;
+package com.pentoryall.admin.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.web.service.annotation.GetExchange;
 
 import java.util.Date;
 

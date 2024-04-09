@@ -1,8 +1,8 @@
 //package com.pentoryall.portone.controller;
 //
-//import com.pentoryall.common.dto.CommonResponse;
+//import com.pentoryall.common.dtos.CommonResponse;
 //import com.pentoryall.portone.service.PortOneService;
-//import com.pentoryall.settlement.dto.UserSettlementDTO;
+//import com.pentoryall.settlement.dtos.UserSettlementDTO;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.RequestBody;

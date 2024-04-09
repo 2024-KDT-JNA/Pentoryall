@@ -1,7 +1,7 @@
 package com.pentoryall.admin.service;
 
-import com.pentoryall.admin.dto.UserManageDTO;
-import com.pentoryall.admin.mapper.UserManageMapper;
+import com.pentoryall.admin.dtos.UserManageDTO;
+import com.pentoryall.admin.mappers.UserManageMapper;
 import com.pentoryall.common.page.Pagination;
 import com.pentoryall.common.page.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;

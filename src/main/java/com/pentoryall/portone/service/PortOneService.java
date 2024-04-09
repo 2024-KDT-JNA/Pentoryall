@@ -1,7 +1,7 @@
 //package com.pentoryall.portone.service;
 //
 //
-//import com.pentoryall.common.dto.CommonResponse;
+//import com.pentoryall.common.dtos.CommonResponse;
 //import com.siot.IamportRestClient.IamportClient;
 //import com.siot.IamportRestClient.response.IamportResponse;
 //import groovy.util.logging.Slf4j;
@@ -11,7 +11,7 @@
 //import org.springframework.http.HttpMethod;
 //import org.springframework.http.MediaType;
 //import org.springframework.http.RequestEntity;
-//import org.springframework.stereotype.Service;
+//import org.springframework.stereotype.service;
 //import org.springframework.web.client.HttpClientErrorException;
 //import org.springframework.web.client.RestTemplate;
 //import org.springframework.web.util.UriComponentsBuilder;
@@ -20,7 +20,7 @@
 //import java.net.URISyntaxException;
 //
 //@Slf4j
-//@Service
+//@service
 //public class PortOneService {
 //
 //    private final IamportClient iamportClient;

@@ -1,7 +1,7 @@
-package com.pentoryall.admin.mapper;
+package com.pentoryall.admin.mappers;
 
-import com.pentoryall.admin.DTO.CommentReportDTO;
-import com.pentoryall.admin.page.SelectCriteria;
+import com.pentoryall.admin.dtos.CommentReportDTO;
+import com.pentoryall.common.page.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,6 +21,4 @@ public interface CommentReportMapper {
     boolean isUserReported(String userCode);
 
     void deleteUserReports(String userCode);
-
-    int deleteByUserCode(Long userCode);
 }
