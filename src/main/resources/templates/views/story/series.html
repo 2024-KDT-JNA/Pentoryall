@@ -10,24 +10,29 @@
     <div class="story-content">
         <div class="inner">
             <section class="section">
-    <h2 class="h2 userPost" th:text="|${storyUser.nickname} 님의 시리즈|"></h2>
-    <button class="button" onclick="location.href='/series/add'">시리즈 추가하기</button>
-
-    <div class="inner">
-        <div class="main-series-swiper series-list">
-            <div class="swiper-wrapper series-wrapper">
-                <div class="series-margin" th:each="series:${seriesList}">
-                    <a th:href="@{/series/page(code=${series.code})}">
-                        <div class="thumbnail-image">
-                            <img class="best-series-img" th:src="${series.thumbnailImage}"
-                                 onerror="this.src='/images/temp/thumbnail.png'" alt="시리즈 썸네일" />
-                        </div>
-                        <p class="description" th:text="${series.title}"></p>
-                    </a>
+                <div class="box-border-header">
+                    <h2 class="h2 userPost" th:text="|${storyUser.nickname} 님의 시리즈|"></h2>
+                    <button class="button" onclick="location.href='/series/add'">새 시리즈 추가하기</button>
                 </div>
-            </div>
-        </div>
-    </div>
+                <th:block th:if="${seriesList.size() == 0}">
+                    <p>아직 포스트가 없습니다</p>
+                    <button class="button" onclick="location.href='/series/add'">새 시리즈 추가하기</button>
+                </th:block>
+                <th:block th:unless="${seriesList.size() == 0}">
+                    <div class="main-series-swiper series-list">
+                        <div class="swiper-wrapper series-wrapper">
+                            <div class="series-margin" th:each="series:${seriesList}">
+                                <a th:href="@{/series/page(code=${series.code})}">
+                                    <div class="thumbnail-image">
+                                        <img class="best-series-img" th:src="${series.thumbnailImage}"
+                                             onerror="this.src='/images/temp/thumbnail.png'" alt="시리즈 썸네일" />
+                                    </div>
+                                    <p class="description" th:text="${series.title}"></p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
             </section>
         </div>
     </div>

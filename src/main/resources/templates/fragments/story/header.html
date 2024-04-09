@@ -8,7 +8,7 @@
             <div class="user-profile">
                 <div class="profile-image">
                     <img th:src="${storyUser.profileImage != null
-                        ? storyUser.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
+                        ? storyUser.profileImage : '/images/temp/profile.png'}" alt="유저 프로필" />
                 </div>
                 <div class="profile-info">
                     <span class="nickname">[[ ${storyUser.nickname} ]]</span>
@@ -26,7 +26,7 @@
             <div class="user-intro">
                 <div class="intro-text">
                     <strong class="title">자기소개</strong>
-                    <p class="intro"> [[ ${storyUser.introduction} ]] </p>
+                    <p class="intro"> [[ ${storyUser.introduction} ]]</p>
                 </div>
                 <div class="setting-btn">
                     <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.userId != storyUser.userId}">
@@ -39,9 +39,9 @@
 
         <nav class="inner story-nav">
             <ul class="tab-nav">
-                <li class="active"><a th:href="|/${storyUser.userId}|">홈</a></li>
-                <li><a th:href="|/${storyUser.userId}/posts|">포스트</a></li>
-                <li><a th:href="|/${storyUser.userId}/series|">시리즈</a></li>
+                <li class="active"><a th:href="|/story/${storyUser.userId}|">홈</a></li>
+                <li><a th:href="|/story/${storyUser.userId}/posts|">포스트</a></li>
+                <li><a th:href="|/story/${storyUser.userId}/series|">시리즈</a></li>
                 <li><a href="/membership/planInfo">멤버십</a></li>
                 <li><a href="/subscribe/list">구독</a></li>
             </ul>
