@@ -2,37 +2,55 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pentoryall.admin.mapper.CommentReportMapper">
+<mapper namespace="com.pentoryall.admin.mappers.CommentReportMapper">
 
-    <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.dto.CommentReportDTO">
-        SELECT r.code, u.code AS user_code, u.user_id, u.nickname, u.state, r.report_date, c.content
-          FROM report r
-                   JOIN user u ON r.user_code = u.code
-                   JOIN comment c ON r.comment_code = c.code
-         WHERE r.type = 'comment'
-         ORDER BY report_date, user_code
+    <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.dtos.CommentReportDTO">
+        SELECt r.code,
+        u.code as user_code,
+        u.user_id,
+        u.nickname,
+        u.state,
+        r.report_date,
+        c.content
+        FROM report r
+        JOIN user u ON r.user_code = u.code
+        JOIN comment c ON r.comment_code = c.code
+        WHERE r.type = 'comment'
+        ORDER BY report_date, user_code
+
+        LIMIT #{offset}, #{limit}
     </select>
 
     <select id="selectTotalCount" resultType="_int">
         SELECT COUNT(*)
-          FROM report
+        FROM report
     </select>
 
     <update id="restoreUserState">
-        UPDATE user
-           SET state = 'ACTIVE'
-         WHERE state = 'SUSPENDED'
-           AND code = #{userCode}
+        UPDATE
+        user
+        SET state = 'ACTIVE'
+        WHERE state = 'SUSPENDED'
+        AND code = #{userCode}
     </update>
 
     <update id="StopUser">
-        UPDATE user
-           SET state = 'SUSPENDED'
-         WHERE state = 'ACTIVE'
-           AND code = #{userCode}
+        UPDATE
+        user
+        SET state = 'SUSPENDED'
+        WHERE state = 'ACTIVE'
+        AND code = #{userCode}
     </update>
 
-    <!--    <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.DTO.CommentReportDTO">-->
+    <update id="deleteByUserCode" parameterType="com.pentoryall.admin.dtos.CommentReportDTO">
+        UPDATE
+        post
+        SET is_deleted = 'Y'
+        WHERE is_deleted = 'N'
+        AND code = #{postCode}
+    </update>
+
+    <!--    <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.dtoss.CommentReportDTO">-->
     <!--        SELECT-->
     <!--            c.user_code,-->
     <!--            u.name,-->

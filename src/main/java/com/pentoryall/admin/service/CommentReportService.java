@@ -1,8 +1,8 @@
 package com.pentoryall.admin.service;
 
-import com.pentoryall.admin.dto.CommentReportDTO;
-import com.pentoryall.admin.mapper.CommentReportMapper;
-import com.pentoryall.admin.mapper.UserManageMapper;
+import com.pentoryall.admin.dtos.CommentReportDTO;
+import com.pentoryall.admin.mappers.CommentReportMapper;
+import com.pentoryall.admin.mappers.UserManageMapper;
 import com.pentoryall.common.page.Pagination;
 import com.pentoryall.common.page.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +20,8 @@ public class CommentReportService {
 
     private final CommentReportMapper commentReportMapper;
 
-    private final UserManageMapper userManageMapper;
-
     public CommentReportService(CommentReportMapper commentReportMapper, UserManageMapper userManageMapper, UserManageMapper userManageMapper1) {
         this.commentReportMapper = commentReportMapper;
-        this.userManageMapper = userManageMapper1;
     }
 
 

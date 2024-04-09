@@ -1,7 +1,7 @@
 package com.pentoryall.admin.service;
 
-import com.pentoryall.admin.dto.PostReportDTO;
-import com.pentoryall.admin.mapper.PostReportMapper;
+import com.pentoryall.admin.dtos.PostReportDTO;
+import com.pentoryall.admin.mappers.PostReportMapper;
 import com.pentoryall.common.page.Pagination;
 import com.pentoryall.common.page.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
