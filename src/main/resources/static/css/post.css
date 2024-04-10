@@ -15,7 +15,7 @@
 /* content */
 .main-content { display: grid; grid-template-columns: repeat(3, 0.5fr); grid-template-columns: 50px 500px 30px; background-size: cover; }
 .main-content-wrapper { margin-top: 100px; }
-
+.recognize-title-size, .recognize-shorts-size {display: none}
 
 /* form */
 .post-content .box-bottom {display: flex; justify-content: space-between; margin-top: 30px;}
@@ -24,7 +24,7 @@
 .post-content .form-item-title-wrapper { width: 430px; border-bottom: solid 1px #e4e4e5; }
 .post-content .form-item-thumbnail { width: 220px; margin-top: 10px; margin-bottom: 10px; border-bottom: solid 1px #e4e4e5; }
 .post-content .form-item {margin:20px auto 40px; }
-.post-content .input-file { width: 240px; height:40px; border: 1px solid #ccc; border-radius: 5px; }
+.post-content .input-file { width: 240px; height:40px; line-height: 40px; padding-left: 8px; border: 1px solid #ccc; border-radius: 5px; }
 .post-content .textarea { height: 180px; text-align: left; }
 
 /* button */
@@ -53,6 +53,7 @@
 .box-modify-form{}
 .box-modify-form .thumbnail-file-wrap{display: flex}
 .box-modify-form .thumbnail-file-wrap .upload-thumbnail {margin-right: 16px}
+.box-modify-form .box-bottom {border-top: 1px solid #999; padding-top:24px;}
 /* list */
 .post-wrapper {  width: 100%}
 .post-wrapper .post-list {display: flex;  width: 100%}

@@ -12,12 +12,11 @@
     <div class="sub-content post-content">
         <div class="inner">
             <section class="section">
-                <h2 class="h2">시리즈 수정</h2>
+                <h2 class="h2">시리즈 수정하기</h2>
 
                 <input th:value="${session.code}" class="code-store" hidden />
                 <form action="/series/update" method="post" enctype="multipart/form-data" name="postForm">
                     <div class="box-modify-form">
-
                         <div class="form-item">
                             <h4 class="h4">
                                 <label class="label" onload="titleLength()">제목*</label>
@@ -51,8 +50,7 @@
                             <div class="genre-items">
                                 <div class="genre-item">
                                     <label class="label">상위 장르</label>
-                                    <select class="select upperGenreSelect" name="genreCode" onchange="hiddenLowerGenre()" oninput="receiveFetchLowerGenre()">
-                                    </select>
+                                    <select class="select upperGenreSelect" name="genreCode" onchange="hiddenLowerGenre()" oninput="receiveFetchLowerGenre()"></select>
                                 </div>
                                 <div class="genre-item">
                                     <label class="label">하위 장르</label>
@@ -63,31 +61,30 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
+                    </div>
 
-                        <div class="form-item">
-                            <h4 class="h4">
-                                <label class="label">시리즈 발행 옵션*</label>
-                            </h4>
-                            <select class="select" name="isMembershipOnly">
-                                <option value="N">멤버십 전용 미적용</option>
-                                <option value="Y">멤버십 전용 적용</option>
-                            </select>
-                        </div>
+                    <div class="form-item">
+                        <h4 class="h4">
+                            <label class="label">시리즈 발행 옵션*</label>
+                        </h4>
+                        <select class="select" name="isMembershipOnly">
+                            <option value="N">멤버십 전용 미적용</option>
+                            <option value="Y">멤버십 전용 적용</option>
+                        </select>
+                    </div>
 
-                        <div class="form-item">
-                            <h4 class="h4">
-                                <label class="label">내용 요약*</label>
-                            </h4>
-                            <textarea class="textarea textareaInput" name="description" maxlength="500" oninput="shortsLength()" th:text="${series.description}"> </textarea>
-                            <p class="form-message">최대 500자까지 가능</p>
-                            <p class="recognize-shorts-size">내용 요약은 10자 이상 입력해주세요.</p>
-                        </div>
+                    <div class="form-item">
+                        <h4 class="h4">
+                            <label class="label">내용 요약*</label>
+                        </h4>
+                        <textarea class="textarea textareaInput" name="description" maxlength="500" oninput="shortsLength()" th:text="${series.description}"> </textarea>
+                        <p class="form-message">최대 500자까지 가능</p>
+                        <p class="recognize-shorts-size">내용 요약은 10자 이상 입력해주세요.</p>
+                    </div>
 
-                        <div class="form-item">
-                            <button type="submit" class="button submit" id="okbtn2">확인</button>
-                            <button type="button" class="button" onclick="location.href='/index'">취소</button>
-                        </div>
+                    <div class="box-bottom">
+                        <button type="button" class="button" onclick="onClickMain()">취소</button>
+                        <button type="submit" class="button dark" id="okbtn2" onclick="saveSeries(event)">확인</button>
                     </div>
                 </form>
             </section>

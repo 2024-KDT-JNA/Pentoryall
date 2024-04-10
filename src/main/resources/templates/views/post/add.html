@@ -5,213 +5,119 @@
 </th:block>
 
 <th:block layout:fragment="content">
-    <div class="sub-content">
+    <div class="sub-content post-content">
         <div class="inner">
             <section class="section">
-                <h2 class="h2" th:text="${session.title}"></h2>
-                <h2 class="h2">포스트 등록하기</h2>
+                <h2 class="h2">포스트 작성하기</h2>
 
-                <div class="form-item">
-                    <form name="postForm" class="postAdd" action="/post/add" method="post" id="postAdd" enctype="multipart/form-data" onsubmit="return check_form()">
-                        <h4 class="h4">
-                            <label class="label">제목*</label>
-                        </h4>
+                <div class="box-modify-form">
+                    <form name="postForm" action="/post/add" method="post" id="postAdd" class="postAdd" enctype="multipart/form-data" onsubmit="return check_form()">
 
-                        <div class="title-wrap">
-                            <div class="upload-thumbnail post-title-input">
-                                <input class="title-input" name="title" maxlength="50" type="text" th:value="${session.title}" th:placeholder="${session.title}" />
-                                <p class="recognize-title-size" hidden>제목을 1글자 이상 입력하여주세요.</p>
-                            </div>
-                        </div>
-
-                        <div class="contents-wrap">
-                            <div class="upload-thumbnail">
-                                <input name="contents" type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden required="false" />
-                            </div>
-                        </div>
-
-                        <h4 class="h4">
-                            <label class="label">썸네일</label>
-                        </h4>
-
-                        <div class="thumbnail-file-wrap">
-                            <div class="upload-thumbnail">
-                                <img id="image-box" class="series-add-thumbnail" src="/images/temp/thumbnail.png" alt="thumbnail" />
-                            </div>
-                            <div class="form__input--file_wrap">
-                                <div class="fileBox">
-                                    <label class="label">파일 업로드</label>
-                                    <input id="image-file-box" type="file" class="input" name="thumbnail" onchange="viewURL()" />
-                                    <button class="cancled" type="button" onclick="fileCancled()">취소하기</button>
+                        <div class="form-item">
+                            <h4 class="h4">
+                                <label class="label">제목*</label>
+                            </h4>
+                            <div class="title-wrap">
+                                <div class="upload-thumbnail post-title-input">
+                                    <input class="input" name="title" maxlength="50" type="text" th:value="${session.title}" th:placeholder="${session.title}" />
+                                    <p class="recognize-title-size" hidden>제목을 1글자 이상 입력하여주세요.</p>
                                 </div>
                             </div>
-                        </div>
+                            <div class="contents-wrap">
+                                <div class="upload-thumbnail">
+                                    <input name="contents" type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden required="false" />
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form-item">
+                                <h4 class="h4">
+                                    <label for="image-file-box" class="label">썸네일</label>
+                                </h4>
 
-                        <div class="form-item">
-                            <h4 class="h4">
-                                <label class="label">공개 여부*</label>
-                            </h4>
-
-                            <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value" value="N" name="isPublic" />
-
-                                <span class="toggle-switch"></span>
-                            </label>
-                        </div>
-                        <div class="form-item">
-                            <h4 class="h4">
-                                <label class="label">시리즈*</label>
-                            </h4>
-                            <select class="select" name="series" id="selectSeries" oninput="sortingGenre()"></select>
-                        </div>
-
-                        <div class="genre-box">
-                            <h4 class="h4">장르*</h4>
-                            <div class="genre-items">
-                                <div class="genre-item">
-                                    <label class="label">상위 장르</label>
-                                    <select class="select upperGenreSelect" name="genreCode" onchange="hiddenLowerGenre()" oninput="receiveFetchLowerGenre()" onload="receiveFetchLowerGenre()">
-                                        <!--                                        <option>웹툰</option>-->
-                                        <!--                                        <option>소설</option>-->
-                                        <!--                                        <option>팬픽</option>-->
-                                        <!--                                        <option>시</option>-->
-                                        <!--                                        <option>일상</option>-->
-                                        <!--                                        <option>창작소재</option>-->
-                                        <!--                                        <option>일러스트</option>-->
-                                        <!--                                        <option>자기계발</option>-->
-                                        <!--                                        <option>미분류</option>-->
-                                    </select>
-
-                                    <div class="box box-order-amount">
-                                        <label class="label">하위 장르</label>
-                                        <ul class="list-group">
-                                            <!--                                            <li class="list-group-item">-->
-                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre1" name="lowerGenre"-->
-                                            <!--                                                       data-point="1000" value="로맨스"/>-->
-                                            <!--                                                <label class="form-check-label" for="lowerGenre1">-->
-                                            <!--                                <span class="inner-text">-->
-                                            <!--                                    <span class="point">로맨스</span>-->
-                                            <!--                                </span>-->
-                                            <!--                                                </label>-->
-                                            <!--                                            </li>-->
-                                            <!--                                            <li class="list-group-item">-->
-                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre2" name="lowerGenre"-->
-                                            <!--                                                       data-point="3000" value="추리"/>-->
-                                            <!--                                                <label class="form-check-label" for="lowerGenre2">-->
-                                            <!--                                <span class="inner-text">-->
-                                            <!--                                    <span class="point">추리</span>-->
-                                            <!--                                </span>-->
-                                            <!--                                                </label>-->
-                                            <!--                                            </li>-->
-                                            <!--                                            <li class="list-group-item">-->
-                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre3" name="lowerGenre"-->
-                                            <!--                                                       data-point="5000" value="판타지"/>-->
-                                            <!--                                                <label class="form-check-label" for="lowerGenre3">-->
-                                            <!--                                <span class="inner-text">-->
-                                            <!--                                    <span class="point">판타지</span>-->
-                                            <!--                                </span>-->
-                                            <!--                                                </label>-->
-                                            <!--                                            </li>-->
-                                            <!--                                            <li class="list-group-item">-->
-                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre4" name="lowerGenre"-->
-                                            <!--                                                       data-point="10000" value="학원물"/>-->
-                                            <!--                                                <label class="form-check-label" for="lowerGenre4">-->
-                                            <!--                                <span class="inner-text">-->
-                                            <!--                                    <span class="point">학원물</span>-->
-                                            <!--                                </span>-->
-                                            <!--                                                </label>-->
-                                            <!--                                            </li>-->
-                                            <!--                                            <li class="list-group-item">-->
-                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre5" name="lowerGenre"-->
-                                            <!--                                                       data-point="15000" value="액션"/>-->
-                                            <!--                                                <label class="form-check-label" for="lowerGenre5">-->
-                                            <!--                                <span class="inner-text">-->
-                                            <!--                                    <span class="point">액션</span>-->
-                                            <!--                                </span>-->
-                                            <!--                                                </label>-->
-                                            <!--                                            </li>-->
-                                            <!--                                            <li class="list-group-item">-->
-                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre6" name="lowerGenre"-->
-                                            <!--                                                       data-point="30000" value="무협"/>-->
-                                            <!--                                                <label class="form-check-label" for="lowerGenre6">-->
-                                            <!--                                <span class="inner-text">-->
-                                            <!--                                    <span class="point">무협</span>-->
-                                            <!--                                </span>-->
-                                            <!--                                                </label>-->
-                                            <!--                                            </li>-->
-                                            <!--                                            <li class="list-group-item">-->
-                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre7" name="lowerGenre"-->
-                                            <!--                                                       data-point="50000" value="드라마"/>-->
-                                            <!--                                                <label class="form-check-label" for="lowerGenre7">-->
-                                            <!--                                <span class="inner-text">-->
-                                            <!--                                    <span class="point">드라마</span>-->
-                                            <!--                                </span>-->
-                                            <!--                                                </label>-->
-                                            <!--                                            </li>-->
-                                            <!--                                            <li class="list-group-item">-->
-                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre8" name="lowerGenre"-->
-                                            <!--                                                       data-point="1000" value="공포/호러"/>-->
-                                            <!--                                                <label class="form-check-label" for="lowerGenre8">-->
-                                            <!--                                <span class="inner-text">-->
-                                            <!--                                    <span class="point">공포/호러</span>-->
-                                            <!--                                </span>-->
-                                            <!--                                                </label>-->
-                                            <!--                                            </li>-->
-                                            <!--                                            <li class="list-group-item">-->
-                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre9" name="lowerGenre"-->
-                                            <!--                                                       data-point="1000" value="미스테리"/>-->
-                                            <!--                                                <label class="form-check-label" for="lowerGenre9">-->
-                                            <!--                                <span class="inner-text">-->
-                                            <!--                                    <span class="point">미스테리</span>-->
-                                            <!--                                </span>-->
-                                            <!--                                                </label>-->
-                                            <!--                                            </li>-->
-                                            <!--                                            <li class="list-group-item">-->
-                                            <!--                                                <input class="form-check-input blind" type="checkbox" id="lowerGenre10" name="lowerGenre"-->
-                                            <!--                                                       data-point="1000" />-->
-                                            <!--                                                <label class="form-check-label" for="lowerGenre10">-->
-                                            <!--                                <span class="inner-text">-->
-                                            <!--                                    <span class="point">코믹</span>-->
-                                            <!--                                </span>-->
-                                            <!--                                                </label>-->
-                                            <!--                                            </li>-->
-                                        </ul>
+                                <div class="thumbnail-file-wrap">
+                                    <div class="upload-thumbnail">
+                                        <img id="image-box" class="series-add-thumbnail" src="/images/temp/thumbnail.png" alt="thumbnail" />
+                                    </div>
+                                    <div class="upload-input-wrap">
+                                        <div class="fileBox">
+                                            <input id="image-file-box" type="file" class="input" name="thumbnail" onchange="viewURL()" />
+                                            <button class="button" type="button" onclick="fileCancled()">취소하기</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <!--  -->
+                            <div class="form-item">
+                                <h4 class="h4">
+                                    <label class="label">공개 여부*</label>
+                                </h4>
 
-                        <div class="form-item">
-                            <h4 class="h4">
-                                <label class="label">유료 컨텐츠 여부*</label>
-                            </h4>
-                            <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value isFee-input" value="N" name="isFee" onchange="IsPointHidden()" />
-                                <span class="toggle-switch"></span>
-                            </label>
-                            <div class="point-box" hidden>
-                                <p class="isFee">필요 포인트 설정</p>
-                                <div class="needed-point">
-                                    <input class="input point-input" min="0" type="number" value="200" step="100" name="neededPoint" />
-                                    <p class="point-fee">P</p>
+                                <label class="toggle-button">
+                                    <input type="checkbox" class="blind toggle-value" value="N" name="isPublic" />
+
+                                    <span class="toggle-switch"></span>
+                                </label>
+                            </div>
+                            <!--  -->
+                            <div class="form-item">
+                                <h4 class="h4">
+                                    <label class="label">시리즈*</label>
+                                </h4>
+                                <select class="select" name="series" id="selectSeries" oninput="sortingGenre()"></select>
+                            </div>
+                            <!--  -->
+                            <div class="genre-box">
+                                <h4 class="h4">장르*</h4>
+                                <div class="genre-items">
+                                    <div class="genre-item">
+                                        <label class="label">상위 장르</label>
+                                        <select class="select upperGenreSelect" name="genreCode" onchange="hiddenLowerGenre()" oninput="receiveFetchLowerGenre()" onload="receiveFetchLowerGenre()">
+                                        </select>
+
+                                        <div class="genre-item">
+                                            <label class="label">하위 장르</label>
+                                            <div class="genre-item-scroll">
+                                                <ul class="list-group">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-item">
-                            <label class="label">성인물 여부*</label>
-                            <label class="toggle-button">
-                                <input type="checkbox" class="blind toggle-value" value="N" name="isAdult" />
-                                <span class="toggle-switch"></span>
-                            </label>
-                        </div>
-
-                        <div class="form-item">
-                            <button type="submit" class="button" id="okbtn">확인</button>
-                            <button class="button" th:onclick="onClickAddPost()" onclick="onClickAddPost()">취소</button>
+                            <!--  -->
+                            <div class="form-item">
+                                <h4 class="h4">
+                                    <label class="label">유료 컨텐츠 여부*</label>
+                                </h4>
+                                <label class="toggle-button">
+                                    <input type="checkbox" class="blind toggle-value isFee-input" value="N" name="isFee" onchange="IsPointHidden()" />
+                                    <span class="toggle-switch"></span>
+                                </label>
+                                <div class="point-box" hidden>
+                                    <p class="isFee">필요 포인트 설정</p>
+                                    <div class="needed-point">
+                                        <input class="input point-input" min="0" type="number" value="200" step="100" name="neededPoint" />
+                                        <p class="point-fee">P</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form-item">
+                                <label class="label">성인물 여부*</label>
+                                <label class="toggle-button">
+                                    <input type="checkbox" class="blind toggle-value" value="N" name="isAdult" />
+                                    <span class="toggle-switch"></span>
+                                </label>
+                            </div>
+                            <!--  -->
+                            <div class="box-bottom">
+                                <button class="button" th:onclick="onClickAddPost()" onclick="onClickAddPost()">취소</button>
+                                <button type="submit" class="button dark" id="okbtn">확인</button>
+                            </div>
                         </div>
                     </form>
                 </div>
+
                 <!--출력 확인용-->
                 <p id="demo"></p>
             </section>
