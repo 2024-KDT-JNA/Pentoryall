@@ -10,55 +10,59 @@
 <th:block layout:fragment="content">
     <div class="sub-content">
         <div class="inner">
-            <section class="section">
-                <section class="section section-point">
-                    <h2 class="h2">정산 요청</h2>
+            <section class="section section-point">
+                <h2 class="h2">정산 요청</h2>
 
-                    <!-- 내용 -->
-                    <div class="box-settlement">
-                        <th:block th:if="${ settlement.getUserSettlementCode == null }">
-                            <p>계좌 정보가 존재하지 않습니다.</p>
-                            <p>출금을 위해 계좌 정보를 등록해주세요!</p>
+                <!-- 내용 -->
+                <div class="box-settlement">
+                    <th:block th:if="${ settlement.getUserSettlementCode == null }">
+                        <p>계좌 정보가 존재하지 않습니다.</p>
+                        <p>출금을 위해 계좌 정보를 등록해주세요!</p>
 
-                            <div class="box-bottom">
-                                <input type="button" class="button dark" value="계좌 등록">
+                        <div class="box-bottom">
+                            <input type="button" class="button dark" value="계좌 등록">
+                        </div>
+                    </th:block>
+                    <th:block th:unless="${ settlement.userSettlementCode <= 0 }">
+                        <form action="/settings/settlement" method="post" name="settlementForm" th:object="${settlement}"
+                              onsubmit="validateSettlementForm(event)">
+                            <input type="hidden" th:field="*{userSettlementCode}" name="userSettlementCode">
+
+                            <div class="box box-desc-list">
+                                <dl class="desc-list">
+                                    <dt class="desc-list-dt large">출금 가능한 수익</dt>
+                                    <dd class="desc-list-dd large">
+                                        <input type="number" class="input" th:value="${#authentication.principal.revenue}" name="revenue" disabled>
+                                    </dd>
+                                    <dt class="desc-list-dt border-top">
+                                        <label for="requestAmount">신청 금액</label>
+                                    </dt>
+                                    <dd class="desc-list-dd border-top">
+                                        <input type="number" id="requestAmount" name="requestAmount" class="input"
+                                               step="1000" min="1000" max="${#authentication.principal.revenue}" oninput="calculateActualAmount(event)" value="0" required>
+                                    </dd>
+                                    <dt class="desc-list-dt">
+                                        <label for="actualAmount">정산 금액</label>
+                                    </dt>
+                                    <dd class="desc-list-dd">
+                                        <input type="number" id="actualAmount" name="actualAmount" class="input" value="0" disabled>
+                                    </dd>
+                                </dl>
                             </div>
-                        </th:block>
-                        <th:block th:unless="${ settlement.userSettlementCode <= 0 }">
-                            <form action="/settings/settlement/" th:object="${settlement}">
-                                <input type="hidden" th:field="*{userSettlementCode}">
-                                <input type="hidden" th:value="${#authentication.principal.revenue}">
-
-                                <div class="box box-desc-list">
-                                    <dl class="desc-list">
-                                        <dt class="desc-list-dt large">출금 가능한 수익</dt>
-                                        <dd class="desc-list-dd large" th:text="${#authentication.principal.revenue}"></dd>
-                                        <dt class="desc-list-dt border-top">
-                                            <label for="requestAmount">신청 금액</label>
-                                        </dt>
-                                        <dd class="desc-list-dd border-top">
-                                            <input type="number" id="requestAmount" name="requestAmount" class="input"
-                                                   oninput="restrictInputToNumeric(this)" pattern="[0-9]+" required>
-                                        </dd>
-                                        <dt class="desc-list-dt">
-                                            <label for="actualAmount">정산 금액</label>
-                                        </dt>
-                                        <dd class="desc-list-dd">
-                                            <input type="text" id="actualAmount" name="actualAmount" class="input" oninput="calculateActualAmount(this)" disabled>
-                                        </dd>
-                                    </dl>
-                                </div>
-                                <div class="box-bottom">
-                                    <input type="submit" class="button dark" value="확인">
-                                </div>
-                            </form>
-                        </th:block>
-                    </div>
-                </section>
+                            <div class="box-bottom">
+                                <input type="submit" class="button dark" onclick="validateSettlementForm(event)" value="확인">
+                            </div>
+                        </form>
+                    </th:block>
+                </div>
+            </section>
         </div>
     </div>
 </th:block>
 
-<th:block layout:fragment="script"></th:block>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/settlement.js}" src="/js/settlement.js"></script>
+
+</th:block>
 </html>
 

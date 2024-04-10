@@ -39,7 +39,7 @@
 .settings-wrap { display: flex; } 
 .settings-wrap .inner { width: 900px } 
 .settings-wrap .content { padding: 80px 40px 0 } 
-.settings-wrap .sub-content { margin-left: 80px } 
+.settings-wrap .sub-content { margin-left: 40px; margin-right: 40px}
 
 .settings-wrap .settings-aside { width: 180px; min-width: 180px; height: calc(100vh - 81px); padding: 20px; border-right: 1px solid #ddd; vertical-align: middle; } 
 .settings-wrap .settings-nav .bi { width: 30px; padding-right: 4px; font-size: 20px } 
