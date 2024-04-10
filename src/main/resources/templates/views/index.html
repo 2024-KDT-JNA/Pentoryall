@@ -39,7 +39,7 @@
                 <h2 class="h2">이번 주 인기 포스트</h2>
 
                 <div class="post-list">
-                    <div class="post-item" th:each="post : ${postList}">
+                    <div class="post-item" th:each="post : ${postList}" th:onclick="|onClickValidatePost(${post.code})|">
                         <input class="input-post" th:value="${post.code}" hidden />
                         <div class="thumbnail-image">
                             <img th:src="${post.thumbnailImage}" alt="포스트 썸네일"
@@ -106,6 +106,8 @@
 </th:block>
 
 <th:block layout:fragment="script">
-    <script th:src="@{/js/main.js}" src="/js/main.js"></script>
+    <script th:src="@{/js/main.js}" src="/js/main.js">
+
+    </script>
 </th:block>
 </html>
