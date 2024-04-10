@@ -19,7 +19,7 @@
                 </th:block>
                 <th:block th:unless="${postList.size() == 0}">
                     <div class="post-list">
-                        <div class="post-item" th:each="post : ${postList}">
+                        <div class="post-item" th:each="post : ${postList}" th:onclick="|onClickValidatePost(${post.code})|">
                             <input class="input-post" th:value="${post.code}" hidden />
                             <div class="thumbnail-image">
                                 <img class="thumbnail" th:src="${post.thumbnailImage}" alt="포스트 썸네일"
@@ -63,6 +63,7 @@
     </div>
 </th:block>
 <th:block layout:fragment="script">
+    <script th:src="@{/js/post.js}" src="/js/main.js"></script>
     <script>
         /*현재 좋아요 갯수*/
         async function likeCounts() {
