@@ -35,7 +35,8 @@ public class SettlementController {
     }
 
     @GetMapping("/settlement")
-    public String settlementPage(@AuthenticationPrincipal UserDTO sessionUser, Model model) {
+    public String settlementPage(@AuthenticationPrincipal UserDTO sessionUser,
+                                 Model model) {
 
         UserSettlementDTO userSettlement = userSettlementService.selectByUserCode(sessionUser.getCode());
         if (userSettlement != null) {
@@ -45,6 +46,7 @@ public class SettlementController {
             model.addAttribute("settlement", settlement);
         }
 
+        model.addAttribute("SETTINGS_ASIDE", "settlement");
         return "views/settlement/settlement";
     }
 
@@ -72,10 +74,12 @@ public class SettlementController {
     public String settlementListPage(Model model,
                                      @RequestParam(defaultValue = "1") int page,
                                      @AuthenticationPrincipal UserDTO sessionUser) {
+
         Map<String, Object> resultMap = settlementService.selectSettlementListWithPagingByUserCode(page, sessionUser.getCode());
         model.addAttribute("paging", resultMap.get("paging"));
         model.addAttribute("settlementList", resultMap.get("settlementList"));
 
+        model.addAttribute("SETTINGS_ASIDE", "settlement-list");
         return "views/settlement/settlementList";
     }
 
@@ -83,10 +87,12 @@ public class SettlementController {
     public String revenueListPage(Model model,
                                   @RequestParam(defaultValue = "1") int page,
                                   @AuthenticationPrincipal UserDTO sessionUser) {
+
         Map<String, Object> resultMap = settlementService.selectRevenueListWithPagingByUserCode(page, sessionUser.getCode());
         model.addAttribute("paging", resultMap.get("paging"));
         model.addAttribute("revenueList", resultMap.get("revenueList"));
 
+        model.addAttribute("SETTINGS_ASIDE", "revenue-list");
         return "views/settlement/revenueList";
     }
 
@@ -97,4 +103,3 @@ public class SettlementController {
         return new UsernamePasswordAuthenticationToken(newPrincipal, newPrincipal.getPassword(), newPrincipal.getAuthorities());
     }
 }
-
