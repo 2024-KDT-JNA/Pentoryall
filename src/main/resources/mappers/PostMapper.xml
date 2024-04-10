@@ -212,4 +212,19 @@
         LIMIT
         1;
     </select>
+    <select id="selectPostAndSeriesByPostCode" resultType="com.pentoryall.post.dto.ValidatePostDTO">
+        SELECT
+            p.code AS postCode,
+            s.code AS seriesCode,
+            p.user_code,
+            p.price,
+            p.is_paid,
+            p.is_adult,
+            p.is_public,
+            s.is_membership_only
+        FROM
+            post p JOIN series s ON p.series_code = s.code
+        WHERE
+            p.code = ${ postCode }
+    </select>
 </mapper>

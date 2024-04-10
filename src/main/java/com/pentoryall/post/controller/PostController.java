@@ -194,40 +194,40 @@ public class PostController {
         List<CommentDetailDTO> commentList = commentService.selectCommentByPostCode(code);
         List<CommentDetailDTO> replyList = commentService.selectRefCommentByPostCode(code);
         System.out.println("commentList =!! " + commentList);
-        System.out.println("답글 리스트 = "+replyList);
+        System.out.println("답글 리스트 = " + replyList);
 
-            LikeDTO likeDTO = likeService.selectLikeByUserAndPost(user.getCode(), code);
+        LikeDTO likeDTO = likeService.selectLikeByUserAndPost(user.getCode(), code);
         System.out.println("user.getCode() = " + user.getCode());
-        model.addAttribute("loginUser",user.getCode());
-            model.addAttribute("like", likeDTO);
-            if (likeDTO != null) {
-                model.addAttribute("isLiked", true);
-            } else {
-                model.addAttribute("isLiked", false);
-            }
+        model.addAttribute("loginUser", user.getCode());
+        model.addAttribute("like", likeDTO);
+        if (likeDTO != null) {
+            model.addAttribute("isLiked", true);
+        } else {
+            model.addAttribute("isLiked", false);
+        }
         int likeCount = 0;
-            List<LikeDTO> likeList = likeService.selectLikeByPostCode(code);
-            if(likeList!=null && !likeList.isEmpty()) {
-                 likeCount = likeList.size();
-            }
-            model.addAttribute("likeCount",likeCount);
+        List<LikeDTO> likeList = likeService.selectLikeByPostCode(code);
+        if (likeList != null && !likeList.isEmpty()) {
+            likeCount = likeList.size();
+        }
+        model.addAttribute("likeCount", likeCount);
 
-        if(!commentList.isEmpty() || commentList!=null) {
-//            System.out.println("유저 정보 : " + commentList.get(0).getUser());
+        if (!commentList.isEmpty() || commentList != null) {
+            //            System.out.println("유저 정보 : " + commentList.get(0).getUser());
             System.out.println("commentList =>>> " + commentList);
             System.out.println("postDTO = " + postDTO);
-//            System.out.println("userDTO = " + userDTO);
+            //            System.out.println("userDTO = " + userDTO);
         }
-            System.out.println("seriesDTO = " + seriesDTO);
-        model.addAttribute("userDTO",userDTO);
-            model.addAttribute("post", postDTO);
-//            model.addAttribute("user", userDTO);
-            model.addAttribute("series", seriesDTO);
-            model.addAttribute("commentList", commentList);
-            if(user != null){
-                model.addAttribute("userCode",user.getCode());
-            }
-            model.addAttribute("replyList",replyList);
+        System.out.println("seriesDTO = " + seriesDTO);
+        model.addAttribute("userDTO", userDTO);
+        model.addAttribute("post", postDTO);
+        //            model.addAttribute("user", userDTO);
+        model.addAttribute("series", seriesDTO);
+        model.addAttribute("commentList", commentList);
+        if (user != null) {
+            model.addAttribute("userCode", user.getCode());
+        }
+        model.addAttribute("replyList", replyList);
         System.out.println("여기까지왓니");
 
 
@@ -344,7 +344,7 @@ public class PostController {
     @GetMapping("/delete")
     public String deletePost(@RequestParam long code,
                              RedirectAttributes rttr) {
-        rttr.addFlashAttribute("message", messageSourceAccessor.getMessage("post.delete"));
+        rttr.addFlashAttribute("alertMessage", messageSourceAccessor.getMessage("post.delete"));
         PostDTO postDTO = postService.getPostInformationByPostCode(code);
 
         long seriesCode = postDTO.getSeriesCode();
@@ -363,11 +363,11 @@ public class PostController {
 
     @PostMapping("/addComment")
     public ResponseEntity<String> addComment(@RequestBody CommentDetailDTO commentAdd,
-                                             @AuthenticationPrincipal UserDTO user){
+                                             @AuthenticationPrincipal UserDTO user) {
         commentAdd.setCode(1L);
-        System.out.println("commentAdd1 :"+commentAdd.getCode());
-        System.out.println("commentAdd1.5 :"+commentAdd.getPostCode());
-        System.out.println("commentAdd2 :"+commentAdd.getContent());
+        System.out.println("commentAdd1 :" + commentAdd.getCode());
+        System.out.println("commentAdd1.5 :" + commentAdd.getPostCode());
+        System.out.println("commentAdd2 :" + commentAdd.getContent());
         System.out.println("도달하고 있는가");
         commentAdd.setUser(user);
         System.out.println("commentAdd = " + commentAdd);
@@ -377,17 +377,18 @@ public class PostController {
     }
 
     @GetMapping("/loadComment")
-    public ResponseEntity<List<CommentDetailDTO>> loadComment(CommentDetailDTO commentDTO){
+    public ResponseEntity<List<CommentDetailDTO>> loadComment(CommentDetailDTO commentDTO) {
         System.out.println("commentDTO = " + commentDTO);
         List<CommentDetailDTO> commentList = commentService.loadComment(commentDTO);
         System.out.println("commentList^^ = " + commentList);
         return ResponseEntity.ok(commentList);
     }
-//    @GetMapping("/loadReply")
-//    public ResponseEntity<List<CommentDetailDTO>> loadReply(CommentDetailDTO commentDTO){
-//        List<CommentDetailDTO> commentList = commentService.loadReply(commentDTO);
-//        return ResponseEntity.ok(commentList);
-//    }
+
+    //    @GetMapping("/loadReply")
+    //    public ResponseEntity<List<CommentDetailDTO>> loadReply(CommentDetailDTO commentDTO){
+    //        List<CommentDetailDTO> commentList = commentService.loadReply(commentDTO);
+    //        return ResponseEntity.ok(commentList);
+    //    }
     @PostMapping("/removeComment")
     public ResponseEntity<String> removeReply(@RequestBody CommentDetailDTO commentDetailDTO) {
         System.out.println("commentDetailDTO =~~~~~~ " + commentDetailDTO.getCode());
@@ -397,7 +398,7 @@ public class PostController {
     }
 
     @PostMapping("/updateComment")
-    public ResponseEntity<String> updateComment(@RequestBody CommentDetailDTO commentDetailDTO){
+    public ResponseEntity<String> updateComment(@RequestBody CommentDetailDTO commentDetailDTO) {
         System.out.println("commentDetailDTO = " + commentDetailDTO);
         System.out.println("hi");
         commentService.updateComment(commentDetailDTO);
@@ -407,28 +408,28 @@ public class PostController {
 
     @PostMapping("/genre")
     public String selectByGenre(@RequestParam List<Long> genre,
-                                Model model){
+                                Model model) {
 
         System.out.println("genre = " + genre);
 
         List<GenreOfArtDTO> genreOfArtDTOList = genreOfArtService.selectSeriesByGenre(genre.get(0));
         List<Long> seriesCode = new ArrayList<>();
-        for(int i = 0 ; i<genreOfArtDTOList.size();i++){
+        for (int i = 0; i < genreOfArtDTOList.size(); i++) {
             seriesCode.add(genreOfArtDTOList.get(i).getSeriesCode());
         }
         System.out.println("seriesCode = " + seriesCode);
         System.out.println("genreOfArtDTOList = " + genreOfArtDTOList);
 
         boolean[] result = new boolean[seriesCode.size()];
-        for(int i =0 ; i<result.length;i++){
-            result[i]=true;
+        for (int i = 0; i < result.length; i++) {
+            result[i] = true;
         }
         System.out.println("result[0] = " + result[0]);
-        for(int i = 0 ; i<seriesCode.size(); i++){
-            for(int k = 1 ; k<genre.size();k++) {
-                GenreOfArtDTO genreOfArtDTO = genreOfArtService.selectSeriesGenre(seriesCode.get(i),genre.get(k));
-                if(genreOfArtDTO==null){
-                    result[i]=false;
+        for (int i = 0; i < seriesCode.size(); i++) {
+            for (int k = 1; k < genre.size(); k++) {
+                GenreOfArtDTO genreOfArtDTO = genreOfArtService.selectSeriesGenre(seriesCode.get(i), genre.get(k));
+                if (genreOfArtDTO == null) {
+                    result[i] = false;
                 }
             }
         }
@@ -436,52 +437,53 @@ public class PostController {
         System.out.println("result =>> " + Arrays.toString(result));
 
         List<Integer> temp = new ArrayList<>();
-        for(int i =0  ; i<result.length;i++){
-            if(result[i]==true){
+        for (int i = 0; i < result.length; i++) {
+            if (result[i] == true) {
                 temp.add(i);
             }
         }
         List<SeriesDTO> seriesList = new ArrayList<>();
-        for(int i =0 ; i<temp.size();i++){
-        SeriesDTO seriesDTO = seriesService.selectSeriesByTitle(seriesCode.get((temp.get(i))));
-        seriesList.add(seriesDTO);
+        for (int i = 0; i < temp.size(); i++) {
+            SeriesDTO seriesDTO = seriesService.selectSeriesByTitle(seriesCode.get((temp.get(i))));
+            seriesList.add(seriesDTO);
         }
         System.out.println("seriesList =>> " + seriesList);
 
         /*포스트 검색*/
         List<PostDTO> postList = new ArrayList<>();
         List<PostDTO> postDTO = new ArrayList<>();
-        for(int i =0 ; i<seriesList.size();i++) {
+        for (int i = 0; i < seriesList.size(); i++) {
             postDTO = postService.selectPostsBySeriesCode(seriesList.get(i).getCode());
-            for(int k = 0 ; k<postDTO.size();k++){
+            for (int k = 0; k < postDTO.size(); k++) {
                 postList.add(postDTO.get(k));
             }
         }
-//
-//        List<Long> postNo = new ArrayList<>();
-//        for(int i =0 ; i<genre.size();i++) {
-//            List<GenreOfArtDTO> genreOfArtDTO = genreOfArtService.selectPostNotInSeries(genre.get(i));
-//            for(int k = 0 ; k<genreOfArtDTO.size();k++) {
-//                postNo.add(genreOfArtDTO.get(k).getPostCode());
-//            }
-//        }
-//
-//        System.out.println("postNo = " + postNo);
-//        for(int i = 0 ; i<postNo.size() ; i++){
-//            PostDTO postDTO1 = postService.getPostInformationByPostCode(postNo.get(i));
-//            postList.add(postDTO1);
-//        }
-        System.out.println(" 포스트리스트= " +postList );
+        //
+        //        List<Long> postNo = new ArrayList<>();
+        //        for(int i =0 ; i<genre.size();i++) {
+        //            List<GenreOfArtDTO> genreOfArtDTO = genreOfArtService.selectPostNotInSeries(genre.get(i));
+        //            for(int k = 0 ; k<genreOfArtDTO.size();k++) {
+        //                postNo.add(genreOfArtDTO.get(k).getPostCode());
+        //            }
+        //        }
+        //
+        //        System.out.println("postNo = " + postNo);
+        //        for(int i = 0 ; i<postNo.size() ; i++){
+        //            PostDTO postDTO1 = postService.getPostInformationByPostCode(postNo.get(i));
+        //            postList.add(postDTO1);
+        //        }
+        System.out.println(" 포스트리스트= " + postList);
 
-        model.addAttribute("seriesList",seriesList);
-        model.addAttribute("postList",postList);
+        model.addAttribute("seriesList", seriesList);
+        model.addAttribute("postList", postList);
         return "/views/series/select";
 
     }
-//
+
+    //
     @PostMapping("/addReply")
     public ResponseEntity<String> addReply(@RequestBody CommentDetailDTO commentAdd,
-                                             @AuthenticationPrincipal UserDTO user){
+                                           @AuthenticationPrincipal UserDTO user) {
         commentAdd.setCode(1L);
         System.out.println("도달하고 있는가");
         commentAdd.setUser(user);
@@ -492,7 +494,7 @@ public class PostController {
     }
 
     @GetMapping("/loadReply")
-    public ResponseEntity<List<CommentDetailDTO>> loadReply(CommentDetailDTO commentDTO){
+    public ResponseEntity<List<CommentDetailDTO>> loadReply(CommentDetailDTO commentDTO) {
         System.out.println("commentDTO = " + commentDTO);
         List<CommentDetailDTO> commentList = commentService.loadReply(commentDTO);
         System.out.println("가져와진 답글들 ^^ = " + commentList);
@@ -500,7 +502,7 @@ public class PostController {
     }
 
     @GetMapping("/additionalData")
-    public ResponseEntity<List<CommentDetailDTO>> loadAdditionalData(CommentDetailDTO commentDTO){
+    public ResponseEntity<List<CommentDetailDTO>> loadAdditionalData(CommentDetailDTO commentDTO) {
         System.out.println("commentDTO = " + commentDTO);
         List<CommentDetailDTO> commentList = commentService.loadAdditionalData(commentDTO);
         System.out.println("가져와진 답글들 ^^ = " + commentList);
@@ -508,25 +510,25 @@ public class PostController {
     }
 
     @PostMapping("/likeCount")
-    public ResponseEntity<Integer> selectLikeCount(@RequestBody PostDTO postDTO){
+    public ResponseEntity<Integer> selectLikeCount(@RequestBody PostDTO postDTO) {
         System.out.println("postDTO = " + postDTO);
         Integer result;
         List<LikeDTO> likeList = likeService.selectLikeByPostCode(postDTO.getCode());
-        if(likeList!=null && !likeList.isEmpty()){
+        if (likeList != null && !likeList.isEmpty()) {
             result = likeList.size();
-        }else{
+        } else {
             result = 0;
         }
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/likeTitle")
-    public ResponseEntity<Integer> selectLike(@RequestBody PostDTO postDTO){
+    public ResponseEntity<Integer> selectLike(@RequestBody PostDTO postDTO) {
         System.out.println("postDTO = " + postDTO);
-        Integer result=0;
+        Integer result = 0;
         List<LikePostDTO> likeList = likePostService.selectLikeByPostTitle(postDTO.getTitle());
         System.out.println("likeList = " + likeList);
-        if(likeList!=null && !likeList.isEmpty()){
+        if (likeList != null && !likeList.isEmpty()) {
             result = likeList.size();
         }
         return ResponseEntity.ok(result);

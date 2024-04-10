@@ -10,7 +10,6 @@ import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
 import com.pentoryall.user.dto.LikeDTO;
 import com.pentoryall.user.dto.UserDTO;
-import com.pentoryall.user.service.LikePostService;
 import com.pentoryall.user.service.LikeService;
 import com.pentoryall.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -71,21 +70,21 @@ public class SeriesController {
 
         UserDTO user = userService.getUserInformationByUserCode(seriesDTO.getUserCode());
         System.out.println("user = " + user);
-        
+
         List<PostDTO> postLists = postService.selectPostsBySeriesCode(code);
         System.out.println("포스트리스트~~~ = " + postLists);
 
         int likeCount = 0;
-        for(int i = 0 ; i<postLists.size() ; i++) {
+        for (int i = 0; i < postLists.size(); i++) {
             List<LikeDTO> likeList = likeService.selectLikeByPostCode(postLists.get(i).getCode());
             likeCount += likeList.size();
         }
         System.out.println("result = " + likeCount);
 
         System.out.println("genreNames = " + genreNames);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         model.addAttribute("postList", postLists);
-        model.addAttribute("likeCount",likeCount);
+        model.addAttribute("likeCount", likeCount);
         System.out.println("postLists **********= " + postLists);
         model.addAttribute("genreNames", genreNames);
         return "/views/series/page";
@@ -192,7 +191,7 @@ public class SeriesController {
                                           HttpSession session,
                                           RedirectAttributes rttr) {
 
-        rttr.addFlashAttribute("message", "series.update");
+        rttr.addFlashAttribute("alertMessage", "series.update");
 
         long code = (long) session.getAttribute("code");
 
@@ -275,24 +274,24 @@ public class SeriesController {
     @PostMapping("/select")
     public String selectSeriesByword(@RequestParam String word,
                                      @RequestParam String option,
-                                     Model model){
+                                     Model model) {
         System.out.println("option = " + option);
         System.out.println("word = " + word);
         List<SeriesDTO> seriesList = new ArrayList<>();
         List<PostDTO> postList = new ArrayList<>();
-        if(option.equals("제목")) {
+        if (option.equals("제목")) {
             seriesList = seriesService.getSeriesListByWord(word);
             postList = postService.getSeriesListByWord(word);
             System.out.println("seriesListdddddd = " + seriesList);
             System.out.println("postList>>>>>> = " + postList);
-        }else if(option.equals("작가")){
+        } else if (option.equals("작가")) {
             List<UserDTO> userList = userService.getUserListByWord(word);
             List<Long> userCodeList = new ArrayList<>();
-            for(int i = 0 ; i<userList.size() ; i++){
+            for (int i = 0; i < userList.size(); i++) {
                 userCodeList.add(userList.get(i).getCode());
             }
             System.out.println("userCodeList = " + userCodeList);
-            for(int i = 0 ; i<userCodeList.size();i++){
+            for (int i = 0; i < userCodeList.size(); i++) {
                 seriesList = seriesService.selectSeriesByUserCode(userCodeList.get(i));
                 postList = postService.selectPostByUserCode(userCodeList.get(i));
             }
@@ -300,7 +299,7 @@ public class SeriesController {
             System.out.println("seriesList^^^^ = " + seriesList);
             System.out.println("postList!!! = " + postList);
 
-        }else{
+        } else {
             seriesList = seriesService.getSeriesListByWord(word);
             postList = postService.getSeriesListByWord(word);
 
@@ -309,17 +308,17 @@ public class SeriesController {
 
             List<UserDTO> userList = userService.getUserListByWord(word);
             List<Long> userCodeList = new ArrayList<>();
-            for(int i = 0 ; i<userList.size() ; i++){
+            for (int i = 0; i < userList.size(); i++) {
                 userCodeList.add(userList.get(i).getCode());
             }
-            for(int i = 0 ; i<userCodeList.size();i++){
+            for (int i = 0; i < userCodeList.size(); i++) {
                 tempSeries = seriesService.selectSeriesByUserCode(userCodeList.get(i));
                 tempPost = postService.selectPostByUserCode(userCodeList.get(i));
             }
-            for(int i =0 ; i<tempSeries.size();i++){
+            for (int i = 0; i < tempSeries.size(); i++) {
                 seriesList.add(tempSeries.get(i));
             }
-            for(int i =0 ; i<tempPost.size();i++){
+            for (int i = 0; i < tempPost.size(); i++) {
                 postList.add(tempPost.get(i));
             }
 
@@ -328,8 +327,8 @@ public class SeriesController {
 
         }
 
-        model.addAttribute("seriesList",seriesList);
-        model.addAttribute("postList",postList);
+        model.addAttribute("seriesList", seriesList);
+        model.addAttribute("postList", postList);
 
         return "/views/series/select";
     }
