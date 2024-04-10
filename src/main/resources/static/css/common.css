@@ -169,8 +169,9 @@ a.button { display: inline-block}
 .genre-box .genre-item { padding: 6px 20px 10px; background: #f4f4f4; }
 .genre-box .genre-item { width: 1000px; }
 /* header 검색창 */
-.searchWrap .search { display: flex; align-items: center; justify-content: space-between; padding: 10px 15px; border: 2px solid #AEAEB2; border-radius: 32px; }
-.searchWrap .search select { cursor: pointer; }
+.searchWrap .search { display: flex; align-items: center; justify-content: space-between; padding: 10px 15px; border: 1px solid #ccc; border-radius: 32px; }
+.searchWrap .search select { cursor: pointer; font-size:12px; padding: 0 6px }
 .searchWrap .search > label img,
 .searchWrap .search > label .bi { cursor: pointer; }
 .searchWrap .search > label .bi { font-size: 18px; }
+.searchWrap .search > label input {font-size: 14px; padding: 0 4px}
