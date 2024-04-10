@@ -155,7 +155,7 @@ public class SeriesController {
 
         System.out.println("성공함");
 
-        SeriesDTO recentSeries = seriesService.selectLatestCode();
+        SeriesDTO recentSeries = seriesService.selectRecentSeriesCode();
 
         long urlCode = recentSeries.getCode();
         System.out.println("urlCode = " + urlCode);

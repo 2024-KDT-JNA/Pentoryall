@@ -80,7 +80,4 @@ public class PostService {
 
     public ValidatePostDTO selectPostAndSeriesByPostCode(long postCode) { return postMapper.selectPostAndSeriesByPostCode(postCode); }
 
-    public PostDTO selectPostByUser(long code) {
-        return postMapper.selectPostByUser(code);
-    }
 }

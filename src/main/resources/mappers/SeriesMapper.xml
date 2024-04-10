@@ -136,13 +136,14 @@
         WHERE
             code=#{code}
     </update>
-    <delete id="deleteSeries">
-        DELETE
-        FROM
+    <update id="deleteSeries">
+        UPDATE
             series
+        SET
+            is_deleted = 'Y'
         WHERE
             code=#{code}
-    </delete>
+    </update>
     <select id="selectSeriesList">
         SELECT
             code,
