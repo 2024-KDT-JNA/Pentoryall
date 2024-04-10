@@ -60,7 +60,7 @@
 .post-content .post-list .post-item {width: 100%; justify-content: space-between}
 .post-thumbnail-area{position: relative; width: 150px; height: 150px; margin-right: 16px;}
 .post-thumbnail-area .post-information-thumbnail {  border-bottom: solid 1px #d1d1d2; background-size: cover; border-bottom: solid 1px #d1d1d2; background-repeat: no-repeat; }
-.post-thumbnail-area .post-information-thumbnail-content { width: 150px; height: 150px; filter: brightness(0.6); }
+.post-thumbnail-area .post-information-thumbnail-content { width: 150px; height: 150px; filter: brightness(0.8); }
 .post-content-area{position:relative; width: 800px}
 .post-content-area .series-post-update-delete{position: absolute; top: 0; right: 0;}
 .post-content-area .series-post-update-delete .button{padding: 8px; line-height:1; background: rgba(255, 255, 255, 0)}
