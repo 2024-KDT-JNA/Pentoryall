@@ -54,5 +54,10 @@
          ORDER BY create_date DESC
          LIMIT #{offset}, #{limit}
     </select>
+    <!-- INSERT -->
+    <insert id="insertSettlementRequest" useGeneratedKeys="true" keyProperty="code" parameterType="com.pentoryall.settlement.dto.SettlementDTO">
+        INSERT INTO `settlement` (user_settlement_code, request_amount, actual_amount)
+        VALUES (#{userSettlementCode}, #{requestAmount}, #{actualAmount})
+    </insert>
 </mapper>
 

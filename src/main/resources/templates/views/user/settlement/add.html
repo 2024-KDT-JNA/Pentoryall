@@ -23,31 +23,31 @@
 
                                 <select id="bankCode" name="bankCode" th:field="*{bankCode}">
                                     <option th:value="0" th:selected="${bankCode} == null">== 선택 ==</option>
-                                    <option th:value="2" th:selected="${bankCode} == value">산업</option>
-                                    <option th:value="3" th:selected="${bankCode} == value">기업</option>
-                                    <option th:value="4" th:selected="${bankCode} == value">국민</option>
-                                    <option th:value="7" th:selected="${bankCode} == value">수협</option>
-                                    <option th:value="11" th:selected="${bankCode} == value">농협</option>
-                                    <option th:value="12" th:selected="${bankCode} == value">단위농협</option>
-                                    <option th:value="20" th:selected="${bankCode} == value">우리</option>
-                                    <option th:value="23" th:selected="${bankCode} == value">SC제일</option>
-                                    <option th:value="27" th:selected="${bankCode} == value">씨티</option>
-                                    <option th:value="31" th:selected="${bankCode} == value">대구</option>
-                                    <option th:value="32" th:selected="${bankCode} == value">부산</option>
-                                    <option th:value="34" th:selected="${bankCode} == value">광주</option>
-                                    <option th:value="35" th:selected="${bankCode} == value">제주</option>
-                                    <option th:value="37" th:selected="${bankCode} == value">전북</option>
-                                    <option th:value="39" th:selected="${bankCode} == value">경남</option>
-                                    <option th:value="45" th:selected="${bankCode} == value">새마을</option>
-                                    <option th:value="48" th:selected="${bankCode} == value">신협</option>
-                                    <option th:value="50" th:selected="${bankCode} == value">저축</option>
-                                    <option th:value="64" th:selected="${bankCode} == value">산림</option>
-                                    <option th:value="71" th:selected="${bankCode} == value">우체국</option>
-                                    <option th:value="81" th:selected="${bankCode} == value">하나</option>
-                                    <option th:value="88" th:selected="${bankCode} == value">신한</option>
-                                    <option th:value="89" th:selected="${bankCode} == value">케이</option>
-                                    <option th:value="90" th:selected="${bankCode} == value">카카오</option>
-                                    <option th:value="92" th:selected="${bankCode} == value">토스</option>
+                                    <option th:value="002" th:selected="${bankCode} == value">산업</option>
+                                    <option th:value="003" th:selected="${bankCode} == value">기업</option>
+                                    <option th:value="004" th:selected="${bankCode} == value">국민</option>
+                                    <option th:value="007" th:selected="${bankCode} == value">수협</option>
+                                    <option th:value="011" th:selected="${bankCode} == value">농협</option>
+                                    <option th:value="012" th:selected="${bankCode} == value">단위농협</option>
+                                    <option th:value="020" th:selected="${bankCode} == value">우리</option>
+                                    <option th:value="023" th:selected="${bankCode} == value">SC제일</option>
+                                    <option th:value="027" th:selected="${bankCode} == value">씨티</option>
+                                    <option th:value="031" th:selected="${bankCode} == value">대구</option>
+                                    <option th:value="032" th:selected="${bankCode} == value">부산</option>
+                                    <option th:value="034" th:selected="${bankCode} == value">광주</option>
+                                    <option th:value="035" th:selected="${bankCode} == value">제주</option>
+                                    <option th:value="037" th:selected="${bankCode} == value">전북</option>
+                                    <option th:value="039" th:selected="${bankCode} == value">경남</option>
+                                    <option th:value="045" th:selected="${bankCode} == value">새마을</option>
+                                    <option th:value="048" th:selected="${bankCode} == value">신협</option>
+                                    <option th:value="050" th:selected="${bankCode} == value">저축</option>
+                                    <option th:value="064" th:selected="${bankCode} == value">산림</option>
+                                    <option th:value="071" th:selected="${bankCode} == value">우체국</option>
+                                    <option th:value="081" th:selected="${bankCode} == value">하나</option>
+                                    <option th:value="088" th:selected="${bankCode} == value">신한</option>
+                                    <option th:value="089" th:selected="${bankCode} == value">케이</option>
+                                    <option th:value="090" th:selected="${bankCode} == value">카카오</option>
+                                    <option th:value="092" th:selected="${bankCode} == value">토스</option>
                                 </select>
 
                             </div>
@@ -56,7 +56,7 @@
                             <label for="accountNumber" class="labelTitle">계좌번호</label>
                             <div class="input_box">
 
-                                <input type="text" id="accountNumber" name="accountNumber" th:field="*{accountNumber}" maxlength="14" placeholder="숫자만 입력" oninput="restrictInputToNumeric(this)"
+                                <input type="text" id="accountNumber" name="accountNumber" th:field="*{accountNumber}" maxlength="14" placeholder="숫자만 입력" oninput="restrictInputToNumeric(event)"
                                        pattern="[0-9]+" required>
 
                             </div>
@@ -81,7 +81,6 @@
 </th:block>
 
 <th:block layout:fragment="script">
-
     <script th:src="@{/js/settlement.js}" src="/js/settlement.js"></script>
 </th:block>
 </html>

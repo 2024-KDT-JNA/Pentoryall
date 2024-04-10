@@ -16,4 +16,6 @@ public interface SettlementMapper {
     List<SettlementDTO> selectSettlementsByUserCode(long userCode, int offset, int limit);
 
     List<UserRevenueDTO> selectRevenuesByUserCode(long userCode, int offset, int limit);
+
+    void insertSettlementRequest(SettlementDTO settlement);
 }

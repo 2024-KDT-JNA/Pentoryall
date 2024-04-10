@@ -11,3 +11,8 @@
 .box-desc-list .desc-list .desc-list-dd {text-align: right}
 .box-desc-list .desc-list .border-top {border-top: 1px solid #000}
 .section-point .box-bottom .button { display: block; margin: 64px auto 0; text-align: center}
+
+/* .box-settlement .box-desc-list {max-resolution: res;} */
+.box-settlement .box-desc-list .desc-list {width: 100%;}
+.box-settlement .box-desc-list .desc-list .desc-list-dt{width:35%; line-height: 42px}
+.box-settlement .box-desc-list .desc-list .desc-list-dd{width:65%}

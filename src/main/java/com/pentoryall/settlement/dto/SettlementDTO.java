@@ -20,4 +20,10 @@ public class SettlementDTO {
     String cause;
     LocalDateTime createDate;
     LocalDateTime processDate;
+
+    public SettlementDTO(Long userSettlementCode, int requestAmount) {
+        this.userSettlementCode = userSettlementCode;
+        this.requestAmount = requestAmount;
+        this.actualAmount = (requestAmount / 10) * 9;
+    }
 }
