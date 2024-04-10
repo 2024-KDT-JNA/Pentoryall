@@ -7,7 +7,9 @@ import com.pentoryall.genre.service.GenreService;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.genreOfArt.service.GenreOfArtService;
 import com.pentoryall.post.dto.PostDTO;
+import com.pentoryall.post.dto.ReportPostDTO;
 import com.pentoryall.post.service.PostService;
+import com.pentoryall.post.service.ReportPostService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
 import com.pentoryall.user.dto.LikeDTO;
@@ -47,8 +49,9 @@ public class PostController {
     private final MessageSourceAccessor messageSourceAccessor;
     private final LikeService likeService;
     private final LikePostService likePostService;
+    private final ReportPostService reportPostService;
 
-    public PostController(SeriesService seriesService, PostService postService, UserService userService, CommentService commentService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor, LikeService likeService, LikePostService likePostService) {
+    public PostController(SeriesService seriesService, PostService postService, UserService userService, CommentService commentService, GenreOfArtService genreOfArtService, GenreService genreService, MessageSourceAccessor messageSourceAccessor, LikeService likeService, LikePostService likePostService, ReportPostService reportPostService) {
         this.seriesService = seriesService;
         this.postService = postService;
         this.userService = userService;
@@ -58,6 +61,7 @@ public class PostController {
         this.messageSourceAccessor = messageSourceAccessor;
         this.likeService = likeService;
         this.likePostService = likePostService;
+        this.reportPostService = reportPostService;
     }
 
 
@@ -532,5 +536,60 @@ public class PostController {
             result = likeList.size();
         }
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/postReport")
+    public String reportPostPage(@RequestParam Long code,
+                                 @RequestParam Long postCode,
+                                 @RequestParam Long userCode,
+                                 HttpSession session){
+        System.out.println("code = " + code);
+        System.out.println("postCode = " + postCode);
+        System.out.println("userCode = " + userCode);
+        session.setAttribute("code",code);
+        session.setAttribute("postCode",postCode);
+        session.setAttribute("userCode",userCode);
+
+        return "views/post/postReport";
+    }
+    @PostMapping("/postReport")
+    public String reportPost(@ModelAttribute ReportPostDTO reportPostDTO,
+                             HttpSession session){
+
+        reportPostDTO.setPostCode((Long) session.getAttribute("postCode"));
+        reportPostDTO.setUserCode((Long)session.getAttribute("userCode"));
+        System.out.println("reportPostDTO = " + reportPostDTO);
+        reportPostService.insertReportPost(reportPostDTO);
+        System.out.println("ㅇㅈ");
+        return "views/index";
+    }
+
+    @GetMapping("/postComment")
+    public String reportCommentPage(@RequestParam Long code,
+                                 @RequestParam Long postCode,
+                                 @RequestParam Long userCode,
+                                 @RequestParam Long commentCode,
+                                 HttpSession session){
+        System.out.println("code = " + code);
+        System.out.println("postCode = " + postCode);
+        System.out.println("userCode = " + userCode);
+        System.out.println("commentCode = " + commentCode);
+        session.setAttribute("code",code);
+        session.setAttribute("postCode",postCode);
+        session.setAttribute("userCode",userCode);
+        session.setAttribute("commentCode",commentCode);
+        return "views/post/postComment";
+    }
+    @PostMapping("/postComment")
+    public String reportComment(@ModelAttribute ReportPostDTO reportPostDTO,
+                             HttpSession session){
+
+        reportPostDTO.setPostCode((Long) session.getAttribute("postCode"));
+        reportPostDTO.setUserCode((Long)session.getAttribute("userCode"));
+        reportPostDTO.setCommentCode((Long) session.getAttribute("commentCode"));
+        System.out.println("reportPostDTO = " + reportPostDTO);
+        reportPostService.insertCommentPost(reportPostDTO);
+        System.out.println("인ㅈ");
+        return "views/index";
     }
 }

@@ -145,3 +145,45 @@
 
 .likeCount { font-size: 20px; }
 
+p{
+    font-size: 8pt;
+}
+.report-introduce{
+    color: red;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.textarea{
+    width: 430px;
+    height:100px;
+}
+.report-header-text{
+    font-size: 30px;
+    font-weight: bold;
+}
+.label-report{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.report-text{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+.report-comment-title{
+    font-size: 30pt;
+    font-weight: bolder;
+}
+p{
+    font-size: 8pt;
+}
+.report-introduce{
+    color: red;
+}
+.textarea{
+    width: 430px;
+    height:100px;
+}
+.report-comment-reason{
+    margin-top: 10px;
+    margin-bottom: 0px;
+}

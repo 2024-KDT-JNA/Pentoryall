@@ -19,7 +19,7 @@
         FROM
             series
         WHERE
-            code=#{seriesno}
+            code=#{seriesno} AND is_deleted = 'N'
     </select>
 
 
@@ -37,7 +37,7 @@
         FROM
             series
         WHERE
-            code=#{seriesCode}
+            code=#{seriesCode} AND is_deleted = 'N'
     </select>
 
     <select id="getSeriesList">
@@ -54,13 +54,13 @@
         FROM
             series
         WHERE
-            user_code=#{i};
+            user_code=#{i} AND is_deleted = 'N'
     </select>
 
     <insert id="addSeriesOptions">
-        <selectKey keyProperty="code" order="BEFORE" resultType="_long">
-            SELECT max(code) from series
-        </selectKey>
+<!--        <selectKey keyProperty="code" order="BEFORE" resultType="_long">-->
+<!--            SELECT max(code) from series-->
+<!--        </selectKey>-->
         INSERT INTO
         series(
         user_code,
@@ -91,7 +91,7 @@
         FROM
             series
         WHERE
-            code=#{code}
+            code=#{code} AND is_deleted = 'N'
     </select>
     <select id="selectGenreList"  resultType="com.pentoryall.series.dto.SeriesDTO">
         SELECT
@@ -107,7 +107,7 @@
         FROM
             series
         WHERE
-            code=#{code}
+            code=#{code} AND is_deleted = 'N'
     </select>
     <select id="selectRecentSeriesCode">
         SELECT
@@ -122,6 +122,7 @@
             update_date
         FROM
             series
+        WHERE is_deleted = 'N'
         ORDER BY create_date DESC
             LIMIT 1;
     </select>
@@ -140,7 +141,7 @@
         UPDATE
             series
         SET
-            is_deleted = 'Y'
+            is_deleted = 'N'
         WHERE
             code=#{code}
     </update>
@@ -158,7 +159,7 @@
         FROM
             series
         WHERE
-            code != 1
+            code != 1 AND is_deleted = 'N'
     </select>
     <select id="getSeriesListByWord">
         SELECT
@@ -174,7 +175,7 @@
         FROM
             series
         WHERE
-            title LIKE CONCAT('%', #{word}, '%')
+            title LIKE CONCAT('%', #{word}, '%') AND is_deleted = 'N'
     </select>
     <select id="selectSeriesByUserCode">
         SELECT
@@ -190,7 +191,7 @@
         FROM
             series
         WHERE
-            user_code=#{code}
+            user_code=#{code} AND is_deleted = 'N'
     </select>
     <select id="selectAllSeries">
         SELECT
@@ -204,6 +205,6 @@
             create_date,
             update_date
         FROM
-            series
+            series AND is_deleted = 'N'
     </select>
 </mapper>

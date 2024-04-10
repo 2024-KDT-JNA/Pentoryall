@@ -57,6 +57,7 @@ public class SeriesController {
 
     @GetMapping("/page")
     public String seriesPage(long code,
+                             @AuthenticationPrincipal UserDTO loginUser,
                              Model model) {
         SeriesDTO seriesDTO = seriesService.findSeriesByCode(code);
         System.out.println("seriesDTO = " + seriesDTO);
@@ -87,6 +88,11 @@ public class SeriesController {
         model.addAttribute("likeCount", likeCount);
         System.out.println("postLists **********= " + postLists);
         model.addAttribute("genreNames", genreNames);
+        if(loginUser!=null) {
+            model.addAttribute("loginUser", loginUser);
+        }else{
+            model.addAttribute("loginUser", null);
+        }
         return "/views/series/page";
     }
 
@@ -159,6 +165,7 @@ public class SeriesController {
 
         long urlCode = recentSeries.getCode();
         System.out.println("urlCode = " + urlCode);
+
         return "redirect:/series/page?code=" + urlCode;
     }
 
