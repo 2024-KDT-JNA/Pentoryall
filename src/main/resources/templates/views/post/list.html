@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout/default}">
 
@@ -9,7 +8,7 @@
 </th:block>
 
 <th:block layout:fragment="content">
-    <div class="sub-content">
+    <div class="sub-content post-content">
         <div class="inner">
             <section class="section">
                 <div class="fixed-header">
@@ -168,47 +167,90 @@
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
+        window.addEventListener("DOMContentLoaded", (event) => {
+            likeCounts()
 
+            let isLiked =  document.getElementById("isLiked").value;
+            console.log("좋아요?",isLiked);
+            const userCode = document.getElementById("login-user").value;
+            console.log("유코",userCode);
+            const postCode = document.getElementById("post-code").value;
+            console.log("포코",postCode);
 
-        // function test(){
-        //     const text = document.querySelector(".comment-writing-area");
-        //     console.log(text.value);
-        //     const postCode = '[[${post.code}]]'
-        //     console.log("뽀스트넘버ㅣ"+postCode);
-        //     const test1 = document.querySelector(".test1");
-        //     console.log(test1);
-        // }
-
-        /*댓글 작성*/
-        if(document.getElementById("comment-add-btn")){
-            const $addComment = document.querySelector(".comment-add-btn");
-            const $writeComment = document.querySelector(".comment-writing-area");
-
-            $addComment.onclick=function() {
-                if (!$writeComment.value.trim()) {
-                    alert('내용을 작성해주세요');
-                    return;
+            $('.likeBtn').click(function () {
+                let $btn = $(this);
+                if (isLiked) {
+                    $.ajax({
+                        type: 'post',
+                        url: '/user/likeDown',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            postCode,
+                            userCode
+                        }),
+                        success: function (data) {
+                            isLiked = false;
+                            $btn.removeClass('liked');
+                            $btn.html('<br/>좋아요');
+                            console.log("좋아요 취소 성공");
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        type: 'post',
+                        url: '/user/likeUp',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            postCode,
+                            userCode
+                        }),
+                        success: function (data) {
+                            isLiked = true;
+                            $btn.addClass('liked');
+                            $btn.html('♥️<br/>좋아요');
+                            console.log("좋아요 성공");
+                        }
+                    });
                 }
+            });
 
-                const postCode = '[[${post.code}]]'
-                console.log("뽀스트넘버ㅣ"+postCode);
-                const content = $writeComment.value;
+            document.querySelector('.likeBtn').addEventListener('click', function() {
+                likeCounts();
+            });
+            /*댓글 작성*/
+            if(document.getElementById("comment-add-btn")){
+                const $addComment = document.querySelector(".comment-add-btn");
+                const $writeComment = document.querySelector(".comment-writing-area");
 
-                fetch('/post/addComment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type' : 'application/json; charset=UTF-8'
-                    },
-                    body : JSON.stringify({ postCode, content })
-                })
-                    .then(res => {
-                        console.log("rress:"+res);
-                        $writeComment.value = '';
-                        loadComment();
+                $addComment.onclick=function() {
+                    if (!$writeComment.value.trim()) {
+                        alert('내용을 작성해주세요');
+                        return;
+                    }
+
+                    const postCode = '[[${post.code}]]';
+                    console.log("뽀스트넘버ㅣ"+postCode);
+                    const content = $writeComment.value;
+
+                    fetch('/post/addComment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type' : 'application/json; charset=UTF-8'
+                        },
+                        body : JSON.stringify({ postCode, content })
                     })
-                    .catch(error => console.log(error));
+                        .then(res => {
+                            console.log("rress:"+res);
+                            $writeComment.value = '';
+                            loadComment();
+                        })
+                        .catch(error => console.log(error));
+                };
             }
-        }
+
+        });
+
+
 
         // /*댓글 삽입 삭제 발생 시 최신 댓글을 다시 로드하는 기능*/
         function loadComment() {
@@ -217,8 +259,8 @@
 
             fetch('/post/loadComment?postCode=' + postNo)
                 .then(result => result.json())
-                .then(data => {makeCommentTable(data)
-                    console.log("데이터",data)})
+                .then(data => {makeCommentTable(data);
+                    console.log("데이터",data);})
                 .catch(error => console.log(error));
         }
 
@@ -257,7 +299,7 @@
                 $comment.append($nickname,$content,$createdDate,$button,$secondButtons);
                 commentArea.append($comment);
 
-            })
+            });
         }
 
 
@@ -341,14 +383,13 @@
             commentArea.append($h2,$writingArea,$button);
 
         }
-    </script>
-    <script>
+
         /*답글 로직*/
         function test2(){
             const input = document.querySelectorAll(".tem-input");
             input.forEach(el =>{
                 console.log("답글 참조 코드",el.value);
-            })
+            });
         }
 
         document.querySelector(".comment-area").addEventListener("click",(e) =>{
@@ -400,7 +441,7 @@
         function loadReply(){
             const postNo = document.querySelector(".tem-code-input").value;
             const commentCode = document.querySelector(".tem-cc").value;
-            console.log("댓글코오드",commentCode)
+            console.log("댓글코오드",commentCode);
             fetch('/post/loadReply?postCode=' + postNo+"&code="+commentCode)
                 .then(result => result.json())
                 .then(data => {
@@ -447,7 +488,7 @@
         }
 
         function makeLikeArea(likeCount) {
-            console.log("구분",likeCount)
+            console.log("구분",likeCount);
             // 좋아요 갯수를 업데이트할 요소 선택
             const likeElement = document.querySelector(".post-information-like-content");
             likeElement.innerHTML = `♡ ${likeCount}`;
@@ -471,63 +512,6 @@
 
 
 
-
-        window.onload(likeCounts());
-    </script>
-    <script>
-        let isLiked =  document.getElementById("isLiked").value;
-        console.log("좋아요?",isLiked);
-        const userCode = document.getElementById("login-user").value;
-        console.log("유코",userCode);
-        const postCode = document.getElementById("post-code").value;
-        console.log("포코",postCode);
-
-        $('.likeBtn').click(function () {
-            // console.log("유코",userCode);
-            // console.log("포코",postCode);
-
-
-            console.log("누르기 전 좋아요 상태",isLiked);
-            var $btn = $(this);
-            if (isLiked) {
-                $.ajax({
-                    type: 'post',
-                    url: '/user/likeDown',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        postCode,
-                        userCode
-                    }),
-                    success: function (data) {
-                        isLiked = false;
-                        $btn.removeClass('liked');
-                        $btn.html('<br/>좋아요');
-                        console.log("좋아요 취소 성공");
-                    }
-                });
-            } else {
-                $.ajax({
-                    type: 'post',
-                    url: '/user/likeUp',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        postCode,
-                        userCode
-                    }),
-                    success: function (data) {
-                        isLiked = true;
-                        $btn.addClass('liked');
-                        $btn.html('♥️<br/>좋아요');
-                        console.log("좋아요 성공");
-                    }
-                });
-            }
-        });
-
-
-        document.querySelector('.likeBtn').addEventListener('click', function() {
-            likeCounts();
-        });
         function likeCounts() {
             const code = document.getElementById("input-post-code").value;
             fetch('/post/likeCount', {
