@@ -41,17 +41,22 @@
 .settings-wrap .content { padding: 80px 40px 0 } 
 .settings-wrap .sub-content { margin-left: 40px; margin-right: 40px}
 
-.settings-wrap .settings-aside { width: 180px; min-width: 180px; height: calc(100vh - 81px); padding: 20px; border-right: 1px solid #ddd; vertical-align: middle; } 
-.settings-wrap .settings-nav .bi { width: 30px; padding-right: 4px; font-size: 20px } 
-.settings-wrap .settings-nav .depth1-li.on .depth1-btn { font-weight: bold; } 
-.settings-wrap .settings-nav .depth1-btn { padding-bottom: 12px } 
-.settings-wrap .settings-nav .depth1-text { font-size: 18px } 
+.settings-wrap .settings-aside { width: 200px; min-width: 180px; height: calc(100vh - 81px); padding: 20px; border-right: 1px solid #ddd; vertical-align: middle; }
+.settings-wrap .settings-nav .bi { width: 30px; padding-right: 4px; font-size: 20px }
+.settings-wrap .settings-nav .depth1-li {margin: 0 0 20px}
+.settings-wrap .settings-nav .depth1-btn { padding-bottom: 12px }
+.settings-wrap .settings-nav .depth1-text { font-size: 18px }
+.settings-wrap .settings-nav .depth2-li{transition: background-color .25s}
+.settings-wrap .settings-nav .depth2-li:hover,
+.settings-wrap .settings-nav .depth2-li.active{background: #efefef; border-radius: 7px}
+.settings-wrap .settings-nav .depth2-li.active a{color:#333; font-weight:600}
 .settings-wrap .settings-nav .depth2-text { padding-left: 30px; color: #666; font-size: 16px; } 
 
 /* .settings-wrap .inner { margin-left: } */
-.nav-depth1 > li { margin-bottom: 7px } 
-.settings-aside li { padding: 7px 0 } 
-.settings-aside li a { display: flex; align-items: center; } 
+.nav-depth1 > li { margin-bottom: 7px }
+
+.settings-aside li { margin:2px 0;  }
+.settings-aside li a { display: flex; align-items: center; padding: 7px 0 }
 
 /* user ======================================== */
 .input_box select { width: 100%; padding: 15px; border: 1px solid #CECECE; border-radius: 5px; } 
