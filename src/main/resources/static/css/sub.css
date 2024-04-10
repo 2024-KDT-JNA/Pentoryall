@@ -4,8 +4,10 @@
 .sub-content .thumbnail-image { overflow: hidden; border-radius: 7px; }
 
 .sub-content .series-list .swiper-wrapper{flex-wrap: wrap}
-.sub-content .series-list .swiper-slide{ margin-bottom: 16px;margin-left: 16px}
-.sub-content .series-list .swiper-slide:nth-child(5n+1){margin-left: 0}
+.sub-content .series-list .swiper-slide,
+.story-content .series-list .series-margin{ margin-bottom: 16px;margin-left: 16px; margin-right: 0;}
+.sub-content .series-list .swiper-slide:nth-child(5n+1),
+.story-content .series-list .series-margin:nth-child(5n+1){margin-left: 0}
 
 .sub-content .box-no-content { padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
 
