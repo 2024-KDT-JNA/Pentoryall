@@ -1,138 +1,137 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/default}">
-	<!--<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />-->
-	<th:block layout:fragment="link">
-		<link rel="stylesheet" href="/libs/toastui-editor/toastui-editor.min.css" />
-		<link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css" />
-	</th:block>
+<th:block layout:fragment="link">
+    <link rel="stylesheet" href="/libs/toastui-editor/toastui-editor.min.css" />
+    <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css" />
+</th:block>
 
-	<th:block layout:fragment="content">
-		<div class="sub-content">
-			<div class="inner">
-				<!-- 한 페이지 당 컨텐츠는 section으로 묶습니다. -->
-				<section class="section">
-					<h2 style="text-align: center">포스트 작성 페이지</h2>
-					<div>
-						<form class="post-title-form">
-							<label><h2 class="h2 title-title">제목</h2></label>
-							<input oninput="countLengthOfTitle()" class="title-input" name="title" id="title" type="text" maxlength="10" placeholder="제목을 입력해주세요." />
-							<p>제목은 최대 50자까지 작성 가능합니다.</p>
-							<p class="recognize-title-size">제목은 1자 이상 입력해주셔야합니다.</p>
-						</form>
-					</div>
-					<!-- 에디터를 적용할 요소 (컨테이너) -->
-					<div id="content"></div>
+<th:block layout:fragment="content">
+    <div class="sub-content post-content">
+        <div class="inner">
+            <section class="section">
+                <h2 class="h2">포스트 작성하기</h2>
+                <div class="form-item">
+                    <h3 class="h3">
+                        <label for="title">제목</label>
+                    </h3>
 
-					<div id="btnDiv">
-						<button type="button" class="btns save save-btn" onclick="savePost();">저장하기</button>
-						<a href="/post/list.html" class="btns back">뒤로 가기</a>
-					</div>
-				</section>
-				<!-- ------------------------------------ -->
-			</div>
-		</div>
-	</th:block>
+                    <form class="post-title-form">
+                        <!--<input oninput="countLengthOfTitle()" class="input title-input" name="title" id="title" type="text" maxlength="10" required placeholder="최대 50자까지 작성 가능" /> -->
+                        <input class="input title-input" name="title" id="title" type="text" maxlength="10" required placeholder="최대 50자까지 작성 가능" />
+                    </form>
+                </div>
+                <!-- 에디터를 적용할 요소 (컨테이너) -->
+                <div id="content"></div>
 
-	<th:block layout:fragment="script">
-		<!-- TUI 에디터 JS CDN -->
-		<!--    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>-->
-		<script th:src="@{/libs/toastui-editor/toastui-editor.min.js}" src="/libs/toastui-editor/toastui-editor.min.js"></script>
-		<script>
-			const editor = new toastui.Editor({
-				el: document.querySelector('#content'), // 에디터를 적용할 요소 (컨테이너)
-				height: '500px', // 에디터 영역의 높이 값 (OOOpx || auto)
-				initialEditType: 'markdown', // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
-				initialValue: '', // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
-				previewStyle: 'vertical', // 마크다운 프리뷰 스타일 (tab || vertical)
-				placeholder: '내용을 입력해 주세요.',
-				/* start of hooks */
-				hooks: {
-					async addImageBlobHook(blob, callback) {
-						// 이미지 업로드 로직 커스텀
-						try {
-							/*
-							 * 1. 에디터에 업로드한 이미지를 FormData 객체에 저장
-							 *    (이때, 컨트롤러 uploadEditorImage 메서드의 파라미터인 'image'와 formData에 append 하는 key('image')값은 동일해야 함)
-							 */
-							const formData = new FormData();
-							formData.append('image', blob);
+                <div id="btnDiv" class="box-bottom">
+                    <button type="button" class="button" onclick="onClickMain()">취소</button>
+                    <button type="button" class="button dark" onclick="savePost();">저장</button>
+                </div>
+            </section>
+            <!-- ------------------------------------ -->
+        </div>
+    </div>
+</th:block>
 
-							// 2. FileApiController - uploadEditorImage 메서드 호출
-							const response = await fetch('/tui-editor/image-upload', {
-								method: 'POST',
-								body: formData,
-							});
+<th:block layout:fragment="script">
+    <!-- TUI 에디터 JS CDN -->
+    <script th:src="@{/libs/toastui-editor/toastui-editor.min.js}" src="/libs/toastui-editor/toastui-editor.min.js"></script>
+    <script>
+        const editor = new toastui.Editor({
+            el: document.querySelector('#content'), // 에디터를 적용할 요소 (컨테이너)
+            height: '500px', // 에디터 영역의 높이 값 (OOOpx || auto)
+            initialEditType: 'markdown', // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
+            initialValue: '', // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
+            previewStyle: 'vertical', // 마크다운 프리뷰 스타일 (tab || vertical)
+            placeholder: '내용을 입력해 주세요.',
+            /* start of hooks */
+            hooks: {
+                async addImageBlobHook(blob, callback) {
+                    // 이미지 업로드 로직 커스텀
+                    try {
+                        /*
+                         * 1. 에디터에 업로드한 이미지를 FormData 객체에 저장
+                         *    (이때, 컨트롤러 uploadEditorImage 메서드의 파라미터인 'image'와 formData에 append 하는 key('image')값은 동일해야 함)
+                         */
+                        const formData = new FormData();
+                        formData.append('image', blob);
 
-							// 3. 컨트롤러에서 전달받은 디스크에 저장된 파일명
-							const filename = await response.text();
-							console.log('서버에 저장된 파일명 : ', filename);
+                        // 2. FileApiController - uploadEditorImage 메서드 호출
+                        const response = await fetch('/tui-editor/image-upload', {
+                            method: 'POST',
+                            body: formData,
+                        });
 
-							// 4. addImageBlobHook의 callback 함수를 통해, 디스크에 저장된 이미지를 에디터에 렌더링
-							const imageUrl = `/tui-editor/image-print?filename=${filename}`;
-							callback(imageUrl, 'image alt attribute');
-						} catch (error) {
-							console.error('업로드 실패 : ', error);
-						}
-					},
-				},
-				/* end of hooks */
-			});
+                        // 3. 컨트롤러에서 전달받은 디스크에 저장된 파일명
+                        const filename = await response.text();
+                        console.log('서버에 저장된 파일명 : ', filename);
 
-			// 게시글 저장
-			async function savePost() {
-				const $titleInput = document.querySelector('.title-input');
+                        // 4. addImageBlobHook의 callback 함수를 통해, 디스크에 저장된 이미지를 에디터에 렌더링
+                        const imageUrl = `/tui-editor/image-print?filename=${ filename }`;
+                        callback(imageUrl, 'image alt attribute');
+                    } catch (error) {
+                        console.error('업로드 실패 : ', error);
+                    }
+                },
+            },
+            /* end of hooks */
+        });
 
-				if (!$titleInput.value.length) {
-					alert('제목을 1글자 이상 입력하여주세요!');
-					return;
-				}
-				console.log($titleInput.value);
-				// 1. 콘텐츠 입력 유효성 검사
-				if (editor.getMarkdown().length < 1) {
-					alert('에디터 내용을 입력해 주세요.');
-					throw new Error('내용을 작성해주셔야합니다!');
-				}
-				const $title = document.querySelector('#title');
-				// 2. url, parameter 세팅
-				const url = '/api/posts';
-				const params = {
-					title: $title.value,
-					content: editor.getHTML(),
-				};
+        // 게시글 저장
+        async function savePost() {
+            const $titleInput = document.querySelector('.title-input');
 
-				console.log(params);
-				console.log('성공1');
-				console.log(params.content);
-				console.log(params.title);
-				// 3. API 호출
-				try {
-					const response = await fetch(url, {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify(params),
-					});
-					console.log('성공2');
+            if (!$titleInput.value.length) {
+                alert('제목을 1글자 이상 입력하여주세요!');
+                return;
+            }
+            console.log($titleInput.value);
+            // 1. 콘텐츠 입력 유효성 검사
+            if (editor.getMarkdown().length < 1) {
+                alert('에디터 내용을 입력해 주세요.');
+                throw new Error('내용을 작성해주셔야합니다!');
+            }
+            const $title = document.querySelector('#title');
+            // 2. url, parameter 세팅
+            const url = '/api/posts';
+            const params = {
+                title: $title.value,
+                content: editor.getHTML(),
+            };
 
-					const postId = await response.json();
-					location.href = '/post/add';
-				} catch (error) {
-					console.error('저장 실패 : ', error);
-				}
-			}
+            console.log(params);
+            console.log('성공1');
+            console.log(params.content);
+            console.log(params.title);
+            // 3. API 호출
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(params),
+                });
+                console.log('성공2');
 
-			/*제목이 null값일 때 경고 문구 오른쪽에 띄우기
-			 * 제목이 null 값일 때 저장 누를 시 경고창 띄우기*/
-			function countLengthOfTitle() {
-				const $title = document.querySelector('.title-input');
-				const $recognizeTitleSize = document.querySelector('.recognize-title-size');
-				if ($title.value) {
-					$recognizeTitleSize.style.display = 'none';
-				} else {
-					$recognizeTitleSize.style.display = '';
-				}
-			}
-		</script>
-	</th:block>
+                const postId = await response.json();
+                location.href = '/post/add';
+            } catch (error) {
+                console.error('저장 실패 : ', error);
+            }
+        }
+
+        /*제목이 null값일 때 경고 문구 오른쪽에 띄우기
+         * 제목이 null 값일 때 저장 누를 시 경고창 띄우기*/
+        // function countLengthOfTitle() {
+        //     const $title = document.querySelector('.title-input');
+        //     const $recognizeTitleSize = document.querySelector('.recognize-title-size');
+        //     if ($title.value) {
+        //         $recognizeTitleSize.style.display = 'none';
+        //     } else {
+        //         $recognizeTitleSize.style.display = '';
+        //     }
+        // }
+    </script>
+</th:block>
 </html>
