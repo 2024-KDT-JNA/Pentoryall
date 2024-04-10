@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/settings")
@@ -55,13 +58,26 @@ public class SettlementController {
         return "views/settlement/settlement";
     }
 
+
     @GetMapping("/settlement/list")
-    public String settlementListPage() {
+    public String settlementListPage(Model model,
+                                     @RequestParam(defaultValue = "1") int page,
+                                     @AuthenticationPrincipal UserDTO sessionUser) {
+        Map<String, Object> resultMap = settlementService.selectSettlementListWithPagingByUserCode(page, sessionUser.getCode());
+        model.addAttribute("paging", resultMap.get("paging"));
+        model.addAttribute("settlementList", resultMap.get("settlementList"));
+
         return "views/settlement/settlementList";
     }
 
     @GetMapping("/revenue/list")
-    public String revenueListPage() {
+    public String revenueListPage(Model model,
+                                  @RequestParam(defaultValue = "1") int page,
+                                  @AuthenticationPrincipal UserDTO sessionUser) {
+        Map<String, Object> resultMap = settlementService.selectRevenueListWithPagingByUserCode(page, sessionUser.getCode());
+        model.addAttribute("paging", resultMap.get("paging"));
+        model.addAttribute("revenueList", resultMap.get("revenueList"));
+
         return "views/settlement/revenueList";
     }
 }
