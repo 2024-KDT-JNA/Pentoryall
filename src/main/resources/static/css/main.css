@@ -33,4 +33,4 @@
 .select-btn, .select-option { border: solid 1px; } 
 .series-wrapper { display: flex; flex-wrap: wrap; } 
 .series-margin { margin-right: 10px; } 
-.thumbnail { width: 150px; height: 112px; border-radius: 5px; } 
+.thumbnail { width: 150px; height: 150px; border-radius: 5px; }
