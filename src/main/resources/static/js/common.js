@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    if (document.getElementById("aside")) {
+    if (document.getElementById('aside')) {
         /* layout */
         const $sideMenuBtn = document.querySelector('.profile-btn');
         const $overlay = document.querySelector('.overlay');
@@ -26,7 +26,16 @@ document.addEventListener('DOMContentLoaded', function () {
 function isAllChecked(targetName) {
     const $checkInputs = document.querySelectorAll(`input[name='${ targetName }']`);
     let checked = 0;
-    $checkInputs.forEach(checkInput => checkInput.checked && checked++);
+    $checkInputs.forEach((checkInput) => checkInput.checked && checked++);
 
     return $checkInputs.length === checked;
+}
+
+/* ============== COMMON ================= */
+function onClickAddPost() {
+    location.href = "/post/writer";
+}
+function onClickAddSeries() {
+    location.href = "/series/add";
+
 }
