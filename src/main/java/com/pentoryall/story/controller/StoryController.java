@@ -52,7 +52,7 @@ public class StoryController {
             Collections.reverse(seriesList);
             model.addAttribute("series", seriesList.get(0));
         }
-
+        model.addAttribute("TAB_MENU", "home");
         return "/views/story/home";
     }
 
@@ -63,6 +63,8 @@ public class StoryController {
         Collections.reverse(postList);
         model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
         model.addAttribute("postList", postList);
+
+        model.addAttribute("TAB_MENU", "posts");
         return "/views/story/posts";
     }
 
@@ -74,6 +76,8 @@ public class StoryController {
         System.out.println("seriesList = " + seriesList);
         model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
         model.addAttribute("seriesList", seriesList);
+
+        model.addAttribute("TAB_MENU", "series");
         return "/views/story/series";
     }
 
