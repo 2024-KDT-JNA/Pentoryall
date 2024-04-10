@@ -1,32 +1,15 @@
 /* .main-content .h2 { text-align: center; } */
 .main-content .section { margin-top: 142px; }
 .main-content .thumbnail-image { overflow: hidden; border-radius: 7px; }
+.main-content .post-list .post-item {  padding: 20px; }
 
-.series-list .swiper-slide {width: 180px}
-.series-list .description { margin-top: 7px; font-weight: 600; font-size: 18px; }
-.post-list .post-item { display: flex; padding: 20px; border-bottom: 1px solid #eee; }
-.post-list .thumbnail-image { display: flex; position: relative; align-items: center; width: 150px; height: 150px; margin-right: 24px; overflow:hidden; } 
-.post-list .post-content { display: flex; flex-wrap: wrap; align-content: space-between; width: 750px; }
-.post-content .series-name { display: block; color: #999; font-size: 14px; }
-.post-content .post-name { margin: 7px 0 12px; font-weight: 600; font-size: 24px; }
-.post-content .post-description { -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; overflow: hidden; color: #999; line-height: 1.5; text-overflow: ellipsis; }
-.post-content .post-meta { display: flex; align-items: center; width: 100%; color: #ccc; font-size: 12px; }
-.post-content .post-meta dl { display: flex; margin-right: 12px; }
-.post-content .post-meta dt { margin-right: 4px; }
-.post-list-2 {display: flex; flex-wrap: wrap;}
-.post-list-2 .post-item{width:49%; margin-right: 1%; margin-bottom: 1%; padding: 10px; border:1px solid #ddd; border-radius: 7px }
-.post-list-2 .thumbnail-image {width: 124px;height:124px;}
-.post-list-2 .post-content {width: 320px;}
-.post-list-2 .post-content .post-name {font-size: 18px}
-
-.section-genre-best { margin-bottom: 120px } 
+.section-genre-best { margin-bottom: 120px }
 .genre-tab { margin-bottom: 30px; } 
 .genre-tab-list { display: flex; margin: 0 auto; } 
 .genre-tab-list .genre-list { overflow: hidden; text-align: center; } 
 .genre-tab-list .genre-list + .genre-list { margin-left: 20px } 
 .genre-tab-list .genre-list button { padding: 2px 2px; border-radius: 0 } 
 .genre-tab-list .genre-list.active button { box-shadow: inset 0 -6px #0d6efdd1; font-weight:bold; } 
-
 /* ============ */
 .best-series-img { width: 180px; height: 218px; } 
 .post-description { height: 50px; } 

@@ -4,12 +4,13 @@
 .sub-content .thumbnail-image { overflow: hidden; border-radius: 7px; }
 
 .sub-content .series-list .swiper-wrapper{flex-wrap: wrap}
-.sub-content .series-list .swiper-slide{margin-left: 16px; margin-bottom: 16px}
+.sub-content .series-list .swiper-slide{ margin-bottom: 16px;margin-left: 16px}
 .sub-content .series-list .swiper-slide:nth-child(5n+1){margin-left: 0}
+
+.sub-content .box-no-content { padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+
 /* search ======================================== */
-.search-content .section { margin: 50px auto 0 } 
-.search-content .box-no-content { margin: 0 } 
-.search-content .box { padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+.search-content .section { margin: 50px auto 0 }
  /* story ======================================== */
 .story-header { width: 100%; } 
 .story-header .user-profile-wrap { display: flex; align-items: flex-start; justify-content: space-around; padding-bottom: 20px; } 
@@ -26,7 +27,12 @@
 .story-nav li a,
 .story-nav li button { display: block; padding: 16px 0 12px; color: #999; font-size: 20px } 
 
-.story-content .inner { padding: 40px 16px 60px } 
+.story-content .inner { padding: 40px 16px 60px }
+.story-content .box-no-content { padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+
+.box-border-header {display:flex; justify-content: space-between; margin-bottom:16px; padding-bottom:7px;}
+.box-border-header .h3{margin-bottom: 0}
+.box-border-header .button {padding: 6px 12px}
 /* settings ======================================== */
 .settings-wrap { display: flex; } 
 .settings-wrap .inner { width: 900px } 

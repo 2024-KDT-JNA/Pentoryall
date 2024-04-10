@@ -11,12 +11,16 @@
         <div class="inner">
             <section class="section">
                 <div class="box-border-header">
-                    <h2 class="h2 userPost" th:text="|${storyUser.nickname} 님의 시리즈|"></h2>
-                    <button class="button" onclick="location.href='/series/add'">새 시리즈 추가하기</button>
+                    <h3 class="h3 userPost" th:text="|${storyUser.nickname} 님의 시리즈|"></h3>
+                    <button class="button bd-dark" th:onclick="onClickAddSeries()">
+                        <i class="bi bi-plus-square"></i>
+                        <span class="txt">시리즈 추가</span>
+                    </button>
                 </div>
                 <th:block th:if="${seriesList.size() == 0}">
-                    <p>아직 포스트가 없습니다</p>
-                    <button class="button" onclick="location.href='/series/add'">새 시리즈 추가하기</button>
+                    <div class="box-no-content">
+                        <p>아직 시리즈가 없습니다</p>
+                    </div>
                 </th:block>
                 <th:block th:unless="${seriesList.size() == 0}">
                     <div class="main-series-swiper series-list">
