@@ -30,16 +30,13 @@ public class TransactionService {
         this.userMapper = userMapper;
     }
 
-
     public Long existsTransactionCode(Long userCode, Long productCode, TransactionType type) {
         TransactionDTO transaction = new TransactionDTO(userCode, productCode, type);
-        System.out.println(transaction);
         return transactionMapper.existsTransactionCode(transaction);
     }
 
     @Transactional
     public void postTransaction(PostDTO post, UserDTO buyer) {
-        /* FIXME ::: post의 price가 Long으로 되어 있어서 수정이 필요합니다. */
         int price = post.getPrice();
         buyer.setPoint(buyer.getPoint() - price);
         userMapper.updatePointByUserCode(buyer);
