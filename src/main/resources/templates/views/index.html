@@ -8,9 +8,10 @@
 
 <th:block layout:fragment="content">
     <div class="main-content">
-        <section class="section section-weekly-series">
-            <h2 class="h2">이번 주 인기 시리즈</h2>
-            <div class="inner">
+        <div class="inner">
+            <section class="section section-weekly-series">
+                <h2 class="h2">이번 주 인기 시리즈</h2>
+
                 <div class="main-series-swiper series-list">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" th:each="series:${seriesList}">
@@ -30,12 +31,11 @@
                         <!--                         </button> -->
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="section section-weekly-posts">
-            <h2 class="h2">이번 주 인기 포스트</h2>
-            <div class="inner">
+            <section class="section section-weekly-posts">
+                <h2 class="h2">이번 주 인기 포스트</h2>
+
                 <div class="post-list">
                     <div class="post-item" th:each="post : ${postList}">
                         <input class="input-post" th:value="${post.code}" hidden />
@@ -77,32 +77,29 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="section section-genre-best">
-            <h2 class="h2">장르 별 베스트</h2>
+            <section class="section section-genre-best">
+                <h2 class="h2">장르 별 베스트</h2>
 
-            <div class="inner">
-                <!-- 1차 장르 목록 -->
-                <nav class="genre-tab">
-                    <ul class="genre-tab-list">
-                        <th:block th:each="genre, obj : ${genreList}">
-                            <li class="genre-list" th:classappend="${obj.index} == 0 ? 'active': ''">
-                                <button th:text="|${genre.name}|" th:value="${genre.code}"></button>
-                            </li>
-                        </th:block>
-                    </ul>
-                </nav>
-            </div>
-
-            <div class="inner">
+                <div class="inner">
+                    <!-- 1차 장르 목록 -->
+                    <nav class="genre-tab">
+                        <ul class="genre-tab-list">
+                            <th:block th:each="genre, obj : ${genreList}">
+                                <li class="genre-list" th:classappend="${obj.index} == 0 ? 'active': ''">
+                                    <button th:text="|${genre.name}|" th:value="${genre.code}"></button>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </nav>
+                </div>
                 <div class="main-series-swiper series-list">
                     <div class="swiper-wrapper selected-series">
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 </th:block>
 
