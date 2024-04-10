@@ -52,9 +52,12 @@
 
                             </table>
                             <div class="series-update-delete">
-                                <button class="series-update-button button" th:onclick="|location.href='@{/series/update(code=${series.code})}'|">수정</button>
-                                <button class="series-delete-button button" th:onclick="|location.href='@{/series/delete(code=${series.code})}'|">삭제</button>
+                                <th:block th:if="${loginUser != null and loginUser.code == user.code}">
+                                    <button class="series-update-button button" th:onclick="|location.href='@{/series/update(code=${series.code})}'|">수정</button>
+                                    <button class="series-delete-button button" th:onclick="|location.href='@{/series/delete(code=${series.code})}'|">삭제</button>
+                                </th:block>
                             </div>
+
                         </div>
                     </div>
                     <div class="membership-subscribe-button">
@@ -73,7 +76,7 @@
 
                     <div class="series-bundle">
                         <div class="series-bundle-total" th:text="|총 ${postList.size()} 화|"></div>
-                        <div class="series-add-post">
+                        <div class="series-add-post" th:if="${loginUser != null and loginUser.code == user.code}">
                             <button class="button dark" th:onclick="onClickAddPost()">
                                 <i class="bi bi-pencil-square"></i>
                                 <span class="txt">포스트 작성</span>
@@ -132,12 +135,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="series-post-update-delete">
+                                <div class="series-post-update-delete" th:if="${loginUser != null and loginUser.code == user.code}">
                                     <button class="series-update-button button" th:onclick="|onClickModifyPost(${post.code})|">
                                         <i class="bi bi-highlighter"></i>
                                         <span class="blind">수정</span>
                                     </button>
-                                    <button class="series-delete-button button" th:onclick="|onClickRemovePost(${post.code})|">
+                                    <button class="series-delete-button button" th:onclick="|onClickRemovePost(${post.code})|" >
                                         <i class="bi bi-x-square"></i>
                                         <span class="blind">삭제</span>
                                     </button>
