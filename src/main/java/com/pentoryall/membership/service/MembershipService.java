@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class MembershipService {
+
     private final MembershipMapper membershipMapper;
 
 
@@ -49,6 +50,13 @@ public class MembershipService {
 
     public List<MembershipJoinDTO> selectAllJoinMemberList(long code) {
         return membershipMapper.selectJoinMemberList(code);
+    }
+
+    public Long existsMembershipJoinCode(Long membershipCode, Long userCode) {
+        MembershipJoinDTO membershipJoin = new MembershipJoinDTO();
+        membershipJoin.setUserCode(userCode);
+        membershipJoin.setMembershipCode(membershipCode);
+        return membershipMapper.existsMembershipJoinCode(membershipJoin);
     }
 }
 

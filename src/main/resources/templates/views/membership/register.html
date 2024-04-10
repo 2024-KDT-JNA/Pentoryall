@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html layout:decorate="~{/layout/default}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" lang="ko">
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/point.css}" href="/css/point.css"/>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content">
+        <div class="inner">
+
+            <section class="section section-membership">
+                <h2 class="h2">멤버십 가입</h2>
+
+                <div class="box box-membership">
+                    <h3 class="h3">멤버십 정보</h3>
+                    <p>작가의 멤버십에 가입하고 혜택을 누려보세요!</p>
+
+                    <div class="membership-info">
+                        <div class="info-left">
+                            <h4 class="info-name">멤버십 이름</h4>
+                            <p class="info-desc">멤버십을 소개합니다! 이 멤버십은 이러한 혜택을 가져요.</p>
+                        </div>
+                        <div class="info-right">
+                            <span class="info-price">5,000P</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box box-desc-list">
+                    <h3 class="h3">결제 정보</h3>
+
+                    <dl class="desc-list">
+                        <dt class="desc-list-dt">보유 포인트</dt>
+                        <dd class="desc-list-dd">8,000P</dd>
+                        <dt class="desc-list-dt">사용 포인트</dt>
+                        <dd class="desc-list-dd">5,000P</dd>
+                        <dt class="desc-list-dt">결제 후 잔여 포인트</dt>
+                        <dd class="desc-list-dd">3,900P</dd>
+                        <dt class="desc-list-dt border-top">구독 시작일</dt>
+                        <dd class="desc-list-dd border-top">2024.03.09 ~ (자동 연장)</dd>
+                    </dl>
+                </div>
+
+                <div class="box-bottom">
+                    <form action="/membership/register" method="post">
+                        <input type="text" name="membershipCode" class="input">
+                        <button type="submit" class="button dark">확인</button>
+                        <a th:href="@{/}" class="button">취소</a>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+</th:block>
+</html>

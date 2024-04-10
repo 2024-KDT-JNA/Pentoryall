@@ -37,6 +37,9 @@
                         </div>
                     </th:block>
                 </div>
+                <div class="inner" th:if="${post?.code==null}">
+                    <h2 class="h2">최근에 작업하는 시리즈가 없습니다.</h2>
+                </div>
 
                 <div class="box box-posts">
                     <div class="box-border-header">

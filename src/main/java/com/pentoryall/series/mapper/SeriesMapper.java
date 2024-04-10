@@ -33,4 +33,6 @@ public interface SeriesMapper {
     List<SeriesDTO> selectAllSeries();
 
     SeriesDTO selectLatestCode();
+
+    SeriesDTO selectSeriesByUser(long code);
 }

@@ -54,7 +54,7 @@
         FROM
             series
         WHERE
-            user_code=#{code};
+            user_code=#{i};
     </select>
 
     <insert id="addSeriesOptions">
@@ -69,13 +69,13 @@
         thumbnail_image,
         is_membership_only)
         VALUES
-            (
-             #{userCode},
-             #{title},
-             #{description},
-             #{thumbnailImage},
-             #{isMembershipOnly}
-            )
+        (
+        #{userCode},
+        #{title},
+        #{description},
+        #{thumbnailImage},
+        #{isMembershipOnly}
+        )
     </insert>
     <select id="findSeriesByCode" resultType="com.pentoryall.series.dto.SeriesDTO">
         SELECT
@@ -123,11 +123,11 @@
         FROM
             series
         ORDER BY create_date DESC
-        LIMIT 1;
+            LIMIT 1;
     </select>
     <update id="updateSeries">
         UPDATE
-        series
+            series
         SET
             title=#{seriesDTO.title},
             description = #{seriesDTO.description},
@@ -136,13 +136,14 @@
         WHERE
             code=#{code}
     </update>
-    <delete id="deleteSeries">
-        DELETE
-        FROM
+    <update id="deleteSeries">
+        UPDATE
             series
+        SET
+            is_deleted = 'Y'
         WHERE
             code=#{code}
-    </delete>
+    </update>
     <select id="selectSeriesList">
         SELECT
             code,
@@ -159,22 +160,22 @@
         WHERE
             code != 1
     </select>
-<select id="getSeriesListByWord">
-    SELECT
-        code,
-        user_code,
-        title,
-        description,
-        thumbnail_image,
-        is_membership_only,
-        is_deleted,
-        create_date,
-        update_date
-    FROM
-        series
-    WHERE
-        title LIKE CONCAT('%', #{word}, '%')
-</select>
+    <select id="getSeriesListByWord">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
+        WHERE
+            title LIKE CONCAT('%', #{word}, '%')
+    </select>
     <select id="selectSeriesByUserCode">
         SELECT
             code,
@@ -191,24 +192,18 @@
         WHERE
             user_code=#{code}
     </select>
-<select id="selectAllSeries">
-    SELECT
-        code,
-        user_code,
-        title,
-        description,
-        thumbnail_image,
-        is_membership_only,
-        is_deleted,
-        create_date,
-        update_date
-    FROM
-        series
-</select>
-    <select id="selectLatestCode">
-        SELECT code
-        FROM series
-        ORDER BY create_date DESC
-            LIMIT 1;
+    <select id="selectAllSeries">
+        SELECT
+            code,
+            user_code,
+            title,
+            description,
+            thumbnail_image,
+            is_membership_only,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            series
     </select>
 </mapper>

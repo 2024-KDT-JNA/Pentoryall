@@ -39,16 +39,20 @@ public class StoryController {
     public String storyPage(@PathVariable("userId") String userId, Model model) {
 
         UserDTO selectedUser = getUserOrNotFoundException(userId);
-        List<PostDTO> postList = postService.selectPostByUserCode(selectedUser.getCode());
         model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
 
-        Collections.reverse(postList);
-        model.addAttribute("post", postList.get(0));
+        List<PostDTO> postList = postService.selectPostByUserCode(selectedUser.getCode());
+        if (!postList.isEmpty()) {
+            Collections.reverse(postList);
+            model.addAttribute("post", postList.get(0));
+        }
 
         List<SeriesDTO> seriesList = seriesService.getSeriesList(selectedUser.getCode());
-        Collections.reverse(seriesList);
-        model.addAttribute("series", seriesList.get(0));
-
+        if (!seriesList.isEmpty()) {
+            Collections.reverse(seriesList);
+            model.addAttribute("series", seriesList.get(0));
+        }
+        model.addAttribute("TAB_MENU", "home");
         return "/views/story/home";
     }
 
@@ -59,6 +63,8 @@ public class StoryController {
         Collections.reverse(postList);
         model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
         model.addAttribute("postList", postList);
+
+        model.addAttribute("TAB_MENU", "posts");
         return "/views/story/posts";
     }
 
@@ -70,6 +76,8 @@ public class StoryController {
         System.out.println("seriesList = " + seriesList);
         model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
         model.addAttribute("seriesList", seriesList);
+
+        model.addAttribute("TAB_MENU", "series");
         return "/views/story/series";
     }
 
