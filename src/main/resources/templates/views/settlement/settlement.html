@@ -15,15 +15,15 @@
 
                 <!-- 내용 -->
                 <div class="box-settlement">
-                    <th:block th:if="${ settlement.getUserSettlementCode == null }">
-                        <p>계좌 정보가 존재하지 않습니다.</p>
-                        <p>출금을 위해 계좌 정보를 등록해주세요!</p>
+                    <th:block th:if="${ settlement == null }">
+                        <p class="p">계좌 정보가 존재하지 않습니다.</p>
+                        <p class="p">출금을 위해 계좌 정보를 등록해주세요!</p>
 
                         <div class="box-bottom">
                             <input type="button" class="button dark" value="계좌 등록">
                         </div>
                     </th:block>
-                    <th:block th:unless="${ settlement.userSettlementCode <= 0 }">
+                    <th:block th:unless="${ settlement == null }">
                         <form action="/settings/settlement" method="post" name="settlementForm" th:object="${settlement}"
                               onsubmit="validateSettlementForm(event)">
                             <input type="hidden" th:field="*{userSettlementCode}" name="userSettlementCode">
