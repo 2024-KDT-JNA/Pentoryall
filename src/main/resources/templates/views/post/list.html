@@ -5,6 +5,7 @@
 
 <th:block layout:fragment="link">
     <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css"/>
+<!--    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/post.css"/>-->
 </th:block>
 
 <th:block layout:fragment="content">
@@ -12,8 +13,9 @@
         <div class="inner">
             <section class="section">
                 <div class="fixed-header">
+                    <div class="hr-wrapper">
                     <div class="p-series-title">
-                        <h1 th:text="|${series.title}|"></h1>
+                        <h2  class="h2" th:text="|${series.title}|"></h2>
                     </div>
                     <div class="post-title">
                         <input id="input-post-code" th:value="${post.code}" hidden>
@@ -34,7 +36,10 @@
                             </p>
                           </button>
                         <div class="post-information-log">
-                              <p class="post-information-log-content" th:text="|조회: ${post.views}|"></p>
+                            <p class="post-information-log-content">
+                            <i class="bi bi-eye"></i>
+                              <span class="txt" th:text="| ${post.views}|"></span>
+                            </p>
                           </div>
                     </div>
                   </span>
@@ -68,38 +73,24 @@
                         신고하기
                     </button>
                 </div>
+                </div>
 
-                <hr/>
 
                 <!--페이징 처리해서 모든 회차 볼 수 있도록-->
 
-                <div class="under-navigatorbar-post">
-                    <div class="under-navigatorbar-contents">
-                        <div>
-                            <p class="go-navigator"><</p>
-                        </div>
-                        <!--회차들의 썸네일들-->
-                        <div class="posts-wrapper">
-                            <div>
-                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails"/>
-                                <p class="posts-number">56화</p>
-                            </div>
-                            <div>
-                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails"/>
-                                <p class="posts-number">57화</p>
-                            </div>
-                            <div>
-                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails"/>
-                                <p class="posts-number">58화</p>
-                            </div>
-                            <div>
-                                <img src="/images/temp/thumbnail.png" class="posts-thumbnails"/>
-                                <p class="posts-number">59화</p>
-                            </div>
-                        </div>
-                        <div><p class="go-navigator">></p></div>
-                    </div>
-                </div>
+<!--                <div class="post-view-swiper ">-->
+<!--                    <div class="swiper-wrapper">-->
+<!--                        <div class="swiper-slide" th:each="post:${postList}">-->
+<!--                            <a th:href="@{/post/information(code=${post.code})}">-->
+<!--                                <div class="thumbnail-image">-->
+<!--                                    <img class="best-series-img bottom-post" th:src="${post.thumbnailImage}"-->
+<!--                                         onerror="this.src='/images/temp/thumbnail.png'" alt="시리즈 썸네일" />-->
+<!--                                </div>-->
+<!--                                <p class="description" th:text="${post.title}"></p>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <!--댓글-->
                 <div>
                     <div>
@@ -166,6 +157,7 @@
 </th:block>
 
 <th:block layout:fragment="script">
+
     <script th:inline="javascript">
         window.addEventListener("DOMContentLoaded", (event) => {
             likeCounts()
@@ -534,6 +526,49 @@
             const likeElement = document.querySelector(".post-information-like-content");
             likeElement.innerHTML = `♡ ${likeCount}`;
         }
+    </script>
+    <script>
+        /* main */
+        const swiper = new Swiper('.post-view-swiper', {
+            slidesPerView: '4',
+            spaceBetween: 2,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+        // function makeSeries(seriesList) {
+        //     // 시리즈 목록을 담을 swiper-wrapper를 찾습니다.
+        //     const swiperWrapper = document.querySelector(".selected-series");
+        //
+        //     // swiper-wrapper 내용을 초기화합니다.
+        //     swiperWrapper.innerHTML = "";
+        //
+        //     // 시리즈 목록을 동적으로 생성하여 swiper-wrapper에 추가합니다.
+        //     seriesList.forEach(series => {
+        //         const swiperSlide = document.createElement("div");
+        //         swiperSlide.className = "swiper-slide";
+        //         swiperSlide.innerHTML = `
+        //     <a href="/series/page?code=${ series.code }">
+        //         <div class="thumbnail-image">
+        //             <img class="best-series-img bottom-post" src="${ series.thumbnailImage }"
+        //                  onerror="this.src='/images/temp/thumbnail.png'" alt="시리즈 썸네일" />
+        //         </div>
+        //         <p class="description">${ series.title }</p>
+        //     </a>
+        // `;
+        //         swiperWrapper.appendChild(swiperSlide);
+        //     });
+        // }
+
+        // function fetchGenreSeries(genreCode) {
+        //     fetch("/genre/series?code=" + genreCode)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             console.log("데이터", data);
+        //             makeSeries(data);
+        //         }).catch(error => console.log("데이터를 가져오는 중 오류 발생", error));
+        // }
     </script>
 </th:block>
 </html>
