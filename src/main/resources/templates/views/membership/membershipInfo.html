@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec=""
-      layout:decorate="~{/layout/settings}" lang="">
+      layout:decorate="~{/layout/story}" lang="">
 
 <th:block layout:fragment="link">
     <link rel="stylesheet" th:href="@{/css/membership.css}" href="/css/membership.css"/>
@@ -16,12 +16,12 @@
                         <h2 class="h2 userPost" th:text="|${storyUser.nickname} 님의 멤버십|"></h2>
                     </section>
                     <div>
-                        <div>
-                            <h3 class="h3">팬들과 더 가까워지는 <br/>멤버십을 개설하여 회원들과 소통해봐요!</h3>
-                        </div>
                         <div class="comment">
                             <p>아직 개설한 멤버십 플랜이 없네요!</p>
                             <p>플랜을 만들어 매력적인 포스트로 사람들의 마음을 사로잡으세요!</p>
+                        </div>
+                        <div>
+                            <h3 class="h3">팬들과 더 가까워지는 <br/>멤버십을 개설하여 회원들과 소통해봐요!</h3>
                         </div>
                         <div>
                             <button class="create-button" onclick="location.href='/membership/create'">멤버십 개설하기</button>

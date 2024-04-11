@@ -42,18 +42,14 @@ public class MembershipController {
 
     @PostMapping("/modify")
     public String modifyMembership(Model model, @ModelAttribute("membership") MembershipDTO membershipDTO, @AuthenticationPrincipal UserDTO user) {
-        try {
-            if (membershipDTO != null) {
-                membershipDTO.setUserCode(user.getCode());
-                membershipService.modifyMembership(membershipDTO);
-            } else {
-            }
-            return "views/membership/successModify"; // 수정이 성공하면 해당 뷰로 이동합니다.
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("errorMessage", "멤버십을 수정하는 중에 오류가 발생했습니다: " + e.getMessage());
-            return "redirect:/membership/failModify";
-        }
+        membershipDTO.setUserCode(user.getCode());
+        membershipService.modifyMembership(membershipDTO);
+        if (membershipDTO.getCode() <= 0) {
+            model.addAttribute("errorMessage", "멤버십을 수정하는 중에 오류가 발생했습니다: ");
+        } else {
+            model.addAttribute("membership", membershipDTO); // 생성된 멤버십을 모델에 추가합니다.
+
+        } return "views/membership/resultModify"; // 수정이 성공하면 해당 뷰로 이동합니다.
     }
 
     @PostMapping("/delete")
@@ -61,16 +57,11 @@ public class MembershipController {
 
         membershipService.updateIsDeleted(code, 'Y'); // 'Y'를 문자(char)로 전달합니다.
         MembershipDTO membershipDTO = membershipService.selectMembershipByCode(code);
-
+        model.addAttribute("membership", membershipDTO); // "membership" 대신 "membershipDTO" 사용
         if (membershipDTO == null)
             model.addAttribute("errorMessage", "멤버십 탈퇴 과정 중에 오류가 발생하였습니다. :");
         else {
-            model.addAttribute("membership", membershipDTO); // "membership" 대신 "membershipDTO" 사용
-            return "/views/membership/failDelete";
-
-
-        }
-        return "/views/membership/failDelete";
+        }   return "/views/membership/resultDelete";
     }
 
 
