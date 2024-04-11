@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.pentoryall.admin.mappers.PayManageMapper">
+<mapper namespace="com.pentoryall.admin.mappers.SettlementManageMapper">
 
     <select id="selectPayAllList" resultType="com.pentoryall.admin.dtos.PayManageDTO">
-        select us.code,
+        SELECT us.code,
                us.user_code,
                us.bank_code,
                us.account_number,
@@ -14,22 +14,21 @@
                s.state,
                s.cause,
                s.create_date
-        from user_settlement us
-                 join settlement s
-        where s.state = 'REQUESTED';
+          FROM user_settlement us
+                   JOIN settlement s
+         WHERE s.state = 'REQUESTED';
     </select>
 
     <select id="selectTotalCount" resultType="_int">
         SELECT COUNT(*)
-        FROM settlement
+          FROM settlement
     </select>
 
     <update id="payConfirmByUserCode">
-        UPDATE
-            settlement
-        SET state = 'APPROVED'
-        WHERE state = 'REQUESTED'
-          AND code = #{userCode}
+        UPDATE settlement
+           SET state = 'APPROVED'
+         WHERE state = 'REQUESTED'
+           AND code = #{userCode}
     </update>
 
 </mapper>
