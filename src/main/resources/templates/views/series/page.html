@@ -28,14 +28,15 @@
                                         <img class="series-author-information-detail-image"
                                              th:src="${user.profileImage != null ? user.profileImage : '/images/temp/profile.png'}" />
                                         <div class="series-author-information-detail-name">
-                                            <h5 class="series-author-name" th:text="${user.nickname}">
+                                            <button th:data-user-id="${user.userId}" onclick="onClickAuthorInformation(event)">
+                                            <h5 class="series-author-name" th:text="${user.nickname}"/>
+                                                </button>
                                                 <div class="writer">
                                                     <div class="membership-subscribe-btn">
                                                         <button class="button membership-button">멤버십 가입</button>
                                                         <button class="button subscribe-button ">구독</button>
                                                     </div>
                                                 </div>
-                                            </h5>
                                         </div>
                                     </div>
                                     <!--								</a>-->
@@ -157,6 +158,7 @@
 
 <th:block layout:fragment="script">
     <script th:src="@{/js/post.js}"></script>
+    <script th:src="@{/js/main.js}" src="/js/main.js"></script>
     <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function () {
             likeCounts();

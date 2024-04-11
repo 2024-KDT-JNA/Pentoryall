@@ -46,6 +46,7 @@
                                  onerror="this.src='/images/temp/thumbnail.png'" />
                         </div>
                         <div class="post-content">
+                            <p th:text="|${post.seriesTitle}|" class="best-post-series"></p><br><br>
                             <div class="post-text">
                                 <h3 class="post-name" th:text="${post.title}"></h3>
                             </div>

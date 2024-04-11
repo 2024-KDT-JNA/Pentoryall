@@ -36,6 +36,12 @@ function isAllChecked(targetName) {
 function onClickMain() {
     location.href = "/";
 }
+function onClickAuthorInformation(event){
+    console.log(event.currentTarget)
+    const authorId = event.currentTarget.dataset.userId
+    location.href="/story/"+authorId;
+}
+
 function onClickAddSeries() {
     location.href = "/series/add";
 

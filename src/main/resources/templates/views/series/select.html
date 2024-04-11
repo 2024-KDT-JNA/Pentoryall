@@ -49,7 +49,7 @@
                 </th:block>
                 <th:block th:unless="${postList.size() == 0 || postList == null}">
                     <div class="post-list post-list-2">
-                        <div class="post-item " th:each="post:${postList}">
+                        <div class="post-item " th:each="post:${postList}" th:onclick="|onClickValidatePost(${post.code})|">
                             <div class="thumbnail-image">
                                 <img th:src="${post.thumbnailImage != null ? post.thumbnailImage : '/images/temp/profile.png'}"
                                      alt="미리보기" onerror="this.src='/images/temp/thumbnail.png'" />
