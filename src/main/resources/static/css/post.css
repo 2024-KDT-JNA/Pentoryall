@@ -187,3 +187,9 @@ p{
     margin-top: 10px;
     margin-bottom: 0px;
 }
+.series-author-information-detail-name{
+    display: flex;
+}
+.writer{
+    margin-left:10px;
+}
