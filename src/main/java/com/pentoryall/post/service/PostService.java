@@ -4,6 +4,7 @@ package com.pentoryall.post.service;
 import com.pentoryall.comment.dto.CommentDetailDTO;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.post.dto.PostDTO;
+import com.pentoryall.post.dto.PostSeriesDTO;
 import com.pentoryall.post.dto.ValidatePostDTO;
 import com.pentoryall.post.mapper.PostMapper;
 import org.springframework.stereotype.Service;
@@ -79,5 +80,13 @@ public class PostService {
     }
 
     public ValidatePostDTO selectPostAndSeriesByPostCode(long postCode) { return postMapper.selectPostAndSeriesByPostCode(postCode); }
+
+    public PostDTO selectFirstPostBySeriesCode(long code) {
+        return postMapper.selectFirstPostBySeriesCode(code);
+    }
+
+    public PostSeriesDTO getPostInformationByPost(Long code) {
+        return postMapper.getPostInformationByPost(code);
+    }
 
 }

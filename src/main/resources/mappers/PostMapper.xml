@@ -33,6 +33,31 @@
         WHERE
             code=#{code} AND is_deleted='N';
     </select>
+    <select id="getPostInformationByPost" resultType="com.pentoryall.post.dto.PostSeriesDTO">
+        SELECT
+            a.code,
+            a.series_code,
+            a.user_code,
+            a.title,
+            a.content,
+            a.confirm_content,
+            a.thumbnail_image,
+            a.views,
+            a.price,
+            a.is_paid,
+            a.is_adult,
+            a.is_public,
+            a.is_deleted,
+            a.create_date,
+            a.update_date,
+            b.title AS series_title
+        FROM
+            post a
+        JOIN series b
+        ON a.series_code=b.code
+        WHERE
+            a.code=#{code} AND a.is_deleted='N';
+    </select>
 
     <select id="selectPostsBySeriesCode">
         SELECT
@@ -226,5 +251,30 @@
             post p JOIN series s ON p.series_code = s.code
         WHERE
             p.code = ${ postCode }
+    </select>
+    <select id="selectFirstPostBySeriesCode">
+        SELECT
+            code,
+            series_code,
+            user_code,
+            title,
+            content,
+            confirm_content,
+            thumbnail_image,
+            views,
+            price,
+            is_paid,
+            is_adult,
+            is_public,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            post
+        WHERE
+            is_deleted='N' AND series_code = #{code}
+        ORDER BY
+            create_date
+        LIMIT 1;
     </select>
 </mapper>

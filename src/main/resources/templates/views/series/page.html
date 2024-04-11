@@ -28,14 +28,15 @@
                                         <img class="series-author-information-detail-image"
                                              th:src="${user.profileImage != null ? user.profileImage : '/images/temp/profile.png'}" />
                                         <div class="series-author-information-detail-name">
-                                            <h5 class="series-author-name" th:text="${user.nickname}">
+                                            <button th:data-user-id="${user.userId}" onclick="onClickAuthorInformation(event)">
+                                            <h5 class="series-author-name" th:text="${user.nickname}"/>
+                                                </button>
                                                 <div class="writer">
                                                     <div class="membership-subscribe-btn">
                                                         <button class="button membership-button">멤버십 가입</button>
                                                         <button class="button subscribe-button ">구독</button>
                                                     </div>
                                                 </div>
-                                            </h5>
                                         </div>
                                     </div>
                                     <!--								</a>-->
@@ -70,7 +71,8 @@
                             <i class="bi bi-heart"></i>
                             <span class="txt" th:text="${likeCount}"></span>
                         </button>
-                        <button class="button container-button-first-post">첫 화보기</button>
+                        <button class="button container-button-first-post" th:if="${firstPost!=0}" th:onclick="|location.href='@{/post/information(code=${firstPost})}'|">첫 화보기</button>
+                        <button class="button container-button-first-post" th:if="${firstPost==0}" onclick="goFirstPost()">첫 화보기</button>
                     </div>
 
 
@@ -156,6 +158,7 @@
 
 <th:block layout:fragment="script">
     <script th:src="@{/js/post.js}"></script>
+    <script th:src="@{/js/main.js}" src="/js/main.js"></script>
     <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function () {
             likeCounts();
@@ -197,6 +200,11 @@
                     like.innerHTML = `${ likeCount }`;
                 }
             });
+        }
+    </script>
+    <script>
+        function goFirstPost(){
+            alert("포스트가 존재하지 않습니다..");
         }
     </script>
 

@@ -17,3 +17,4 @@
 .series-wrapper { display: flex; flex-wrap: wrap; } 
 .series-margin { margin-right: 10px; } 
 .thumbnail { width: 150px; height: 150px; border-radius: 5px; }
+.best-post-series{ padding-top:13px; margin-right: 10px;}

@@ -3,6 +3,7 @@ package com.pentoryall.post.mapper;
 import com.pentoryall.comment.dto.CommentDetailDTO;
 import com.pentoryall.genreOfArt.dto.GenreOfArtDTO;
 import com.pentoryall.post.dto.PostDTO;
+import com.pentoryall.post.dto.PostSeriesDTO;
 import com.pentoryall.post.dto.ValidatePostDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -38,4 +39,9 @@ public interface PostMapper {
     void updateViews(long code);
 
     ValidatePostDTO selectPostAndSeriesByPostCode(long postCode);
+
+    PostDTO selectFirstPostBySeriesCode(long code);
+
+    PostSeriesDTO getPostInformationByPost(Long code);
+
 }

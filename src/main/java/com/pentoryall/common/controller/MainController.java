@@ -3,6 +3,7 @@ package com.pentoryall.common.controller;
 import com.pentoryall.genre.dto.GenreDTO;
 import com.pentoryall.genre.service.GenreService;
 import com.pentoryall.post.dto.PostDTO;
+import com.pentoryall.post.dto.PostSeriesDTO;
 import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
@@ -59,10 +60,10 @@ public class MainController {
         List<Long> postCodeList = likePostService.selectTop5Post();
         System.out.println("상위 5개 = " + postCodeList);
 
-        List<PostDTO> postDTO = new ArrayList<>();
+        List<PostSeriesDTO> postDTO = new ArrayList<>();
 
         for (int i = 0; i < postCodeList.size(); i++) {
-            PostDTO postDTO1 = postService.getPostInformationByPostCode(postCodeList.get(i));
+            PostSeriesDTO postDTO1 = postService.getPostInformationByPost(postCodeList.get(i));
             postDTO.add(postDTO1);
         }
         System.out.println("postDTO = " + postDTO);
