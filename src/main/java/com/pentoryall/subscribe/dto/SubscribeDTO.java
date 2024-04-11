@@ -13,7 +13,7 @@ public class SubscribeDTO {
     private long code;
     private long userCode;
     private long subscribeUserCode;
-    private LocalDate subscribedDate;
+    private LocalDate subscribeDate;
     private String nickname;
     private String introduction;
     private char isSubscriberVisible;

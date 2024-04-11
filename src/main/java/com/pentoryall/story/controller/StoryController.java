@@ -1,11 +1,15 @@
 package com.pentoryall.story.controller;
 
 import com.pentoryall.common.exception.PageNotFoundException;
+import com.pentoryall.membership.dto.MembershipDTO;
+import com.pentoryall.membership.service.MembershipService;
 import com.pentoryall.post.dto.PostDTO;
 import com.pentoryall.post.service.PostService;
 import com.pentoryall.series.dto.SeriesDTO;
 import com.pentoryall.series.service.SeriesService;
 import com.pentoryall.story.dto.StoryUserDTO;
+import com.pentoryall.subscribe.dto.SubscribeDTO;
+import com.pentoryall.subscribe.service.SubscribeService;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +31,9 @@ public class StoryController {
     private final UserService userService;
     private final PostService postService;
     private final SeriesService seriesService;
+    private final MembershipService membershipService;
+    private final SubscribeService subscribeService;
+
 
     @GetMapping
     public String storyPage(@AuthenticationPrincipal UserDTO sessionUser) {
@@ -80,6 +87,39 @@ public class StoryController {
         model.addAttribute("TAB_MENU", "series");
         return "/views/story/series";
     }
+
+    @GetMapping("/{userId}/memberships")
+    public String storyMembershipPage(@PathVariable("userId") String userId, Model model) {
+        UserDTO selectedUser = getUserOrNotFoundException(userId);
+        MembershipDTO membership = membershipService.selectMembershipByUserCode(selectedUser.getCode()); // 멤버십 정보를 가져옵니다.
+        model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
+        model.addAttribute("membership", membership); // 가져온 멤버십 정보를 모델에 추가합니다.
+        if (membership != null) {
+            return "views/membership/planInfo";
+        } else {
+            return "views/membership/membershipInfo"; // 멤버십이 없는 경우에 대한 처리
+        }
+//        model.addAttribute("errorMessage", "멤버십 정보를 불러오는 중에 오류가 발생했습니다: " + e.getMessage());
+//        return "views/membership/errorPage";
+
+
+    }
+
+    @GetMapping("/{userId}/subscribers")
+    public String getSubscriberList(@PathVariable("userId") String userId, Model model) {
+        UserDTO selectedUser = getUserOrNotFoundException(userId);
+        List<SubscribeDTO> subscribersList = subscribeService.selectAllSubscribers(selectedUser.getCode());
+        model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
+        model.addAttribute("subscribers", subscribersList);
+
+        if (subscribersList.isEmpty()) {
+            return "/views/subscribe/noSubscriberList";
+        } else {
+            return "/views/subscribe/subscriberList";
+
+        }
+    }
+
 
     private UserDTO getUserOrNotFoundException(String userId) {
         UserDTO selectedUser = userService.selectByUserId(userId);

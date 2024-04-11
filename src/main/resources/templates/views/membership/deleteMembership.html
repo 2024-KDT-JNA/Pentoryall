@@ -15,7 +15,7 @@
         <div class="inner">
             <section class="section">
                 <h2 class="h2">멤버십 플랜 종료</h2>
-                <form id="deleteForm" action="/membership/delete" method="post">
+                <form id="deleteForm" action="/membership/delete" method="post" onsubmit="return validateForm()">
                     <input type="hidden" name="_method" value="delete"/>
 
                     <input type="hidden" name="membershipCode" th:value="${membership.code}"/>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="accordion-button">
                         <button onclick="location.href='/membership/modify'">뒤로</button>
-                        <button onclick="submitForm()">멤버십 플랜 종료</button>
+                        <button type="submit">멤버십 플랜 종료</button>
                     </div>
                 </form>
             </section>
@@ -71,13 +71,20 @@
 </body>
 
 <!-- script 부분 -->
-<!-- script 부분 -->
 <th:block layout:fragment="script">
     <script>
-        function submitForm() {
-            var confirmDelete = confirm("정말로 멤버십 플랜을 종료하시겠습니까?");
-            if (confirmDelete) {
-                document.getElementById("deleteForm").submit();
+        function validateForm() {
+            var agreeCheckbox = document.getElementById("agree");
+            if (!agreeCheckbox.checked) {
+                alert("위 내용에 동의하셔야만 종료할 수 있습니다.");
+                return false;
+            } else {
+                var confirmDelete = confirm("정말로 멤버십 플랜을 종료하시겠습니까?");
+                if (confirmDelete) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
 
