@@ -11,7 +11,7 @@ public interface OrderMapper {
 
     OrderDTO selectByOrderCode(long orderCode);
 
-    int selectTotalCountByUserCode(long orderCode);
+    int selectTotalCountByUserCode(long userCode);
 
     List<OrderDTO> selectAllByUserCode(long userCode, int offset, int limit);
 
