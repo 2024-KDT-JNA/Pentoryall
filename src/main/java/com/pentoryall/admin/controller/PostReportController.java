@@ -57,7 +57,7 @@ public class PostReportController {
         System.out.println("postCode = " + postCode);
         int result = postReportService.deleteByPostCode((postCode), "Y");
         if (result > 0) {
-            rttr.addFlashAttribute("message", "포스트를 성공적으로 삭제했습니다.");
+            rttr.addFlashAttribute("alertMessage", "포스트를 성공적으로 삭제했습니다.");
         }
 
         System.out.println("컨트롤러 postCode : " + postCode);

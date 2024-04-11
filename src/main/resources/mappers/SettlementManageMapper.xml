@@ -6,7 +6,7 @@
 <mapper namespace="com.pentoryall.admin.mappers.SettlementManageMapper">
 
     <select id="selectPayAllList" resultType="com.pentoryall.admin.dtos.PayManageDTO">
-        SELECT us.code,
+        SELECT s.code,
                us.user_code,
                us.bank_code,
                us.account_number,

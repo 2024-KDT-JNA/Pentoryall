@@ -56,7 +56,7 @@ public class SettlementManageController {
         System.out.println(userCode);
         int result = payManageService.payConfirmByUserCode((userCode), "APPROVED");
         if (result > 0) {
-            rttr.addFlashAttribute("message", "정산처리를 완료했습니다.");
+            rttr.addFlashAttribute("alertMessage", "정산처리를 완료했습니다.");
         }
 
         return "redirect:/admin/pay/settlement";
