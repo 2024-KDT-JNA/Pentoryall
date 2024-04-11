@@ -44,4 +44,5 @@ public interface PostMapper {
 
     PostSeriesDTO getPostInformationByPost(Long code);
 
+    List<PostDTO> selectPostListBySeriesCode(long code);
 }

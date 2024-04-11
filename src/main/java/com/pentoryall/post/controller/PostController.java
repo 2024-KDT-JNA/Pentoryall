@@ -195,6 +195,9 @@ public class PostController {
 
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(seriesCode);
 
+        List<PostDTO> postList = postService.selectPostListBySeriesCode(seriesCode);
+
+        model.addAttribute("postList",postList);
         List<CommentDetailDTO> commentList = commentService.selectCommentByPostCode(code);
         List<CommentDetailDTO> replyList = commentService.selectRefCommentByPostCode(code);
         System.out.println("commentList =!! " + commentList);
