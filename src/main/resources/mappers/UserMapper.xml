@@ -144,4 +144,11 @@
         FROM user
         WHERE nickname LIKE CONCAT('%', #{word}, '%')
     </select>
+    <select id="findEmailAndId" resultType="_int">
+        SELECT COUNT(*)
+        FROM user
+        WHERE state = 'ACTIVE'
+          AND user_id = #{userId}
+          AND email = #{email}
+    </select>
 </mapper>

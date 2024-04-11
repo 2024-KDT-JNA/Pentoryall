@@ -4,6 +4,7 @@ import com.pentoryall.common.exception.user.MemberModifyException;
 import com.pentoryall.common.exception.user.MemberRegistException;
 import com.pentoryall.common.exception.user.MemberRemoveException;
 import com.pentoryall.email.service.FindPwMail;
+import com.pentoryall.email.service.RegisterMail;
 import com.pentoryall.user.dto.UserDTO;
 import com.pentoryall.user.service.AuthService;
 import com.pentoryall.user.service.UserService;
@@ -51,6 +52,8 @@ public class UserController {
     private final MessageSourceAccessor messageSourceAccessor;
 
     private final FindPwMail findPwMail;
+
+    private final RegisterMail registerMail;
 
     /* 로그인 페이지 이동 */
     @GetMapping("/login")
@@ -304,5 +307,23 @@ public class UserController {
             // 이메일 주소가 존재하지 않는 경우에는 클라이언트에게 "이메일 주소가 없습니다."와 같은 메시지를 반환합니다.
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이메일 주소가 없습니다.");
         }
+    }
+
+    /*  */
+    @PostMapping("/checkEmailAndId")
+    public String checkEmailAndId(@RequestBody UserDTO user,
+                                  @RequestParam("email") String email) throws Exception {
+
+        /* DB에 id와 이메일로 일치하는 user있는지 검색 */
+        if (userService.findEmailAndId(user)) {
+            // true 일치하는 사람이 있는 경우
+            String code = registerMail.sendSimpleMessage(email);
+            
+
+        } else {
+            // false 일치하는 사람이 없는 경우
+        }
+
+        return null;
     }
 }

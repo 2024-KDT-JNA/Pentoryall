@@ -39,4 +39,6 @@ public interface UserMapper {
     String selectUserByEmail(String email);
 
     void changeFindPw(String encodedPassword, String email);
+
+    int findEmailAndId(UserDTO user);
 }

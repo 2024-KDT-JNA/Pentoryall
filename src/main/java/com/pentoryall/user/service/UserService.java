@@ -111,6 +111,12 @@ public class UserService {
         return result != null;
     }
 
+    public boolean findEmailAndId(UserDTO user) {
+        int result = userMapper.findEmailAndId(user);
+        /* result가 0보다 크면 true를 반환 0이거나 0보다 작으면 false를 반환한다. (예상되는 값은 0(헹) 아니면 1(헹) 둘중하나) */
+        return result > 0;
+    }
+
     //    public boolean isPasswordCorrect(String userId, String enteredPassword) {
     //        // 사용자 정보를 DB에서 가져옵니다.
     //        User user = userRepository.findByUserId(userId);
