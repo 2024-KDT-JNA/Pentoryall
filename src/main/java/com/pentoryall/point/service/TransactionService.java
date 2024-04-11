@@ -1,8 +1,11 @@
 package com.pentoryall.point.service;
 
+import com.pentoryall.common.page.Pagination;
+import com.pentoryall.common.page.SelectCriteria;
 import com.pentoryall.membership.dto.MembershipDTO;
 import com.pentoryall.membership.mapper.MembershipMapper;
 import com.pentoryall.point.dto.TransactionDTO;
+import com.pentoryall.point.dto.UserPurchaseDTO;
 import com.pentoryall.point.enums.TransactionType;
 import com.pentoryall.point.mapper.TransactionMapper;
 import com.pentoryall.post.dto.PostDTO;
@@ -12,6 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -30,9 +37,23 @@ public class TransactionService {
         this.userMapper = userMapper;
     }
 
+
     public Long existsTransactionCode(Long userCode, Long productCode, TransactionType type) {
         TransactionDTO transaction = new TransactionDTO(userCode, productCode, type);
         return transactionMapper.existsTransactionCode(transaction);
+    }
+
+    public Map<String, Object> selectPurchaseAllWithPagingByUserCode(int page, long userCode) {
+
+        int totalCount = transactionMapper.selectPurchaseCountByUserCode(userCode);
+        SelectCriteria selectCriteria = Pagination.getSelectCriteria(page, totalCount);
+
+        Map<String, Object> purchaseListAndPaging = new HashMap<>();
+        List<UserPurchaseDTO> purchaseList = transactionMapper.selectPurchaseAllByUserCode(userCode, selectCriteria.getOffset(), selectCriteria.getLimit());
+        purchaseListAndPaging.put("paging", selectCriteria);
+        purchaseListAndPaging.put("purchaseList", purchaseList);
+
+        return purchaseListAndPaging;
     }
 
     @Transactional
