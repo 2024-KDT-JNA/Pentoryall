@@ -5,5 +5,32 @@
 
 <mapper namespace="com.pentoryall.admin.mappers.PayManageMapper">
 
+    <select id="selectPayAllList" resultType="com.pentoryall.admin.dtos.PayManageDTO">
+        select us.code,
+               us.user_code,
+               us.bank_code,
+               us.account_number,
+               s.request_amount,
+               s.state,
+               s.cause,
+               s.create_date
+        from user_settlement us
+                 join settlement s
+        where s.state = 'REQUESTED';
+    </select>
+
+    <select id="selectTotalCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM settlement
+    </select>
+
+    <update id="payConfirmByUserCode">
+        UPDATE
+            settlement
+        SET state = 'APPROVED'
+        WHERE state = 'REQUESTED'
+          AND code = #{userCode}
+    </update>
+
 </mapper>
 

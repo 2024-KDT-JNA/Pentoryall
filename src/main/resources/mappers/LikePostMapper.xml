@@ -87,6 +87,7 @@
         FROM series
                  LEFT JOIN post ON post.series_code = series.code
                  LEFT JOIN `like` ON post.code = `like`.post_code
+        WHERE series.is_deleted = 'N'
         GROUP BY series.code
         ORDER BY total_likes DESC
             LIMIT 10;

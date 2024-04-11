@@ -57,6 +57,7 @@ public class SeriesController {
 
     @GetMapping("/page")
     public String seriesPage(long code,
+                             @AuthenticationPrincipal UserDTO loginUser,
                              Model model) {
         SeriesDTO seriesDTO = seriesService.findSeriesByCode(code);
         System.out.println("seriesDTO = " + seriesDTO);
@@ -74,6 +75,13 @@ public class SeriesController {
         List<PostDTO> postLists = postService.selectPostsBySeriesCode(code);
         System.out.println("포스트리스트~~~ = " + postLists);
 
+        PostDTO post = postService.selectFirstPostBySeriesCode(code);
+        if(post!=null) {
+            model.addAttribute("firstPost", post.getCode());
+        }else{
+            model.addAttribute("firstPost",0);
+        }
+
         int likeCount = 0;
         for (int i = 0; i < postLists.size(); i++) {
             List<LikeDTO> likeList = likeService.selectLikeByPostCode(postLists.get(i).getCode());
@@ -87,6 +95,11 @@ public class SeriesController {
         model.addAttribute("likeCount", likeCount);
         System.out.println("postLists **********= " + postLists);
         model.addAttribute("genreNames", genreNames);
+        if(loginUser!=null) {
+            model.addAttribute("loginUser", loginUser);
+        }else{
+            model.addAttribute("loginUser", null);
+        }
         return "/views/series/page";
     }
 
@@ -136,7 +149,7 @@ public class SeriesController {
         System.out.println("seriesDTO = " + seriesDTO);
 
         seriesService.addSeriesOptions(seriesDTO);
-
+        System.out.println("seriesDTO = " + seriesDTO);
         SeriesDTO seriesDTO2 = seriesService.selectRecentSeriesCode();
 
         long seriesCode = seriesDTO2.getCode();
@@ -155,17 +168,17 @@ public class SeriesController {
 
         System.out.println("성공함");
 
-        SeriesDTO recentSeries = seriesService.selectLatestCode();
+        SeriesDTO recentSeries = seriesService.selectRecentSeriesCode();
 
         long urlCode = recentSeries.getCode();
         System.out.println("urlCode = " + urlCode);
+
         return "redirect:/series/page?code=" + urlCode;
     }
 
     @GetMapping("/update")
     public String updateSeries(@RequestParam long code,
                                Model model,
-
                                HttpSession session) {
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(code);
         System.out.println("seriesDTO = " + seriesDTO);

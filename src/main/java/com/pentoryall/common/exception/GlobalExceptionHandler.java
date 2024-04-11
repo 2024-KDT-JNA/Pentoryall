@@ -13,11 +13,11 @@ public class GlobalExceptionHandler {
     public String handleNotFoundException() {
         return "error/404";
     }
-
-    @ExceptionHandler(Exception.class)
-    public String handleException(Exception e, Model model) {
-        model.addAttribute("errors", e.fillInStackTrace());
-        return "error/error";
-    }
+//
+//    @ExceptionHandler(Exception.class)
+//    public String handleException(Exception e, Model model) {
+//        model.addAttribute("errors", e.fillInStackTrace());
+//        return "error/error";
+//    }
 }
 

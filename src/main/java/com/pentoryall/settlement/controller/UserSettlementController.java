@@ -26,11 +26,11 @@ public class UserSettlementController {
 
     private final UserSettlementService userSettlementService;
 
-
     private final MessageSourceAccessor messageSourceAccessor;
 
     @GetMapping
-    public String userSettlement(@AuthenticationPrincipal UserDTO sessionUser, Model model) throws AuthenticationException {
+    public String userSettlement(@AuthenticationPrincipal UserDTO sessionUser,
+                                 Model model) throws AuthenticationException {
         UserSettlementDTO selectedUserSettlement = userSettlementService.selectByUserCode(sessionUser.getCode());
         if (selectedUserSettlement == null) {
             model.addAttribute("userSettlement", new UserSettlementDTO());
@@ -38,21 +38,24 @@ public class UserSettlementController {
             model.addAttribute("userSettlement", selectedUserSettlement);
         }
 
+        model.addAttribute("SETTINGS_ASIDE", "user-settlement");
         return "views/user/settlement/add";
     }
 
     @PostMapping
 
     public String saveUserSettlement(@ModelAttribute("userSettlement") UserSettlementDTO modifyUserSettlement,
-                                     @AuthenticationPrincipal UserDTO sessionUser, RedirectAttributes rttr) {
+                                     @AuthenticationPrincipal UserDTO sessionUser,
+                                     RedirectAttributes rttr) {
+
         if (modifyUserSettlement.getUserCode() == null) {
             modifyUserSettlement.setUserCode(sessionUser.getCode());
         }
 
         userSettlementService.insertNewUserSettlement(modifyUserSettlement);
+
         rttr.addFlashAttribute("alertMessage", messageSourceAccessor.getMessage("save.success"));
 
         return "redirect:/settings/user/settlement";
-
     }
 }

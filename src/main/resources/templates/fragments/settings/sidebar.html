@@ -11,16 +11,16 @@
             <!-- [스토리 > 설정] 사이드 메뉴 -->
             <nav class="settings-nav">
                 <ul class="nav-depth1">
-                    <li class="depth1-li on">
+                    <li class="depth1-li">
                         <button class="depth1-btn">
                             <i class="bi bi-person"></i>
                             <span class="depth1-text">계정</span>
                         </button>
                         <ul class="nav-depth2">
-                            <li class="depth2-li">
+                            <li class="depth2-li" th:classappend="${SETTINGS_ASIDE} == 'user-update' ? 'active' : ''">
                                 <a th:href="@{/user/update}" href="/user/update" class="depth2-text">회원 정보</a>
                             </li>
-                            <li class="depth2-li">
+                            <li class="depth2-li" th:classappend="${SETTINGS_ASIDE} == 'user-settlement'? 'active' : ''">
                                 <a th:href="@{/settings/user/settlement}" href="/settings/user/settlement"
                                    class="depth2-text">계좌 정보</a>
                             </li>
@@ -32,7 +32,7 @@
                             <span class="depth1-text">포스트</span>
                         </button>
                         <ul class="nav-depth2">
-                            <li class="depth2-li">
+                            <li class="depth2-li" th:classappend="${SETTINGS_ASIDE} == 'paid-post'? 'active' : ''">
                                 <a th:href="@{#}" href="#" class="depth2-text">유료 포스트 수정</a>
                             </li>
                         </ul>
@@ -43,15 +43,15 @@
                             <span class="depth1-text">수익/정산</span>
                         </button>
                         <ul class="nav-depth2">
-                            <li class="depth2-li">
+                            <li class="depth2-li" th:classappend="${SETTINGS_ASIDE} == 'settlement'? 'active' : ''">
                                 <a th:href="@{/settings/settlement}" href="/settings/settlement" class="depth2-text">정산
                                     요청</a>
                             </li>
-                            <li class="depth2-li">
+                            <li class="depth2-li" th:classappend="${SETTINGS_ASIDE} == 'settlement-list'? 'active' : ''">
                                 <a th:href="@{/settings/settlement/list}" href="/settings/settlement/list"
                                    class="depth2-text">정산 요청 내역</a>
                             </li>
-                            <li class="depth2-li">
+                            <li class="depth2-li" th:classappend="${SETTINGS_ASIDE} == 'revenue-list'? 'active' : ''">
                                 <a th:href="@{/settings/revenue/list}" href="/settings/revenue/list"
                                    class="depth2-text">수익 적립 내역</a>
                             </li>
@@ -63,7 +63,7 @@
                             <span class="depth1-text">멤버십</span>
                         </button>
                         <ul class="nav-depth2">
-                            <li class="depth2-li">
+                            <li class="depth2-li" th:classappend="${SETTINGS_ASIDE} == 'membership'? 'active' : ''">
                                 <a th:href="@{#}" href="#" class="depth2-text">멤버십 관리</a>
                             </li>
                         </ul>
@@ -100,8 +100,7 @@
                                    class="depth2-text">댓글 신고</a>
                             </li>
                             <li class="depth2-li">
-                                <a th:href="@{/admin/report/posts}" href="/admin/report/posts" class="depth2-text">포스트
-                                    신고</a>
+                                <a th:href="@{/admin/report/posts}" href="/admin/report/posts" class="depth2-text">포스트 신고</a>
                             </li>
                         </ul>
                     </li>

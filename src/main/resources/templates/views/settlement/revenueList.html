@@ -14,17 +14,17 @@
                 <h2 class="h2">수익 적립 내역</h2>
 
                 <div class="summary-wrap">
+                    <!--                     <dl class="desc-list"> -->
+                    <!--                         <dt class="desc-list-dt">총 적립 금액</dt> -->
+                    <!--                         <dd class="desc-list-dd"></dd> -->
+                    <!--                     </dl> -->
+                    <!--                     <dl class="desc-list"> -->
+                    <!--                         <dt class="desc-list-dt">출금 금액</dt> -->
+                    <!--                         <dd class="desc-list-dd"></dd> -->
+                    <!--                     </dl> -->
                     <dl class="desc-list">
-                        <dt class="desc-list-dt">총 적립 금액</dt>
-                        <dd class="desc-list-dd"></dd>
-                    </dl>
-                    <dl class="desc-list">
-                        <dt class="desc-list-dt">출금 금액</dt>
-                        <dd class="desc-list-dd"></dd>
-                    </dl>
-                    <dl class="desc-list">
-                        <dt class="desc-list-dt">보유 금액</dt>
-                        <dd class="desc-list-dd" th:text="|${#authentication.principal.revenue > 0 ? #numbers.formatInteger(#authentication.principal.revenue, 3, 'COMMA') : 0}P|"></dd>
+                        <dt class="desc-list-dt">보유 수익</dt>
+                        <dd class="desc-list-dd" th:text="|${#authentication.principal.revenue > 0 ? #numbers.formatInteger(#authentication.principal.revenue, 3, 'COMMA') : 0}원|"></dd>
                     </dl>
                 </div>
 
@@ -52,12 +52,16 @@
                                     <td colspan="4">수익 적립 내역이 없습니다.</td>
                                 </tr>
                             </th:block>
+                        <tbody>
                             <th:block th:unless="${revenueList == null || revenueList.size() == 0}" th:each="revenue : ${revenueList}">
                                 <tr>
-                                    <td th:text="d">멤버십</td>
-                                    <td th:text="d">5,000원</td>
-                                    <td th:text="d">멤버십 가입 적립</td>
-                                    <td th:text="d">2024.04.02</td>
+                                    <td th:text="${revenue.type}">멤버십</td>
+                                    <td th:text="|${revenue.point > 0 ? #numbers.formatInteger(revenue.point, 3, 'COMMA') : 0}P|"></td>
+                                    <th:block>
+                                        <td th:if="${revenue.postTitle} != null" th:text="${revenue.postTitle}"></td>
+                                        <td th:if="${revenue.membershipName} != null" th:text="${revenue.membershipName}"></td>
+                                    </th:block>
+                                    <td th:text="${#temporals.format(revenue.createDate, 'yyyy-MM-dd HH:mm:ss ')}">2024.04.02</td>
                                 </tr>
                             </th:block>
                         </tbody>

@@ -14,11 +14,6 @@ public interface CommentReportMapper {
 
     List<CommentReportDTO> selectAllCommentReportList(SelectCriteria selectCriteria);
 
-    int noStopUser(long userCode);
-
     int restoreUserState(long userCode, String state);
 
-    boolean isUserReported(String userCode);
-
-    void deleteUserReports(String userCode);
 }

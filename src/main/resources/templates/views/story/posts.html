@@ -10,16 +10,20 @@
         <div class="inner">
             <section class="section">
                 <div class="box-border-header">
-                    <h2 class="h2 userPost" th:text="|${storyUser.nickname} 님의 포스트|"></h2>
-                    <button class="button" onclick="location.href='/post/writer'">포스트 추가하기</button>
+                    <h3 class="h3 userPost" th:text="|${storyUser.nickname} 님의 포스트|"></h3>
+                    <button class="button bd-dark" th:onclick="onClickAddPost()">
+                        <i class="bi bi-pencil-square"></i>
+                        <span class="txt">포스트 작성</span>
+                    </button>
                 </div>
                 <th:block th:if="${postList.size() == 0}">
-                    <p>아직 포스트가 없습니다</p>
-                    <button class="button" onclick="location.href='/series/add'">새 포스트 추가하기</button>
+                    <div class="box-no-content">
+                        <p>아직 포스트가 없습니다</p>
+                    </div>
                 </th:block>
                 <th:block th:unless="${postList.size() == 0}">
                     <div class="post-list">
-                        <div class="post-item" th:each="post : ${postList}">
+                        <div class="post-item" th:each="post : ${postList}" th:onclick="|onClickValidatePost(${post.code})|">
                             <input class="input-post" th:value="${post.code}" hidden />
                             <div class="thumbnail-image">
                                 <img class="thumbnail" th:src="${post.thumbnailImage}" alt="포스트 썸네일"
@@ -63,6 +67,7 @@
     </div>
 </th:block>
 <th:block layout:fragment="script">
+    <script th:src="@{/js/post.js}" src="/js/main.js"></script>
     <script>
         /*현재 좋아요 갯수*/
         async function likeCounts() {

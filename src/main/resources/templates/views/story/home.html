@@ -14,12 +14,15 @@
                 <div class="box box-series">
                     <div class="box-border-header">
                         <h3 class="h3">최근 시리즈</h3>
-                        <button class="button" onclick="location.href='/series/add'">시리즈 추가하기</button>
-
+                        <button class="button bd-dark" th:onclick="onClickAddSeries()">
+                            <i class="bi bi-plus-square"></i>
+                            <span class="txt">시리즈 추가</span>
+                        </button>
                     </div>
                     <th:block th:if="${series == null}">
-                        <p>아직 시리즈가 없습니다</p>
-                        <button class="button" onclick="location.href='/series/add'">새 시리즈 추가하기</button>
+                        <div class="box-no-content">
+                            <p>아직 시리즈가 없습니다</p>
+                        </div>
                     </th:block>
                     <th:block th:unless="${series == null}">
                         <div class="main-series-swiper series-list">
@@ -37,15 +40,22 @@
                         </div>
                     </th:block>
                 </div>
+                <div class="inner" th:if="${post?.code==null}">
+                    <h2 class="h2">최근에 작업하는 시리즈가 없습니다.</h2>
+                </div>
 
                 <div class="box box-posts">
                     <div class="box-border-header">
                         <h3 class="h3">최근 포스트</h3>
-                        <button class="button" onclick="location.href='/post/writer'">포스트 추가하기</button>
+                        <button class="button bd-dark" th:onclick="onClickAddPost()">
+                            <i class="bi bi-pencil-square"></i>
+                            <span class="txt">포스트 작성</span>
+                        </button>
                     </div>
                     <th:block th:if="${post == null}">
-                        <p>아직 포스트가 없습니다</p>
-                        <button class="button" onclick="location.href='/series/add'">새 포스트 추가하기</button>
+                        <div class="box-no-content">
+                            <p>아직 포스트가 없습니다</p>
+                        </div>
                     </th:block>
                     <th:block th:unless="${post == null}">
                         <div class="post-list">
