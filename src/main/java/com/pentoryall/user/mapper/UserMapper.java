@@ -14,14 +14,11 @@ public interface UserMapper {
 
     String selectUserById(String userId);
 
-
     UserDTO getUserInformationByUserCode(long userCode);
 
     String getPwd(long code);
 
     String selectUserByNickname(String nickname);
-
-    String getLikedPostCount();
 
     int insertUser(UserDTO user);
 
@@ -29,8 +26,7 @@ public interface UserMapper {
 
     int deleteUser(UserDTO user);
 
-
-    void updatePointByUserCode(UserDTO user);
+    void updatePointByUserCode(UserDTO buyerUser);
 
     void updateRevenueByUserCode(UserDTO sellerUser);
 

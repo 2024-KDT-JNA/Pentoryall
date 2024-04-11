@@ -3,34 +3,32 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.pentoryall.admin.mapper.ModifyPostMapper">
-    <select id="selectAllModifyList" resultType="com.pentoryall.post.dto.PostDTO">
-        SELECT
-            code,
-            user_code,
-            title,
-            confirm_content,
-            price,
-            create_date
-        FROM
-            post
-        WHERE
-            confirm_content IS NOT NULL;
+<mapper namespace="com.pentoryall.admin.mappers.ModifyPostMapper">
+    <select id="selectAllModifyList" resultType="com.pentoryall.admin.dtos.ModifyPostDTO">
+        select p.code,
+        p.user_code,
+        u.user_id,
+        u.nickname,
+        p.title,
+        p.confirm_content,
+        p.price,
+        p.is_confirmed
+        from post p
+        Join user u ON p.user_code = u.code
+        WHERE confirm_content IS NOT NULL;
     </select>
 
     <select id="selectTotalCount" resultType="_int">
-        SELECT
-            COUNT(*)
-        FROM
-            report
+        SELECT COUNT(*)
+        FROM report
     </select>
-    
+
     <update id="modifyByPostCode">
         UPDATE
-            post
+        post
         SET is_confirmed = 'Y'
         WHERE is_confirmed = 'N'
-          AND code = #{postCode}
+        AND code = #{postCode}
     </update>
 
 

@@ -156,7 +156,8 @@ public class UserController {
 
     /* 회원정보 수정 페이지로 */
     @GetMapping("/update")
-    public String updatePage() {
+    public String updatePage(Model model) {
+        model.addAttribute("SETTINGS_ASIDE", "user-update");
         return "views/user/myModify";
     }
 
@@ -188,9 +189,9 @@ public class UserController {
             /* 상단에 IMAGE_DIR 추가 */
             String filePath = IMAGE_DIR + "profile-images";
             System.out.println("filePath = " + filePath);
-            String originFileName = profile.getOriginalFilename();//업로드 파일명
-            String ext = originFileName.substring(originFileName.lastIndexOf("."));//업로드 파일명에서 확장자 분리
-            String savedName = UUID.randomUUID() + ext;//고유한 파일명 생성 + 확장자 추가
+            String originFileName = profile.getOriginalFilename();// 업로드 파일명
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));// 업로드 파일명에서 확장자 분리
+            String savedName = UUID.randomUUID() + ext;// 고유한 파일명 생성 + 확장자 추가
 
             String finalFilePath = filePath + "/" + savedName;
             System.out.println("finalFilePath = " + finalFilePath);
@@ -236,11 +237,11 @@ public class UserController {
         log.info("login user : {}", user);
         System.out.println(password);
 
-//        /* 회원을 db에서 삭제 */
-//        userService.removeUser(user);
-//
-//        /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
-//        rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
+        //        /* 회원을 db에서 삭제 */
+        //        userService.removeUser(user);
+        //
+        //        /* 성공적으로 탈퇴한 경우 메시지를 전달하고 로그인 페이지로 리다이렉트 */
+        //        rttr.addFlashAttribute("message", "성공적으로 탈퇴되었습니다. 다시 로그인해주세요.");
 
         // 사용자가 입력한 비밀번호를 인코딩하여 저장된 비밀번호와 비교
         if (passwordEncoder.matches(password, user.getPassword())) {
@@ -298,8 +299,8 @@ public class UserController {
             String tempPw = passwordEncoder.encode(findPwMail.sendSimpleMessage(user.getEmail()));
 
             System.out.println("tempPw : " + tempPw);
-//            // 임시 패스워드 db 에 저장
-//            ms.changeTempPw(tempPw, user.getMno());
+            //            // 임시 패스워드 db 에 저장
+            //            ms.changeTempPw(tempPw, user.getMno());
 
             // 임시 패스워드 발급 완료 메시지를 클라이언트에게 반환합니다.
             return ResponseEntity.ok("success");

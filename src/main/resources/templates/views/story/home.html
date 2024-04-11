@@ -11,69 +11,95 @@
         <div class="inner">
             <section class="section">
                 <h2 class="h2" th:text="|${storyUser.nickname}님의 최근 작업 공간|"></h2>
-                <h3 class="h3">최근 시리즈</h3>
-                <button class="button" onclick="location.href='/series/add'">시리즈 추가하기</button>
-                <div class="inner">
-                    <div class="main-series-swiper series-list">
-                        <div class="swiper-wrapper">
-                            <div class="series-margin">
-                                <a th:href="@{/series/page(code=${series.code})}">
-                                    <div class="thumbnail-image">
-                                        <img class="best-series-img" th:src="${series.thumbnailImage}"
-                                             onerror="this.src='/images/temp/thumbnail.png'" alt="시리즈 썸네일" />
-                                    </div>
-                                    <p class="description" th:text="${series.title}"></p>
-                                </a>
+                <div class="box box-series">
+                    <div class="box-border-header">
+                        <h3 class="h3">최근 시리즈</h3>
+                        <button class="button bd-dark" th:onclick="onClickAddSeries()">
+                            <i class="bi bi-plus-square"></i>
+                            <span class="txt">시리즈 추가</span>
+                        </button>
+                    </div>
+                    <th:block th:if="${series == null}">
+                        <div class="box-no-content">
+                            <p>아직 시리즈가 없습니다</p>
+                        </div>
+                    </th:block>
+                    <th:block th:unless="${series == null}">
+                        <div class="main-series-swiper series-list">
+                            <div class="swiper-wrapper">
+                                <div class="series-margin">
+                                    <a th:href="@{/series/page(code=${series.code})}">
+                                        <div class="thumbnail-image">
+                                            <img class="best-series-img" th:src="${series.thumbnailImage}"
+                                                 onerror="this.src='/images/temp/thumbnail.png'" alt="시리즈 썸네일" />
+                                        </div>
+                                        <p class="description" th:text="${series.title}"></p>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </th:block>
+                </div>
+                <div class="inner" th:if="${post?.code==null}">
+                    <h2 class="h2">최근에 작업하는 시리즈가 없습니다.</h2>
                 </div>
 
-                <h3 class="h3">최근 포스트</h3>
-                <button class="button" onclick="location.href='/post/writer'">포스트 추가하기</button>
-                <div class="inner">
-                    <div class="post-list">
-                        <div class="post-item">
-                            <input class="input-post" th:value="${post.code}" hidden/>
-                            <div class="thumbnail-image">
-                                <img th:src="${post.thumbnailImage}" alt="포스트 썸네일"
-                                     onerror="this.src='/images/temp/thumbnail.png'" />
-                            </div>
-                            <div class="post-content">
-                                <div class="post-text">
-                                    <h3 class="post-name" th:text="${post.title}"></h3>
+                <div class="box box-posts">
+                    <div class="box-border-header">
+                        <h3 class="h3">최근 포스트</h3>
+                        <button class="button bd-dark" th:onclick="onClickAddPost()">
+                            <i class="bi bi-pencil-square"></i>
+                            <span class="txt">포스트 작성</span>
+                        </button>
+                    </div>
+                    <th:block th:if="${post == null}">
+                        <div class="box-no-content">
+                            <p>아직 포스트가 없습니다</p>
+                        </div>
+                    </th:block>
+                    <th:block th:unless="${post == null}">
+                        <div class="post-list">
+                            <div class="post-item">
+                                <input class="input-post" th:value="${post.code}" hidden />
+                                <div class="thumbnail-image">
+                                    <img th:src="${post.thumbnailImage}" alt="포스트 썸네일"
+                                         onerror="this.src='/images/temp/thumbnail.png'" />
                                 </div>
-                                <br>
-                                <div class="post-meta">
-                                    <dl class="date">
-                                        <dt>
-                                            <i class="bi bi-calendar"></i>
-                                            <span class="blind">작성일</span>
-                                        </dt>
-                                        <dd th:text="${post.createDate}"></dd>
-                                    </dl>
-                                    <dl class="views">
-                                        <dt>
-                                            <i class="bi bi-eye"></i>
-                                            <span class="blind">조회수</span>
-                                        </dt>
-                                        <dd th:text="${post.views}"></dd>
-                                    </dl>
-                                    <dl class="like">
-                                        <dt>
-                                            <div class="like_post_info">
-                                                <button class="likeBtn"><i class="far fa-heart"></i></button>
-                                            </div>
-                                        </dt>
-                                        <dd class="like-input"></dd>
-                                    </dl>
+                                <div class="post-content">
+                                    <div class="post-text">
+                                        <h3 class="post-name" th:text="${post.title}"></h3>
+                                    </div>
+                                    <br>
+                                    <div class="post-meta">
+                                        <dl class="date">
+                                            <dt>
+                                                <i class="bi bi-calendar"></i>
+                                                <span class="blind">작성일</span>
+                                            </dt>
+                                            <dd th:text="${post.createDate}"></dd>
+                                        </dl>
+                                        <dl class="views">
+                                            <dt>
+                                                <i class="bi bi-eye"></i>
+                                                <span class="blind">조회수</span>
+                                            </dt>
+                                            <dd th:text="${post.views}"></dd>
+                                        </dl>
+                                        <dl class="like">
+                                            <dt>
+                                                <div class="like_post_info">
+                                                    <button class="likeBtn"><i class="far fa-heart"></i></button>
+                                                </div>
+                                            </dt>
+                                            <dd class="like-input"></dd>
+                                        </dl>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </th:block>
                 </div>
             </section>
-
         </div>
     </div>
 </th:block>
@@ -82,39 +108,36 @@
     <script>
         /*현재 좋아요 갯수*/
         async function likeCounts() {
-            console.log("성공전")
+            console.log("성공전");
             const input = document.querySelector(".input-post");
-                const code = input.value;
-                console.log("성공후",code)
-                fetch('/post/likeCount',{
-                    method:'POST',
-                    headers:{
-                        'Content-Type': 'application/json',
-                    },
-                    body:JSON.stringify({
-                        code
-                    }),
+            const code = input.value;
+            console.log("성공후", code);
+            fetch('/post/likeCount', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    code
+                }),
+            })
+                .then(result => result.json())
+                .then(data => {
+                    console.log("data:" + data);
+                    console.log("성공임니다");
+                    makeLikeArea(data, code);
                 })
-                    .then(result => result.json())
-                    .then(data => {
-                        console.log("data:" + data);
-                        console.log("성공임니다");
-                        makeLikeArea(data,code);
-                    })
-                    .catch(error => console.log(error));
-
+                .catch(error => console.log(error));
         }
-
-
-        function makeLikeArea(likeCount,code) {
+        function makeLikeArea(likeCount, code) {
             // 좋아요 갯수를 업데이트할 요소 선택
             const likeElement = document.querySelector(".input-post");
-                if(likeElement.value == code){
-                    const like = likeElement.closest(".post-item").querySelector(".like-input");
-                    // 요소의 내용 업데이트
-                    like.innerHTML = `♡ ${likeCount}`;
-                }
+            if (likeElement.value == code) {
+                const like = likeElement.closest(".post-item").querySelector(".like-input");
+                // 요소의 내용 업데이트
+                like.innerHTML = `♡ ${ likeCount }`;
             }
+        }
         window.onload(likeCounts());
     </script>
 </th:block>

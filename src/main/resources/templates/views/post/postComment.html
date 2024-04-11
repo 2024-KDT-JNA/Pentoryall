@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/default}">
+<th:block layout:fragment="link">
+    <link rel="stylesheet" th:href="@{/css/post.css}" href="/css/post.css" />
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="sub-content post-content">
+        <div class="inner">
+            <section class="section">
+                <h3 class="report-comment-title">신고하기</h3>
+                <br>
+                <p>펜토리얼 콘텐츠 커뮤니티 가이드에 위배 되는 댓글을 신고하고 해당 댓글을 삭제합니다.</p>
+                <br>
+                <div>
+                    <div>
+                        <label class="label">
+                            신고 사유
+                        </label>
+                    </div>
+                    <form action="/post/postComment" method="post">
+                    <input type="radio" id="adult" name="reason" value="11">
+                    <label for="adult">성인물
+                    </label>
+                    <br>
+
+                    <input type="radio" id="illegal-information" name="reason" value="12">
+                    <label for="illegal-information">불법정보
+                    </label>
+                    <br>
+                    <input type="radio" id="illegal-advertisement" name="reason" value="13">
+                    <label for="illegal-advertisement">홍보/도배
+                    </label>
+                    <br>
+                    <input type="radio" id="usurpation" name="reason"value="14">
+                    <label for="usurpation">개인정보 악용 및 권리침해
+                    </label>
+                </div>
+                <br>
+                <div class="report-text">
+                    <label class="label">신고 상세 내용</label>
+                    <textarea name="" id="" cols="30" rows="10" class="textarea" placeholder="최대 500자까지 작성 가능">
+            </textarea>
+                </div>
+                <br>
+                <div class="form-item">
+                    <button class="button"/>확인</button>
+                    <button class="button">취소</button>
+                </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+
+</th:block>
+</html>

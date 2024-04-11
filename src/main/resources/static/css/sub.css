@@ -1,41 +1,62 @@
-.sub-content { padding-top: 80px; padding-bottom: 40px }
-.sub-content .list-group .item { display: flex; justify-content: space-between; }
+.sub-content { padding-top: 80px; padding-bottom: 40px } 
+.sub-content .list-group .item { display: flex; justify-content: space-between; } 
 .sub-content .table-option .form-item { width: 180px; }
+.sub-content .thumbnail-image { overflow: hidden; border-radius: 7px; }
 
-/* story ======================================== */
-.story-header { width: 100%; }
-.story-header .user-profile-wrap { display: flex; padding-bottom: 20px; justify-content: space-around; align-items: flex-start;}
-.story-header .btn-settings { padding-top: 4px; padding-bottom: 4px; background-color: #333; color: #fff; font-size: 14px; }
-.story-header .user-intro { display: flex; flex-direction: row-reverse; flex-wrap: wrap; align-content: space-around; width:704px; margin-top: 52px; }
-.user-intro .title { font-weight: 600; font-size: 18px;; }
-.user-intro .intro { width: 704px; height: 100px; margin-top: 12px; color: #999; font-size: 16px; line-height: 150%;}
+.sub-content .series-list .swiper-wrapper{flex-wrap: wrap}
+.sub-content .series-list .swiper-slide,
+.story-content .series-list .series-margin{ margin-bottom: 16px;margin-left: 16px; margin-right: 0;}
+.sub-content .series-list .swiper-slide:nth-child(5n+1),
+.story-content .series-list .series-margin:nth-child(5n+1){margin-left: 0}
 
-.story-nav { border-top: 1px solid #e4e4e4; border-bottom: 1px solid #e4e4e4; }
-.story-nav ul { display: flex}
-.story-nav li { padding: 0 24px; }
+.sub-content .box-no-content { padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+
+/* search ======================================== */
+.search-content .section { margin: 50px auto 0 }
+ /* story ======================================== */
+.story-header { width: 100%; } 
+.story-header .user-profile-wrap { display: flex; align-items: flex-start; justify-content: space-around; padding-bottom: 20px; } 
+.story-header .btn-settings { padding-top: 4px; padding-bottom: 4px; background-color: #333; color: #fff; font-size: 14px; } 
+.story-header .user-intro { display: flex; flex-direction: row-reverse; flex-wrap: wrap; align-content: space-around; width:704px; margin-top: 52px; } 
+.user-intro .title { font-weight: 600; font-size: 18px;; } 
+.user-intro .intro { width: 704px; height: 100px; margin-top: 12px; color: #999; font-size: 16px; line-height: 150%; } 
+
+.story-nav { border-top: 1px solid #e4e4e4; border-bottom: 1px solid #e4e4e4; } 
+.story-nav ul { display: flex } 
+.story-nav li { padding: 0 24px; } 
 .story-nav li.active a,
-.story-nav li.active button { border-bottom: 3px solid #000; color: #000; font-weight: 600; }
+.story-nav li.active button { border-bottom: 3px solid #000; color: #000; font-weight: 600; } 
 .story-nav li a,
-.story-nav li button { display: block; padding: 16px 0 12px; color: #999; font-size: 20px}
+.story-nav li button { display: block; padding: 16px 0 12px; color: #999; font-size: 20px } 
 
-.story-content .inner{padding: 40px 16px 60px}
+.story-content .inner { padding: 40px 16px 60px }
+.story-content .box-no-content { padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+
+.box-border-header {display:flex; justify-content: space-between; margin-bottom:16px; padding-bottom:7px;}
+.box-border-header .h3{margin-bottom: 0}
+.box-border-header .button {padding: 6px 12px}
 /* settings ======================================== */
-.settings-wrap {display: flex;}
-.settings-wrap .inner {width: 900px}
-.settings-wrap .content {padding: 80px 40px 0}
-.settings-wrap .sub-content { margin-left: 80px}
+.settings-wrap { display: flex; } 
+.settings-wrap .inner { width: 900px } 
+.settings-wrap .content { padding: 80px 40px 0 } 
+.settings-wrap .sub-content { margin-left: 40px; margin-right: 40px}
 
-.settings-wrap .settings-aside {min-width: 180px; width: 180px; height: calc(100vh - 81px); padding: 20px; border-right: 1px solid #ddd; vertical-align: middle}
-.settings-wrap .settings-nav .bi {width: 30px; padding-right: 4px; font-size: 20px}
-.settings-wrap .settings-nav .depth1-li.on .depth1-btn {font-weight: bold;}
-.settings-wrap .settings-nav .depth1-btn {padding-bottom: 12px}
-.settings-wrap .settings-nav .depth1-text {font-size: 18px}
-.settings-wrap .settings-nav .depth2-text {padding-left: 30px; font-size: 16px; color: #666}
+.settings-wrap .settings-aside { width: 200px; min-width: 180px; height: calc(100vh - 81px); padding: 20px; border-right: 1px solid #ddd; vertical-align: middle; }
+.settings-wrap .settings-nav .bi { width: 30px; padding-right: 4px; font-size: 20px }
+.settings-wrap .settings-nav .depth1-li {margin: 0 0 20px}
+.settings-wrap .settings-nav .depth1-btn { padding-bottom: 12px }
+.settings-wrap .settings-nav .depth1-text { font-size: 18px }
+.settings-wrap .settings-nav .depth2-li{transition: background-color .25s}
+.settings-wrap .settings-nav .depth2-li:hover,
+.settings-wrap .settings-nav .depth2-li.active{background: #efefef; border-radius: 7px}
+.settings-wrap .settings-nav .depth2-li.active a{color:#333; font-weight:600}
+.settings-wrap .settings-nav .depth2-text { padding-left: 30px; color: #666; font-size: 16px; } 
 
-/* .settings-wrap .inner {margin-left: } */
-.nav-depth1 > li {margin-bottom: 7px}
-.settings-aside li {padding: 7px 0}
-.settings-aside li a {display: flex; align-items: center;}
+/* .settings-wrap .inner { margin-left: } */
+.nav-depth1 > li { margin-bottom: 7px }
+
+.settings-aside li { margin:2px 0;  }
+.settings-aside li a { display: flex; align-items: center; padding: 7px 0 }
 
 /* user ======================================== */
-.input_box select { width: 100%; padding: 15px; border: 1px solid #CECECE; border-radius: 5px; }
+.input_box select { width: 100%; padding: 15px; border: 1px solid #CECECE; border-radius: 5px; } 

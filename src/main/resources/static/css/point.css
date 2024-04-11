@@ -2,11 +2,17 @@
 .box-bottom .form-item { text-align: center }
 .box-bottom .button { width: 240px; padding: 16px 0; font-size: 20px; }
 
-.section-order {margin-bottom: 80px}
-.section-order .h2-complete {line-height: 150%; text-align: center}
-.section-order .h2-complete .bi {display: block; font-size: 70px; line-height: 150%;}
-.box-complete .desc-list {display: flex; flex-wrap: wrap;width: 800px; margin: 0 auto; border-top: 1px solid #000; border-bottom: 1px solid #000}
-.box-complete .desc-list .desc-list-dt, .section-order .desc-list .desc-list-dd { flex-basis: 50%; padding: 20px 40px; font-size: 18px;}
-.box-complete .desc-list .desc-list-dd {text-align: right}
-.box-complete .desc-list .border-top {border-top: 1px solid #000}
-.section-order .box-bottom .button { display: block; margin: 64px auto 0; text-align: center}
+.section-point {margin-bottom: 80px}
+.section-point .h2-complete {line-height: 150%; text-align: center}
+.section-point .h2-complete .bi {display: block; font-size: 70px; line-height: 150%;}
+.box-desc-list .desc-list {display: flex; flex-wrap: wrap;width: 800px; margin: 0 auto; border-top: 1px solid #000; border-bottom: 1px solid #000}
+.box-desc-list .desc-list .desc-list-dt,
+.box-desc-list .desc-list .desc-list-dd { flex-basis: 50%; padding: 20px 40px; font-size: 18px;}
+.box-desc-list .desc-list .desc-list-dd {text-align: right}
+.box-desc-list .desc-list .border-top {border-top: 1px solid #000}
+.section-point .box-bottom .button { display: block; margin: 64px auto 0; text-align: center}
+
+/* .box-settlement .box-desc-list {max-resolution: res;} */
+.box-settlement .box-desc-list .desc-list {width: 100%;}
+.box-settlement .box-desc-list .desc-list .desc-list-dt{width:35%; line-height: 42px}
+.box-settlement .box-desc-list .desc-list .desc-list-dd{width:65%}

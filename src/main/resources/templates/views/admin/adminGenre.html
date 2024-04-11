@@ -4,9 +4,6 @@
       layout:decorate="~{/layout/settings}">
 
 <th:block layout:fragment="link">
-    <link rel="stylesheet" th:href="@{/css/sub.css}" href="/css/sub.css"/>
-    <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
-    <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
     <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css"/>
 </th:block>
 
@@ -23,7 +20,8 @@
 
                         <ul class="first-genre-group genre">
                             <th:block th:each="genreList : ${genreList}">
-                                <li class="first-genre-list" th:text="${genreList.name}"></li>
+                                <li class="first-genre-list" th:attr="data-genre-code=${genreList.code}"
+                                    th:text="${genreList.name}"></li>
                             </th:block>
                         </ul>
                         <form action="/admin/genre/add" method="post" name="addFirstGenreForm">
@@ -37,7 +35,8 @@
 
                         <ul class="second-genre-group genre">
                             <th:block th:each="genreSecondList : ${genreSecondList}">
-                                <li class="first-genre-list" th:text="${genreSecondList.name}"></li>
+                                <li class="second-genre-list" th:attr="data-genre-code=${genreSecondList.code}"
+                                    th:text="${genreSecondList.name}"></li>
                                 <li>
                                     <button type="submit" class="button delete-button" id="addSecondGenreDelete">X
                                     </button>
@@ -45,7 +44,7 @@
                             </th:block>
                         </ul>
                         <form action="/admin/genre/addSecond" method="post" name="addSecondGenreForm">
-                            <input type="text" class="first-genre-list" name="genreName" placeholder="추가할 장르명을 입력하세요.">
+                            <input type="text" class="second-genre-list" name="genreName" placeholder="추가할 장르명을 입력하세요.">
                             <button type="submit" class="button" id="addSecondGenreButton">추가</button>
                         </form>
                     </div>
@@ -158,24 +157,24 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            // 상위 장르 목록을 가져옵니다.
+            // 상위 장르 목록을 가져옴
             const firstGenreList = document.querySelectorAll('.first-genre-list');
 
-            // 각 상위 장르 요소에 더블클릭 이벤트를 추가합니다.
+            // 각 상위 장르 요소에 더블클릭 이벤트를 추가
             firstGenreList.forEach(item => {
                 item.addEventListener('dblclick', function (event) {
                     // 기본 동작 방지
                     event.preventDefault();
 
-                    // 현재 요소의 텍스트 내용을 가져옵니다.
+                    // 현재 요소의 텍스트 내용을 가져옴
                     const currentText = item.textContent;
 
-                    // 수정을 위한 입력 상자를 생성합니다.
+                    // 수정을 위한 입력 상자를 생성
                     const inputElement = document.createElement('input');
                     inputElement.setAttribute('type', 'text');
                     inputElement.setAttribute('value', currentText);
 
-                    // 이벤트 핸들러를 추가하여 포커스가 벗어날 때 수정된 내용을 저장합니다.
+                    // 이벤트 핸들러를 추가하여 포커스가 벗어날 때 수정된 내용을 저장
                     inputElement.addEventListener('blur', function () {
                         saveModifiedContent(item, inputElement);
                     });
@@ -187,11 +186,11 @@
                         }
                     });
 
-                    // 기존 텍스트를 숨기고 수정을 위한 입력 상자를 표시합니다.
+                    // 기존 텍스트를 숨기고 수정을 위한 입력 상자를 표시
                     item.innerHTML = '';
                     item.appendChild(inputElement);
 
-                    // 수정을 위한 입력 상자에 포커스를 설정합니다.
+                    // 수정을 위한 입력 상자에 포커스를 설정
                     inputElement.focus();
                 });
             });
@@ -200,6 +199,7 @@
             function saveModifiedContent(item, inputElement) {
                 // 수정된 내용을 가져옵니다.
                 const newText = inputElement.value.trim();
+                const code = inputElement.parentElement.getAttribute('data-genre-code');
 
                 // 내용이 비어있지 않으면 텍스트 내용을 수정된 내용으로 업데이트합니다.
                 if (newText !== '') {
@@ -211,8 +211,7 @@
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         },
-                        body: `genreCode=${code}`
-                            `genreName=${newText}`
+                        body: 'genreName=' + encodeURIComponent(newText) + '&genreCode=' + encodeURIComponent(code)
                     })
                         .then(response => {
                             if (response.ok) {
