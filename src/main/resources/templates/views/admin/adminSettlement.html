@@ -6,7 +6,7 @@
 <th:block layout:fragment="link">
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
-    <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css"/>
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css" />
 </th:block>
 
 <th:block layout:fragment="content">
@@ -30,62 +30,46 @@
                 <div class="table-box">
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox" id="checkAll-pay-1" name="check"/>
-                            </th>
-                            <th class="tg-0lax">번호</th>
-                            <th class="tg-0lax">회원코드</th>
-                            <th class="tg-0lax">은행코드</th>
-                            <th class="tg-0lax">계좌번호</th>
-                            <th class="tg-0lax">요청금액</th>
-                            <th class="tg-0lax">상태</th>
-                            <th class="tg-0lax">사유</th>
-                            <th class="tg-0lax">신청날짜</th>
-                            <th class="tg-0lax">신청관리</th>
-                        </tr>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="checkAll-pay-1" name="check" />
+                                </th>
+                                <th>번호</th>
+                                <th>회원코드</th>
+                                <th>은행코드</th>
+                                <th>계좌번호</th>
+                                <th>요청금액</th>
+                                <th>상태</th>
+                                <th>사유</th>
+                                <th>신청날짜</th>
+                                <th>신청관리</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <th:block th:each="payAllList : ${payAllList}">
-                            <tr th:attr="data-pay=${payAllList.userCode}">
-                            <td><input type="checkbox" id="checkAll-pay-2" name="" class="form-check-input"/>
-                            </td>
-                            <td data-pay="userCode" th:text="${payAllList.code}" class="tg-0lax"></td>
-                            <td data-pay="userCode" th:text="${payAllList.userCode}" class="tg-0lax"></td>
-                            <td data-pay="userCode" th:text="${payAllList.bankCode}" class="tg-0lax"></td>
-                            <td data-pay="userAccountNumber" th:text="${payAllList.accountNumber}"
-                                class="tg-0lax"></td>
-                            <td data-pay="requestAmount" th:text="${payAllList.requestAmount}" class="tg-0lax"></td>
-                            <td data-pay="state" th:text="${payAllList.state}"
-                                class="tg-0lax"></td>
-                            <td data-pay="cause" th:text="${payAllList.cause}" class="tg-0lax"></td>
-                            <td data-pay="createDate" th:text="${payAllList.createDate}"
-                                class="tg-0lax"></td>
-                            <td>
-                                <button type="button" class="button btn-pay"
-                                        th:attr="data-pay=${payAllList.userCode}">수락
-                                </button>
-                            </td>
-                            </tr>
-                        </th:block>
+                            <th:block th:each="pay : ${payAllList}">
+                                <tr th:attr="data-pay=${pay.code}">
+                                    <td>
+                                        <input type="checkbox" th:id="|checkAll-pay-${pay.code}|" name="" class="form-check-input" />
+                                    </td>
+                                    <td th:text="${pay.code}"></td>
+                                    <td th:text="${pay.userCode}"></td>
+                                    <td th:text="${pay.bankCode}"></td>
+                                    <td th:text="${pay.accountNumber}"></td>
+                                    <td th:text="${pay.requestAmount}"></td>
+                                    <td th:text="${pay.state}"></td>
+                                    <td th:text="${pay.cause}"></td>
+                                    <td th:text="${#temporals.format(pay.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                                    <td>
+                                        <button type="button" class="button dark btn-pay" th:attr="data-pay=${pay.userCode}">수락</button>
+                                    </td>
+                                </tr>
+                            </th:block>
 
                         </tbody>
                     </table>
                 </div>
 
-                <div class="page">
-                    <ul class="pagination-modifyPost">
-                        <li><a href="#" class="first">처음페이지</a></li>
-                        <li><a href="#" class="arrow left"><<</a></li>
-                        <li><a href="#" class="active num">1</a></li>
-                        <li><a href="#" class="num">2</a></li>
-                        <li><a href="#" class="num">3</a></li>
-                        <li><a href="#" class="num">4</a></li>
-                        <li><a href="#" class="num">5</a></li>
-                        <li><a href="#" class="arrow right">>></a></li>
-                        <li><a href="#" class="last">끝페이지</a></li>
-                    </ul>
-                </div>
+                <th:block th:replace="~{/fragments/common/pagination :: pagination('/admin/pay/settlement')}"></th:block>
             </section>
             <!-- ------------------------------------ -->
         </div>
@@ -93,27 +77,21 @@
 </th:block>
 
 
-<script>
-    const unlockButtons = document.querySelectorAll('.btn-pay');
-
-    unlockButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const userCode = button.getAttribute("data-pay");
-            const confirmation = confirm(userCode + '번 회원의 정산을 수락하시겠습니까?');
-
-            if (confirmation) {
-                alert(userCode + '번 회원의 정산이 수락되었습니다.'); // 알럿 추가
-                // 여기에 정산 수락 처리 로직 추가
-            }
-        });
-    });
-</script>
-
 <th:block layout:fragment="script">
+    <script>
+        const unlockButtons = document.querySelectorAll('.btn-pay');
 
+        unlockButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const userCode = button.getAttribute("data-pay");
+                const confirmation = confirm(userCode + '번 회원의 정산을 수락하시겠습니까?');
 
-    <!-- 여기에 연결할 외부 javascript 링크를 지정 -->
-    <!-- 생성한 CSS 파일은 `/resources/static/js` 에 넣어주세요. -->
-    <!-- [작성 예시] <script th:src="@{/js/파일명.js}" src="/js/파일명.js"></script> -->
+                if (confirmation) {
+                    alert(userCode + '번 회원의 정산이 수락되었습니다.'); // 알럿 추가
+                    // 여기에 정산 수락 처리 로직 추가
+                }
+            });
+        });
+    </script>
 </th:block>
 </html>
