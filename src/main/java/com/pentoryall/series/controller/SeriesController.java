@@ -75,6 +75,13 @@ public class SeriesController {
         List<PostDTO> postLists = postService.selectPostsBySeriesCode(code);
         System.out.println("포스트리스트~~~ = " + postLists);
 
+        PostDTO post = postService.selectFirstPostBySeriesCode(code);
+        if(post!=null) {
+            model.addAttribute("firstPost", post.getCode());
+        }else{
+            model.addAttribute("firstPost",0);
+        }
+
         int likeCount = 0;
         for (int i = 0; i < postLists.size(); i++) {
             List<LikeDTO> likeList = likeService.selectLikeByPostCode(postLists.get(i).getCode());
@@ -172,7 +179,6 @@ public class SeriesController {
     @GetMapping("/update")
     public String updateSeries(@RequestParam long code,
                                Model model,
-
                                HttpSession session) {
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(code);
         System.out.println("seriesDTO = " + seriesDTO);

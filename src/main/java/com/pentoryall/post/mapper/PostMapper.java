@@ -38,4 +38,6 @@ public interface PostMapper {
     void updateViews(long code);
 
     ValidatePostDTO selectPostAndSeriesByPostCode(long postCode);
+
+    PostDTO selectFirstPostBySeriesCode(long code);
 }

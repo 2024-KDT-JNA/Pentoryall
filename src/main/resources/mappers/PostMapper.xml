@@ -227,4 +227,29 @@
         WHERE
             p.code = ${ postCode }
     </select>
+    <select id="selectFirstPostBySeriesCode">
+        SELECT
+            code,
+            series_code,
+            user_code,
+            title,
+            content,
+            confirm_content,
+            thumbnail_image,
+            views,
+            price,
+            is_paid,
+            is_adult,
+            is_public,
+            is_deleted,
+            create_date,
+            update_date
+        FROM
+            post
+        WHERE
+            is_deleted='N' AND series_code = #{code}
+        ORDER BY
+            create_date
+        LIMIT 1;
+    </select>
 </mapper>
