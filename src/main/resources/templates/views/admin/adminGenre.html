@@ -89,72 +89,106 @@
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
 
-            document.addFirstGenreForm.addEventListener('submit', function (event) {
-                event.preventDefault();
-                const genreNameInput = document.querySelector('form[name="addFirstGenreForm"] input[name="genreName"]');
-                const genreName = genreNameInput.value.trim(); // 입력값 공백 제거
 
-                if (!genreName) {
-                    alert('장르명을 입력하세요.');
-                    return; // 장르명이 비어 있으면 추가하지 않고 함수 종료
-                }
+                document.addFirstGenreForm.addEventListener('submit', async function (event) {
+                    event.preventDefault();
+                    const genreNameInput = document.querySelector('form[name="addFirstGenreForm"] input[name="genreName"]');
+                    const genreName = genreNameInput.value.trim(); // 입력값 공백 제거
 
-                if (confirm('"' + genreName + '" 장르를 추가하시겠습니까?')) {
-                    genreNameInput.value = genreName
-                    this.submit(); // 폼 서버에 제출
-                }
-            });
 
-            document.addSecondGenreForm.addEventListener('submit', function (event) {
-                event.preventDefault();
-                const genreNameInput = document.querySelector('form[name="addSecondGenreForm"] input[name="genreName"]');
-                const genreName = genreNameInput.value.trim(); // 입력값 공백 제거
-
-                if (!genreName) {
-                    alert('장르명을 입력하세요.');
-                    return; // 장르명이 비어 있으면 추가하지 않고 함수 종료
-                }
-
-                if (confirm('"' + genreName + '" 장르를 추가하시겠습니까?')) {
-                    genreNameInput.value = genreName
-                    this.submit(); // 폼 서버에 제출
-                }
-            });
-
-            document.querySelectorAll('.delete-button').forEach(button => {
-                button.addEventListener('click', function (event) {
-                    event.preventDefault(); // 기본 동작 방지
-
-                    const listItem = button.parentElement.previousElementSibling;
-                    const genreName = listItem.textContent.trim(); // 장르명 텍스트 추출
-
-                    if (confirm('"' + genreName + '" 장르를 삭제하시겠습니까?')) {
-                        // 삭제할 장르명을 서버로 전송하여 삭제 처리
-                        const formData = new FormData();
-                        formData.append('name', genreName);
-
-                        fetch('/admin/genre/delete', {
-                            method: 'POST',
-                            body: formData
-                        })
-                            .then(response => {
-                                if (response.ok) {
-                                    // 성공적으로 삭제되면 해당 장르 항목을 제거
-                                    listItem.remove();
-                                    button.remove();
-                                    alert('"' + genreName + '" 장르가 삭제되었습니다.');
-                                } else {
-                                    alert('장르 삭제에 실패했습니다.');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('장르 삭제 중 오류가 발생했습니다.', error);
-                            });
+                    if (!genreName) {
+                        alert('장르명을 입력하세요.');
+                        return; // 장르명이 비어 있으면 추가하지 않고 함수 종료
                     }
-                });
-            });
 
-        });
+                    const genreList = document.querySelectorAll('.first-genre-list');
+                    let isDuplicate = false;
+
+                    genreList.forEach(item => {
+                        if (item.textContent === genreName) {
+                            isDuplicate = true;
+                        }
+                    });
+
+                    if (isDuplicate) {
+                        alert('해당 장르는 이미 존재합니다.');
+                        return; // 중복된 장르가 있으면 함수 종료
+                    } else {
+                        if (confirm('"' + genreName + '" 장르를 추가하시겠습니까?')) {
+                            genreNameInput.value = genreName;
+                            this.submit(); // 폼 서버에 제출
+                        }
+                    }
+
+                });
+
+                document.addSecondGenreForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    const genreNameInput = document.querySelector('form[name="addSecondGenreForm"] input[name="genreName"]');
+                    const genreName = genreNameInput.value.trim(); // 입력값 공백 제거
+
+                    if (!genreName) {
+                        alert('장르명을 입력하세요.');
+                        return; // 장르명이 비어 있으면 추가하지 않고 함수 종료
+                    }
+
+                    const genreList = document.querySelectorAll('.second-genre-list');
+                    let isDuplicate = false;
+
+                    genreList.forEach(item => {
+                        if (item.textContent === genreName) {
+                            isDuplicate = true;
+                        }
+                    });
+
+                    if (isDuplicate) {
+                        alert('해당 장르는 이미 존재합니다.');
+                        return; // 중복된 장르가 있으면 함수 종료
+                    } else {
+                        if (confirm('"' + genreName + '" 장르를 추가하시겠습니까?')) {
+                            genreNameInput.value = genreName;
+                            this.submit(); // 폼 서버에 제출
+                        }
+                    }
+
+                });
+
+
+                document.querySelectorAll('.delete-button').forEach(button => {
+                    button.addEventListener('click', function (event) {
+                        event.preventDefault(); // 기본 동작 방지
+
+                        const listItem = button.parentElement.previousElementSibling;
+                        const genreName = listItem.textContent.trim(); // 장르명 텍스트 추출
+
+                        if (confirm('"' + genreName + '" 장르를 삭제하시겠습니까?')) {
+                            // 삭제할 장르명을 서버로 전송하여 삭제 처리
+                            const formData = new FormData();
+                            formData.append('name', genreName);
+
+                            fetch('/admin/genre/delete', {
+                                method: 'POST',
+                                body: formData
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        // 성공적으로 삭제되면 해당 장르 항목을 제거
+                                        listItem.remove();
+                                        button.remove();
+                                        alert('"' + genreName + '" 장르가 삭제되었습니다.');
+                                    } else {
+                                        alert('장르 삭제에 실패했습니다.');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('장르 삭제 중 오류가 발생했습니다.', error);
+                                });
+                        }
+                    });
+                });
+
+            }
+        );
 
         document.addEventListener('DOMContentLoaded', function () {
             // 상위 장르 목록을 가져옴
@@ -232,7 +266,6 @@
                 }
             }
         });
-
 
     </script>
 </th:block>
