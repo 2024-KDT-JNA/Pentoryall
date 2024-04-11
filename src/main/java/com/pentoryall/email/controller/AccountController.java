@@ -40,6 +40,7 @@ public class AccountController {
         return code;
     }
 
+    /* 이메일 인증번호 */
     @PostMapping("/mailConfirmNum")
     @ResponseBody
     public ResponseEntity<?> mailConfirmNum(@RequestParam("memailconfirm") String memailconfirm) {

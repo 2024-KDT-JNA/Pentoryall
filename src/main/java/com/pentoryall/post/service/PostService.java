@@ -88,4 +88,5 @@ public class PostService {
     public PostSeriesDTO getPostInformationByPost(Long code) {
         return postMapper.getPostInformationByPost(code);
     }
+
 }

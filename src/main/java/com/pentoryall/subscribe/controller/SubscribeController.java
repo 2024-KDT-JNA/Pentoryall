@@ -24,16 +24,22 @@ public class SubscribeController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> addSubscribe(@ModelAttribute SubscribeDTO subscribeDTO) {
-        subscribeDTO.setSubscribedDate(LocalDate.now());
-        subscribeService.addSubscriber(subscribeDTO);
+    public ResponseEntity<Void> addSubscribe(@AuthenticationPrincipal UserDTO user,
+                                             @ModelAttribute SubscribeDTO subscribe) {
+
+
+        subscribe.setUserCode(user.getCode());
+        subscribe.setSubscribeDate(LocalDate.now());
+        subscribeService.addSubscriber(subscribe);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/cancel")
-    public ResponseEntity<Void> cancelSubscribe(@RequestBody SubscribeDTO subscribeDTO) {
-        subscribeService.cancelSubscribe(subscribeDTO);
-        System.out.println(subscribeDTO);
+    public ResponseEntity<Void> cancelSubscribe(@AuthenticationPrincipal UserDTO user,
+                                                @ModelAttribute SubscribeDTO subscribe) {
+
+        subscribe.setUserCode(user.getCode());
+        subscribeService.cancelSubscribe(subscribe);
         return ResponseEntity.ok().build();
     }
 
@@ -45,8 +51,6 @@ public class SubscribeController {
         List<SubscribeDTO> subscribersList = subscribeService.selectAllSubscribers(user.getCode());
         System.out.println(subscribersList);
 
-        int subscriberCount = subscribeService.getSubscriberCount(user.getCode());
-        model.addAttribute("subscriberCount", subscriberCount);
         model.addAttribute("subscribers", subscribersList);
 
         if (subscribersList.isEmpty()) {
@@ -69,11 +73,10 @@ public class SubscribeController {
         List<SubscribeDTO> subscribersList = subscribeService.selectAllSubscribeStory(user.getCode());
         System.out.println(subscribersList);
 
-        int subscriberStoryCount = subscribeService.getSubscribeStoryCount(user.getCode());
-        model.addAttribute("subscriberStoryCount", subscriberStoryCount);
-
         String userName = user.getName();
         model.addAttribute("userName", userName);
+        String userId = user.getUserId();
+        model.addAttribute("user", userId);
 
         String introduction = user.getIntroduction();
         model.addAttribute("introduction", introduction);
@@ -107,5 +110,6 @@ public class SubscribeController {
     public String getPostList() {
         return "/views/subscribe/postList";
     }
-}
 
+
+}

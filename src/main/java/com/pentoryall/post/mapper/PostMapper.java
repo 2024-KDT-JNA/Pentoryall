@@ -43,4 +43,5 @@ public interface PostMapper {
     PostDTO selectFirstPostBySeriesCode(long code);
 
     PostSeriesDTO getPostInformationByPost(Long code);
+
 }
