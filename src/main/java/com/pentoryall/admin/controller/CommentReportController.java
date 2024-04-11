@@ -58,7 +58,7 @@ public class CommentReportController {
         System.out.println("userCode = " + userCode);
         int result = commentReportService.updateStateByUserCode((userCode), "ACTIVE");
         if (result > 0) {
-            rttr.addFlashAttribute("message", "회원을 성공적으로 해제했습니다.");
+            rttr.addFlashAttribute("alertMessage", "회원을 성공적으로 해제했습니다.");
         }
 
         return "redirect:/admin/report/comments";
