@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout/default}">
-<th:block layout:fragment="link">'
+<th:block layout:fragment="link">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css"/>
-    <link rel="stylesheet" th:href="@{/css/user.css}" href="/css/user.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
+    <link rel="stylesheet" th:href="@{/css/user.css}" href="/css/user.css" />
     <!-- 여기에 연결할 외부 CSS 링크를 지정 -->
     <!-- 생성한 CSS 파일은 `/resources/static/css` 에 넣어주세요. -->
     <!-- [작성 예시] <link rel="stylesheet" th:href="@{/css/파일명.css}" href="/css/파일명.css" /> -->
@@ -78,7 +78,10 @@
                     <div class="like_post">
                         <h5>
                             <!-- Likecontroller에 likeCount변수로 선언 -->
-                            <dd><span class="likedPostCount" th:text="${likeCount}"></span>개의 포스트</dd>
+                            <dd>
+                                <span class="likedPostCount" th:text="${likeCount}"></span>
+                                개의 포스트
+                            </dd>
                         </h5>
                     </div>
                     <div class="like_post_info">
@@ -93,10 +96,10 @@
                     <div class="inner">
                         <div class="post-list">
                             <div class="post-item" th:each="post:${likedPosts}">
-                                <input class="input-post" th:value="${post.postTitle}" hidden/>
+                                <input class="input-post" th:value="${post.postTitle}" hidden />
                                 <div class="thumbnail-image">
                                     <img th:src="${post.thumbnailImage != null
-                        ? post.thumbnailImage : '/images/temp/thumbnail.png'}"/>
+                        ? post.thumbnailImage : '/images/temp/thumbnail.png'}" />
                                 </div>
                                 <div class="post-content">
                                     <div class="post-text">
@@ -115,7 +118,7 @@
                                         <dl class="views">
                                             <dt>
                                                 <i class="bi bi-eye"></i>
-                                                <span class="blind" ></span>
+                                                <span class="blind"></span>
                                             </dt>
                                             <dd th:text="|조회수 ${post.views}|"></dd>
                                         </dl>
@@ -166,17 +169,17 @@
     <script>
         /*현재 좋아요 갯수*/
         async function currentLike() {
-            console.log("성공전")
+            console.log("성공전");
             const input = document.querySelectorAll(".input-post");
-            input.forEach(el=>{
+            input.forEach(el => {
                 const title = el.value;
-                console.log("성공후",title)
-                fetch('/post/likeTitle',{
-                    method:'POST',
-                    headers:{
+                console.log("성공후", title);
+                fetch('/post/likeTitle', {
+                    method: 'POST',
+                    headers: {
                         'Content-Type': 'application/json',
                     },
-                    body:JSON.stringify({
+                    body: JSON.stringify({
                         title
                     }),
                 })
@@ -184,24 +187,25 @@
                     .then(data => {
                         console.log("data:" + data);
                         console.log("성공임니다");
-                        LikeArea(data,title);
+                        LikeArea(data, title);
                     })
                     .catch(error => console.log(error));
-            })
+            });
 
         }
 
 
-        function LikeArea(likeCount,postTitle) {
+        function LikeArea(likeCount, postTitle) {
             // 좋아요 갯수를 업데이트할 요소 선택
             const likeElement = document.querySelectorAll(".input-post");
             likeElement.forEach(el => {
-                if(el.value == postTitle){
+                if (el.value == postTitle) {
                     const like = el.closest(".post-item").querySelector(".Like-input");
                     // 요소의 내용 업데이트
-                    like.innerHTML = ` ${likeCount}`;
+                    like.innerHTML = ` ${ likeCount }`;
                 }
-            })}
+            });
+        }
         window.onload(currentLike());
     </script>
 </th:block>
