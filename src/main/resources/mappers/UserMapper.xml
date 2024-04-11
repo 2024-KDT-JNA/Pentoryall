@@ -77,8 +77,6 @@
         user
         SET
         nickname = #{ nickname },
-        introduction = #{ introduction }
-        SET nickname = #{ nickname },
         introduction = #{ introduction },
         is_subscriber_visible = #{isSubscriberVisible} -- 구독 공개여부 쿼리문 추가 (승재)
         <if test="password !=''">

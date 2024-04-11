@@ -8,13 +8,14 @@
             <div class="user-profile">
                 <div class="profile-image">
                     <img th:src="${storyUser.profileImage != null
-                        ? storyUser.profileImage : '/images/temp/profile.png'}" alt="유저 프로필" />
+                        ? storyUser.profileImage : '/images/temp/profile.png'}" alt="유저 프로필"/>
                 </div>
                 <div class="profile-info">
                     <span class="nickname">[[ ${storyUser.nickname} ]]</span>
                     <span class="username">[[ ${storyUser.userId} ]]</span>
                 </div>
-                <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.userId == storyUser.userId}">
+                <th:block sec:authorize="isAuthenticated()"
+                          th:if="${#authentication.principal.userId == storyUser.userId}">
                     <div class="profile-btn" sec:authorize="isAuthenticated()">
                         <button class="button btn-settings">
                             <a th:href="@{/user/update}">설정</a>
@@ -29,7 +30,8 @@
                     <p class="intro"> [[ ${storyUser.introduction} ]]</p>
                 </div>
                 <div class="setting-btn">
-                    <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.userId != storyUser.userId}">
+                    <th:block sec:authorize="isAuthenticated()"
+                              th:if="${#authentication.principal.userId != storyUser.userId}">
                         <button class="button" id="subscribeButton">구독</button>
                         <button class="button">멤버십 가입</button>
                     </th:block>
@@ -39,11 +41,16 @@
 
         <nav class="inner story-nav">
             <ul class="tab-nav">
-                <li th:classappend="${TAB_MENU} == 'home' ? 'active' : ''"><a th:href="|/story/${storyUser.userId}|">홈</a></li>
-                <li th:classappend="${TAB_MENU} == 'posts'? 'active': ''"><a th:href="|/story/${storyUser.userId}/posts|">포스트</a></li>
-                <li th:classappend="${TAB_MENU} == 'series'? 'active': ''"><a th:href="|/story/${storyUser.userId}/series|">시리즈</a></li>
-                <li th:classappend="${TAB_MENU} == 'membership'? 'active': ''"><a href="/membership/planInfo">멤버십</a></li>
-                <li th:classappend="${TAB_MENU} == 'subscribe'? 'active': ''"><a href="/subscribe/list">구독</a></li>
+                <li th:classappend="${TAB_MENU} == 'home' ? 'active' : ''"><a
+                        th:href="|/story/${storyUser.userId}|">홈</a></li>
+                <li th:classappend="${TAB_MENU} == 'posts'? 'active': ''"><a
+                        th:href="|/story/${storyUser.userId}/posts|">포스트</a></li>
+                <li th:classappend="${TAB_MENU} == 'series'? 'active': ''"><a
+                        th:href="|/story/${storyUser.userId}/series|">시리즈</a></li>
+                <li th:classappend="${TAB_MENU} == 'membership'? 'active': ''"><a
+                        th:href="|/story/${storyUser.userId}/memberships|">멤버십</a></li>
+                <li th:classappend="${TAB_MENU} == 'subscribe'? 'active': ''"><a
+                        th:href="|/story/${storyUser.userId}/subscribers|">구독</a></li>
             </ul>
         </nav>
     </header>
