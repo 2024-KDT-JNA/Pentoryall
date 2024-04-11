@@ -70,7 +70,8 @@
                             <i class="bi bi-heart"></i>
                             <span class="txt" th:text="${likeCount}"></span>
                         </button>
-                        <button class="button container-button-first-post">첫 화보기</button>
+                        <button class="button container-button-first-post" th:if="${postList!=null}" th:onclick="|location.href='@{/post/information(code=${firstPost})}'|">첫 화보기</button>
+                        <button class="button container-button-first-post" th:if="${postList==null}" onclick="goFirstPost()">첫 화보기</button>
                     </div>
 
 
@@ -197,6 +198,11 @@
                     like.innerHTML = `${ likeCount }`;
                 }
             });
+        }
+    </script>
+    <script>
+        function goFirstPost(){
+            alert("포스트가 존재하지 않습니다..");
         }
     </script>
 

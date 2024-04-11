@@ -75,6 +75,9 @@ public class SeriesController {
         List<PostDTO> postLists = postService.selectPostsBySeriesCode(code);
         System.out.println("포스트리스트~~~ = " + postLists);
 
+        PostDTO post = postService.selectFirstPostBySeriesCode(code);
+        model.addAttribute("firstPost",post.getCode());
+
         int likeCount = 0;
         for (int i = 0; i < postLists.size(); i++) {
             List<LikeDTO> likeList = likeService.selectLikeByPostCode(postLists.get(i).getCode());
