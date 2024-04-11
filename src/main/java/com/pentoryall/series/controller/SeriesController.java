@@ -76,7 +76,11 @@ public class SeriesController {
         System.out.println("포스트리스트~~~ = " + postLists);
 
         PostDTO post = postService.selectFirstPostBySeriesCode(code);
-        model.addAttribute("firstPost",post.getCode());
+        if(post!=null) {
+            model.addAttribute("firstPost", post.getCode());
+        }else{
+            model.addAttribute("firstPost",0);
+        }
 
         int likeCount = 0;
         for (int i = 0; i < postLists.size(); i++) {
