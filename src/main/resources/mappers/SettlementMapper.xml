@@ -12,12 +12,6 @@
                             FROM `user_settlement` t1
                                      JOIN `user` t2 ON t1.user_code = t2.code
                            WHERE t1.user_code = #{ userCode } ) u ON s.user_settlement_code = u.code
-
-    </select>
-    <select id="selectTotalRevenueCountByUserCode" resultType="java.lang.Integer">
-        SELECT COUNT(code)
-          FROM `transaction`
-         WHERE user_code = #{ userCode }
     </select>
     <select id="selectSettlementsByUserCode" resultType="com.pentoryall.settlement.dto.SettlementDTO">
         SELECT s.code,
@@ -36,24 +30,7 @@
          ORDER BY create_date DESC
          LIMIT #{offset}, #{limit}
     </select>
-    <select id="selectRevenuesByUserCode" resultType="com.pentoryall.settlement.dto.UserRevenueDTO">
-        SELECT t.user_code        buyerCode,
-               t.seller_user_code sellerCode,
-               t.code             transaction_code,
-               p.code             post_code,
-               p.title            post_title,
-               m.code             membership_code,
-               m.name             membership_name,
-               t.type,
-               t.point            point,
-               t.create_date
-          FROM `transaction` t
-                   LEFT JOIN `post` p ON p.code = t.post_code
-                   LEFT JOIN `membership` m ON m.code = t.membership_code
-         WHERE t.seller_user_code = #{ userCode }
-         ORDER BY create_date DESC
-         LIMIT #{offset}, #{limit}
-    </select>
+
     <!-- INSERT -->
     <insert id="insertSettlementRequest" useGeneratedKeys="true" keyProperty="code" parameterType="com.pentoryall.settlement.dto.SettlementDTO">
         INSERT INTO `settlement` (user_settlement_code, request_amount, actual_amount)

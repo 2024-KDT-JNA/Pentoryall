@@ -15,7 +15,53 @@
             AND membership_code = #{ membershipCode }
         </if>
     </select>
-
+    <select id="selectTotalRevenueCountByUserCode" resultType="java.lang.Integer">
+        SELECT COUNT(code)
+          FROM `transaction`
+         WHERE seller_user_code = #{ userCode }
+    </select>
+    <select id="selectPurchaseCountByUserCode" resultType="java.lang.Integer">
+        SELECT COUNT(code)
+          FROM `transaction`
+         WHERE user_code = #{ userCode }
+    </select>
+    <select id="selectPurchaseAllByUserCode" resultType="com.pentoryall.point.dto.UserPurchaseDTO">
+        SELECT t.code      code,
+               t.user_code user_code,
+               t.code      transaction_code,
+               p.code      post_code,
+               p.title     post_title,
+               m.code      membership_code,
+               m.name      membership_name,
+               t.type,
+               t.point     point,
+               t.create_date
+          FROM `transaction` t
+                   LEFT JOIN `post` p ON p.code = t.post_code
+                   LEFT JOIN `membership` m ON m.code = t.membership_code
+         WHERE t.user_code = #{ userCode }
+         ORDER BY create_date DESC
+         LIMIT #{offset}, #{limit}
+    </select>
+    <select id="selectRevenuesByUserCode" resultType="com.pentoryall.settlement.dto.UserRevenueDTO">
+        SELECT t.user_code        buyerCode,
+               t.seller_user_code sellerCode,
+               t.code             transaction_code,
+               p.code             post_code,
+               p.title            post_title,
+               m.code             membership_code,
+               m.name             membership_name,
+               t.type,
+               t.point            point,
+               t.create_date
+          FROM `transaction` t
+                   LEFT JOIN `post` p ON p.code = t.post_code
+                   LEFT JOIN `membership` m ON m.code = t.membership_code
+         WHERE t.seller_user_code = #{ userCode }
+         ORDER BY create_date DESC
+         LIMIT #{offset}, #{limit}
+    </select>
+    <!-- INSERT -->
     <insert id="save">
         INSERT INTO transaction(user_code, seller_user_code, post_code, membership_code, type, point)
         VALUES (#{userCode}, #{sellerUserCode}, #{postCode}, #{membershipCode}, #{type}, #{point})

@@ -2,6 +2,7 @@ package com.pentoryall.settlement.service;
 
 import com.pentoryall.common.page.Pagination;
 import com.pentoryall.common.page.SelectCriteria;
+import com.pentoryall.point.mapper.TransactionMapper;
 import com.pentoryall.settlement.dto.SettlementDTO;
 import com.pentoryall.settlement.dto.UserRevenueDTO;
 import com.pentoryall.settlement.mapper.SettlementMapper;
@@ -20,6 +21,8 @@ import java.util.Map;
 public class SettlementService {
 
     private final SettlementMapper settlementMapper;
+
+    private final TransactionMapper transactionMapper;
 
     private final UserMapper userMapper;
 
@@ -50,11 +53,11 @@ public class SettlementService {
 
     public Map<String, Object> selectRevenueListWithPagingByUserCode(int page, long userCode) {
 
-        int totalCount = settlementMapper.selectTotalRevenueCountByUserCode(userCode);
+        int totalCount = transactionMapper.selectTotalRevenueCountByUserCode(userCode);
         SelectCriteria selectCriteria = Pagination.getSelectCriteria(page, totalCount);
 
         Map<String, Object> revenueListAndPaging = new HashMap<>();
-        List<UserRevenueDTO> revenueList = settlementMapper.selectRevenuesByUserCode(userCode, selectCriteria.getOffset(), selectCriteria.getLimit());
+        List<UserRevenueDTO> revenueList = transactionMapper.selectRevenuesByUserCode(userCode, selectCriteria.getOffset(), selectCriteria.getLimit());
         revenueListAndPaging.put("paging", selectCriteria);
         revenueListAndPaging.put("revenueList", revenueList);
 

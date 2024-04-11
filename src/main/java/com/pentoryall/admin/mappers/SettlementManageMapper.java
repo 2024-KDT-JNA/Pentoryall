@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface PayManageMapper {
+public interface SettlementManageMapper {
+
     int selectTotalCount(Map<String, String> searchMap);
 
     List<PayManageDTO> selectPayAllList(SelectCriteria selectCriteria);
