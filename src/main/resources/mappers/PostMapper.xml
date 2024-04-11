@@ -33,6 +33,31 @@
         WHERE
             code=#{code} AND is_deleted='N';
     </select>
+    <select id="getPostInformationByPost" resultType="com.pentoryall.post.dto.PostSeriesDTO">
+        SELECT
+            a.code,
+            a.series_code,
+            a.user_code,
+            a.title,
+            a.content,
+            a.confirm_content,
+            a.thumbnail_image,
+            a.views,
+            a.price,
+            a.is_paid,
+            a.is_adult,
+            a.is_public,
+            a.is_deleted,
+            a.create_date,
+            a.update_date,
+            b.title AS series_title
+        FROM
+            post a
+        JOIN series b
+        ON a.series_code=b.code
+        WHERE
+            a.code=#{code} AND a.is_deleted='N';
+    </select>
 
     <select id="selectPostsBySeriesCode">
         SELECT
