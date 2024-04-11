@@ -89,4 +89,7 @@ public class PostService {
         return postMapper.getPostInformationByPost(code);
     }
 
+    public List<PostDTO> selectPostListBySeriesCode(long seriesCode) {
+        return postMapper.selectPostListBySeriesCode(seriesCode);
+    }
 }
