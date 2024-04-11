@@ -36,7 +36,14 @@
 .aside-body .aside-nav li:hover { color: #999 } 
 .aside-body .aside-nav li a { display: block } 
 
-#footer { min-height: 240px; background-color: #f4f4f4 } 
+#footer {display: none; min-height: 240px; background-color: #f4f4f4 }
+
+.sub-content.tab-content{padding-top:40px}
+.tab-menu {margin-bottom: 40px}
+.tab-menu-list{display: flex;  margin: 0 auto;justify-content: center; }
+.tab-menu-list .tab-menu-item{margin:0 20px; font-size: 20px}
+.tab-menu-list .tab-menu-item.active{box-shadow: inset 0 -6px #0d6efdd1; font-weight: bold;}
+
 
 /* layout */
 #container { position: relative; min-height: calc(100vh - 81px); overflow: hidden; } 
