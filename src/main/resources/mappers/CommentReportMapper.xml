@@ -34,15 +34,7 @@
         AND code = #{userCode}
     </update>
 
-    <update id="StopUser">
-        UPDATE
-        user
-        SET state = 'SUSPENDED'
-        WHERE state = 'ACTIVE'
-        AND code = #{userCode}
-    </update>
-
-    <update id="deleteByUserCode" parameterType="com.pentoryall.admin.dtos.CommentReportDTO">
+    <update id="deleteByUserCode">
         UPDATE
         post
         SET is_deleted = 'Y'
@@ -50,25 +42,6 @@
         AND code = #{postCode}
     </update>
 
-    <!--    <select id="selectAllCommentReportList" resultType="com.pentoryall.admin.dtoss.CommentReportDTO">-->
-    <!--        SELECT-->
-    <!--            c.user_code,-->
-    <!--            u.name,-->
-    <!--            c.create_date,-->
-    <!--            c.content,-->
-    <!--            p.user_code,-->
-    <!--            u2.name ,-->
-    <!--            p.title-->
-    <!--        FROM-->
-    <!--            comment c-->
-    <!--                JOIN-->
-    <!--            post p ON c.post_code = p.code-->
-    <!--                JOIN-->
-    <!--            user u ON c.user_code = u.code-->
-    <!--                JOIN-->
-    <!--            user u2 ON p.user_code = u2.code;-->
-
-    <!--    </select>-->
 
 </mapper>
 
