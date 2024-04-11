@@ -1,12 +1,16 @@
-const $checkEmail = document.querySelector("#checkEmail");
 const $memail = document.querySelector("#memail");
 const $memailconfirmTxt = document.querySelector("#memailconfirmTxt");
 
-// 서버에서 받은 이메일 중복 여부
 let isEmailDuplicate = false;
 
 // 이메일 인증번호
-$checkEmail.addEventListener("click", function () {
+
+// 이메일 인증번호
+function sendEmailConfirmation() {
+    if (!isEmailDuplicationChecked) {
+        alert("이메일 중복 확인을 먼저 해주세요.");
+        return; // 중복 확인을 먼저 요청하도록 함수 종료
+    }
     $.ajax({
         type: "POST",
         url: "/user/mailConfirm",
@@ -17,8 +21,48 @@ $checkEmail.addEventListener("click", function () {
             alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
             console.log("data : " + data);
         }
-    })
-})
+    });
+}
+
+// 중복 확인 여부를 저장할 변수
+let isEmailDuplicationChecked = false;
+
+// 이메일 중복 확인 버튼 클릭 이벤트 처리
+if (document.getElementById("emailDuplicationCheck")) {
+    const $emailDuplicationCheck = document.getElementById("emailDuplicationCheck");
+    $emailDuplicationCheck.onclick = function () {
+        let email = document.getElementById("memail").value.trim();
+
+        // 이메일 중복 확인 요청
+        fetch("/user/emailDupCheck", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({email: email})
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result === true) {
+                    alert("중복된 이메일입니다.");
+                    // 중복된 이메일이 있으면 인증 버튼을 비활성화합니다.
+                    document.getElementById("checkEmail").disabled = true;
+                } else if (result === false) {
+                    alert("사용 가능한 이메일입니다.");
+                    isEmailDuplicationChecked = true;
+                    // 중복 확인 후에 이메일 인증 버튼을 활성화합니다.
+                    document.getElementById("checkEmail").disabled = false;
+                    $checkEmail.addEventListener("click", sendEmailConfirmation); // 클릭 이벤트 등록
+                }
+            })
+        // .catch(error => console.error('Error:', error));
+    }
+}
+
+// 이메일 인증 버튼 클릭 이벤트 처리
+const $checkEmail = document.querySelector("#checkEmail");
+$checkEmail.addEventListener("click", sendEmailConfirmation);
+
 
 const $checkEmailNum = document.querySelector("#checkEmailNum");
 const $memailconfirm = document.querySelector("#memailconfirm");
