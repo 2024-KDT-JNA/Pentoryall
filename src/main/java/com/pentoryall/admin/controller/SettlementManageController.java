@@ -1,6 +1,6 @@
 package com.pentoryall.admin.controller;
 
-import com.pentoryall.admin.service.PayManageService;
+import com.pentoryall.admin.service.SettlementManageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +16,12 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping("/admin/pay")
-public class PayManageController {
+public class SettlementManageController {
 
-    private final PayManageService payManageService;
+    private final SettlementManageService payManageService;
 
 
-    public PayManageController(PayManageService payManageService) {
+    public SettlementManageController(SettlementManageService payManageService) {
         this.payManageService = payManageService;
 
     }

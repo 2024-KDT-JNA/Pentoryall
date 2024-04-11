@@ -1,7 +1,7 @@
 package com.pentoryall.admin.service;
 
 import com.pentoryall.admin.dtos.PayManageDTO;
-import com.pentoryall.admin.mappers.PayManageMapper;
+import com.pentoryall.admin.mappers.SettlementManageMapper;
 import com.pentoryall.common.page.Pagination;
 import com.pentoryall.common.page.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
@@ -15,17 +15,17 @@ import java.util.Map;
 @Slf4j
 @Service
 @Transactional
-public class PayManageService {
+public class SettlementManageService {
 
-    private final PayManageMapper payManageMapper;
+    private final SettlementManageMapper settlementManageMapper;
 
-    public PayManageService(PayManageMapper payManageMapper) {
-        this.payManageMapper = payManageMapper;
+    public SettlementManageService(SettlementManageMapper settlementManageMapper) {
+        this.settlementManageMapper = settlementManageMapper;
     }
 
     public Map<String, Object> payAllList(Map<String, String> searchMap, int page) {
 
-        int totalCount = payManageMapper.selectTotalCount(searchMap);
+        int totalCount = settlementManageMapper.selectTotalCount(searchMap);
         log.info("payAllList totalCount : {}", totalCount);
 
         int limit = 10;
@@ -34,7 +34,7 @@ public class PayManageService {
         log.info("payAllList selectCriteria : {}", selectCriteria);
 
         /* 요청 페이지와 검색 기준에 맞는 게시글을 조회해온다. */
-        List<PayManageDTO> payAllList = payManageMapper.selectPayAllList(selectCriteria);
+        List<PayManageDTO> payAllList = settlementManageMapper.selectPayAllList(selectCriteria);
         log.info("payAllList : {}", payAllList);
 
         // Model에 추가할 속성 이름을 Controller에서 사용하는 이름으로 변경
@@ -48,6 +48,6 @@ public class PayManageService {
     }
 
     public int payConfirmByUserCode(long userCode, String state) {
-        return payManageMapper.payConfirmByUserCode(userCode, state);
+        return settlementManageMapper.payConfirmByUserCode(userCode, state);
     }
 }
