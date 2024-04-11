@@ -141,7 +141,7 @@
         UPDATE
             series
         SET
-            is_deleted = 'N'
+            is_deleted = 'Y'
         WHERE
             code=#{code}
     </update>

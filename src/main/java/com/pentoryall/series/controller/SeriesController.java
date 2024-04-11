@@ -172,7 +172,6 @@ public class SeriesController {
     @GetMapping("/update")
     public String updateSeries(@RequestParam long code,
                                Model model,
-
                                HttpSession session) {
         SeriesDTO seriesDTO = seriesService.getSeriesInformationBySeriesCode(code);
         System.out.println("seriesDTO = " + seriesDTO);
