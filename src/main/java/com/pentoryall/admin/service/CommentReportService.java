@@ -2,7 +2,6 @@ package com.pentoryall.admin.service;
 
 import com.pentoryall.admin.dtos.CommentReportDTO;
 import com.pentoryall.admin.mappers.CommentReportMapper;
-import com.pentoryall.admin.mappers.UserManageMapper;
 import com.pentoryall.common.page.Pagination;
 import com.pentoryall.common.page.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,7 @@ public class CommentReportService {
 
     private final CommentReportMapper commentReportMapper;
 
-    public CommentReportService(CommentReportMapper commentReportMapper, UserManageMapper userManageMapper, UserManageMapper userManageMapper1) {
+    public CommentReportService(CommentReportMapper commentReportMapper) {
         this.commentReportMapper = commentReportMapper;
     }
 
@@ -47,14 +46,6 @@ public class CommentReportService {
         return commentListAndPaging;
     }
 
-
-    //    public void releaseUserById(long userCode) throws MemberStopException {
-    //        int result = commentReportMapper.noStopUser(userCode);
-    //
-    //        if (!(result > 0)) {
-    //            throw new MemberStopException("회원 정지해제에 실패하였습니다.");
-    //        }
-    //    }
 
     public int updateStateByUserCode(long userCode, String state) {
 
