@@ -4,6 +4,7 @@
 
 <th:block layout:fragment="link">
     <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css"/>
+    <link rel="stylesheet" th:href="@{/css/membership.css}" href="/css/main.css"/>
 
 </th:block>
 
@@ -13,10 +14,11 @@
             <section class="section">
 
                 <h2 class="h2" th:text="|${storyUser.nickname}님의 창작 활동을 펜토리얼은 응원합니다.|"></h2>
-                <p>멤버십 플랜을 활성화 시켜 작가님 만의 팬들을 만들어 소통해보세요!.</p>
-                <p>팬들이 멤버십 가입이 작가님의 수익으로 전환될 수 있어요! </p>
-
-                <div th:if="${membership != null}">
+                <div class="top-comment">
+                    <p>멤버십 플랜을 활성화 시켜 작가님 만의 팬들을 만들어 소통해보세요!.</p>
+                    <p>팬들이 멤버십 가입이 작가님의 수익으로 전환될 수 있어요! </p>
+                </div>
+                <div class="membership-box" th:if="${membership != null}">
                     <ul>
                         <li th:each="membership : ${membership}">
                             <p th:text="${membership.name}"></p>

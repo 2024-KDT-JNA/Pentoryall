@@ -1,6 +1,8 @@
+/*------------멤버십 소개 인트로-----------*/
 .sub-content.section {
     margin-top: 142px;
     text-align: center;
+    position: relative; /* 부모 요소에 대해 position을 추가 */
 }
 
 .userPost {
@@ -18,7 +20,7 @@
     text-align: center;
 }
 
-.button {
+.create-button {
     background-color: black;
     color: white;
     margin: 0 auto; /* 가운데 정렬 */
@@ -30,11 +32,39 @@
     font-size: 22px;
 }
 
-.coment {
+.comment {
     margin-top: 50px;
     text-align: center;
     color: #908f8f;
     font-size: 20px;
 }
 
-.bo
+.bottom-comment {
+    margin-top: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.sub-comment {
+    margin-top: 50px;
+}
+
+.p1 {
+    font-size: 30px;
+}
+
+.membership-comment {
+    margin-top: 50px;
+}
+
+/*------- 멤버십 개설 후 화면 --------*/
+
+.top-comment {
+    color: #94979f;
+    margin-bottom: 20px;
+}
+
+.membership-box {
+    font-weight: bold;
+}
