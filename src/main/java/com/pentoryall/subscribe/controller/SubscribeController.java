@@ -105,7 +105,6 @@ public class SubscribeController {
         return "/views/subscribe/noStoryList";
     }
 
-
     @GetMapping("/postList")
     public String getPostList() {
         return "/views/subscribe/postList";

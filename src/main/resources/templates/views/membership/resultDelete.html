@@ -1,0 +1,20 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Membership Creation Success</title>
+</head>
+<body>
+
+<th:block th:if="${errorMessage != null}">
+    <h1>멤버십 탈퇴 성공</h1>
+    <p>멤버십이 성공적으로 생성되었습니다!</p>
+    <a th:href="|/story/${#authentication.principal.userId}/memberships|">확인</a>
+</th:block>
+
+<th:block th:unless="${errorMessage != null}">
+    <h1>멤버십 탈퇴 실패</h1>
+    <p>멤버십 탈퇴 중에 문제가 생겨 탈퇴를 완료하지 못하였습니다.</p>
+    <a th:href="|/story/${#authentication.principal.userId}/memberships|">확인</a>
+</th:block>
+</body>
+</html>
