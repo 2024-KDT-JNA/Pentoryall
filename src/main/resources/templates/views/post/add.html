@@ -18,13 +18,13 @@
                                 <label class="label">제목*</label>
                             </h4>
                             <div class="title-wrap">
-                                <div class="upload-thumbnail post-title-input">
+                                <div class="post-title-input">
                                     <input class="input" name="title" maxlength="50" type="text" th:value="${session.title}" th:placeholder="${session.title}" />
                                     <p class="recognize-title-size" hidden>제목을 1글자 이상 입력하여주세요.</p>
                                 </div>
                             </div>
                             <div class="contents-wrap">
-                                <div class="upload-thumbnail">
+                                <div>
                                     <input name="contents" type="text" th:value="${session.contents}" th:placeholder="${session.contents}" hidden required="false" />
                                 </div>
                             </div>
