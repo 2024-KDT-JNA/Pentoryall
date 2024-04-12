@@ -49,7 +49,8 @@ public class MembershipController {
         } else {
             model.addAttribute("membership", membershipDTO); // 생성된 멤버십을 모델에 추가합니다.
 
-        } return "views/membership/resultModify"; // 수정이 성공하면 해당 뷰로 이동합니다.
+        }
+        return "views/membership/resultModify"; // 수정이 성공하면 해당 뷰로 이동합니다.
     }
 
     @PostMapping("/delete")
@@ -61,7 +62,8 @@ public class MembershipController {
         if (membershipDTO == null)
             model.addAttribute("errorMessage", "멤버십 탈퇴 과정 중에 오류가 발생하였습니다. :");
         else {
-        }   return "/views/membership/resultDelete";
+        }
+        return "/views/membership/resultDelete";
     }
 
 
@@ -90,6 +92,7 @@ public class MembershipController {
     @GetMapping("/joinMemberList")
     public String getJoinMemberList(Model model, @AuthenticationPrincipal UserDTO user) {
         List<MembershipJoinDTO> joinMemberList = membershipService.selectAllJoinMemberList(user.getCode());
+        System.out.println("user = " + user);
         model.addAttribute("joinMemberList", joinMemberList);
         if ((joinMemberList.isEmpty())) {
             return "/views/membership/noJoinMemberList";
