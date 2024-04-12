@@ -4,32 +4,44 @@
 
 <th:block layout:fragment="link">
     <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css"/>
+    <link rel="stylesheet" th:href="@{/css/membership.css}" href="/css/main.css"/>
 
 </th:block>
 
 <th:block layout:fragment="content">
     <div class="story-content">
         <div class="inner">
-            <section class="section">
-
+            <section class="section-membership-info">
                 <h2 class="h2" th:text="|${storyUser.nickname}님의 창작 활동을 펜토리얼은 응원합니다.|"></h2>
-                <p>멤버십 플랜을 활성화 시켜 작가님 만의 팬들을 만들어 소통해보세요!.</p>
-                <p>팬들이 멤버십 가입이 작가님의 수익으로 전환될 수 있어요! </p>
+                <div>
+                    <div class="top-comment">
+                        <p>멤버십 플랜을 활성화 시켜 작가님 만의 팬들을 만들어 소통해보세요!.</p>
+                        <p>팬들이 멤버십 가입이 작가님의 수익으로 전환될 수 있어요! </p>
+                    </div>
+                    <div class="membership-Info-box" th:if="${membership != null}">
+                        <div class="membership-box-text">
+                            <ul>
+                                <li th:each="membership : ${membership}">
 
-                <div th:if="${membership != null}">
-                    <ul>
-                        <li th:each="membership : ${membership}">
-                            <p th:text="${membership.name}"></p>
-                            <p th:text="${membership.price}"></p>
-                            <p>/월</p>
-                            <p th:text="${membership.introduction}"></p>
-                            <p th:text="${membership.color}"></p>
-                        </li>
-                    </ul>
-                    <div>
-                        <button type="button" onclick="location.href='/membership/joinMemberList'">멤버십 정보
-                        </button>
-                        <button type="button" onclick="location.href='/membership/modify'">멤버십 수정 / 탈퇴</button>
+                                    <p class="membership-title" th:text="${membership.name}"></p>
+                                    <p class="membership-price" th:text="${membership.price}"></p>
+                                    <p class="membership-price">/월</p>
+                                    <p class="membership-intro" th:text="${membership.introduction}"></p>
+                                    <!--                                <p th:text="${membership.color}"></p>&ndash;&gt;-->
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="membership-setting-button">
+                            <button type="button" th:if="${loginUser.userId}!=${user}" class="button"
+                                    onclick="location.href='/#'">멤버십 가입
+                            </button>
+                            <button type="button" th:if="${loginUser.userId}==${user}" class="button"
+                                    onclick="location.href='/membership/joinMemberList'">멤버십 정보
+                            </button>
+                            <button type="button" th:if="${loginUser.userId}==${user}" class="button"
+                                    onclick="location.href='/membership/modify'">멤버십 수정 / 탈퇴
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>

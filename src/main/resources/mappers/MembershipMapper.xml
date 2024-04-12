@@ -30,24 +30,24 @@
                create_date,
                update_date,
                delete_date
-          FROM membership
-         WHERE membership.user_code = #{userCode}
-           AND is_deleted = 'N'
+        FROM membership
+        WHERE membership.user_code = #{userCode}
+          AND is_deleted = 'N'
     </select>
 
     <update id="modifyMembership" parameterType="com.pentoryall.membership.dto.MembershipDTO">
         UPDATE membership
-           SET name         = #{name},
-               introduction = #{introduction},
-               color        = #{color}
-         WHERE user_code = #{userCode}
+        SET name         = #{name},
+            introduction = #{introduction},
+            color        = #{color}
+        WHERE user_code = #{userCode}
     </update>
 
     <update id="updateIsDeleted" parameterType="java.lang.Long">
         UPDATE membership
-           SET is_deleted  = 'Y',
-               delete_date = NOW()
-         WHERE code = #{code}
+        SET is_deleted  = 'Y',
+            delete_date = NOW()
+        WHERE code = #{code}
     </update>
 
     <insert id="joinMembership" parameterType="com.pentoryall.membership.dto.MembershipJoinDTO">
@@ -60,22 +60,23 @@
     </insert>
     <select id="selectMembershipJoinList" resultType="com.pentoryall.membership.dto.MembershipJoinDTO">
         SELECT m.name, mj.create_date, m.price
-          FROM membership m
-                   INNER JOIN membership_join mj ON m.code = mj.membership_code
-         WHERE mj.user_code = #{userCode}
+        FROM membership m
+                 INNER JOIN membership_join mj ON m.code = mj.membership_code
+        WHERE mj.user_code = #{userCode}
     </select>
     <select id="selectJoinMemberList" resultType="com.pentoryall.membership.dto.MembershipJoinDTO">
         SELECT u.nickname, m.create_date
-          FROM membership_join mj
-                   JOIN user u ON u.code = mj.user_code
-                   JOIN membership m ON m.code = mj.membership_code
-         WHERE mj.membership_code = #{membershipCode}
+        FROM membership m
+                 JOIN membership_join mj ON m.code = mj.membership_code
+                 JOIN user u ON u.code = mj.user_code
+        WHERE m.user_code = #{userCode}
+          AND m.is_deleted = 'N'
     </select>
     <select id="existsMembershipJoinCode" resultType="java.lang.Long">
         SELECT code
-          FROM membership_join
-         WHERE user_code = #{ userCode }
-           AND membership_code = #{ membershipCode }
-           AND (end_date > CURRENT_TIMESTAMP OR end_date IS NULL)
+        FROM membership_join
+        WHERE user_code = #{ userCode }
+          AND membership_code = #{ membershipCode }
+          AND (end_date > CURRENT_TIMESTAMP OR end_date IS NULL)
     </select>
 </mapper>

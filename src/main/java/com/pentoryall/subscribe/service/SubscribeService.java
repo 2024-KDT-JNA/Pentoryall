@@ -26,16 +26,20 @@ public class SubscribeService {
         return subscribeMapper.getAllSubscribers(code);
     }
 
-    public int getSubscriberCount(long code) {
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM subscribe WHERE subscribe_user_code = ?", Integer.class, code);
-    }
 
     public List<SubscribeDTO> selectAllSubscribeStory(long code) {
         return subscribeMapper.getAllSubscribeStory(code);
     }
 
-    public int getSubscribeStoryCount(long code) {
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM subscribe WHERE user_code = ?", Integer.class, code);
+
+    public void updateSubscriberVisible(long userCode, char isSubscriberVisible) {
+        List<SubscribeDTO> subscribers = subscribeMapper.selectSubscribersByUserCode(userCode);
+        if (subscribers != null && !subscribers.isEmpty()) {
+            for (SubscribeDTO subscribeDTO : subscribers) {
+                subscribeDTO.setIsSubscriberVisible(isSubscriberVisible);
+                subscribeMapper.updateSubscriberStatus(subscribeDTO);
+            }
+        }
     }
 
     @Transactional
@@ -46,15 +50,5 @@ public class SubscribeService {
     @Transactional
     public void cancelSubscribe(SubscribeDTO subscribeDTO) {
         subscribeMapper.cancelSubscriber(subscribeDTO);
-    }
-
-    public void updateSubscriberVisible(long userCode, char isSubscriberVisible) {
-        List<SubscribeDTO> subscribers = subscribeMapper.selectSubscribersByUserCode(userCode);
-        if (subscribers != null && !subscribers.isEmpty()) {
-            for (SubscribeDTO subscribeDTO : subscribers) {
-                subscribeDTO.setIsSubscriberVisible(isSubscriberVisible);
-                subscribeMapper.updateSubscriberStatus(subscribeDTO);
-            }
-        }
     }
 }

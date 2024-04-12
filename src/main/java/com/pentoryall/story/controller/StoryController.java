@@ -89,11 +89,18 @@ public class StoryController {
     }
 
     @GetMapping("/{userId}/memberships")
-    public String storyMembershipPage(@PathVariable("userId") String userId, Model model) {
+    public String storyMembershipPage(@PathVariable("userId") String userId,
+                                      @AuthenticationPrincipal UserDTO userDTO,
+
+                                      Model model) {
         UserDTO selectedUser = getUserOrNotFoundException(userId);
         MembershipDTO membership = membershipService.selectMembershipByUserCode(selectedUser.getCode()); // 멤버십 정보를 가져옵니다.
         model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
         model.addAttribute("membership", membership); // 가져온 멤버십 정보를 모델에 추가합니다.
+        model.addAttribute("loginUser", userDTO);
+        model.addAttribute("user", userId);
+        model.addAttribute("TAB_MENU", "membership");
+
         if (membership != null) {
             return "views/membership/planInfo";
         } else {
@@ -106,12 +113,16 @@ public class StoryController {
     }
 
     @GetMapping("/{userId}/subscribers")
-    public String getSubscriberList(@PathVariable("userId") String userId, Model model) {
+    public String getSubscriberList(@PathVariable("userId") String userId, Model model, @AuthenticationPrincipal UserDTO userDTO) {
         UserDTO selectedUser = getUserOrNotFoundException(userId);
+        char isSubscriberVisible = userDTO.getIsSubscriberVisible();
         List<SubscribeDTO> subscribersList = subscribeService.selectAllSubscribers(selectedUser.getCode());
+        model.addAttribute("isSubscriber", isSubscriberVisible);
         model.addAttribute("storyUser", new StoryUserDTO(selectedUser));
         model.addAttribute("subscribers", subscribersList);
-
+        model.addAttribute("loginUser", userDTO);
+        model.addAttribute("user", userId);
+        model.addAttribute("TAB_MENU", "subscribe");
         if (subscribersList.isEmpty()) {
             return "/views/subscribe/noSubscriberList";
         } else {
