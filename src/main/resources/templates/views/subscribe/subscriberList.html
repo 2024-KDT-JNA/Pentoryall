@@ -26,7 +26,10 @@
                                 <div th:each="subscribe : ${subscribers}">
                                     <p th:text="${subscribe.nickname}"></p>
                                     <p th:text="${subscribe.subscribeDate}"></p>
-                                    <button class="button">구독</button>
+                                    <button th:if="${loginUser.userId}==${user}" class="button"
+                                            th:attr="data-user-code=${subscribe.subscribeUserCode}"
+                                            onclick="toggleSubscribe(event)">구독중
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -36,8 +39,61 @@
             </div>
         </div>
     </div>
+
+    <!--    <div th:if="${loginUser.userId != user && user.isSubscriberVisible == 'N'}">-->
+    <!--        <p>해당 회원은 구독 목록을 비공개로 설정해놨어요!</p>-->
+    <!--    </div>-->
 </th:block>
 
+<th:block layout:fragment="script">
+    <script>
+        function toggleSubscribe(e) {
+            // console.log(e.target);
+            // console.log(e.target.dataset);
+            const button = e.target;
+            const buttonText = button.textContent.trim();
+            const userCode = e.target.dataset.userCode;
+
+            if (buttonText === "구독") {
+                addSubscribe(userCode, button);
+                console.log(userCode);
+            } else if (buttonText === "구독중") {
+                cancelSubscribe(userCode, button);
+                console.log(userCode);
+            }
+        }
+
+        function addSubscribe(subscribeUserCode, button) {
+            $.ajax({
+                type: "POST",
+                url: "/subscribe/add",
+                data: {subscribeUserCode},
+                success: function (response) {
+                    // alert("구독이 성공적으로 추가되었습니다.");
+                    button.textContent = "구독중";
+                },
+                error: function (xhr, status, error) {
+                    // alert("구독 추가에 실패했습니다. 다시 시도해주세요.");
+                }
+            });
+        }
+
+        function cancelSubscribe(subscribeUserCode, button) {
+            $.ajax({
+                type: "POST",
+                url: "/subscribe/cancel",
+                data: {subscribeUserCode},
+                success: function (response) {
+                    // alert("구독이 성공적으로 취소되었습니다.");
+                    button.textContent = "구독";
+                },
+                error: function (xhr, status, error) {
+                    // alert("구독 취소에 실패했습니다. 다시 시도해주세요.");
+                }
+            });
+        }
+    </script>
+</th:block>
 </html>
 
 

@@ -9,8 +9,8 @@
     <h1>멤버십 생성 성공</h1>
     <p>멤버십이 성공적으로 생성되었습니다!</p>
     <p th:text="${#authentication.principal.userId}"></p>
-<!--    <a type="" th:onclick="${'location.href=\'/story/' + #authentication.principal.userId + '/memberships\''}">확인</a>-->
-    <a th:href="|/story/${#authentication.principal.userId}/memberships|">확인</a>
+    <!--    <a type="" th:onclick="${'location.href=\'/story/' + #authentication.principal.userId + '/memberships\''}">확인</a>-->
+    <a class="button" th:href="|/story/${#authentication.principal.userId}/memberships|">확인</a>
 
     <p th:text="${membership.name}"></p>
 </th:block>
@@ -18,7 +18,7 @@
 <th:block th:unless="${errorMessage != null}">
     <h1>멤버십 생성 실패</h1>
     <p></p>
-    <button type="button" onclick="location.href='/membership/planInfo'">확인</button>
+    <button type="button" class="button" onclick="location.href='/membership/planInfo'">확인</button>
     <p th:text="${membership.name}"></p>
 </th:block>
 </body>
