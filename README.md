@@ -53,60 +53,69 @@
   - `mapper`
   - `dto`  
 
- 
+
+<details>
+  <summary>`java`</summary>
 ```
-main
-├─java
-│  └─com
-│      └─pentoryall
-│          ├─admin
-│          ├─comment
-│          ├─common
-│          │  ├─exception
-│          │  └─page
-│          ├─config
-│          ├─email
-│          ├─genre
-│          ├─genreOfArt
-│          ├─membership
-│          ├─point
-│          ├─portone
-│          ├─post
-│          ├─series
-│          ├─settlement
-│          ├─story
-│          ├─subscribe
-│          └─user
-└─resources
-    ├─mappers
-    ├─messages
-    ├─static
-    │  ├─css
-    │  ├─images
-    │  ├─js
-    │  └─libs
-    └─templates
-        ├─error
-        ├─fragments
-        │  ├─common
-        │  ├─post
-        │  ├─settings
-        │  └─story
-        ├─layout
-        └─views
-            ├─admin
-            ├─common
-            ├─email
-            ├─membership
-            ├─point
-            ├─post
-            ├─series
-            ├─settlement
-            ├─story
-            ├─subscribe
-            └─user
-                └─settlement
+com
+└─pentoryall
+    ├─admin
+    ├─comment
+    ├─common
+    │  ├─exception
+    │  └─page
+    ├─config
+    ├─email
+    ├─genre
+    ├─genreOfArt
+    ├─membership
+    ├─point
+    ├─portone
+    ├─post
+    ├─series
+    ├─settlement
+    ├─story
+    ├─subscribe
+    └─user
 ```
+</details> 
+
+<details>
+  <summary>`resources`</summary>
+```
+resources
+├─mappers
+├─messages
+├─static
+│  ├─css
+│  ├─images
+│  ├─js
+│  └─libs
+└─templates
+    ├─fragments
+    │  ├─common
+    │  ├─post
+    │  ├─settings
+    │  └─story
+    ├─layout
+    └─views
+       ├─admin
+       ├─common
+       ├─email
+       ├─membership
+       ├─point
+       ├─post
+       ├─series
+       ├─settlement
+       ├─story
+       ├─subscribe
+       └─user
+          └─settlement
+```
+
+</details> 
+
+<!-- ---------------------------------------------------------
 
 ## 3. 역할 분담
 
@@ -125,4 +134,3 @@ main
 ## 7. 개선 목표
 
 ## 8. 프로젝트 후기
-
