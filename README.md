@@ -92,6 +92,7 @@ resources
 │  ├─js
 │  └─libs
 └─templates
+    ├─error
     ├─fragments
     │  ├─common
     │  ├─post
@@ -110,7 +111,7 @@ resources
        ├─story
        ├─subscribe
        └─user
-          └─settlement
+
 ```
 
 </details> 
