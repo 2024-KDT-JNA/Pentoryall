@@ -6,29 +6,52 @@
   - 모두가 작가이며 독자가 되는 아이디어 공간
   - 펜토리얼은 자신의 아이디어를 판매를 합니다.
 
-## 팀원 구성
-
-<div align="center">
-
-| **고동환** |    **김아현**    |  **신승재**  |  **오나윤**   | **정가연** |
-|:---------------------------------------------:|:---------------------------------------------:|:---------------------------------------------:|:---------------------------------------------:|:---------------------------------------------:|
-| [<img src="https://avatars.githubusercontent.com/u/111329365?v=4" height=150 width=150> <br/> @eurdream98](https://github.com/eurdream98) |[<img src="https://avatars.githubusercontent.com/u/42160693?s=96&v=4" height=150 width=150> <br/> @may54ther](https://github.com/may54ther) | [<img src="https://avatars.githubusercontent.com/u/154950075?s=60&v=4" height=150 width=150> <br/> @seungjaeshina](https://github.com/seungjaeshina) | [<img src="https://avatars.githubusercontent.com/u/99164178?s=60&v=4" height=150 width=150> <br/> @yunii2222](https://github.com/yunii2222) |[<img src="https://avatars.githubusercontent.com/u/163974510?v=4" height=150 width=150> <br/> @#59bfish8](https://github.com/#59bfish8) |
-
-</div>
 
 ## 0. 규칙
 
 ## 1. 개발 환경
-- **FE** HTML, CSS, JavaScript, jQuery
-- **BE** Java 17, Spring Boot, Spring Security, Thymeleaf, MyBatis
-- **DB** MySQL, Redis
-- **결제모듈** PortOne API
-- **UI** Swiper.js, Toast UI Editor
-- **관리** Git, Github
-- **협업** Discord, Notion
-- **디자인** Figma
+
+  [![Figma](https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=white)](https://www.figma.com/)
+  [![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?logo=intellij-idea&logoColor=white)](https://www.jetbrains.com/idea/)
+  [![Git](https://img.shields.io/badge/Git-000000?logo=git&logoColor=F05032)](https://git-scm.com/)
+  [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/)
+  [![Notion](https://img.shields.io/badge/Notion-000000?logo=notion&logoColor=white)](https://www.notion.so/)
+  [![Discord](https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white)](https://discord.com/)
+
+---
+
+  ![HTML](https://img.shields.io/badge/HTML-HTML5-E34F26)
+  ![CSS](https://img.shields.io/badge/CSS-CSS3-1572B6)
+  ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E)
+  ![jQuery](https://img.shields.io/badge/jQuery-v3.6.0-0769AD)
+  ![Swiper.js](https://img.shields.io/badge/Swiper.js-v6.10.2-6332F6)
+  ![Toast UI Editor](https://img.shields.io/badge/Toast%20UI%20Editor-v2.2.8-34495E)
+<br>
+  ![Java](https://img.shields.io/badge/Java-17-007396)
+  ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.3-6DB33F)
+  ![Spring Security](https://img.shields.io/badge/Spring%20Security-6.0.0-6DB33F)
+  ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.0.12-005F0F)
+  ![MyBatis](https://img.shields.io/badge/MyBatis-3.0.3-1F3B4D)
+<br>
+
+  ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1)
+  ![Redis](https://img.shields.io/badge/Redis-6.2-DC382D)
+<br>
+
+  ![PortOne API](https://img.shields.io/badge/PortOne%20API-iamport--rest--client--java%200.1.6-2E2E2E) 
+  ![Mail](https://img.shields.io/badge/Spring%20Boot%20Starter%20Mail-spring--boot--starter--mail-6DB33F)
+  ![Lombok](https://img.shields.io/badge/Lombok-1.18.20-F1C40F)
+
+
+
 
 ## 2. 프로젝트 구조
+
+- 각 도메인 별로 하위 패키지 구성
+  - `controller`
+  - `service` 
+  - `mapper`
+  - `dto`  
 
  
 ```
@@ -84,25 +107,16 @@ main
             └─user
                 └─settlement
 ```
-- 각 도메인 별로 하위 패키지 구성
-  - `controller`
-  - `service` 
-  - `mapper`
-  - `dto`  
-<!-- 
+
 ## 3. 역할 분담
 
-### 고동환
+<div align="center">
 
-### 김아현
+| **고동환** |    **김아현**    |  **신승재**  |  **오나윤**   | **정가연** |
+|:---------------------------------------------:|:---------------------------------------------:|:---------------------------------------------:|:---------------------------------------------:|:---------------------------------------------:|
+| [<img src="https://avatars.githubusercontent.com/u/111329365?v=4" height=150 width=150> <br/> @eurdream98](https://github.com/eurdream98) |[<img src="https://avatars.githubusercontent.com/u/42160693?s=96&v=4" height=150 width=150> <br/> @may54ther](https://github.com/may54ther) | [<img src="https://avatars.githubusercontent.com/u/154950075?s=60&v=4" height=150 width=150> <br/> @seungjaeshina](https://github.com/seungjaeshina) | [<img src="https://avatars.githubusercontent.com/u/99164178?s=60&v=4" height=150 width=150> <br/> @yunii2222](https://github.com/yunii2222) |[<img src="https://avatars.githubusercontent.com/u/163974510?v=4" height=150 width=150> <br/> @9bfish8](https://github.com/9bfish8) |
 
-### 신승재
-
-### 오나윤
-
-### 정가연
-
-## 4. 역할 분담
+</div>
 
 ## 5. 작업 내역
 
@@ -112,12 +126,3 @@ main
 
 ## 8. 프로젝트 후기
 
-### 고동환
-
-### 김아현
-
-### 신승재
-
-### 오나윤
-
-### 정가연 -->
