@@ -1,5 +1,5 @@
 # Pentoryall
-<img src="https://raw.githubusercontent.com/2024-KDT-JNA/Pentoryall/main/src/main/resources/static/images/common/favicon.png" width="200" alt="Symbol">
+<img src="https://raw.githubusercontent.com/2024-KDT-JNA/Pentoryall/main/src/main/resources/static/images/common/favicon.png" width="150" alt="Symbol">
 
 ## 프로젝트 소개
  <img src="https://raw.githubusercontent.com/2024-KDT-JNA/Pentoryall/main/src/main/resources/static/images/common/logo_pentoryall.png" alt="logo">  
@@ -108,11 +108,14 @@ resources
 <center>
  
 ## 3. 역할 분담
- 
-| 고동환 | 김아현 | 신승재 | 오나윤 | 정가연 |    
-|:--------:|:--------:|:--------:|:--------:|:--------:| 
-| [<img src="https://avatars.githubusercontent.com/u/111329365?v=4" height=100 width=100> <br/> @eurdream98](https://github.com/eurdream98) |[<img src="https://avatars.githubusercontent.com/u/42160693?s=96&v=4" height=100 width=100> <br/> @may54ther](https://github.com/may54ther) | [<img src="https://avatars.githubusercontent.com/u/154950075?s=60&v=4" height=100 width=100> <br/> @seungjaeshina](https://github.com/seungjaeshina) | [<img src="https://avatars.githubusercontent.com/u/99164178?s=60&v=4" height=100 width=100> <br/> @yunii2222](https://github.com/yunii2222) |[<img src="https://avatars.githubusercontent.com/u/163974510?v=4" height=100 width=100> <br/> @9bfish8](https://github.com/9bfish8) |
-| - 시리즈<br/> - 포스트<br/> - 댓글 | - 결제<br/> - 정산<br/> - 공통 레이아웃 | - 멤버십<br/> - 구독 | - 회원<br/> - 좋아요 | - 회원 관리<br/>- 장르 관리<br/>- 신고 관리<br/>- 유료 포스트 관리<br/>- 정산 관리 |
+
+| **팀원** | | **담당** |
+|:---------:|:-------------:|:--------------------------------------------------------|
+| **고동환** | [<img src="https://avatars.githubusercontent.com/u/111329365?v=4" height=100 width=100> <br/> @eurdream98](https://github.com/eurdream98) | 시리즈, 포스트, 댓글 |
+| **김아현** | [<img src="https://avatars.githubusercontent.com/u/42160693?s=96&v=4" height=100 width=100> <br/> @may54ther](https://github.com/may54ther) | 공통 레이아웃 <br> 결제, 정산  |
+| **신승재** | [<img src="https://avatars.githubusercontent.com/u/154950075?s=60&v=4" height=100 width=100>  <br/> @seungjaeshina](https://github.com/seungjaeshina) | 멤버십, 구독 |   
+| **오나윤** | [<img src="https://avatars.githubusercontent.com/u/99164178?s=60&v=4" height=100 width=100> <br/> @yunii2222](https://github.com/yunii2222) | 회원, 좋아요 |
+| **정가연** | [<img src="https://avatars.githubusercontent.com/u/163974510?v=4" height=100 width=100>  <br/> @9bfish8](https://github.com/9bfish8) | 관리자(회원, 장르, 신고, 유료 포스트, 정산) |
 
 </center>
 
@@ -126,18 +129,4 @@ resources
 ## 7. 개선 목표
 
 ## 8. 프로젝트 후기
-
-
-
-
-
-
-| **팀원** | | **담당** |
-|:-------:|:----|:--------------------------------------------------------|
-| **고동환** <br/> [@eurdream98](https://github.com/eurdream98) | [<img src="https://avatars.githubusercontent.com/u/111329365?v=4" height=100 width=100>](https://github.com/eurdream98) | 시리즈, 포스트, 댓글 |
-| **김아현** <br/> [@may54ther](https://github.com/may54ther) |  [<img src="https://avatars.githubusercontent.com/u/42160693?s=96&v=4" height=100 width=100>](https://github.com/may54ther) | 공통 레이아웃 <br> 결제, 정산  |
-| **신승재** <br/> @seungjaeshina |[<img src="https://avatars.githubusercontent.com/u/154950075?s=60&v=4" height=100 width=100> ](https://github.com/seungjaeshina) | 멤버십, 구독 |   
-| **오나윤** <br/> @yunii2222 | [<img src="https://avatars.githubusercontent.com/u/99164178?s=60&v=4" height=100 width=100>](https://github.com/yunii2222) | 회원, 좋아요 |
-| **정가연** <br/> @9bfish8 | [<img src="https://avatars.githubusercontent.com/u/163974510?v=4" height=100 width=100>](https://github.com/9bfish8) | 관리자(회원, 장르, 신고, 유료 포스트, 정산) |
-
-->
+-->
