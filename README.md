@@ -3,10 +3,10 @@
 
 ## 프로젝트 소개
  <img src="https://raw.githubusercontent.com/2024-KDT-JNA/Pentoryall/main/src/main/resources/static/images/common/logo_pentoryall.png" alt="logo">  
-- all of pen story
-- 모두가 작가이며 독자가 되는 아이디어 공간
-- 아이디어를 나만의 스토리로 작성하여 공유하거나 수익을 낼 수 있는 작가 중개 플랫폼
 
+- 펜토리얼(Pentoryall)은 자신의 이야기를 글로 작성하여 공유하고 수익을 낼 수 있는 중개 플랫폼 입니다.
+- 모두가 작가이며 독자가 되는 아이디어 공간으로 신청 없이도 작가로 활동할 수 있습니다.
+ 
 ## 0. 규칙
 <details>
   <summary>✅ Github 규칙</summary>
