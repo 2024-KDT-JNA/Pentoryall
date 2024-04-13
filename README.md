@@ -1,9 +1,11 @@
 # Pentoryall
+<img src="https://raw.githubusercontent.com/2024-KDT-JNA/Pentoryall/main/src/main/resources/static/images/common/favicon.png" width="200" alt="Symbol">
 
 ## 프로젝트 소개
-- **all of pen story**, Pentoryall
-  - 펜토리얼은 자신의 아이디어를 글로 작성하고 판매할 수 있는 작가 중개 플랫폼
-  - 모두가 작가이며 독자가 되는 아이디어 공간
+ <img src="https://raw.githubusercontent.com/2024-KDT-JNA/Pentoryall/main/src/main/resources/static/images/common/logo_pentoryall.png" alt="logo">  
+- all of pen story
+- 모두가 작가이며 독자가 되는 아이디어 공간
+- 아이디어를 나만의 스토리로 작성하여 공유하거나 수익을 낼 수 있는 작가 중개 플랫폼
 
 ## 0. 규칙
 <details>
@@ -33,7 +35,41 @@
   - 리뷰 후에는 **`Squash Merge`**
 </details>
 ## 1. 개발 환경
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)  
 
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
+![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)
+
+![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
+
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+
+![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=spring-security&logoColor=white)
+
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white)
+
+![MyBatis](https://img.shields.io/badge/MyBatis-4479A1?style=for-the-badge&logo=mybatis&logoColor=white)
+
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+
+![PortOne API](https://img.shields.io/badge/PortOne_API-4A154B?style=for-the-badge&logo=api&logoColor=white)
+
+![Swiper.js](https://img.shields.io/badge/Swiper.js-6332F6?style=for-the-badge&logo=swiper&logoColor=white)
+
+![Toast UI Editor](https://img.shields.io/badge/Toast_UI_Editor-7952B3?style=for-the-badge&logo=toast&logoColor=white)
+
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+
+  
   [![Figma](https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=white)](https://www.figma.com/)
   [![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?logo=intellij-idea&logoColor=white)](https://www.jetbrains.com/idea/)
   [![Git](https://img.shields.io/badge/Git-000000?logo=git&logoColor=F05032)](https://git-scm.com/)
