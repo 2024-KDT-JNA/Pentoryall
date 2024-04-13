@@ -1,14 +1,37 @@
 # Pentoryall
 
 ## 프로젝트 소개
-- 작가 중개 플랫폼
-- **all of pen story**
+- **all of pen story**, Pentoryall
+  - 펜토리얼은 자신의 아이디어를 글로 작성하고 판매할 수 있는 작가 중개 플랫폼
   - 모두가 작가이며 독자가 되는 아이디어 공간
-  - 펜토리얼은 자신의 아이디어를 판매를 합니다.
-
 
 ## 0. 규칙
-
+<details>
+  <summary>✅ **Github 규칙**</summary>
+    
+1. 이슈(issue) 등록
+        - 개발할 기능을 이슈에 발행
+        - 발생 시 마일스톤, 프로젝트, 라벨 등을 추가
+    2. 브랜치(branch) 생성 규칙
+        - `{ 라벨 }/{ 이슈_번호 }-{ 이슈_설명 }`
+        - ex. `settings/1-start-project`
+    3. 브랜치의 커밋 메시지(Commit Message)
+        - 키워드를 접두사(prefix)로 추가 후 내용을 입력
+        - **메시지 형식**
+            - `{ PREFIX_KEYWORD }: { COMMIT_MSG }`
+            - ex. `feat: 로그인 개발`
+        - **접두사 목록**
+            - `feat` : 기능 추가
+            - `refactor` : 동일 기능이나 코드 개선 시
+            - `fix` : 오타, 공백, 마크다운 파일 수정, reafactor 붙이기 애매할 때
+            - `test`  : 테스트 관련 사항 모두
+            - `chore` : 설정, 의존성, 파일 및 디렉터리 구조 변경/삭제 등
+    4. 개발 완료 후에는 풀 리퀘스트(Pull Request) 등록
+        - `#{이슈_번호} {기능_설명}`
+        - ex.  `#1 기본 프로젝트 설정`
+    5. 풀 리퀘스트 리뷰 및 병합(Merge)
+        - 리뷰 후에는 **`Squash Merge`**
+</details>
 ## 1. 개발 환경
 
   [![Figma](https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=white)](https://www.figma.com/)
@@ -32,6 +55,7 @@
   ![Spring Security](https://img.shields.io/badge/Spring%20Security-6.0.0-6DB33F)
   ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.0.12-005F0F)
   ![MyBatis](https://img.shields.io/badge/MyBatis-3.0.3-1F3B4D)
+  ![Lombok](https://img.shields.io/badge/Lombok-1.18.20-F1C40F)
 <br>
 
   ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1)
@@ -39,10 +63,6 @@
 <br>
 
   ![PortOne API](https://img.shields.io/badge/PortOne%20API-iamport--rest--client--java%200.1.6-2E2E2E) 
-  ![Mail](https://img.shields.io/badge/Spring%20Boot%20Starter%20Mail-spring--boot--starter--mail-6DB33F)
-  ![Lombok](https://img.shields.io/badge/Lombok-1.18.20-F1C40F)
-
-
 
 
 ## 2. 프로젝트 구조
@@ -53,9 +73,8 @@
   - `mapper`
   - `dto`  
 
-
 <details>
-  <summary>`java`</summary>
+  <summary>java</summary>
 ```
 com
 └─pentoryall
@@ -81,7 +100,7 @@ com
 </details> 
 
 <details>
-  <summary>`resources`</summary>
+  <summary>resources</summary>
 ```
 resources
 ├─mappers
@@ -113,10 +132,8 @@ resources
        └─user
 
 ```
-
 </details> 
 
-<!-- ---------------------------------------------------------
 
 ## 3. 역할 분담
 
