@@ -1,8 +1,11 @@
 # Pentoryall
-<img src="https://raw.githubusercontent.com/2024-KDT-JNA/Pentoryall/main/src/main/resources/static/images/common/favicon.png" width="150" alt="Symbol">
+
+ <img src="https://raw.githubusercontent.com/2024-KDT-JNA/Pentoryall/main/src/main/resources/static/images/common/favicon.png" width="150" alt="favicon"> 
+
 
 ## 프로젝트 소개
- <img src="https://raw.githubusercontent.com/2024-KDT-JNA/Pentoryall/main/src/main/resources/static/images/common/logo_pentoryall.png" alt="logo">  
+<img src="https://github.com/2024-KDT-JNA/Pentoryall/assets/42160693/ccc80f4c-5b6b-4508-8288-c29cde57d261" width="200" alt="logo_pentoryall_w">
+<br/><br/>
 
 - 펜토리얼(Pentoryall)은 자신의 이야기를 글로 작성하여 공유하고 수익을 낼 수 있는 중개 플랫폼 입니다.
 - 모두가 작가이며 독자가 되는 아이디어 공간으로 신청 없이도 작가로 활동할 수 있습니다.
@@ -24,7 +27,7 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 ![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jquery&logoColor=white)
 
-![Java](https://img.shields.io/badge/Java-007396?style=flat-square&logo=java&logoColor=white)
+![Java](https://img.shields.io/badge/Java-007396?style=flat-square&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat-square&logo=spring-boot&logoColor=white)
 ![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=flat-square&logo=spring-security&logoColor=white)
 ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-005F0F?style=flat-square&logo=thymeleaf&logoColor=white)
@@ -32,7 +35,7 @@
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white)
 
-![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=flat-square&logo=bootstrap&logoColor=white)
+![Bootstrap Icons](https://img.shields.io/badge/bootstrap-icona?logo=Bootstrap&logoColor=white&label=bootstrap-icons%401.11.3&labelColor=712cf9&color=%23666)
 ![Swiper.js](https://img.shields.io/badge/Swiper.js-6332F6?style=flat-square&logo=swiper&logoColor=white)
 ![Toast UI Editor](https://img.shields.io/badge/Toast_UI_Editor-7952B3?style=flat-square&logo=toast&logoColor=white)
 ![PortOne API](https://img.shields.io/badge/PortOne_API-4A154B?style=flat-square&logo=api&logoColor=white)
@@ -47,6 +50,7 @@
 
 <details>
   <summary>java</summary>
+ 
 ```
 com
 └─pentoryall
@@ -69,10 +73,12 @@ com
     ├─subscribe
     └─user
 ```
+
 </details> 
 
 <details>
   <summary>resources</summary>
+ 
 ```
 resources
 ├─mappers
@@ -103,6 +109,7 @@ resources
        ├─subscribe
        └─user
 ```
+
 </details> 
 
 <center>
