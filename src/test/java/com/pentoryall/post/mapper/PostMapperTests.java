@@ -45,11 +45,11 @@ public class PostMapperTests {
     private CommentMapper commentMapper;
 
 
-    private MockMvc mockMvc;
-    @BeforeEach
-    public void setUp(){
-        mockMvc = MockMvcBuilders.standaloneSetup(postController).build();
-    }
+//    private MockMvc mockMvc;
+//    @BeforeEach
+//    public void setUp(){
+//        mockMvc = MockMvcBuilders.standaloneSetup(postController).build();
+//    }
 
     @Test
     public void injection(){ assertNotNull(postMapper);}
