@@ -26,4 +26,8 @@ public interface CommentMapper {
     List<CommentDetailDTO> loadReply(CommentDetailDTO commentDTO);
 
     List<CommentDetailDTO> loadAdditionalData(CommentDetailDTO commentDTO);
+
+    CommentDetailDTO getLatestComment();
+
+    CommentDetailDTO findCommentByCode(Long code);
 }
