@@ -38,7 +38,7 @@
 ![Bootstrap Icons](https://img.shields.io/badge/bootstrap-icona?logo=Bootstrap&logoColor=white&label=bootstrap-icons%401.11.3&labelColor=712cf9&color=%23666)
 ![Swiper.js](https://img.shields.io/badge/Swiper.js-6332F6?style=flat-square&logo=swiper&logoColor=white)
 ![Toast UI Editor](https://img.shields.io/badge/Toast_UI_Editor-7952B3?style=flat-square&logo=toast&logoColor=white)
-![PortOne API](https://img.shields.io/badge/PortOne_API-4A154B?style=flat-square&logo=api&logoColor=white)
+![PortOne API](https://img.shields.io/badge/PortOne_API-f97316?style=flat-square&logo=api&logoColor=white)
 
 ## 2. 프로젝트 구조
 
