@@ -261,10 +261,11 @@
   <tbody>
     <tr>
       <td>
-        <img alt="논리 모델링" src="https://github.com/2024-KDT-JNA/Pentoryall/assets/42160693/f04dccd0-80d0-44cd-af46-a5d777a6d604" />
+        <img alt="논리 모델링" src="https://github.com/2024-KDT-JNA/.github/blob/main/images/erd-logical.png?raw=true" height="400" />
       </td>
       <td>
-        <img alt="물리 모델링" src="https://github.com/2024-KDT-JNA/Pentoryall/assets/42160693/f04dccd0-80d0-44cd-af46-a5d777a6d604" />
+        <img alt="물리 모델링" src="https://github.com/2024-KDT-JNA/.github/blob/main/images/erd-physical.png?raw=true"  height="400" />
+      </td>
       </td>
     </tr>
   </tbody>
