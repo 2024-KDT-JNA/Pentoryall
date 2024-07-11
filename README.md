@@ -90,62 +90,104 @@
 
 ## 팀원 소개
 <table>
-    <tbody>
+  <thead>
       <tr>
-        <td>담당자</td>
-        <td>내용</td>
+        <th>담당자</th>
+        <th>내용</th>
       </tr>
-      <!-- tr -->
-      <tr>
-        <td align="center">
-          <a href="https://github.com/eurdream98"><img alt="고동환" src="https://github.com/2024-KDT-JNA/.github/blob/main/images/1-gdh.png?raw=true" height="75" /></a>
-          <br />고동환 
-         <br />(<a href="https://github.com/eurdream98">@eurdream98 </a>)
-        </td>
-        <td>
-          <b>포스트/시리즈/댓글</b>
-          <br/>- 회원 별 스토리 페이지: 각 회원에게 개별 스토리 페이지를 제공
-          <br/>- 장르 별 베스트 게시글: 장르별로 베스트 게시글을 표시
-          <br/>- 시리즈 별 포스트 등록: 시리즈에 포스트를 등록할 수 있는 기능
-          <br/>- 포스트 작성 시 Toast-ui-editor 연동: 포스트 작성 시 Toast-ui-editor 사용
-          <br/>- 포스트 발행 옵션 (공개여부, 유료여부 등): 포스트 발행 시 공개 여부와 유료 여부 설정
-          <br/>- 댓글과 답 댓글 작성: 댓글 및 답 댓글 작성 기능
-          <br/>- 포스트 및 댓글 신고: 포스트 및 댓글 신고 기능
-        </td>
-      </tr>
-     <tr>
-    <td align="center">
-      <a href="https://github.com/may54ther"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/2-kah.png?raw=true" height="75" /></a>
-      <br />김아현
-      <br />(<a href="https://github.com/may54ther">@may54ther</a>)
-      </a>
-    </td>
-    <td></td>
-  </tr>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/seungjaeshina"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/3-ssj.png?raw=true" height="75" /></a>
-      <br />신승재
-      <br />(<a href="https://github.com/seungjaeshina">@seungjaeshina</a>)
-    </td>
-    <td></td>
-  </tr>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/yunii2222"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/4-ony.png?raw=true" height="75" /></a>
-      <br />오나윤
-      <br />(<a href="https://github.com/yunii2222">@yunii2222</a>)
-    </td>
-    <td></td>
-  </tr>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/9bfish8"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/5-jgy.png?raw=true" height="75" /></a>
-      <br />정가연
-      <br />(<a href="https://github.com/9bfish8">@9bfish8</a>)
-    </td>
-    <td></td>
-  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>담당자</td>
+      <td>내용</td>
+    </tr>
+    <!-- tr -->
+    <tr>
+      <td align="center">
+        <a href="https://github.com/eurdream98"><img alt="고동환" src="https://github.com/2024-KDT-JNA/.github/blob/main/images/1-gdh.png?raw=true" height="100" /></a>
+        <br />고동환 
+       <br />(<a href="https://github.com/eurdream98">@eurdream98</a>)
+      </td>
+      <td>
+        <b>포스트/시리즈/댓글</b>
+        <br/>- 회원 별 스토리 페이지: 각 회원에게 개별 스토리 페이지를 제공
+        <br/>- 장르 별 베스트 게시글: 장르별로 베스트 게시글을 표시
+        <br/>- 시리즈 별 포스트 등록: 시리즈에 포스트를 등록할 수 있는 기능
+        <br/>- 포스트 작성 시 Toast-ui-editor 연동: 포스트 작성 시 Toast-ui-editor 사용
+        <br/>- 포스트 발행 옵션 (공개여부, 유료여부 등): 포스트 발행 시 공개 여부와 유료 여부 설정
+        <br/>- 댓글과 답 댓글 작성: 댓글 및 답 댓글 작성 기능
+        <br/>- 포스트 및 댓글 신고: 포스트 및 댓글 신고 기능
+      </td>
+    </tr>
+   <tr>
+  <td align="center">
+    <a href="https://github.com/may54ther"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/2-kah.png?raw=true" height="100" /></a>
+    <br />김아현
+    <br />(<a href="https://github.com/may54ther">@may54ther</a>)
+    </a>
+  </td>
+  <td>
+     <b>공통 레이아웃, 결제/정산</b>
+        <br/>- 회원 별 스토리 페이지: 각 회원에게 개별 스토리 페이지를 제공
+        <br/>- 장르 별 베스트 게시글: 장르별로 베스트 게시글을 표시
+        <br/>- 시리즈 별 포스트 등록: 시리즈에 포스트를 등록할 수 있는 기능
+        <br/>- 포스트 작성 시 Toast-ui-editor 연동: 포스트 작성 시 Toast-ui-editor 사용
+        <br/>- 포스트 발행 옵션 (공개여부, 유료여부 등): 포스트 발행 시 공개 여부와 유료 여부 설정
+        <br/>- 댓글과 답 댓글 작성: 댓글 및 답 댓글 작성 기능
+        <br/>- 포스트 및 댓글 신고: 포스트 및 댓글 신고 기능
+  </td>
+</tr>
+<tr>
+  <td align="center">
+    <a href="https://github.com/seungjaeshina"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/3-ssj.png?raw=true" height="100" /></a>
+    <br />신승재
+    <br />(<a href="https://github.com/seungjaeshina">@seungjaeshina</a>)
+  </td>
+  <td>
+     <b>멤버십/구독</b>
+        <br/>- 회원 별 스토리 페이지: 각 회원에게 개별 스토리 페이지를 제공
+        <br/>- 장르 별 베스트 게시글: 장르별로 베스트 게시글을 표시
+        <br/>- 시리즈 별 포스트 등록: 시리즈에 포스트를 등록할 수 있는 기능
+        <br/>- 포스트 작성 시 Toast-ui-editor 연동: 포스트 작성 시 Toast-ui-editor 사용
+        <br/>- 포스트 발행 옵션 (공개여부, 유료여부 등): 포스트 발행 시 공개 여부와 유료 여부 설정
+        <br/>- 댓글과 답 댓글 작성: 댓글 및 답 댓글 작성 기능
+        <br/>- 포스트 및 댓글 신고: 포스트 및 댓글 신고 기능
+  </td>
+</tr>
+<tr>
+  <td align="center">
+    <a href="https://github.com/yunii2222"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/4-ony.png?raw=true" height="100" /></a>
+    <br />오나윤
+    <br />(<a href="https://github.com/yunii2222">@yunii2222</a>)
+  </td>
+  <td>
+     <b>회원/좋아요</b>
+        <br/>- 회원 별 스토리 페이지: 각 회원에게 개별 스토리 페이지를 제공
+        <br/>- 장르 별 베스트 게시글: 장르별로 베스트 게시글을 표시
+        <br/>- 시리즈 별 포스트 등록: 시리즈에 포스트를 등록할 수 있는 기능
+        <br/>- 포스트 작성 시 Toast-ui-editor 연동: 포스트 작성 시 Toast-ui-editor 사용
+        <br/>- 포스트 발행 옵션 (공개여부, 유료여부 등): 포스트 발행 시 공개 여부와 유료 여부 설정
+        <br/>- 댓글과 답 댓글 작성: 댓글 및 답 댓글 작성 기능
+        <br/>- 포스트 및 댓글 신고: 포스트 및 댓글 신고 기능
+  </td>
+</tr>
+<tr>
+  <td align="center">
+    <a href="https://github.com/9bfish8"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/5-jgy.png?raw=true" height="100" /></a>
+    <br />정가연
+    <br />(<a href="https://github.com/9bfish8">@9bfish8</a>)
+  </td>
+  <td>
+     <b>관리자 페이지</b>
+        <br/>- 회원 별 스토리 페이지: 각 회원에게 개별 스토리 페이지를 제공
+        <br/>- 장르 별 베스트 게시글: 장르별로 베스트 게시글을 표시
+        <br/>- 시리즈 별 포스트 등록: 시리즈에 포스트를 등록할 수 있는 기능
+        <br/>- 포스트 작성 시 Toast-ui-editor 연동: 포스트 작성 시 Toast-ui-editor 사용
+        <br/>- 포스트 발행 옵션 (공개여부, 유료여부 등): 포스트 발행 시 공개 여부와 유료 여부 설정
+        <br/>- 댓글과 답 댓글 작성: 댓글 및 답 댓글 작성 기능
+        <br/>- 포스트 및 댓글 신고: 포스트 및 댓글 신고 기능
+  </td>
+</tr>
 </tbody>
 </table>
 
@@ -161,10 +203,7 @@
 | **관리자**             | - 회원, 정산, 신고, 유료 포스트 수정 요청 등에 대한 관리자 페이지 제공: 회원, 정산, 신고, 유료 포스트 수정 요청 등을 처리하는 관리자 페이지 제공       |
 
 
-  
-| 구분                | 기능 설명                                                                                                            |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------|
-| **포스트/시리즈/댓글** | - 회원 별 스토리 페이지: 각 회원에게 개별 스토리 페이지를 제공<br>- 장르 별 베스트 게시글: 장르별로 베스트 게시글을 표시<br>- 시리즈 별 포스트 등록: 시리즈에 포스트를 등록할 수 있는 기능<br>- 포스트 작성 시 Toast-ui-editor 연동: 포스트 작성 시 Toast-ui-editor 사용<br>- 포스트 발행 옵션 (공개여부, 유료여부 등): 포스트 발행 시 공개 여부와 유료 여부 설정<br>- 댓글과 답 댓글 작성: 댓글 및 답
+
 
 ## 주요 기능
 
