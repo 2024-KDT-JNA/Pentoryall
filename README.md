@@ -33,7 +33,7 @@
         <img alt="Java" src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=openjdk&logoColor=white"/>
         <img alt="HTML" src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white" />
         <img alt="CSS" src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white" />
-        <img alt="JavaScript" src="https://img.shields.io/badge/javascript-%23323330.svg?style=flat-square&logo=javascript&logoColor=%23F7DF1E">
+        <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-%23323330?style=flat-square&logo=javascript&logoColor=%23F7DF1E">
       </td>
     </tr>
     <tr>
@@ -49,7 +49,7 @@
       <th align="left">Libraries</th>
       <td>
         <img alt="jQuery" src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jquery&logoColor=white" />
-        <img alt="Bootstrap Icons" src="https://img.shields.io/badge/bootstrap_icons-white?style=flat-square&logo=Bootstrap&logoColor=white&color=712cf9" />
+        <img alt="Bootstrap Icons" src="https://img.shields.io/badge/Bootstrap_Icons-white?style=flat-square&logo=Bootstrap&logoColor=white&color=712cf9" />
         <img alt="Swiper.js" src="https://img.shields.io/badge/Swiper.js-6332F6?style=flat-square&logo=swiper&logoColor=white" />
         <img alt="Toast UI Editor" src="https://img.shields.io/badge/Toast_UI_Editor-7952B3?style=flat-square&logo=toast&logoColor=white" />
       </td>
@@ -78,9 +78,9 @@
      <tr>
       <th align="left">Collaboration Platforms</th>
       <td>
-        <img alt="Discord" src="https://img.shields.io/badge/Discord-%235865F2.svg?style=flat-square&logo=discord&logoColor=white" />
-        <img alt="Notion" src="https://img.shields.io/badge/Notion-%23000000.svg?style=flat-square&logo=notion&logoColor=white" />
-        <img alt="Figma" src="https://img.shields.io/badge/Figma-%23F24E1E.svg?style=flat-square&logo=figma&logoColor=white" />
+        <img alt="Discord" src="https://img.shields.io/badge/Discord-%235865F2?style=flat-square&logo=discord&logoColor=white" />
+        <img alt="Notion" src="https://img.shields.io/badge/Notion-%23000000?style=flat-square&logo=notion&logoColor=white" />
+        <img alt="Figma" src="https://img.shields.io/badge/Figma-%23F24E1E?style=flat-square&logo=figma&logoColor=white" />
       </td>
     </tr>
   </tbody>
