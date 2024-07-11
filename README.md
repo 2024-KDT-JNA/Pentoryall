@@ -183,20 +183,15 @@
 </table>
 
 <br/>
+
 ## 프로젝트 구조
 
 <table>
-  <thead>
-    <tr>
-      <th>java</th>
-      <th>resources</th>
-    </tr>
-  </thead>
   <tbody>
     <tr>
       <td>
         <pre>
-java                                                
+<b>java</b>                         
 └─pentoryall
     ├─admin
     ├─comment
@@ -224,7 +219,7 @@ java
       </td>
       <td>
         <pre>
-resources                                           
+<b>resources</b>                     
 ├─mappers
 ├─messages
 ├─static
