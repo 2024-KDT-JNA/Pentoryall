@@ -88,8 +88,8 @@
 
 <br/>
 
-
 ## 팀원 소개 & 담당 기능
+
 <table>
   <thead>
       <tr>
@@ -183,12 +183,20 @@
 </table>
 
 <br/>
-
 ## 프로젝트 구조
-### java
-각 도메인 별로 `controller`, `service`, `mapper`, `dto` 등의 하위 패키지로 구성
-```
-java.com
+
+<table>
+  <thead>
+    <tr>
+      <th>java</th>
+      <th>resources</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre>
+java                                                
 └─pentoryall
     ├─admin
     ├─comment
@@ -208,10 +216,15 @@ java.com
     ├─story
     ├─subscribe
     └─user
-```
-### resources
-```
-resources
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+        </pre>
+      </td>
+      <td>
+        <pre>
+resources                                           
 ├─mappers
 ├─messages
 ├─static
@@ -239,14 +252,39 @@ resources
        ├─story
        ├─subscribe
        └─user
-```
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <br/>
 
-## ERD
-![Untitled](https://github.com/2024-KDT-JNA/Pentoryall/assets/42160693/f04dccd0-80d0-44cd-af46-a5d777a6d604)
+## DB 모델링
+
+<table>
+  <tbody>
+    <tr>
+      <td>
+        <img alt="논리 모델링" src="https://github.com/2024-KDT-JNA/Pentoryall/assets/42160693/f04dccd0-80d0-44cd-af46-a5d777a6d604" />
+      </td>
+      <td>
+        <img alt="물리 모델링" src="https://github.com/2024-KDT-JNA/Pentoryall/assets/42160693/f04dccd0-80d0-44cd-af46-a5d777a6d604" />
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>논리 모댈링</th>
+      <th>물리 모델링</th>
+    </tr>
+  </tfoot>
+</table>
 
 <br/>
+
+
+
 
 ## 규칙
 
