@@ -10,8 +10,8 @@
       </td>
       <td>
         <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/2024-KDT-JNA/.github/blob/main/logo/logo_pentoryall_horizontal_darkmode.png?raw=true">
-          <img src="https://github.com/2024-KDT-JNA/.github/blob/main/logo/logo_pentoryall_horizontal_lightmode.png?raw=true" height="75">
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/2024-KDT-JNA/.github/blob/main/assets/logo/logo_pentoryall_horizontal_darkmode.png?raw=true">
+          <img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/logo/logo_pentoryall_horizontal_lightmode.png?raw=true" height="75">
         </picture>
       </td>
     </tr>
@@ -101,7 +101,7 @@
     <!-- 고동환 -->
     <tr>
       <td align="center">
-        <a href="https://github.com/eurdream98"><img alt="고동환" src="https://github.com/2024-KDT-JNA/.github/blob/main/images/1-gdh.png?raw=true" height="100" /></a>
+        <a href="https://github.com/eurdream98"><img alt="고동환" src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/1-gdh.png?raw=true" height="100" /></a>
         <br />고동환 
        <br />(<a href="https://github.com/eurdream98">@eurdream98</a>)
       </td>
@@ -117,7 +117,7 @@
    <tr>
     <!-- 김아현 -->
   <td align="center">
-    <a href="https://github.com/may54ther"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/2-kah.png?raw=true" height="100" /></a>
+    <a href="https://github.com/may54ther"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/2-kah.png?raw=true" height="100" /></a>
     <br />김아현
     <br />(<a href="https://github.com/may54ther">@may54ther</a>)
     </a>
@@ -134,7 +134,7 @@
 <!-- 신승재 -->
 <tr>
   <td align="center">
-    <a href="https://github.com/seungjaeshina"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/3-ssj.png?raw=true" height="100" /></a>
+    <a href="https://github.com/seungjaeshina"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/3-ssj.png?raw=true" height="100" /></a>
     <br />신승재
     <br />(<a href="https://github.com/seungjaeshina">@seungjaeshina</a>)
   </td>
@@ -150,7 +150,7 @@
 <!-- 오나윤 -->
 <tr>
   <td align="center">
-    <a href="https://github.com/yunii2222"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/4-ony.png?raw=true" height="100" /></a>
+    <a href="https://github.com/yunii2222"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/4-ony.png?raw=true" height="100" /></a>
     <br />오나윤
     <br />(<a href="https://github.com/yunii2222">@yunii2222</a>)
   </td>
@@ -166,7 +166,7 @@
 <!-- 정가연 -->
 <tr>
   <td align="center">
-    <a href="https://github.com/9bfish8"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/images/5-jgy.png?raw=true" height="100" /></a>
+    <a href="https://github.com/9bfish8"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/5-jgy.png?raw=true" height="100" /></a>
     <br />정가연
     <br />(<a href="https://github.com/9bfish8">@9bfish8</a>)
   </td>
@@ -261,10 +261,10 @@
   <tbody>
     <tr>
       <td>
-        <img alt="논리 모델링" src="https://github.com/2024-KDT-JNA/.github/blob/main/images/erd-logical.png?raw=true" height="400" />
+        <img alt="논리 모델링" src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/erd/erd-logical.png?raw=true" height="400" />
       </td>
       <td>
-        <img alt="물리 모델링" src="https://github.com/2024-KDT-JNA/.github/blob/main/images/erd-physical.png?raw=true"  height="400" />
+        <img alt="물리 모델링" src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/erd/erd-physical.png?raw=true"  height="400" />
       </td>
       </td>
     </tr>
