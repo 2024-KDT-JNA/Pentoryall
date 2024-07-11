@@ -260,21 +260,19 @@
 <table>
   <tbody>
     <tr>
+      <th>논리</th>
       <td>
-        <img alt="논리 모델링" src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/erd/erd-logical.png?raw=true" height="400" />
+        <img alt="논리 모델링" src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/erd/erd-logical.png?raw=true" width="85%" />
       </td>
+    </tr>
+    <tr>
+      <th>물리</th>
       <td>
-        <img alt="물리 모델링" src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/erd/erd-physical.png?raw=true"  height="400" />
+        <img alt="물리 모델링" src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/erd/erd-physical.png?raw=true" width="85%" />
       </td>
       </td>
     </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <th>논리 모댈링</th>
-      <th>물리 모델링</th>
-    </tr>
-  </tfoot>
 </table>
 
 <br/>
