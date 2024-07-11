@@ -23,6 +23,12 @@
 
 <br/>
 
+## 규칙
+
+- [Git, Github 커밋 가이드](https://github.com/2024-KDT-JNA/Pentoryall/wiki/%EC%BB%A4%EB%B0%8B-%EA%B0%80%EC%9D%B4%EB%93%9C)
+
+<br/>
+
 ## 개발 환경
 
 <table>
@@ -114,145 +120,72 @@
         <br/>- 내용
       </td>
     </tr>
-   <tr>
     <!-- 김아현 -->
-  <td align="center">
-    <a href="https://github.com/may54ther"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/2-kah.png?raw=true" height="100" /></a>
-    <br />김아현
-    <br />(<a href="https://github.com/may54ther">@may54ther</a>)
-    </a>
-  </td>
-  <td>
-    <b>공통 레이아웃, 결제/정산</b>
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-  </td>
-</tr>
-<!-- 신승재 -->
-<tr>
-  <td align="center">
-    <a href="https://github.com/seungjaeshina"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/3-ssj.png?raw=true" height="100" /></a>
-    <br />신승재
-    <br />(<a href="https://github.com/seungjaeshina">@seungjaeshina</a>)
-  </td>
-  <td>
-    <b>멤버십/구독</b>
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-  </td>
-</tr>
-<!-- 오나윤 -->
-<tr>
-  <td align="center">
-    <a href="https://github.com/yunii2222"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/4-ony.png?raw=true" height="100" /></a>
-    <br />오나윤
-    <br />(<a href="https://github.com/yunii2222">@yunii2222</a>)
-  </td>
-  <td>
-     <b>회원/좋아요</b>
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-  </td>
-</tr>
-<!-- 정가연 -->
-<tr>
-  <td align="center">
-    <a href="https://github.com/9bfish8"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/5-jgy.png?raw=true" height="100" /></a>
-    <br />정가연
-    <br />(<a href="https://github.com/9bfish8">@9bfish8</a>)
-  </td>
-  <td>
-     <b>관리자 페이지</b>
-     <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-    <br/>- 내용
-  </td>
-</tr>
-</tbody>
-</table>
-
-<br/>
-
-## 프로젝트 구조
-
-<table>
-  <tbody>
     <tr>
-      <td>
-        <pre>
-<b>java</b>                         
-└─pentoryall
-    ├─admin
-    ├─comment
-    ├─common
-    │  ├─exception
-    │  └─page
-    ├─config
-    ├─email
-    ├─genre
-    ├─genreOfArt
-    ├─membership
-    ├─point
-    ├─portone
-    ├─post
-    ├─series
-    ├─settlement
-    ├─story
-    ├─subscribe
-    └─user
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-        </pre>
+      <td align="center">
+        <a href="https://github.com/may54ther"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/2-kah.png?raw=true" height="100" /></a>
+        <br />김아현
+        <br />(<a href="https://github.com/may54ther">@may54ther</a>)
       </td>
       <td>
-        <pre>
-<b>resources</b>                     
-├─mappers
-├─messages
-├─static
-│  ├─css
-│  ├─images
-│  ├─js
-│  └─libs
-└─templates
-    ├─error
-    ├─fragments
-    │  ├─common
-    │  ├─post
-    │  ├─settings
-    │  └─story
-    ├─layout
-    └─views
-       ├─admin
-       ├─common
-       ├─email
-       ├─membership
-       ├─point
-       ├─post
-       ├─series
-       ├─settlement
-       ├─story
-       ├─subscribe
-       └─user
-        </pre>
+        <b>공통 레이아웃, 결제/정산</b>
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+      </td>
+    </tr>
+    <!-- 신승재 -->
+    <tr>
+      <td align="center">
+        <a href="https://github.com/seungjaeshina"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/3-ssj.png?raw=true" height="100" /></a>
+        <br />신승재
+        <br />(<a href="https://github.com/seungjaeshina">@seungjaeshina</a>)
+      </td>
+      <td>
+        <b>멤버십/구독</b>
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+      </td>
+    </tr>
+    <!-- 오나윤 -->
+    <tr>
+      <td align="center">
+        <a href="https://github.com/yunii2222"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/4-ony.png?raw=true" height="100" /></a>
+        <br />오나윤
+        <br />(<a href="https://github.com/yunii2222">@yunii2222</a>)
+      </td>
+      <td>
+        <b>회원/좋아요</b>
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+      </td>
+    </tr>
+    <!-- 정가연 -->
+    <tr>
+      <td align="center">
+        <a href="https://github.com/9bfish8"><img src="https://github.com/2024-KDT-JNA/.github/blob/main/assets/5-jgy.png?raw=true" height="100" /></a>
+        <br />정가연
+        <br />(<a href="https://github.com/9bfish8">@9bfish8</a>)
+      </td>
+      <td>
+        <b>관리자 페이지</b>
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
+        <br/>- 내용
       </td>
     </tr>
   </tbody>
 </table>
-
 <br/>
 
 ## DB 모델링
@@ -274,27 +207,18 @@
     </tr>
   </tbody>
 </table>
-
-<br/>
-
-
-
-
-## 규칙
-
--   [Git, Github 커밋 가이드](https://github.com/2024-KDT-JNA/Pentoryall/wiki/%EC%BB%A4%EB%B0%8B-%EA%B0%80%EC%9D%B4%EB%93%9C)
-
 <br/>
 
 ## 개선 목표
 
--   [ ] 검색 옵션을 다양하게 만들어 사용자들이 여러 검색 기능을 사용할 수 있도록 하기
--   [ ] 포인트 거래 시 발생하는 수익, 정산을 스케쥴러와 배치를 이용해 관리
--   [ ] 멤버십 가입 시 스케쥴러를 통해 매달 가입 연장 처리
--   [ ] 구독한 회원의 최신 포스트 목록 조회
--   [ ] AWS S3 연동하여 파일 저장 구현
--   [ ] 웹 소켓을 이용하여 알림 기능 구현
+-   검색 옵션을 다양하게 만들어 사용자들이 여러 검색 기능을 사용할 수 있도록 하기
+-   포인트 거래 시 발생하는 수익, 정산을 스케쥴러와 배치를 이용해 관리
+-   멤버십 가입 시 스케쥴러를 통해 매달 가입 연장 처리
+-   구독한 회원의 최신 포스트 목록 조회
+-   AWS S3 연동하여 파일 저장 구현
+-   웹 소켓을 이용하여 알림 기능 구현
+
 <!--
 ## 트러블 슈팅
-## 8. 프로젝트 후기
+## 프로젝트 후기
 -->
