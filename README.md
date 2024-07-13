@@ -112,7 +112,7 @@
        <br />(<a href="https://github.com/eurdream98">@eurdream98</a>)
       </td>
       <td>
-        <b>작품(포스트, 시리즈)/댓글</b>
+        <b>작품(포스트, 시리즈), 댓글</b>
         <br/>- 작품 관련 기능
         <br/>- 댓글과 대댓글 기능 
         <br/>- 작품 순위 기능
@@ -127,7 +127,7 @@
         <br />(<a href="https://github.com/may54ther">@may54ther</a>)
       </td>
       <td>
-        <b>공통 레이아웃, 포인트/정산</b>
+        <b>공통 레이아웃, 결제, 정산</b>
         <br/>- 공통 영역과 주요 레이아웃(설정, 기본, 마이페이지)을 템플릿으로 분리 및 모듈화
         <br/>- PortOne API를 이용한 포인트 충전 기능(카드 결제)
         <br/>- 포인트를 사용하여 유료 컨텐츠 구입, 판매자에겐 수익 적립
@@ -143,7 +143,7 @@
         <br />(<a href="https://github.com/seungjaeshina">@seungjaeshina</a>)
       </td>
       <td>
-        <b>멤버십/구독</b>
+        <b>멤버십, 구독</b>
         <br/>- Thymeleaf를 사용한 화면 구현(멤버십 및 구독 내역)
         <br/>- 멤버십 가입/구독 여부에 따른 조건부 렌더링
         <br/>- 멤버십 개설, 수정
@@ -159,7 +159,7 @@
         <br />(<a href="https://github.com/yunii2222">@yunii2222</a>)
       </td>
       <td>
-        <b>회원/좋아요</b>
+        <b>회원, 좋아요</b>
         <br/>- Spring Security를 이용한 세션 기반 인증/인가 구현
         <br/>- 이메일 인증 코드 발송 및 Redis 기반 유효시간 관리
         <br/>- 회원의 입력 값 유효성 검증(중복, NULL, 생성 규칙)
@@ -174,7 +174,7 @@
         <br />(<a href="https://github.com/9bfish8">@9bfish8</a>)
       </td>
       <td>
-        <b>관리자 페이지</b>
+        <b>관리자, 신고</b>
         <br/>- 내용
         <br/>- 내용
         <br/>- 내용
